@@ -5,6 +5,8 @@ import TourImge from '@/components/TourImge'
 import React from 'react'
 import TourComments from '@/components/TourComments'
 import BookingCalender from '@/components/BookingCalender'
+import TourOverView from '@/components/TourOverView'
+import TourExtraInfo from '@/components/TourExtraInfo'
 
 const tempArr = Array.from({ length: 12 }, (_, i) => {
   return { item: i }
@@ -29,12 +31,14 @@ const TourPage = () => {
 
       <div className='md:grid grid-cols-3 md:w-[90%] mx-auto  gap-5'>
         <div className=''>
-          <TourHeader text={`Itiniary`} classes='text-2xl text-center' />
+          <TourHeader text={`Tour Details`} classes='text-2xl text-center' />
+          <TourOverView />
           <div className='mt-4'>
             {tempArr.map((item, i) => {
               return <TourAccordion i={i} key={i} />
             })}
           </div>
+          <TourExtraInfo />
         </div>
         <div className=''>
           <TourHeader text={`Images`} classes='text-2xl text-center ' />

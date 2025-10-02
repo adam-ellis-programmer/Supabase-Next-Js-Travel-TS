@@ -10,6 +10,9 @@ const TourComments = () => {
         <TourComment />
         <TourComment />
         <TourComment />
+        <div className='flex justify-center my-4'>
+          <button className='capitalize text-center bg-blue-500 text-2xl text-white p-3 rounded-lg'>Show more reviews</button>
+        </div>
       </ul>
     </div>
   )

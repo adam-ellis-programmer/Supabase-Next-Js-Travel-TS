@@ -9,7 +9,7 @@ const TourAccordion = ({ i }: { i: number }) => {
   return (
     <Accordion type='single' collapsible className='mb-2 '>
       <AccordionItem value='item-1'>
-        <AccordionTrigger className='bg-slate-500 p-2 text-white'>
+        <AccordionTrigger className='bg-blue-50 p-2 '>
           Day {i + 1}
         </AccordionTrigger>
         {/* bg-[#567a98] */}
