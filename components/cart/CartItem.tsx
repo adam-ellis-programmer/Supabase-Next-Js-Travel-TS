@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+'use client'
 import {
   FaShoppingCart,
   FaTrash,
@@ -7,7 +7,6 @@ import {
   FaLock,
 } from 'react-icons/fa'
 
-// Types
 interface CartItemType {
   id: number
   name: string
@@ -17,7 +16,6 @@ interface CartItemType {
   price: number
   image: string
 }
-
 interface CartItemProps {
   item: CartItemType
   onRemove: (id: number) => void
@@ -53,3 +51,5 @@ const CartItem = ({ item, onRemove }: CartItemProps) => {
     </div>
   )
 }
+
+export default CartItem
