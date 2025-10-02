@@ -4,6 +4,8 @@ import TourHeader from '@/components/TourHeader'
 import TourImge from '@/components/TourImge'
 import React from 'react'
 import TourComments from '@/components/TourComments'
+import BookingCalender from '@/components/BookingCalender'
+
 const tempArr = Array.from({ length: 12 }, (_, i) => {
   return { item: i }
 })
@@ -48,7 +50,9 @@ const TourPage = () => {
         </div>
         <div className=''>
           <TourHeader text={`Booking`} classes='text-2xl text-center' />
-          <div className=' h-[400px]'>Booking Calander div</div>
+          <div className=''>
+            <BookingCalender />
+          </div>
           <div className=''>
             <h2 className='text-center text-2xl my-10'>
               {' '}
