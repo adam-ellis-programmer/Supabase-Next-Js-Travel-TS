@@ -11,6 +11,8 @@ import TourExtraInfo from '@/components/TourExtraInfo'
 const tempArr = Array.from({ length: 12 }, (_, i) => {
   return { item: i }
 })
+
+// <div className='group cursor-pointer'>
 const TourPage = () => {
   return (
     <div className='min-h-[calc(100vh-120px)] '>
@@ -21,7 +23,7 @@ const TourPage = () => {
           src='https://ldnjbkiqxrljdlauxbqe.supabase.co/storage/v1/object/public/site/Hero4.jpg'
           alt=''
         />
-        <div className='absolute top-0 left-0 w-full h-full bg-[#152a3860] flex items-center'>
+        <div className='absolute top-0 left-0 w-full h-full bg-black/40 flex items-center'>
           <div className='text-white p-8'>
             <p className='text-4xl font-bold'>12 Day</p>
             <p className='text-4xl font-bold'>Thai Adventure</p>
