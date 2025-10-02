@@ -20,14 +20,21 @@ const geistSans = Geist({
 })
 import Container from '@/components/layout/Container'
 import Footer from '@/components/layout/Footer'
+import DevButtons from '@/dev/DevButtons'
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const dark = false
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className={`${geistSans.className} antialiased`}>
+      <body
+        className={`${geistSans.className} antialiased ${
+          dark ? 'bg-[#304255] text-white' : ''
+        }`}
+      >
+        <DevButtons />
         <Nav />
         {/* <Container></Container> */}
         {children}

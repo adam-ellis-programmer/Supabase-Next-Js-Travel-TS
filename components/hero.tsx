@@ -11,7 +11,7 @@ const Hero = () => {
 
       <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center bg-[#47566d7b]'>
         <div>
-          <h1 className='capitalize text-5xl text-white'>
+          <h1 className='capitalize text-5xl text-white '>
             tours and adventure
           </h1>
           <p className='text-3xl text-white text-center capitalize'>awaits</p>
