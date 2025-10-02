@@ -12,6 +12,8 @@ const tempArr = Array.from({ length: 12 }, (_, i) => {
   return { item: i }
 })
 
+// APPLY DISCOUNT AT CHECKOUT
+
 // <div className='group cursor-pointer'>
 const TourPage = () => {
   return (
