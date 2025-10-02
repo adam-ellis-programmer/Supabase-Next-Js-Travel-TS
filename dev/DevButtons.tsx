@@ -6,6 +6,7 @@ const links = [
   { link: '/tours/1', text: 'Tour Page' },
   { link: '/country-landing', text: 'Country Landing' },
   { link: '/booking', text: 'Booking' },
+  { link: '/tours', text: 'tours' },
 ]
 
 const DevButtons = () => {
