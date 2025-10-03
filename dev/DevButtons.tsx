@@ -11,6 +11,8 @@ export const links = [
   { link: '/admin/add-tour', text: 'add tour' },
   { link: '/admin/view-tours', text: 'View Tours (admin)' },
   { link: '/auth/account', text: 'users account' },
+  { link: '/auth/sign-up', text: 'sign up' },
+  { link: '/auth/login', text: 'login' },
 ]
 
 const DevButtons = () => {

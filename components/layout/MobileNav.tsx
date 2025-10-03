@@ -80,7 +80,7 @@ const MobileNav = () => {
               {devLinks.map((link, i) => {
                 return (
                   <li onClick={handleToggle}>
-                    <Link className='' href={link.link}>
+                    <Link className='bg-blue-400 rounded-md p-1 w-full block text-center' href={link.link}>
                       {link.text}
                     </Link>
                   </li>

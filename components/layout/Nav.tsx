@@ -3,6 +3,9 @@
 import { FaPlaneDeparture } from 'react-icons/fa'
 import { Button } from '../ui/button'
 import MobileNav from './MobileNav'
+import SuperNav from './super nav/SuperNav'
+import NavButtons from './super nav/NavButtons'
+
 const Nav = () => {
   return (
     <nav className='border-b'>
@@ -13,14 +16,9 @@ const Nav = () => {
           <h3 className='text-2xl font-bold mx-4'>TravelExplorer</h3>
         </div>
 
+        <NavButtons />
         <MobileNav />
-
-        {/* <ul>
-          <li>
-            <Button className='bg-rose-500 mx-1'>Tours</Button>
-            <Button className='bg-rose-500 mx-1'>destinations</Button>
-          </li>
-        </ul> */}
+        {/* sign in / out buttons */}
       </div>
     </nav>
   )
