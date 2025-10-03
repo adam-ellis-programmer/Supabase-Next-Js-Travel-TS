@@ -7,6 +7,8 @@ const links = [
   { link: '/country-landing', text: 'Country Landing' },
   { link: '/booking', text: 'Booking' },
   { link: '/tours', text: 'tours' },
+  { link: '/admin', text: 'admin' },
+  { link: '/admin/add-tour', text: 'add tour' },
 ]
 
 const DevButtons = () => {

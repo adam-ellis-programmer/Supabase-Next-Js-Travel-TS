@@ -6,6 +6,9 @@ import 'react-day-picker/dist/style.css'
 const people = Array.from({ length: 10 }, (_, i) => {
   return i
 })
+
+const bookigDatesFromDb = ['1/5/25']
+
 const BookingCalender = () => {
   const [selected, setSelected] = useState<Date | undefined>()
   console.log(selected)

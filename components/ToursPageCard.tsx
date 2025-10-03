@@ -34,7 +34,7 @@ const ToursPageCard = ({ tour }: ToursPageCardProps) => {
           {/* Rating Badge */}
           <div className='absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-bold flex items-center gap-1 shadow-lg'>
             <FaStar className='text-yellow-500' />
-            {tour.rating}
+            {tour.rating.toFixed(2)}
             <span className='text-gray-500 text-xs ml-1'>({tour.reviews})</span>
           </div>
           {/* Country Badge */}
