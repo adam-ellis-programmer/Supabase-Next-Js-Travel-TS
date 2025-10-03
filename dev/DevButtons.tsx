@@ -9,6 +9,7 @@ const links = [
   { link: '/tours', text: 'tours' },
   { link: '/admin', text: 'admin' },
   { link: '/admin/add-tour', text: 'add tour' },
+  { link: '/admin/view-tours', text: 'View Tours (admin)' },
 ]
 
 const DevButtons = () => {
