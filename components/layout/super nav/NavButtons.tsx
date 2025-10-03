@@ -6,38 +6,33 @@ import SuperNav from './SuperNav'
 
 const NavButtons = () => {
   const [showSuperNav, setShowSuperNav] = useState(false)
-  const [navContent, setnavContent] = useState('false')
+  // prettier-ignore
+  const [activeMenu, setActiveMenu] = useState<'tours' | 'destinations'>('tours')
 
-  const hadleMousEnter = (id: string) => {
+  const handleMouseEnter = (menuType: 'tours' | 'destinations') => {
+    setActiveMenu(menuType)
     setShowSuperNav(true)
-    setnavContent(id)
-  }
-  const handleMouseLeave = (id: string) => {
-    setShowSuperNav(false)
-    setnavContent('')
   }
 
   return (
-    <div className=''>
+    <div onMouseLeave={() => setShowSuperNav(false)} className=''>
       <ul>
         <li>
           <Button
-            onMouseEnter={() => hadleMousEnter('tours')}
-            onMouseLeave={() => handleMouseLeave('tours')}
             className='bg-rose-500 mx-1'
+            onMouseEnter={() => handleMouseEnter('tours')}
           >
             Tours
           </Button>
           <Button
-            onMouseEnter={() => hadleMousEnter('destinations')}
-            onMouseLeave={() => handleMouseLeave('destinations')}
             className='bg-rose-500 mx-1'
+            onMouseEnter={() => handleMouseEnter('destinations')}
           >
-            destinations
+            Destinations
           </Button>
         </li>
       </ul>
-      {showSuperNav && <SuperNav navContent={navContent} />}
+      {showSuperNav && <SuperNav type={activeMenu} />}
     </div>
   )
 }
