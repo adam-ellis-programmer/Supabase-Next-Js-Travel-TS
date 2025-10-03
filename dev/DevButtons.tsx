@@ -10,12 +10,13 @@ const links = [
   { link: '/admin', text: 'admin' },
   { link: '/admin/add-tour', text: 'add tour' },
   { link: '/admin/view-tours', text: 'View Tours (admin)' },
+  { link: '/auth/account', text: 'users account' },
 ]
 
 const DevButtons = () => {
   return (
     <div>
-      <ul className='flex border-b justify-center gap-3'>
+      <ul className='flex border-b justify-center gap-3 overflow-scroll'>
         {links.map((link, i) => {
           return (
             <li key={i} className='bg-rose-500 p-3 rounded   text-white '>
