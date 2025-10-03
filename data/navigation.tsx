@@ -2,8 +2,12 @@ import { MegaMenuData } from '@/types/navigation'
 
 // data/navigation.ts
 export const megaMenuData: MegaMenuData = {
+  //===============================================
+  // Tours
+  //===============================================
   tours: {
     categories: [
+      // first object
       {
         region: 'Southeast Asia',
         destinations: [
@@ -14,6 +18,7 @@ export const megaMenuData: MegaMenuData = {
           { name: 'Siem Reap', slug: 'siem-reap' },
         ],
       },
+      // second object
       {
         region: 'East Asia',
         destinations: [
@@ -23,6 +28,7 @@ export const megaMenuData: MegaMenuData = {
           { name: 'Shanghai', slug: 'shanghai' },
         ],
       },
+      // third object
       {
         region: 'Oceania',
         destinations: [
@@ -32,6 +38,7 @@ export const megaMenuData: MegaMenuData = {
           { name: 'Queenstown', slug: 'queenstown' },
         ],
       },
+      // fouth object
       {
         region: 'Popular Tours',
         destinations: [
@@ -42,6 +49,7 @@ export const megaMenuData: MegaMenuData = {
         ],
       },
     ],
+    // fith object
     featured: {
       title: 'Bali Island Paradise',
       subtitle: '7-day adventure from $899',
@@ -50,6 +58,9 @@ export const megaMenuData: MegaMenuData = {
       link: '/tours/bali-paradise',
     },
   },
+  //===============================================
+  // Destinations
+  //===============================================
   destinations: {
     categories: [
       {
