@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
-const links = [
+export const links = [
   { link: '/', text: 'Home' },
   { link: '/tours/1', text: 'Tour Page' },
   { link: '/country-landing', text: 'Country Landing' },

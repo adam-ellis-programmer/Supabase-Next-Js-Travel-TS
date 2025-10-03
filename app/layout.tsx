@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Geist } from 'next/font/google'
+import { Geist, Exo_2 } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
 import './globals.css'
 import Nav from '@/components/layout/Nav'
@@ -18,6 +18,11 @@ const geistSans = Geist({
   display: 'swap',
   subsets: ['latin'],
 })
+
+const exo2 = Exo_2({
+  weight: '400', // or an array of weights like ['400', '700']
+  variable: '--font-exo2',
+})
 import Container from '@/components/layout/Container'
 import Footer from '@/components/layout/Footer'
 import DevButtons from '@/dev/DevButtons'
@@ -30,11 +35,11 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <body
-        className={`${geistSans.className} antialiased ${
+        className={`${exo2.className} antialiased ${
           dark ? 'bg-[#304255] text-white' : ''
         }`}
       >
-        <DevButtons />
+        {/* <DevButtons />  */}
         <Nav />
         {/* <Container></Container> */}
         {children}

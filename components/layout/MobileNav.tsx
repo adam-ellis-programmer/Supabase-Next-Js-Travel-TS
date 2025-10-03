@@ -2,6 +2,8 @@
 import { FaBarsStaggered } from 'react-icons/fa6'
 import React, { useState, useEffect, useEffectEvent } from 'react'
 import { FaPlaneDeparture } from 'react-icons/fa'
+import { links as devLinks } from '@/dev/DevButtons'
+import Link from 'next/link'
 
 const MobileNav = () => {
   const [isNaveOpen, setIsNaveOpen] = useState(false)
@@ -70,6 +72,21 @@ const MobileNav = () => {
             </ul>
 
             <div>images </div>
+          </section>
+
+          <section className='absolute mt-10'>
+            <h4 className='text-center'> dev buttons</h4>
+            <ul className='grid grid-cols-3 gap-7'>
+              {devLinks.map((link, i) => {
+                return (
+                  <li onClick={handleToggle}>
+                    <Link className='' href={link.link}>
+                      {link.text}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
           </section>
         </div>
       )}
