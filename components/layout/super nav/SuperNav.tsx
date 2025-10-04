@@ -8,11 +8,17 @@ interface SuperNavProps {
   type: 'tours' | 'destinations'
 }
 
+// CLICK ON A LINK TOUR AND IT TAKES US TO ALL TOURS IN THAT AREA
+// CLICK ON A DESTINATION AND IT TAKES US TO ALL TOURS IN THAT DESTINATION
+// MAKE ONE PAGE THAT HANDLES BOTH TYPES OF DATA
+// MAYBE USE THE LANDING PAGE ?
+
 const SuperNav = ({ type }: SuperNavProps) => {
+  // object lookup useing [type]
   const data = megaMenuData[type]
 
   return (
-    <div className='absolute mt-12 z-10  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl border border-gray-100'>
+    <div className='absolute mt-12 z-30  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl border border-gray-100'>
       <div className='grid grid-cols-12 gap-8'>
         {/* Left side - Links */}
         <div className='col-span-8 grid grid-cols-2 gap-6'>

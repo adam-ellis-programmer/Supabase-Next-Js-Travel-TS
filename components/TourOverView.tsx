@@ -9,7 +9,7 @@ import {
 
 const TourOverview = () => {
   return (
-    <div className='border rounded-lg p-6 max-w-4xl'>
+    <div className='border rounded-lg p-6 max-w-4xl mt-5'>
       <h2 className='text-2xl font-bold mb-6'>Tour Overview</h2>
 
       {/* Quick Info Grid */}

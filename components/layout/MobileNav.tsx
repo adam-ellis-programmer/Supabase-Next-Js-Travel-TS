@@ -79,8 +79,11 @@ const MobileNav = () => {
             <ul className='grid grid-cols-3 gap-7'>
               {devLinks.map((link, i) => {
                 return (
-                  <li onClick={handleToggle}>
-                    <Link className='bg-blue-400 rounded-md p-1 w-full block text-center' href={link.link}>
+                  <li key={i} onClick={handleToggle}>
+                    <Link
+                      className='bg-blue-400 rounded-md p-1 w-full block text-center'
+                      href={link.link}
+                    >
                       {link.text}
                     </Link>
                   </li>

@@ -57,8 +57,8 @@ const TourPage = () => {
           {/* Comments Div */}
           <TourComments />
         </div>
-        <div className='mt-10'>
-          <TourHeader text={`Booking`} classes='text-2xl text-center' />
+        <div className=''>
+          <TourHeader text={`Booking`} classes='text-2xl text-center ' />
           <div className=''>
             <BookingCalender />
           </div>

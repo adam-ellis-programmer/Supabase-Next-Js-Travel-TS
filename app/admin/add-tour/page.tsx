@@ -3,32 +3,90 @@ import React, { useState } from 'react'
 import { FaSave, FaPlus, FaTimes, FaImage } from 'react-icons/fa'
 
 const AdminAddTour = () => {
+  // Basic Information
   const [tourName, setTourName] = useState('')
   const [country, setCountry] = useState('')
   const [duration, setDuration] = useState('')
   const [price, setPrice] = useState('')
-  const [maxPeople, setMaxPeople] = useState('')
+  const [groupSize, setGroupSize] = useState('')
   const [difficulty, setDifficulty] = useState('moderate')
   const [destinations, setDestinations] = useState('')
   const [description, setDescription] = useState('')
+  const [rating, setRating] = useState('')
+  const [tags, setTags] = useState('')
+  const [publish, setPublish] = useState(true)
+
+  // Key Points
   const [keyPoints, setKeyPoints] = useState(['', ''])
+
+  // Trip Details
   const [whyTakeTrip, setWhyTakeTrip] = useState('')
   const [ageGroup, setAgeGroup] = useState('')
   const [pickupPoint, setPickupPoint] = useState('')
   const [dropoffPoint, setDropoffPoint] = useState('')
 
-  const addKeyPoint = () => {
-    setKeyPoints([...keyPoints, ''])
-  }
+  // Itinerary - Days
+  const [itineraryDays, setItineraryDays] = useState([
+    { dayNumber: 1, dayTitle: '', dayDescription: '' },
+  ])
 
+  // What's Included/Not Included
+  const [whatsIncluded, setWhatsIncluded] = useState([''])
+  const [notIncluded, setNotIncluded] = useState([''])
+
+  // Additional Info
+  const [whatToBring, setWhatToBring] = useState([''])
+  const [travelDocuments, setTravelDocuments] = useState([''])
+  const [dietaryOptions, setDietaryOptions] = useState('')
+  const [paymentCancellation, setPaymentCancellation] = useState('')
+  const [goodToKnow, setGoodToKnow] = useState([''])
+
+  // Booking Details
+  const [places, setPlaces] = useState('')
+  const [dates, setDates] = useState([''])
+  const [bookablePax, setBookablePax] = useState('')
+
+  // Key Points Functions
+  const addKeyPoint = () => setKeyPoints([...keyPoints, ''])
   const removeKeyPoint = (index: number) => {
     setKeyPoints(keyPoints.filter((_, i) => i !== index))
   }
-
   const updateKeyPoint = (index: number, value: string) => {
     const updated = [...keyPoints]
     updated[index] = value
     setKeyPoints(updated)
+  }
+
+  // Itinerary Functions
+  const addItineraryDay = () => {
+    setItineraryDays([
+      ...itineraryDays,
+      { dayNumber: itineraryDays.length + 1, dayTitle: '', dayDescription: '' },
+    ])
+  }
+  const removeItineraryDay = (index: number) => {
+    setItineraryDays(itineraryDays.filter((_, i) => i !== index))
+  }
+  const updateItineraryDay = (index: number, field: string, value: string) => {
+    const updated = [...itineraryDays]
+    updated[index] = { ...updated[index], [field]: value }
+    setItineraryDays(updated)
+  }
+
+  // Generic Array Functions
+  const addToArray = (arr: string[], setArr: Function) => setArr([...arr, ''])
+  const removeFromArray = (arr: string[], setArr: Function, index: number) => {
+    setArr(arr.filter((_: any, i: number) => i !== index))
+  }
+  const updateArray = (
+    arr: string[],
+    setArr: Function,
+    index: number,
+    value: string
+  ) => {
+    const updated = [...arr]
+    updated[index] = value
+    setArr(updated)
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -37,17 +95,30 @@ const AdminAddTour = () => {
       tourName,
       country,
       duration,
-      price,
-      maxPeople,
+      price: parseInt(price),
+      groupSize: parseInt(groupSize),
       difficulty,
-      destinations,
+      destinations: parseInt(destinations),
       description,
-      // The filter removes empty key points before submitting to the database.
+      rating: rating ? parseFloat(rating) : null,
+      tags,
+      publish,
       keyPoints: keyPoints.filter((point) => point.trim() !== ''),
       whyTakeTrip,
       ageGroup,
       pickupPoint,
       dropoffPoint,
+      itinerary: itineraryDays.filter((day) => day.dayTitle.trim() !== ''),
+      whatsIncluded: whatsIncluded.filter((item) => item.trim() !== ''),
+      notIncluded: notIncluded.filter((item) => item.trim() !== ''),
+      whatToBring: whatToBring.filter((item) => item.trim() !== ''),
+      travelDocuments: travelDocuments.filter((item) => item.trim() !== ''),
+      dietaryOptions,
+      paymentCancellation,
+      goodToKnow: goodToKnow.filter((item) => item.trim() !== ''),
+      places: parseInt(places),
+      dates: dates.filter((date) => date.trim() !== ''),
+      bookablePax: parseInt(bookablePax),
     }
     console.log('Tour Data:', tourData)
     // Submit to database here
@@ -56,7 +127,6 @@ const AdminAddTour = () => {
   return (
     <div className='min-h-[calc(100vh-100px)] bg-gray-50 py-8'>
       <div className='max-w-5xl mx-auto px-4'>
-        {/* Header */}
         <div className='mb-8'>
           <h1 className='text-4xl font-bold text-gray-800 mb-2'>
             Add New Tour
@@ -66,9 +136,12 @@ const AdminAddTour = () => {
           </p>
         </div>
 
-        <div className='bg-white rounded-lg shadow-lg p-8'>
+        <form
+          onSubmit={handleSubmit}
+          className='bg-white rounded-lg shadow-lg p-8'
+        >
           <div className='space-y-8'>
-            {/* Basic Information Section */}
+            {/* Basic Information */}
             <section>
               <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
                 Basic Information
@@ -109,7 +182,7 @@ const AdminAddTour = () => {
 
                 <div>
                   <label className='block text-sm font-semibold text-gray-700 mb-2'>
-                    Duration (Days) *
+                    Duration *
                   </label>
                   <input
                     type='text'
@@ -137,12 +210,12 @@ const AdminAddTour = () => {
 
                 <div>
                   <label className='block text-sm font-semibold text-gray-700 mb-2'>
-                    Max People *
+                    Group Size (Max People) *
                   </label>
                   <input
                     type='number'
-                    value={maxPeople}
-                    onChange={(e) => setMaxPeople(e.target.value)}
+                    value={groupSize}
+                    onChange={(e) => setGroupSize(e.target.value)}
                     placeholder='15'
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                     required
@@ -177,30 +250,70 @@ const AdminAddTour = () => {
                     required
                   />
                 </div>
+
+                <div>
+                  <label className='block text-sm font-semibold text-gray-700 mb-2'>
+                    Rating
+                  </label>
+                  <input
+                    type='number'
+                    step='0.1'
+                    min='0'
+                    max='5'
+                    value={rating}
+                    onChange={(e) => setRating(e.target.value)}
+                    placeholder='4.5'
+                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  />
+                </div>
+
+                <div>
+                  <label className='block text-sm font-semibold text-gray-700 mb-2'>
+                    Tags (comma-separated)
+                  </label>
+                  <input
+                    type='text'
+                    value={tags}
+                    onChange={(e) => setTags(e.target.value)}
+                    placeholder='adventure, culture, nature'
+                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  />
+                </div>
+
+                <div className='flex items-center gap-3'>
+                  <input
+                    type='checkbox'
+                    id='publish'
+                    checked={publish}
+                    onChange={(e) => setPublish(e.target.checked)}
+                    className='w-5 h-5'
+                  />
+                  <label
+                    htmlFor='publish'
+                    className='text-sm font-semibold text-gray-700'
+                  >
+                    Publish Tour
+                  </label>
+                </div>
               </div>
             </section>
 
-            {/* Description Section */}
+            {/* Description */}
             <section>
               <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
                 Tour Description
               </h2>
-              <div>
-                <label className='block text-sm font-semibold text-gray-700 mb-2'>
-                  Main Description *
-                </label>
-                <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder='Discover breathtaking landscapes, immerse yourself in rich culture...'
-                  rows={5}
-                  className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none'
-                  required
-                />
-              </div>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder='Discover breathtaking landscapes...'
+                rows={5}
+                className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none'
+                required
+              />
             </section>
 
-            {/* Key Points Section */}
+            {/* Key Points */}
             <section>
               <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
                 Key Points
@@ -219,7 +332,7 @@ const AdminAddTour = () => {
                       <button
                         type='button'
                         onClick={() => removeKeyPoint(index)}
-                        className='px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors'
+                        className='px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600'
                       >
                         <FaTimes />
                       </button>
@@ -229,14 +342,14 @@ const AdminAddTour = () => {
                 <button
                   type='button'
                   onClick={addKeyPoint}
-                  className='flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors'
+                  className='flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'
                 >
                   <FaPlus /> Add Key Point
                 </button>
               </div>
             </section>
 
-            {/* Why Take This Trip Section */}
+            {/* Why Take This Trip */}
             <section>
               <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
                 Why Take This Trip
@@ -244,13 +357,335 @@ const AdminAddTour = () => {
               <textarea
                 value={whyTakeTrip}
                 onChange={(e) => setWhyTakeTrip(e.target.value)}
-                placeholder='This carefully curated journey offers the perfect blend...'
+                placeholder='This carefully curated journey offers...'
                 rows={5}
                 className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none'
               />
             </section>
 
-            {/* Logistics Section */}
+            {/* Itinerary */}
+            <section>
+              <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
+                Itinerary (Day by Day)
+              </h2>
+              <div className='space-y-4'>
+                {itineraryDays.map((day, index) => (
+                  <div
+                    key={index}
+                    className='border border-gray-300 rounded-lg p-4'
+                  >
+                    <div className='flex justify-between items-center mb-3'>
+                      <h3 className='font-semibold text-lg'>
+                        Day {day.dayNumber}
+                      </h3>
+                      {itineraryDays.length > 1 && (
+                        <button
+                          type='button'
+                          onClick={() => removeItineraryDay(index)}
+                          className='px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600'
+                        >
+                          <FaTimes />
+                        </button>
+                      )}
+                    </div>
+                    <input
+                      type='text'
+                      value={day.dayTitle}
+                      onChange={(e) =>
+                        updateItineraryDay(index, 'dayTitle', e.target.value)
+                      }
+                      placeholder='Day title (e.g., Arrival in Bangkok)'
+                      className='w-full px-4 py-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    />
+                    <textarea
+                      value={day.dayDescription}
+                      onChange={(e) =>
+                        updateItineraryDay(
+                          index,
+                          'dayDescription',
+                          e.target.value
+                        )
+                      }
+                      placeholder='Day description...'
+                      rows={3}
+                      className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none'
+                    />
+                  </div>
+                ))}
+                <button
+                  type='button'
+                  onClick={addItineraryDay}
+                  className='flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'
+                >
+                  <FaPlus /> Add Day
+                </button>
+              </div>
+            </section>
+
+            {/* What's Included */}
+            <section>
+              <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
+                What's Included
+              </h2>
+              <div className='space-y-3'>
+                {whatsIncluded.map((item, index) => (
+                  <div key={index} className='flex gap-2'>
+                    <input
+                      type='text'
+                      value={item}
+                      onChange={(e) =>
+                        updateArray(
+                          whatsIncluded,
+                          setWhatsIncluded,
+                          index,
+                          e.target.value
+                        )
+                      }
+                      placeholder='Professional tour guide'
+                      className='flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    />
+                    {whatsIncluded.length > 1 && (
+                      <button
+                        type='button'
+                        onClick={() =>
+                          removeFromArray(
+                            whatsIncluded,
+                            setWhatsIncluded,
+                            index
+                          )
+                        }
+                        className='px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600'
+                      >
+                        <FaTimes />
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button
+                  type='button'
+                  onClick={() => addToArray(whatsIncluded, setWhatsIncluded)}
+                  className='flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'
+                >
+                  <FaPlus /> Add Item
+                </button>
+              </div>
+            </section>
+
+            {/* What's Not Included */}
+            <section>
+              <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
+                What's Not Included
+              </h2>
+              <div className='space-y-3'>
+                {notIncluded.map((item, index) => (
+                  <div key={index} className='flex gap-2'>
+                    <input
+                      type='text'
+                      value={item}
+                      onChange={(e) =>
+                        updateArray(
+                          notIncluded,
+                          setNotIncluded,
+                          index,
+                          e.target.value
+                        )
+                      }
+                      placeholder='International airfare'
+                      className='flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    />
+                    {notIncluded.length > 1 && (
+                      <button
+                        type='button'
+                        onClick={() =>
+                          removeFromArray(notIncluded, setNotIncluded, index)
+                        }
+                        className='px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600'
+                      >
+                        <FaTimes />
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button
+                  type='button'
+                  onClick={() => addToArray(notIncluded, setNotIncluded)}
+                  className='flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'
+                >
+                  <FaPlus /> Add Item
+                </button>
+              </div>
+            </section>
+
+            {/* What to Bring */}
+            <section>
+              <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
+                What to Bring
+              </h2>
+              <div className='space-y-3'>
+                {whatToBring.map((item, index) => (
+                  <div key={index} className='flex gap-2'>
+                    <input
+                      type='text'
+                      value={item}
+                      onChange={(e) =>
+                        updateArray(
+                          whatToBring,
+                          setWhatToBring,
+                          index,
+                          e.target.value
+                        )
+                      }
+                      placeholder='Comfortable walking shoes'
+                      className='flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    />
+                    {whatToBring.length > 1 && (
+                      <button
+                        type='button'
+                        onClick={() =>
+                          removeFromArray(whatToBring, setWhatToBring, index)
+                        }
+                        className='px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600'
+                      >
+                        <FaTimes />
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button
+                  type='button'
+                  onClick={() => addToArray(whatToBring, setWhatToBring)}
+                  className='flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'
+                >
+                  <FaPlus /> Add Item
+                </button>
+              </div>
+            </section>
+
+            {/* Travel Documents */}
+            <section>
+              <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
+                Travel Documents
+              </h2>
+              <div className='space-y-3'>
+                {travelDocuments.map((item, index) => (
+                  <div key={index} className='flex gap-2'>
+                    <input
+                      type='text'
+                      value={item}
+                      onChange={(e) =>
+                        updateArray(
+                          travelDocuments,
+                          setTravelDocuments,
+                          index,
+                          e.target.value
+                        )
+                      }
+                      placeholder='Valid passport (6 months validity)'
+                      className='flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    />
+                    {travelDocuments.length > 1 && (
+                      <button
+                        type='button'
+                        onClick={() =>
+                          removeFromArray(
+                            travelDocuments,
+                            setTravelDocuments,
+                            index
+                          )
+                        }
+                        className='px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600'
+                      >
+                        <FaTimes />
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button
+                  type='button'
+                  onClick={() =>
+                    addToArray(travelDocuments, setTravelDocuments)
+                  }
+                  className='flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'
+                >
+                  <FaPlus /> Add Document
+                </button>
+              </div>
+            </section>
+
+            {/* Good to Know */}
+            <section>
+              <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
+                Good to Know
+              </h2>
+              <div className='space-y-3'>
+                {goodToKnow.map((item, index) => (
+                  <div key={index} className='flex gap-2'>
+                    <input
+                      type='text'
+                      value={item}
+                      onChange={(e) =>
+                        updateArray(
+                          goodToKnow,
+                          setGoodToKnow,
+                          index,
+                          e.target.value
+                        )
+                      }
+                      placeholder='Tours operate rain or shine'
+                      className='flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    />
+                    {goodToKnow.length > 1 && (
+                      <button
+                        type='button'
+                        onClick={() =>
+                          removeFromArray(goodToKnow, setGoodToKnow, index)
+                        }
+                        className='px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600'
+                      >
+                        <FaTimes />
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button
+                  type='button'
+                  onClick={() => addToArray(goodToKnow, setGoodToKnow)}
+                  className='flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'
+                >
+                  <FaPlus /> Add Info
+                </button>
+              </div>
+            </section>
+
+            {/* Dietary Options */}
+            <section>
+              <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
+                Dietary Options
+              </h2>
+              <textarea
+                value={dietaryOptions}
+                onChange={(e) => setDietaryOptions(e.target.value)}
+                placeholder='Vegetarian, vegan, gluten-free options available...'
+                rows={4}
+                className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none'
+              />
+            </section>
+
+            {/* Payment & Cancellation */}
+            <section>
+              <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
+                Payment & Cancellation Policy
+              </h2>
+              <textarea
+                value={paymentCancellation}
+                onChange={(e) => setPaymentCancellation(e.target.value)}
+                placeholder='30% deposit to confirm booking...'
+                rows={4}
+                className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none'
+              />
+            </section>
+
+            {/* Logistics */}
             <section>
               <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
                 Logistics & Details
@@ -297,6 +732,78 @@ const AdminAddTour = () => {
               </div>
             </section>
 
+            {/* Booking Details */}
+            <section>
+              <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
+                Booking Details
+              </h2>
+              <div className='grid md:grid-cols-2 gap-6'>
+                <div>
+                  <label className='block text-sm font-semibold text-gray-700 mb-2'>
+                    Available Places
+                  </label>
+                  <input
+                    type='number'
+                    value={places}
+                    onChange={(e) => setPlaces(e.target.value)}
+                    placeholder='15'
+                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  />
+                </div>
+
+                <div>
+                  <label className='block text-sm font-semibold text-gray-700 mb-2'>
+                    Bookable Pax (Min Booking Size)
+                  </label>
+                  <input
+                    type='number'
+                    value={bookablePax}
+                    onChange={(e) => setBookablePax(e.target.value)}
+                    placeholder='1'
+                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  />
+                </div>
+              </div>
+
+              <div className='mt-4'>
+                <label className='block text-sm font-semibold text-gray-700 mb-2'>
+                  Available Dates
+                </label>
+                <div className='space-y-3'>
+                  {dates.map((date, index) => (
+                    <div key={index} className='flex gap-2'>
+                      <input
+                        type='date'
+                        value={date}
+                        onChange={(e) =>
+                          updateArray(dates, setDates, index, e.target.value)
+                        }
+                        className='flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                      />
+                      {dates.length > 1 && (
+                        <button
+                          type='button'
+                          onClick={() =>
+                            removeFromArray(dates, setDates, index)
+                          }
+                          className='px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600'
+                        >
+                          <FaTimes />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                  <button
+                    type='button'
+                    onClick={() => addToArray(dates, setDates)}
+                    className='flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'
+                  >
+                    <FaPlus /> Add Date
+                  </button>
+                </div>
+              </div>
+            </section>
+
             {/* Images Section */}
             <section>
               <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
@@ -314,7 +821,7 @@ const AdminAddTour = () => {
             {/* Action Buttons */}
             <div className='flex gap-4 pt-6 border-t'>
               <button
-                onClick={handleSubmit}
+                type='submit'
                 className='flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg'
               >
                 <FaSave /> Save Tour
@@ -327,7 +834,7 @@ const AdminAddTour = () => {
               </button>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   )
