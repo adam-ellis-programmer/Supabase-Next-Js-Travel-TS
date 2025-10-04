@@ -1,5 +1,6 @@
 import React from 'react'
 import BookedTourCard from '@/components/cards/BookedTourCard'
+import { createClient } from '@/lib/supabase/server'
 
 // Mock user data - replace with actual Supabase data later
 const mockUser = {
@@ -36,7 +37,13 @@ const mockBookedTours = Array.from({ length: 4 }, (_, i) => ({
   },
 }))
 
-const AccountPage = () => {
+const AccountPage = async () => {
+  // Get the authenticated user
+  // const supabase = await createClient()
+  // // prettier-ignore
+  // const { data: { user }, error } = await supabase.auth.getUser()
+  // console.log(user)
+
   return (
     <div className='min-h-[calc(100vh-100px)] bg-gradient-to-br from-slate-50 to-blue-50 py-8'>
       <div className='max-w-[1200px] mx-auto px-4'>

@@ -7,8 +7,14 @@ import SuperNav from './super nav/SuperNav'
 import NavButtons from './super nav/NavButtons'
 import Link from 'next/link'
 import NavAuth from '../buttons/NavAuth'
+import { createClient } from '@/lib/supabase/server'
 
-const Nav = () => {
+const Nav = async () => {
+  const supabase = createClient()
+  // const { data: { user }, error } = await supabase.auth.getUser()
+  // console.log(user)
+
+  const user = true
   return (
     <nav className='border-b'>
       {/* nav container */}
@@ -21,10 +27,9 @@ const Nav = () => {
         </Link>
 
         <NavButtons />
-        <div>
-          
+        <div className='flex'>
           <MobileNav />
-          {/* <NavAuth /> */}
+          <NavAuth />
         </div>
         {/* sign in / out buttons */}
       </div>
