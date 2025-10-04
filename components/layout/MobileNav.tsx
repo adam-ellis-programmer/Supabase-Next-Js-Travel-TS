@@ -22,7 +22,7 @@ const MobileNav = () => {
     return () => {}
   }, [isNaveOpen])
   return (
-    <>
+    <div className='block md:hidden'>
       <button onClick={handleToggle} className='cursor-pointer'>
         <FaBarsStaggered className='text-3xl' />
       </button>
@@ -93,7 +93,7 @@ const MobileNav = () => {
           </section>
         </div>
       )}
-    </>
+    </div>
   )
 }
 

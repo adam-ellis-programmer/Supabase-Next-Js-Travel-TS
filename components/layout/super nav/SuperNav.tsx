@@ -3,7 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { megaMenuData } from '@/data/navigation'
-
+import { links as devLinks } from '@/dev/DevButtons'
 interface SuperNavProps {
   type: 'tours' | 'destinations'
 }
@@ -18,7 +18,24 @@ const SuperNav = ({ type }: SuperNavProps) => {
   const data = megaMenuData[type]
 
   return (
-    <div className='absolute mt-12 z-30  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl border border-gray-100'>
+    <div className='absolute mt-12 z-30 top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl border border-gray-100'>
+      <div className='border-b mb-5'>
+        <h3>dev buttons</h3>
+        <ul className='all-unset grid grid-cols-6 gap-4 mb-5'>
+          {devLinks.map((link, i) => {
+            return (
+              <li key={i}>
+                <Link
+                  className=''
+                  href={link.link}
+                >
+                  {link.text}
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
       <div className='grid grid-cols-12 gap-8'>
         {/* Left side - Links */}
         <div className='col-span-8 grid grid-cols-2 gap-6'>

@@ -15,8 +15,13 @@ const NavButtons = () => {
   }
 
   return (
-    <div onMouseLeave={() => setShowSuperNav(false)} className=''>
-      <ul>
+    <div
+      onMouseLeave={() => setShowSuperNav(false)}
+      className=' h-full  items-center hidden md:flex'
+    >
+      <ul className='relative'>
+        {/* Invisible Bridge to keep supanav open */}
+        <div className='absolute h-[30px] -bottom-[60px] z-30 w-full '></div>
         <li>
           <Button
             className='bg-rose-500 mx-1'

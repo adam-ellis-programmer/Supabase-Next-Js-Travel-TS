@@ -12,7 +12,7 @@ const Nav = () => {
   return (
     <nav className='border-b'>
       {/* nav container */}
-      <div className='flex justify-between max-w-[1200px] mx-auto items-center  h-[100px] p-5'>
+      <div className='flex justify-between max-w-[1200px] mx-auto items-center  h-[100px]'>
         <Link href={`/`}>
           <div className=' flex'>
             <FaPlaneDeparture className='text-3xl text-blue-400' />
@@ -22,6 +22,7 @@ const Nav = () => {
 
         <NavButtons />
         <div>
+          
           <MobileNav />
           {/* <NavAuth /> */}
         </div>
