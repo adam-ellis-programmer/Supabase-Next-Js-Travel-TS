@@ -8,7 +8,8 @@ import BookingCalender from '@/components/BookingCalender'
 import TourOverView from '@/components/TourOverView'
 import TourExtraInfo from '@/components/TourExtraInfo'
 
-const tempArr = Array.from({ length: 12 }, (_, i) => {
+const days = 12
+const tempArr = Array.from({ length: days }, (_, i) => {
   return { item: i }
 })
 

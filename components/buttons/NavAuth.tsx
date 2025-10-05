@@ -7,9 +7,9 @@ const NavAuth = () => {
   return (
     <div className='hidden md:flex'>
       {user ? (
-        <div className='flex flex-col justify-center'>
+        <div className='flex  items-center '>
           <p>Hello Adam</p>
-          <p>you are logged in</p>
+          <Button className='ml-5 bg-gray-700  font-bold '>log out</Button>
         </div>
       ) : (
         <Link className='' href={`/auth/login`}>

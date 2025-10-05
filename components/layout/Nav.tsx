@@ -14,7 +14,6 @@ const Nav = async () => {
   // const { data: { user }, error } = await supabase.auth.getUser()
   // console.log(user)
 
-  const user = true
   return (
     <nav className='border-b'>
       {/* nav container */}

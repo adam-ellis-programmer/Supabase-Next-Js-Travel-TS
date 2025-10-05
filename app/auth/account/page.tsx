@@ -1,14 +1,11 @@
 import React from 'react'
 import BookedTourCard from '@/components/cards/BookedTourCard'
 import { createClient } from '@/lib/supabase/server'
-
+import { DatabaseService } from '@/lib/supabase/database-service'
+import { redirect } from 'next/navigation'
+import { Profile } from '@/types/database'
+import UserDetailsCard from '@/components/auth/user/UserDetailsCard'
 // Mock user data - replace with actual Supabase data later
-const mockUser = {
-  email: 'user@example.com',
-  id: '123e4567-e89b-12d3-a456-426614174000',
-  created_at: '2024-01-15T10:30:00Z',
-  last_sign_in_at: '2025-10-01T14:20:00Z',
-}
 
 // Mock booked tours - replace with actual Supabase query later
 const mockBookedTours = Array.from({ length: 4 }, (_, i) => ({
@@ -39,10 +36,28 @@ const mockBookedTours = Array.from({ length: 4 }, (_, i) => ({
 
 const AccountPage = async () => {
   // Get the authenticated user
-  // const supabase = await createClient()
+  const supabase = await createClient()
   // // prettier-ignore
-  // const { data: { user }, error } = await supabase.auth.getUser()
-  // console.log(user)
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser()
+  // comes from supabse auth not our record (update func)
+  console.log(user)
+
+  // TypeScript has a feature called control flow narrowing.
+  // Add the null check RIGHT HERE, before using user.id
+  // This is called a type guard
+  if (!user) {
+    redirect('/auth/login')
+  }
+
+  const profile = await DatabaseService.getByid<Profile>('profiles', user.id)
+  console.log('Acc user', profile)
+
+  if (!profile) {
+    return <div>Profile not found</div>
+  }
 
   return (
     <div className='min-h-[calc(100vh-100px)] bg-gradient-to-br from-slate-50 to-blue-50 py-8'>
@@ -56,71 +71,7 @@ const AccountPage = async () => {
         </div>
 
         {/* User Details Card */}
-        <div className='bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8'>
-          <div className='flex items-start justify-between mb-6'>
-            <h2 className='text-xl font-semibold text-slate-800'>
-              Account Details
-            </h2>
-            <span className='px-3 py-1 bg-emerald-100 text-emerald-700 text-sm font-medium rounded-full'>
-              Active
-            </span>
-          </div>
-
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <div>
-              <label className='text-sm font-medium text-slate-500 uppercase tracking-wide'>
-                Email
-              </label>
-              <p className='mt-1 text-slate-800 font-medium'>
-                {mockUser.email}
-              </p>
-            </div>
-
-            <div>
-              <label className='text-sm font-medium text-slate-500 uppercase tracking-wide'>
-                User ID
-              </label>
-              <p className='mt-1 text-slate-800 font-mono text-sm'>
-                {mockUser.id}
-              </p>
-            </div>
-
-            <div>
-              <label className='text-sm font-medium text-slate-500 uppercase tracking-wide'>
-                Member Since
-              </label>
-              <p className='mt-1 text-slate-800'>
-                {new Date(mockUser.created_at).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </p>
-            </div>
-
-            <div>
-              <label className='text-sm font-medium text-slate-500 uppercase tracking-wide'>
-                Last Sign In
-              </label>
-              <p className='mt-1 text-slate-800'>
-                {new Date(mockUser.last_sign_in_at).toLocaleDateString(
-                  'en-US',
-                  {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  }
-                )}
-              </p>
-            </div>
-          </div>
-
-          <div className='mt-6 pt-6 border-t border-slate-200'>
-            <button className='px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors'>
-              Edit Profile
-            </button>
-          </div>
-        </div>
+        <UserDetailsCard profile={profile} user={user} />
 
         {/* Booked Tours Section */}
         <div className='bg-white rounded-xl shadow-sm border border-slate-200 p-6'>

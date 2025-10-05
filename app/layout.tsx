@@ -23,6 +23,7 @@ const exo2 = Exo_2({
   weight: '400', // or an array of weights like ['400', '700']
   variable: '--font-exo2',
 })
+
 import Container from '@/components/layout/Container'
 import Footer from '@/components/layout/Footer'
 import DevButtons from '@/dev/DevButtons'

@@ -5,6 +5,8 @@ import { FaPlaneDeparture } from 'react-icons/fa'
 import { links as devLinks } from '@/dev/DevButtons'
 import Link from 'next/link'
 
+import { megaMenuData } from '@/data/navigation'
+
 const MobileNav = () => {
   const [isNaveOpen, setIsNaveOpen] = useState(false)
   const handleToggle = () => {
@@ -16,10 +18,11 @@ const MobileNav = () => {
   useEffect(() => {
     if (isNaveOpen) {
       document.documentElement.classList.add('no-scroll')
-    } else {
+    }
+
+    return () => {
       document.documentElement.classList.remove('no-scroll')
     }
-    return () => {}
   }, [isNaveOpen])
   return (
     <div className='block md:hidden'>
