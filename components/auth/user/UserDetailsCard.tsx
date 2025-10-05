@@ -47,23 +47,27 @@ const UserDetailsCard = ({
     }))
   }
 
+  // components/auth/user/UserDetailsCard.tsx
   const handleSave = async () => {
     setIsSaving(true)
     setError(null)
     setSuccessMessage(null)
 
     try {
-      // Call the server action
-      const result = await updateUserProfileAction(user.id, {
+      const result = await updateUserProfileAction({
         email: formData.email,
         full_name: formData.full_name,
       })
 
+      // ✅ Handle undefined (though it shouldn't happen with the fix above)
+      if (!result) {
+        setError('No response from server')
+        return
+      }
+
       if (result.success) {
         setSuccessMessage('Profile updated successfully!')
         setIsEditMode(false)
-
-        // Clear success message after 3 seconds
         setTimeout(() => setSuccessMessage(null), 3000)
       } else {
         setError(result.error || 'Failed to update profile')
@@ -75,7 +79,6 @@ const UserDetailsCard = ({
       setIsSaving(false)
     }
   }
-
   return (
     <div className='bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8 relative'>
       {isEditMode && (
