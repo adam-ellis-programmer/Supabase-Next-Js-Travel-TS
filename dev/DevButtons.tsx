@@ -4,7 +4,7 @@ import React from 'react'
 export const links = [
   { link: '/', text: 'Home' },
   { link: '/tours/1', text: 'Tour Page' },
-  { link: '/country-landing', text: 'Country Landing' },
+  { link: '/country-landing/australia', text: 'Country Landing' },
   { link: '/booking', text: 'Booking' },
   { link: '/tours', text: 'tours' },
   { link: '/admin', text: 'admin' },

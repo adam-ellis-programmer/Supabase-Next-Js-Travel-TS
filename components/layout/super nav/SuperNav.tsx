@@ -20,15 +20,14 @@ const SuperNav = ({ type }: SuperNavProps) => {
   return (
     <div className='absolute mt-12 z-30 top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl border border-gray-100'>
       <div className='border-b mb-5'>
+        {/* If admin then show admin controll buttons */}
         <h3>dev buttons</h3>
+
         <ul className='all-unset grid grid-cols-6 gap-4 mb-5'>
           {devLinks.map((link, i) => {
             return (
               <li key={i}>
-                <Link
-                  className=''
-                  href={link.link}
-                >
+                <Link className='' href={link.link}>
                   {link.text}
                 </Link>
               </li>

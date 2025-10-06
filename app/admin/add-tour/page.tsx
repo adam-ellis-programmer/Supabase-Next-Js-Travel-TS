@@ -6,6 +6,7 @@ const AdminAddTour = () => {
   // Basic Information
   const [tourName, setTourName] = useState('')
   const [country, setCountry] = useState('')
+  const [slug, setSlug] = useState('') // NEW: Slug field
   const [duration, setDuration] = useState('')
   const [price, setPrice] = useState('')
   const [groupSize, setGroupSize] = useState('')
@@ -15,6 +16,25 @@ const AdminAddTour = () => {
   const [rating, setRating] = useState('')
   const [tags, setTags] = useState('')
   const [publish, setPublish] = useState(true)
+
+  // NEW: Auto-generate slug from tour name
+  const generateSlug = (name: string) => {
+    return name
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .replace(/-+/g, '-') // Replace multiple hyphens with single
+      .trim()
+  }
+
+  // NEW: Handle tour name change and auto-generate slug
+  const handleTourNameChange = (value: string) => {
+    setTourName(value)
+    // Auto-generate slug if it hasn't been manually edited
+    if (!slug || slug === generateSlug(tourName)) {
+      setSlug(generateSlug(value))
+    }
+  }
 
   // Key Points
   const [keyPoints, setKeyPoints] = useState(['', ''])
@@ -48,9 +68,12 @@ const AdminAddTour = () => {
 
   // Key Points Functions
   const addKeyPoint = () => setKeyPoints([...keyPoints, ''])
+
+  // remove key point
   const removeKeyPoint = (index: number) => {
     setKeyPoints(keyPoints.filter((_, i) => i !== index))
   }
+  // update key point
   const updateKeyPoint = (index: number, value: string) => {
     const updated = [...keyPoints]
     updated[index] = value
@@ -93,6 +116,7 @@ const AdminAddTour = () => {
     e.preventDefault()
     const tourData = {
       tourName,
+      slug, // NEW: Include slug in submission
       country,
       duration,
       price: parseInt(price),
@@ -147,18 +171,36 @@ const AdminAddTour = () => {
                 Basic Information
               </h2>
               <div className='grid md:grid-cols-2 gap-6'>
-                <div>
+            <div>
                   <label className='block text-sm font-semibold text-gray-700 mb-2'>
                     Tour Name *
                   </label>
                   <input
                     type='text'
                     value={tourName}
-                    onChange={(e) => setTourName(e.target.value)}
+                    onChange={(e) => handleTourNameChange(e.target.value)}
                     placeholder='Amazing Vietnam 12 Day Adventure'
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                     required
                   />
+                </div>
+
+                {/* NEW: Slug Field */}
+                <div>
+                  <label className='block text-sm font-semibold text-gray-700 mb-2'>
+                    URL Slug *
+                  </label>
+                  <input
+                    type='text'
+                    value={slug}
+                    onChange={(e) => setSlug(e.target.value)}
+                    placeholder='amazing-vietnam-12-day-adventure'
+                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm'
+                    required
+                  />
+                  <p className='text-xs text-gray-500 mt-1'>
+                    URL: /tours/{slug || 'your-slug-here'}
+                  </p>
                 </div>
 
                 <div>

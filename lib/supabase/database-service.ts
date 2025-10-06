@@ -36,6 +36,8 @@ export class AuthService {
     updates: T
     // ): Promise<{ success: boolean; error?: string; data?: object }> {
   ): Promise<
+    // ; = That's a TypeScript type annotation syntax, not a JavaScript object!
+    // // Semicolons separate properties in type definitions
     { success: true; data: object } | { success: false; error: string }
   > {
     const supabase = await createClient()

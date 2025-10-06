@@ -9,6 +9,12 @@ export async function updateUserProfileAction(updates: {
   email?: string
   full_name?: string
 }) {
+  /**
+   * ALWAYS CHECK AUTH USER ON THE SERVER LIKE WE DO
+   * IN THE MERN PROJECTS
+   * server files and client files
+   * 'use server' files 
+   */
   try {
     // ✅ 1. Get current user from session (SERVER-SIDE)
     const supabase = await createClient()
