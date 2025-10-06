@@ -62,7 +62,7 @@ const AdminAddTour = () => {
 
   // NEW: Booking Slots Structure
   const [bookingSlots, setBookingSlots] = useState([
-    { dates: [''], bookablePlaces: 30, show: true },
+    { dates: [''], bookablePlaces: 30, show: true, month: '', year: '' },
   ])
   const [bookablePax, setBookablePax] = useState('')
 
@@ -70,8 +70,20 @@ const AdminAddTour = () => {
   const addBookingSlot = () => {
     setBookingSlots([
       ...bookingSlots,
-      { dates: [''], bookablePlaces: 30, show: true },
+      { dates: [''], bookablePlaces: 30, show: true, month: '', year: '' },
     ])
+  }
+
+  const updateSlotMonth = (slotIndex: number, value: string) => {
+    const updated = [...bookingSlots]
+    updated[slotIndex].month = value
+    setBookingSlots(updated)
+  }
+
+  const updateSlotYear = (slotIndex: number, value: string) => {
+    const updated = [...bookingSlots]
+    updated[slotIndex].year = value
+    setBookingSlots(updated)
   }
 
   const removeBookingSlot = (slotIndex: number) => {
@@ -195,62 +207,12 @@ const AdminAddTour = () => {
         dates: slot.dates.filter((date) => date.trim() !== ''),
         bookablePlaces: slot.bookablePlaces,
         show: slot.show,
+        month: slot.month,
+        year: slot.year,
       })),
       bookablePax: parseInt(bookablePax),
     }
     console.log('Tour Data:', tourData)
-  }
-  function MonthSelectBox() {
-    return (
-      <div className='p-8 max-w-md mx-auto'>
-        <div className='grid grid-cols-2 gap-4'>
-          <div>
-            <label
-              htmlFor='month'
-              className='block text-sm font-semibold text-gray-700 mb-2'
-            >
-              Select Month
-            </label>
-            <select
-              name='month'
-              id='month'
-              className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-            >
-              <option value=''>Select a month</option>
-              <option value='January'>January</option>
-              <option value='February'>February</option>
-              <option value='March'>March</option>
-              <option value='April'>April</option>
-              <option value='May'>May</option>
-              <option value='June'>June</option>
-              <option value='July'>July</option>
-              <option value='August'>August</option>
-              <option value='September'>September</option>
-              <option value='October'>October</option>
-              <option value='November'>November</option>
-              <option value='December'>December</option>
-            </select>
-          </div>
-
-          <div>
-            <label
-              htmlFor='year'
-              className='block text-sm font-semibold text-gray-700 mb-2'
-            >
-              Year
-            </label>
-            <input
-              type='text'
-              name='year'
-              id='year'
-              placeholder='2025'
-              maxLength={4}
-              className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-            />
-          </div>
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -926,7 +888,90 @@ const AdminAddTour = () => {
                         {/* ============================= */}
                         {/* ----  MONTH SELECTOR */}
                         {/* ============================= */}
-                        {MonthSelectBox()}
+                        <div className='space-y-4 mb-4'>
+                          {/* Month and Year Selection */}
+                          <div className='grid grid-cols-2 gap-4'>
+                            <div>
+                              <label className='block text-sm font-semibold text-gray-700 mb-2'>
+                                Select Month
+                              </label>
+                              <select
+                                value={slot.month}
+                                onChange={(e) =>
+                                  updateSlotMonth(slotIndex, e.target.value)
+                                }
+                                className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                              >
+                                <option value=''>Select a month</option>
+                                <option value='January'>January</option>
+                                <option value='February'>February</option>
+                                <option value='March'>March</option>
+                                <option value='April'>April</option>
+                                <option value='May'>May</option>
+                                <option value='June'>June</option>
+                                <option value='July'>July</option>
+                                <option value='August'>August</option>
+                                <option value='September'>September</option>
+                                <option value='October'>October</option>
+                                <option value='November'>November</option>
+                                <option value='December'>December</option>
+                              </select>
+                            </div>
+
+                            <div>
+                              <label className='block text-sm font-semibold text-gray-700 mb-2'>
+                                Year
+                              </label>
+                              <input
+                                type='text'
+                                value={slot.year}
+                                onChange={(e) =>
+                                  updateSlotYear(slotIndex, e.target.value)
+                                }
+                                placeholder='2025'
+                                maxLength={4}
+                                className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                              />
+                            </div>
+                          </div>
+
+                          {/* Bookable Places */}
+                          <div>
+                            <label className='block text-sm font-semibold text-gray-700 mb-2'>
+                              Bookable Places
+                            </label>
+                            <input
+                              type='number'
+                              value={slot.bookablePlaces}
+                              onChange={(e) =>
+                                updateBookablePlaces(
+                                  slotIndex,
+                                  parseInt(e.target.value) || 0
+                                )
+                              }
+                              placeholder='30'
+                              className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                            />
+                          </div>
+                        </div>
+
+                        <div className='flex items-center mb-4'>
+                          <div className='flex items-center gap-3'>
+                            <input
+                              type='checkbox'
+                              id={`show-${slotIndex}`}
+                              checked={slot.show}
+                              onChange={() => toggleSlotShow(slotIndex)}
+                              className='w-5 h-5'
+                            />
+                            <label
+                              htmlFor={`show-${slotIndex}`}
+                              className='text-sm font-semibold text-gray-700'
+                            >
+                              Show This Slot
+                            </label>
+                          </div>
+                        </div>
 
                         <input
                           type='number'
