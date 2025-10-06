@@ -6,7 +6,7 @@ const AdminAddTour = () => {
   // Basic Information
   const [tourName, setTourName] = useState('')
   const [country, setCountry] = useState('')
-  const [slug, setSlug] = useState('') // NEW: Slug field
+  const [slug, setSlug] = useState('')
   const [duration, setDuration] = useState('')
   const [price, setPrice] = useState('')
   const [groupSize, setGroupSize] = useState('')
@@ -17,20 +17,18 @@ const AdminAddTour = () => {
   const [tags, setTags] = useState('')
   const [publish, setPublish] = useState(true)
 
-  // NEW: Auto-generate slug from tour name
+  // Auto-generate slug from tour name
   const generateSlug = (name: string) => {
     return name
       .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
-      .replace(/\s+/g, '-') // Replace spaces with hyphens
-      .replace(/-+/g, '-') // Replace multiple hyphens with single
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
       .trim()
   }
 
-  // NEW: Handle tour name change and auto-generate slug
   const handleTourNameChange = (value: string) => {
     setTourName(value)
-    // Auto-generate slug if it hasn't been manually edited
     if (!slug || slug === generateSlug(tourName)) {
       setSlug(generateSlug(value))
     }
@@ -46,6 +44,7 @@ const AdminAddTour = () => {
   const [dropoffPoint, setDropoffPoint] = useState('')
 
   // Itinerary - Days
+  // Add month and date
   const [itineraryDays, setItineraryDays] = useState([
     { dayNumber: 1, dayTitle: '', dayDescription: '' },
   ])
@@ -61,19 +60,67 @@ const AdminAddTour = () => {
   const [paymentCancellation, setPaymentCancellation] = useState('')
   const [goodToKnow, setGoodToKnow] = useState([''])
 
-  // Booking Details
-  const [places, setPlaces] = useState('')
-  const [dates, setDates] = useState([''])
+  // NEW: Booking Slots Structure
+  const [bookingSlots, setBookingSlots] = useState([
+    { dates: [''], bookablePlaces: 30, show: true },
+  ])
   const [bookablePax, setBookablePax] = useState('')
+
+  // Booking Slot Functions
+  const addBookingSlot = () => {
+    setBookingSlots([
+      ...bookingSlots,
+      { dates: [''], bookablePlaces: 30, show: true },
+    ])
+  }
+
+  const removeBookingSlot = (slotIndex: number) => {
+    setBookingSlots(bookingSlots.filter((_, i) => i !== slotIndex))
+  }
+
+  const addDateToSlot = (slotIndex: number) => {
+    const updated = [...bookingSlots]
+    updated[slotIndex].dates.push('')
+    setBookingSlots(updated)
+  }
+
+  const removeDateFromSlot = (slotIndex: number, dateIndex: number) => {
+    const updated = [...bookingSlots]
+    updated[slotIndex].dates = updated[slotIndex].dates.filter(
+      (_, i) => i !== dateIndex
+    )
+    setBookingSlots(updated)
+  }
+
+  const updateDateInSlot = (
+    slotIndex: number,
+    dateIndex: number,
+    value: string
+  ) => {
+    const updated = [...bookingSlots]
+    updated[slotIndex].dates[dateIndex] = value
+    setBookingSlots(updated)
+  }
+
+  const updateBookablePlaces = (slotIndex: number, value: number) => {
+    const updated = [...bookingSlots]
+    updated[slotIndex].bookablePlaces = value
+    setBookingSlots(updated)
+  }
+
+  const toggleSlotShow = (slotIndex: number) => {
+    const updated = [...bookingSlots]
+    updated[slotIndex].show = !updated[slotIndex].show
+    setBookingSlots(updated)
+  }
 
   // Key Points Functions
   const addKeyPoint = () => setKeyPoints([...keyPoints, ''])
 
-  // remove key point
   const removeKeyPoint = (index: number) => {
     setKeyPoints(keyPoints.filter((_, i) => i !== index))
   }
-  // update key point
+
   const updateKeyPoint = (index: number, value: string) => {
     const updated = [...keyPoints]
     updated[index] = value
@@ -87,9 +134,11 @@ const AdminAddTour = () => {
       { dayNumber: itineraryDays.length + 1, dayTitle: '', dayDescription: '' },
     ])
   }
+
   const removeItineraryDay = (index: number) => {
     setItineraryDays(itineraryDays.filter((_, i) => i !== index))
   }
+
   const updateItineraryDay = (index: number, field: string, value: string) => {
     const updated = [...itineraryDays]
     updated[index] = { ...updated[index], [field]: value }
@@ -98,9 +147,11 @@ const AdminAddTour = () => {
 
   // Generic Array Functions
   const addToArray = (arr: string[], setArr: Function) => setArr([...arr, ''])
+
   const removeFromArray = (arr: string[], setArr: Function, index: number) => {
     setArr(arr.filter((_: any, i: number) => i !== index))
   }
+
   const updateArray = (
     arr: string[],
     setArr: Function,
@@ -116,7 +167,7 @@ const AdminAddTour = () => {
     e.preventDefault()
     const tourData = {
       tourName,
-      slug, // NEW: Include slug in submission
+      slug,
       country,
       duration,
       price: parseInt(price),
@@ -140,12 +191,66 @@ const AdminAddTour = () => {
       dietaryOptions,
       paymentCancellation,
       goodToKnow: goodToKnow.filter((item) => item.trim() !== ''),
-      places: parseInt(places),
-      dates: dates.filter((date) => date.trim() !== ''),
+      bookingSlots: bookingSlots.map((slot) => ({
+        dates: slot.dates.filter((date) => date.trim() !== ''),
+        bookablePlaces: slot.bookablePlaces,
+        show: slot.show,
+      })),
       bookablePax: parseInt(bookablePax),
     }
     console.log('Tour Data:', tourData)
-    // Submit to database here
+  }
+  function MonthSelectBox() {
+    return (
+      <div className='p-8 max-w-md mx-auto'>
+        <div className='grid grid-cols-2 gap-4'>
+          <div>
+            <label
+              htmlFor='month'
+              className='block text-sm font-semibold text-gray-700 mb-2'
+            >
+              Select Month
+            </label>
+            <select
+              name='month'
+              id='month'
+              className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+            >
+              <option value=''>Select a month</option>
+              <option value='January'>January</option>
+              <option value='February'>February</option>
+              <option value='March'>March</option>
+              <option value='April'>April</option>
+              <option value='May'>May</option>
+              <option value='June'>June</option>
+              <option value='July'>July</option>
+              <option value='August'>August</option>
+              <option value='September'>September</option>
+              <option value='October'>October</option>
+              <option value='November'>November</option>
+              <option value='December'>December</option>
+            </select>
+          </div>
+
+          <div>
+            <label
+              htmlFor='year'
+              className='block text-sm font-semibold text-gray-700 mb-2'
+            >
+              Year
+            </label>
+            <input
+              type='text'
+              name='year'
+              id='year'
+              placeholder='2025'
+              maxLength={4}
+              className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+            />
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -171,7 +276,7 @@ const AdminAddTour = () => {
                 Basic Information
               </h2>
               <div className='grid md:grid-cols-2 gap-6'>
-            <div>
+                <div>
                   <label className='block text-sm font-semibold text-gray-700 mb-2'>
                     Tour Name *
                   </label>
@@ -185,7 +290,6 @@ const AdminAddTour = () => {
                   />
                 </div>
 
-                {/* NEW: Slug Field */}
                 <div>
                   <label className='block text-sm font-semibold text-gray-700 mb-2'>
                     URL Slug *
@@ -774,75 +878,140 @@ const AdminAddTour = () => {
               </div>
             </section>
 
-            {/* Booking Details */}
+            {/* Booking Details - NEW STRUCTURE */}
             <section>
               <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
                 Booking Details
               </h2>
-              <div className='grid md:grid-cols-2 gap-6'>
-                <div>
-                  <label className='block text-sm font-semibold text-gray-700 mb-2'>
-                    Available Places
-                  </label>
-                  <input
-                    type='number'
-                    value={places}
-                    onChange={(e) => setPlaces(e.target.value)}
-                    placeholder='15'
-                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-                  />
-                </div>
 
-                <div>
-                  <label className='block text-sm font-semibold text-gray-700 mb-2'>
-                    Bookable Pax (Min Booking Size)
-                  </label>
-                  <input
-                    type='number'
-                    value={bookablePax}
-                    onChange={(e) => setBookablePax(e.target.value)}
-                    placeholder='1'
-                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-                  />
-                </div>
+              <div className='mb-6'>
+                <label className='block text-sm font-semibold text-gray-700 mb-2'>
+                  Bookable Pax (Min Booking Size)
+                </label>
+                <input
+                  type='number'
+                  value={bookablePax}
+                  onChange={(e) => setBookablePax(e.target.value)}
+                  placeholder='1'
+                  className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                />
               </div>
 
-              <div className='mt-4'>
-                <label className='block text-sm font-semibold text-gray-700 mb-2'>
-                  Available Dates
-                </label>
-                <div className='space-y-3'>
-                  {dates.map((date, index) => (
-                    <div key={index} className='flex gap-2'>
-                      <input
-                        type='date'
-                        value={date}
-                        onChange={(e) =>
-                          updateArray(dates, setDates, index, e.target.value)
-                        }
-                        className='flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      />
-                      {dates.length > 1 && (
+              <div className='space-y-6'>
+                {bookingSlots.map((slot, slotIndex) => (
+                  <div
+                    key={slotIndex}
+                    className=' border-gray-300 rounded-lg p-6 bg-blue-50'
+                  >
+                    <div className='flex justify-between items-center mb-4'>
+                      <h3 className='font-semibold text-lg text-gray-800'>
+                        Booking Slot {slotIndex + 1}
+                      </h3>
+                      {bookingSlots.length > 1 && (
                         <button
                           type='button'
-                          onClick={() =>
-                            removeFromArray(dates, setDates, index)
-                          }
-                          className='px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600'
+                          onClick={() => removeBookingSlot(slotIndex)}
+                          className='px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex items-center gap-2'
                         >
-                          <FaTimes />
+                          <FaTimes /> Remove Slot
                         </button>
                       )}
                     </div>
-                  ))}
-                  <button
-                    type='button'
-                    onClick={() => addToArray(dates, setDates)}
-                    className='flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'
-                  >
-                    <FaPlus /> Add Date
-                  </button>
-                </div>
+
+                    <div className='grid md:grid-cols-2 gap-4 mb-4'>
+                      <div>
+                        <label className='block text-sm font-semibold text-gray-700 mb-2'>
+                          Bookable Places
+                        </label>
+                        {/* ============================= */}
+                        {/* ----  MONTH SELECTOR */}
+                        {/* ============================= */}
+                        {MonthSelectBox()}
+
+                        <input
+                          type='number'
+                          value={slot.bookablePlaces}
+                          onChange={(e) =>
+                            updateBookablePlaces(
+                              slotIndex,
+                              parseInt(e.target.value) || 0
+                            )
+                          }
+                          placeholder='30'
+                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                        />
+                      </div>
+
+                      <div className='flex items-center'>
+                        <div className='flex items-center gap-3'>
+                          <input
+                            type='checkbox'
+                            id={`show-${slotIndex}`}
+                            checked={slot.show}
+                            onChange={() => toggleSlotShow(slotIndex)}
+                            className='w-5 h-5'
+                          />
+                          <label
+                            htmlFor={`show-${slotIndex}`}
+                            className='text-sm font-semibold text-gray-700'
+                          >
+                            Show This Slot
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className='block text-sm font-semibold text-gray-700 mb-2'>
+                        Available Dates
+                      </label>
+                      <div className='space-y-3'>
+                        {slot.dates.map((date, dateIndex) => (
+                          <div key={dateIndex} className='flex gap-2'>
+                            <input
+                              type='date'
+                              value={date}
+                              onChange={(e) =>
+                                updateDateInSlot(
+                                  slotIndex,
+                                  dateIndex,
+                                  e.target.value
+                                )
+                              }
+                              className='flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white'
+                            />
+                            {slot.dates.length > 1 && (
+                              <button
+                                type='button'
+                                onClick={() =>
+                                  removeDateFromSlot(slotIndex, dateIndex)
+                                }
+                                className='px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600'
+                              >
+                                <FaTimes />
+                              </button>
+                            )}
+                          </div>
+                        ))}
+                        <button
+                          type='button'
+                          onClick={() => addDateToSlot(slotIndex)}
+                          className='flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600'
+                        >
+                          <FaPlus /> Add Date
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                <button
+                  type='button'
+                  onClick={addBookingSlot}
+                  className='flex items-center gap-2 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold'
+                >
+                  <FaPlus /> Add Booking Slot
+                </button>
               </div>
             </section>
 

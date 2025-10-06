@@ -4,4 +4,5 @@ npx supabase db reset
 
 npx supabase db push
 
+
 npx supabase migration list

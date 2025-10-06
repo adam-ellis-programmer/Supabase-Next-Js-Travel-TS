@@ -9,6 +9,7 @@ export const links = [
   { link: '/tours', text: 'tours' },
   { link: '/admin', text: 'admin' },
   { link: '/admin/add-tour', text: 'add tour' },
+  { link: '/admin/add-landing', text: 'add landing (page)' },
   { link: '/admin/view-tours', text: 'View Tours (admin)' },
   { link: '/auth/account', text: 'users account' },
   { link: '/auth/sign-up', text: 'sign up' },
