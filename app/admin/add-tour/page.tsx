@@ -60,13 +60,18 @@ const AdminAddTour = () => {
   const [paymentCancellation, setPaymentCancellation] = useState('')
   const [goodToKnow, setGoodToKnow] = useState([''])
 
-  // NEW: Booking Slots Structure
+  // ===========================
+  // Booking Slots Structure
+  // ===========================
   const [bookingSlots, setBookingSlots] = useState([
     { dates: [''], bookablePlaces: 30, show: true, month: '', year: '' },
   ])
   const [bookablePax, setBookablePax] = useState('')
 
   // Booking Slot Functions
+  // ===========================
+  // add a new booking slot
+  // ===========================
   const addBookingSlot = () => {
     setBookingSlots([
       ...bookingSlots,
@@ -77,6 +82,8 @@ const AdminAddTour = () => {
   const updateSlotMonth = (slotIndex: number, value: string) => {
     const updated = [...bookingSlots]
     updated[slotIndex].month = value
+    console.log(updated[slotIndex])
+
     setBookingSlots(updated)
   }
 
@@ -104,14 +111,22 @@ const AdminAddTour = () => {
     setBookingSlots(updated)
   }
 
+  // ===========================
+  // actually updates the date
+  // ===========================
   const updateDateInSlot = (
     slotIndex: number,
     dateIndex: number,
     value: string
   ) => {
+    // take all the bookig slots make new array
     const updated = [...bookingSlots]
+    // *** two levels of indexing ***
+    //  get specific object plucked by the index
     updated[slotIndex].dates[dateIndex] = value
+    // reset bookings slot array with new data
     setBookingSlots(updated)
+    console.log('UPDATED DATE.... WITH INDEX ', slotIndex)
   }
 
   const updateBookablePlaces = (slotIndex: number, value: number) => {
@@ -140,6 +155,10 @@ const AdminAddTour = () => {
   }
 
   // Itinerary Functions
+
+  // ==============================
+  // Add new itinerary object
+  // ==============================
   const addItineraryDay = () => {
     setItineraryDays([
       ...itineraryDays,
@@ -150,12 +169,24 @@ const AdminAddTour = () => {
   const removeItineraryDay = (index: number) => {
     setItineraryDays(itineraryDays.filter((_, i) => i !== index))
   }
-
+  // ==============================
+  // update itineary object
+  // ==============================
   const updateItineraryDay = (index: number, field: string, value: string) => {
     const updated = [...itineraryDays]
+    //
     updated[index] = { ...updated[index], [field]: value }
     setItineraryDays(updated)
   }
+
+  /** ^^^^^^^^^^^^^^
+   // Step by step:
+
+          updated[0] = {
+            ...updated[0],           // Copy all existing properties
+            [field]: value           // Override the specific field
+          }
+   */
 
   // Generic Array Functions
   const addToArray = (arr: string[], setArr: Function) => setArr([...arr, ''])
@@ -214,6 +245,7 @@ const AdminAddTour = () => {
     }
     console.log('Tour Data:', tourData)
   }
+  // console.log(bookingSlots)
 
   return (
     <div className='min-h-[calc(100vh-100px)] bg-gray-50 py-8'>
@@ -858,6 +890,10 @@ const AdminAddTour = () => {
                   className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                 />
               </div>
+
+              {/* ======================================================================================================== */}
+              {/* --- BOOKING SLOT */}
+              {/* ======================================================================================================== */}
 
               <div className='space-y-6'>
                 {bookingSlots.map((slot, slotIndex) => (

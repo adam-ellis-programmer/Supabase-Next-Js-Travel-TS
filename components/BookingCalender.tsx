@@ -33,9 +33,12 @@ const BookingCalender = () => {
   // Your disabledDates function is called once per date by DayPicker:
   // Disable all dates EXCEPT those in availableDates
   const disabledDates = (date: Date) => {
-    // prettier-ignore
-    console.log(typeof date);
+    // console.log(date)
 
+    // prettier-ignore
+    // console.log(typeof date);
+
+    // tries each date object and returns true / false ?
     return !availableDates.some(
       (availableDate) =>
         date.getFullYear() === availableDate.getFullYear() &&
