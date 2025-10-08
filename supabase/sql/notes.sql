@@ -6,3 +6,7 @@ npx supabase db push
 
 
 npx supabase migration list
+
+npx supabase db push
+
+npx supabase migration new create_profiles_table

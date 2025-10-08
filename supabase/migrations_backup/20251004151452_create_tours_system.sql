@@ -6,6 +6,10 @@
 -- ============================================
 -- TOURS TABLE
 -- ============================================
+
+
+-- make a sql funciton to handle add BOOKING SLOTS 
+-- 
 CREATE TABLE IF NOT EXISTS tours (
   id BIGSERIAL PRIMARY KEY,
   tour_name TEXT NOT NULL,
