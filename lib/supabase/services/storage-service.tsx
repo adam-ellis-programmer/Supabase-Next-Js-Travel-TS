@@ -1,7 +1,7 @@
 // lib/supabase/services/storage-service.ts
 import { createClient } from '@/lib/supabase/server'
 
-export class a {
+export class StorageService {
   //===================
   //--SINGLE UPLOAD
   //===================

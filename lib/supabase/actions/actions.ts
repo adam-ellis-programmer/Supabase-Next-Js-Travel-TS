@@ -6,6 +6,7 @@ import { AuthService } from '@/lib/supabase/services/database-service'
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import type { TourFormData } from '@/types/tours'
+import { StorageService } from '../services/storage-service'
 
 // ============================================
 // UPDATE USER PROFILE ACTION
@@ -48,7 +49,10 @@ export async function updateUserProfileAction(updates: {
 // ============================================
 // CREATE TOUR ACTION
 // ============================================
-export async function createTourAction(tourData: TourFormData, images: File[]) {
+export async function createTourAction(
+  tourData: TourFormData,
+  imageFiles?: File[] // ✅ Optional images parameter
+) {
   try {
     // ✅ 1. Authenticate
     const supabase = await createClient()
@@ -108,17 +112,70 @@ export async function createTourAction(tourData: TourFormData, images: File[]) {
       }
     }
 
-    // ✅ 5. Call TourService (not DatabaseService)
+    // ✅ 5. Create tour FIRST (we need the tourId for images)
     const result = await TourService.insertTour(tourData)
 
-    // ✅ 6. Revalidate paths on success
-    if (result.success) {
-      revalidatePath('/admin/view-tours')
-      revalidatePath('/tours')
-      revalidatePath(`/tours/${tourData.slug}`)
+    if (!result.success) {
+      return result
     }
 
-    return result
+    const tourId = result.tourId // ✅ Get the tour ID
+
+    // ✅ 6. Upload images if provided
+    if (imageFiles && imageFiles.length > 0) {
+      const fileNames = imageFiles.map((file) => file.name)
+
+      // ✅ HERE: Call uploadMultipleTourImages
+      const uploadResult = await StorageService.uploadMultipleTourImages(
+        tourId,
+        imageFiles,
+        fileNames
+      )
+
+      if (!uploadResult.success) {
+        return {
+          success: false,
+          error: `Tour created but image upload failed: ${uploadResult.error}`,
+        }
+      }
+
+      // ✅ 7. Save image URLs to database
+      const imageInserts = uploadResult.images.map((img, index) => ({
+        tour_id: tourId,
+        image_url: img.url,
+        storage_path: img.path,
+        image_alt: tourData.tourName, // Use tour name as alt text
+        display_order: index,
+        is_primary: index === 0, // First image is primary
+      }))
+
+      const { error: imageError } = await supabase
+        .from('tour_images')
+        .insert(imageInserts)
+
+      if (imageError) {
+        console.error('Failed to save image URLs:', imageError)
+        return {
+          success: false,
+          error:
+            'Tour and images uploaded but failed to save image data to database',
+        }
+      }
+    }
+
+    // ✅ 8. Revalidate paths on success
+    revalidatePath('/admin/view-tours')
+    revalidatePath('/tours')
+    revalidatePath(`/tours/${tourData.slug}`)
+
+    // ✅ 9. Return success with message
+    return {
+      success: true,
+      tourId,
+      message: `Tour created successfully${
+        imageFiles?.length ? ` with ${imageFiles.length} images` : ''
+      }!`,
+    }
   } catch (error) {
     console.error('Create tour action error:', error)
     return {
