@@ -1,7 +1,7 @@
 import React from 'react'
 import BookedTourCard from '@/components/cards/BookedTourCard'
 import { createClient } from '@/lib/supabase/server'
-import { DatabaseService } from '@/lib/supabase/database-service'
+import { DatabaseService } from '@/lib/supabase/services/database-service'
 import { redirect } from 'next/navigation'
 import { Profile } from '@/types/database'
 import UserDetailsCard from '@/components/auth/user/UserDetailsCard'

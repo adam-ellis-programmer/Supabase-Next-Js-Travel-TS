@@ -2,7 +2,15 @@
 
 import { createClient } from '@/lib/supabase/server'
 
+import type { TourFormData, TourInsert, ItineraryInsert } from '@/types/tours'
+
+//================================================================
+//-- DATABASE SERVICE
+//================================================================
 export class DatabaseService {
+  //==============
+  // GET DOC
+  //==============
   static async getByid<T>(dbName: string, id: string): Promise<T | null> {
     const supabase = await createClient()
 
@@ -20,12 +28,39 @@ export class DatabaseService {
     return data as T
   }
 
+  //==============
+  // UPDATE DOC
+  //==============
   static async updateById(table: string, docId: string) {
     //
   }
+  //==============
+  // INSERT DOC
+  //==============
+  // prettier-ignore
+  static async insertDoc<T>(table: string, data: object): Promise<{ success: true; data: T } | { success: false; error: string }> {
+  const supabase = await createClient()
+  
+  const { data: insertedData, error } = await supabase
+    .from(table)
+    .insert(data)
+    .select()
+    .single()
+
+  if (error) {
+    console.error('Database error:', error)
+    return { success: false, error: error.message }
+  }
+
+  return { success: true, data: insertedData as T }
+}
 }
 
 // for updating auth features
+
+//================================================================
+//-- AUTH SERVICE
+//================================================================
 
 export class AuthService {
   // ====================================

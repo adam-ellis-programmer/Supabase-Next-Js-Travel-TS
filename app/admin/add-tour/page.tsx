@@ -1,9 +1,14 @@
 'use client'
+import UploadTourImages from '@/components/image uploads/UploadTourImages'
+import { createTourAction } from '@/lib/supabase/actions/actions'
+import { DatabaseService } from '@/lib/supabase/services/database-service'
+import { TourFormData } from '@/types/tours'
 import React, { useState } from 'react'
 import { FaSave, FaPlus, FaTimes, FaImage } from 'react-icons/fa'
 
 const AdminAddTour = () => {
   // Basic Information
+  const [tourImages, setTourImages] = useState<File[]>([])
   const [tourName, setTourName] = useState('')
   const [country, setCountry] = useState('')
   const [slug, setSlug] = useState('')
@@ -59,6 +64,9 @@ const AdminAddTour = () => {
   const [dietaryOptions, setDietaryOptions] = useState('')
   const [paymentCancellation, setPaymentCancellation] = useState('')
   const [goodToKnow, setGoodToKnow] = useState([''])
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   // ===========================
   // Booking Slots Structure
@@ -206,9 +214,13 @@ const AdminAddTour = () => {
     setArr(updated)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const tourData = {
+    setIsSubmitting(true)
+    setError(null)
+
+    // Build the tour data object matching TourFormData type
+    const tourData: TourFormData = {
       tourName,
       slug,
       country,
@@ -226,7 +238,13 @@ const AdminAddTour = () => {
       ageGroup,
       pickupPoint,
       dropoffPoint,
-      itinerary: itineraryDays.filter((day) => day.dayTitle.trim() !== ''),
+      itinerary: itineraryDays
+        .filter((day) => day.dayTitle.trim() !== '')
+        .map((day, index) => ({
+          dayNumber: index + 1, // Renumber days
+          dayTitle: day.dayTitle,
+          dayDescription: day.dayDescription,
+        })),
       whatsIncluded: whatsIncluded.filter((item) => item.trim() !== ''),
       notIncluded: notIncluded.filter((item) => item.trim() !== ''),
       whatToBring: whatToBring.filter((item) => item.trim() !== ''),
@@ -243,7 +261,26 @@ const AdminAddTour = () => {
       })),
       bookablePax: parseInt(bookablePax),
     }
-    console.log('Tour Data:', tourData)
+
+    try {
+      // ✅ Call the Server Action
+      const result = await createTourAction(tourData)
+
+      if (result.success) {
+        alert('Tour created successfully!')
+        // Optionally redirect or reset form
+        // router.push('/admin/view-tours')
+      } else {
+        setError(result.error)
+        alert(`Error: ${result.error}`)
+      }
+    } catch (err) {
+      console.error('Submission error:', err)
+      setError('Failed to create tour')
+      alert('Failed to create tour')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
   // console.log(bookingSlots)
 
@@ -1097,30 +1134,34 @@ const AdminAddTour = () => {
             </section>
 
             {/* Images Section */}
-            <section>
-              <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
-                Tour Images
-              </h2>
-              <div className='border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-500 transition-colors cursor-pointer'>
-                <FaImage className='text-6xl text-gray-400 mx-auto mb-4' />
-                <p className='text-gray-600 mb-2'>
-                  Click to upload or drag and drop
-                </p>
-                <p className='text-sm text-gray-500'>PNG, JPG up to 10MB</p>
-              </div>
-            </section>
+            <UploadTourImages
+              images={tourImages}
+              onImagesChange={setTourImages}
+            />
 
             {/* Action Buttons */}
             <div className='flex gap-4 pt-6 border-t'>
               <button
                 type='submit'
+                disabled={isSubmitting}
                 className='flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg'
               >
                 <FaSave /> Save Tour
               </button>
               <button
                 type='button'
-                className='px-8 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition-colors'
+                disabled={isSubmitting}
+                onClick={() => {
+                  if (
+                    confirm(
+                      'Are you sure you want to cancel? All changes will be lost.'
+                    )
+                  ) {
+                    // Reset form or navigate away
+                    setTourImages([])
+                  }
+                }}
+                className='px-8 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
               >
                 Cancel
               </button>
@@ -1133,7 +1174,3 @@ const AdminAddTour = () => {
 }
 
 export default AdminAddTour
-
-
-
-

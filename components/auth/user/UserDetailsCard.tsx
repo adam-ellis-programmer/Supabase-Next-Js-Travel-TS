@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { Profile } from '@/types/database'
-import { updateUserProfileAction } from '@/lib/supabase/actions'
+import { updateUserProfileAction } from '@/lib/supabase/actions/actions'
 import { User } from '@supabase/supabase-js'
 
 const UserDetailsCard = ({
