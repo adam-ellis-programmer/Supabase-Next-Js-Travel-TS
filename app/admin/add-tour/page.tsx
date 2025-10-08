@@ -216,6 +216,9 @@ const AdminAddTour = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    // console.log(tourImages)
+    // return
+
     setIsSubmitting(true)
     setError(null)
 
@@ -264,7 +267,7 @@ const AdminAddTour = () => {
 
     try {
       // ✅ Call the Server Action
-      const result = await createTourAction(tourData)
+      const result = await createTourAction(tourData, tourImages)
 
       if (result.success) {
         alert('Tour created successfully!')

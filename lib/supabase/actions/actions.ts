@@ -48,7 +48,7 @@ export async function updateUserProfileAction(updates: {
 // ============================================
 // CREATE TOUR ACTION
 // ============================================
-export async function createTourAction(tourData: TourFormData) {
+export async function createTourAction(tourData: TourFormData, images: File[]) {
   try {
     // ✅ 1. Authenticate
     const supabase = await createClient()
