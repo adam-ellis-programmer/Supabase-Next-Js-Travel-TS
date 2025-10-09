@@ -53,8 +53,12 @@ export interface TourImage {
   created_at: string
 }
 
+export interface dates {
+  // ...
+}
+
 export interface BookingSlot {
-  dates: string[]
+  dates: object[]
   bookablePlaces: number
   show: boolean
   month: string

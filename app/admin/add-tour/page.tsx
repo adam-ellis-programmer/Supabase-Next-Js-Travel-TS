@@ -71,8 +71,18 @@ const AdminAddTour = () => {
   // ===========================
   // Booking Slots Structure
   // ===========================
+  // array of objects
   const [bookingSlots, setBookingSlots] = useState([
-    { dates: [''], bookablePlaces: 30, show: true, month: '', year: '' },
+    {
+      dates: [
+        { date: '', places: 0 },
+        { date: '', places: 0 },
+      ],
+      bookablePlaces: 30,
+      show: true,
+      month: '',
+      year: '',
+    },
   ])
   const [bookablePax, setBookablePax] = useState('')
 
@@ -83,7 +93,16 @@ const AdminAddTour = () => {
   const addBookingSlot = () => {
     setBookingSlots([
       ...bookingSlots,
-      { dates: [''], bookablePlaces: 30, show: true, month: '', year: '' },
+      {
+        dates: [
+          { date: '', places: 0 },
+          { date: '', places: 0 },
+        ],
+        bookablePlaces: 30,
+        show: true,
+        month: '',
+        year: '',
+      },
     ])
   }
 
@@ -107,7 +126,7 @@ const AdminAddTour = () => {
 
   const addDateToSlot = (slotIndex: number) => {
     const updated = [...bookingSlots]
-    updated[slotIndex].dates.push('')
+    updated[slotIndex].dates.push({ date: '', places: 0 })
     setBookingSlots(updated)
   }
 
@@ -125,16 +144,28 @@ const AdminAddTour = () => {
   const updateDateInSlot = (
     slotIndex: number,
     dateIndex: number,
-    value: string
+    dateValue: string
   ) => {
     // take all the bookig slots make new array
     const updated = [...bookingSlots]
+    // console.log(updated[slotIndex].dates[dateIndex])
     // *** two levels of indexing ***
     //  get specific object plucked by the index
-    updated[slotIndex].dates[dateIndex] = value
+    updated[slotIndex].dates[dateIndex].date = dateValue
     // reset bookings slot array with new data
     setBookingSlots(updated)
     console.log('UPDATED DATE.... WITH INDEX ', slotIndex)
+  }
+
+  const handlePlacesInSlot = (
+    value: number,
+    slotIndex: number,
+    dateIndex: number
+  ) => {
+    const updated = [...bookingSlots]
+    updated[slotIndex].dates[dateIndex].places = value
+    console.log(updated[slotIndex].dates[dateIndex].places)
+    setBookingSlots(updated)
   }
 
   const updateBookablePlaces = (slotIndex: number, value: number) => {
@@ -255,30 +286,23 @@ const AdminAddTour = () => {
       dietaryOptions,
       paymentCancellation,
       goodToKnow: goodToKnow.filter((item) => item.trim() !== ''),
-      // booking slots
-      // bookingSlots: bookingSlots.map((slot) => ({
-      //   dates: slot.dates.filter((date) => date.trim() !== ''),
-      //   bookablePlaces: slot.bookablePlaces,
-      //   show: slot.show,
-      //   month: slot.month,
-      //   year: slot.year,
-      // })),
-
       bookablePax: parseInt(bookablePax),
     }
     // console.log(tourData)
     // return
 
-    const bookingSlotsDta = bookingSlots.map((slot) => ({
-      dates: slot.dates.filter((date) => date.trim() !== ''),
+    const availableDates = bookingSlots.map((slot) => ({
+      // dates: slot.dates.filter((date) => date.trim() !== ''),
+      dates: slot.dates,
+      places: 0,
       bookablePlaces: slot.bookablePlaces,
       show: slot.show,
       month: slot.month,
       year: slot.year,
     }))
 
-    console.log(bookingSlotsDta)
-    return
+    // console.log(availableDates)
+    // return 
 
     try {
       // ✅ Call the Server Action
@@ -1048,35 +1072,8 @@ const AdminAddTour = () => {
                         </div>
 
                         <div className='flex items-center mb-4'>
-                          <div className='flex items-center gap-3'>
-                            <input
-                              type='checkbox'
-                              id={`show-${slotIndex}`}
-                              checked={slot.show}
-                              onChange={() => toggleSlotShow(slotIndex)}
-                              className='w-5 h-5'
-                            />
-                            <label
-                              htmlFor={`show-${slotIndex}`}
-                              className='text-sm font-semibold text-gray-700'
-                            >
-                              Show This Slot
-                            </label>
-                          </div>
+                          <div className='flex items-center gap-3'></div>
                         </div>
-
-                        <input
-                          type='number'
-                          value={slot.bookablePlaces}
-                          onChange={(e) =>
-                            updateBookablePlaces(
-                              slotIndex,
-                              parseInt(e.target.value) || 0
-                            )
-                          }
-                          placeholder='30'
-                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-                        />
                       </div>
 
                       <div className='flex items-center'>
@@ -1098,6 +1095,10 @@ const AdminAddTour = () => {
                       </div>
                     </div>
 
+                    {/* ================================================== */}
+                    {/* --DATES */}
+                    {/* ================================================== */}
+
                     <div>
                       <label className='block text-sm font-semibold text-gray-700 mb-2'>
                         Available Dates
@@ -1106,8 +1107,23 @@ const AdminAddTour = () => {
                         {slot.dates.map((date, dateIndex) => (
                           <div key={dateIndex} className='flex gap-2'>
                             <input
+                              type='number'
+                              name=''
+                              id=''
+                              value={date.places}
+                              className='w-1/2 p-3 border border-gray-300 rounded'
+                              placeholder='Places'
+                              onChange={(e) =>
+                                handlePlacesInSlot(
+                                  parseInt(e.target.value),
+                                  slotIndex,
+                                  dateIndex
+                                )
+                              }
+                            />
+                            <input
                               type='date'
-                              value={date}
+                              value={date.date}
                               onChange={(e) =>
                                 updateDateInSlot(
                                   slotIndex,
@@ -1117,6 +1133,7 @@ const AdminAddTour = () => {
                               }
                               className='flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white'
                             />
+
                             {slot.dates.length > 1 && (
                               <button
                                 type='button'

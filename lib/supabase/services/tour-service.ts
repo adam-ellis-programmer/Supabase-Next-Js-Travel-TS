@@ -147,7 +147,6 @@ export class TourService {
         dietary_options: tourData.dietaryOptions,
         payment_cancellation: tourData.paymentCancellation,
         good_to_know: tourData.goodToKnow,
-        // booking_slots: tourData.bookingSlots,
         bookable_pax: tourData.bookablePax,
       }
 
@@ -195,6 +194,10 @@ export class TourService {
         error: error instanceof Error ? error.message : 'Unknown error',
       }
     }
+  }
+
+  static insertDates(tourId: string) {
+    //....
   }
 
   //==============
