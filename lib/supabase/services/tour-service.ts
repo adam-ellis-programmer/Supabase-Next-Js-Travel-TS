@@ -26,9 +26,9 @@ interface BookingSlotDateInsert {
 }
 
 export class TourService {
-  //==============
+  //===================
   // GET TOUR BY ID
-  //==============
+  //===================
   static async getTourById(
     tourId: number
   ): Promise<

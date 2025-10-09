@@ -30,5 +30,3 @@ export const mockBookedTours = Array.from({ length: 4 }, (_, i) => ({
       'https://ldnjbkiqxrljdlauxbqe.supabase.co/storage/v1/object/public/site/Hero4.jpg',
   },
 }))
-
-
