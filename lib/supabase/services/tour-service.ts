@@ -147,7 +147,7 @@ export class TourService {
         dietary_options: tourData.dietaryOptions,
         payment_cancellation: tourData.paymentCancellation,
         good_to_know: tourData.goodToKnow,
-        booking_slots: tourData.bookingSlots,
+        // booking_slots: tourData.bookingSlots,
         bookable_pax: tourData.bookablePax,
       }
 

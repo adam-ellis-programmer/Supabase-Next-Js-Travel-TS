@@ -255,15 +255,30 @@ const AdminAddTour = () => {
       dietaryOptions,
       paymentCancellation,
       goodToKnow: goodToKnow.filter((item) => item.trim() !== ''),
-      bookingSlots: bookingSlots.map((slot) => ({
-        dates: slot.dates.filter((date) => date.trim() !== ''),
-        bookablePlaces: slot.bookablePlaces,
-        show: slot.show,
-        month: slot.month,
-        year: slot.year,
-      })),
+      // booking slots
+      // bookingSlots: bookingSlots.map((slot) => ({
+      //   dates: slot.dates.filter((date) => date.trim() !== ''),
+      //   bookablePlaces: slot.bookablePlaces,
+      //   show: slot.show,
+      //   month: slot.month,
+      //   year: slot.year,
+      // })),
+
       bookablePax: parseInt(bookablePax),
     }
+    // console.log(tourData)
+    // return
+
+    const bookingSlotsDta = bookingSlots.map((slot) => ({
+      dates: slot.dates.filter((date) => date.trim() !== ''),
+      bookablePlaces: slot.bookablePlaces,
+      show: slot.show,
+      month: slot.month,
+      year: slot.year,
+    }))
+
+    console.log(bookingSlotsDta)
+    return
 
     try {
       // ✅ Call the Server Action
@@ -274,6 +289,7 @@ const AdminAddTour = () => {
         // Optionally redirect or reset form
         // router.push('/admin/view-tours')
       } else {
+        // can use the ?? ''
         setError(result.error)
         alert(`Error: ${result.error}`)
       }

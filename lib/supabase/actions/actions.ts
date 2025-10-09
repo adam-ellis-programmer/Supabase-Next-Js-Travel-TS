@@ -49,10 +49,15 @@ export async function updateUserProfileAction(updates: {
 // ============================================
 // CREATE TOUR ACTION
 // ============================================
+
+type ActionResult =
+  | { success: true; tourId: number; message: string }
+  | { success: false; error: string }
+
 export async function createTourAction(
   tourData: TourFormData,
   imageFiles?: File[] // ✅ Optional images parameter
-) {
+): Promise<ActionResult> {
   try {
     // ✅ 1. Authenticate
     const supabase = await createClient()
@@ -218,6 +223,7 @@ export async function updateTourAction(
 
     // Convert camelCase to snake_case for update
     const updates: any = {}
+    
     if (tourData.tourName) updates.tour_name = tourData.tourName
     if (tourData.country) updates.country = tourData.country
     if (tourData.price) updates.price = tourData.price

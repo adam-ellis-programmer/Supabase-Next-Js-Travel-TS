@@ -88,7 +88,7 @@ export interface TourFormData {
   dietaryOptions: string
   paymentCancellation: string
   goodToKnow: string[]
-  bookingSlots: BookingSlot[]
+  // bookingSlots: BookingSlot[]
   bookablePax: number
 }
 
@@ -99,7 +99,10 @@ export interface ItineraryDay {
 }
 
 // Insert types (what you send to the database)
-export type TourInsert = Omit<Tour, 'id' | 'created_at' | 'updated_at'>
+export type TourInsert = Omit<
+  Tour,
+  'id' | 'created_at' | 'updated_at' | 'booking_slots'
+>
 export type ItineraryInsert = Omit<
   Itinerary,
   'id' | 'created_at' | 'updated_at'

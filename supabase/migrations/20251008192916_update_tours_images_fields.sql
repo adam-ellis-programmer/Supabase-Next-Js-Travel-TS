@@ -6,3 +6,4 @@ ADD COLUMN storage_path TEXT;
 
 -- Optional: Add a comment explaining the column
 COMMENT ON COLUMN tour_images.storage_path IS 'Storage path for managing/deleting files in Supabase Storage (e.g., tours/5/123-image.jpg)';
+
