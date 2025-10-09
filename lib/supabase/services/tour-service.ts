@@ -9,6 +9,22 @@ import type {
   TourWithRelations,
 } from '@/types/tours'
 
+interface BookingSlotInsert {
+  tour_id: number
+  month: string
+  year: string
+  bookable_places: number
+  show: boolean
+  display_order: number
+}
+
+interface BookingSlotDateInsert {
+  booking_slot_id: number
+  date: string
+  places: number
+  show: boolean
+}
+
 export class TourService {
   //==============
   // GET TOUR BY ID
@@ -196,10 +212,83 @@ export class TourService {
     }
   }
 
-  static insertDates(tourId: string) {
-    //....
-  }
+  // =========================================
+  // BOOKING SLOTS
+  // =========================================
+  static async insertBookingSlots(
+    tourId: number,
+    bookingSlots: Array<{
+      bookablePlaces: number
+      show: boolean
+      month: string
+      year: string
+      dates: Array<{ date: string; places: number }>
+    }>
+  ): Promise<{ success: true } | { success: false; error: string }> {
+    const supabase = await createClient()
 
+    try {
+      // Insert each booking slot and its dates
+      for (let i = 0; i < bookingSlots.length; i++) {
+        const slot = bookingSlots[i]
+
+        // 1. Insert booking slot
+        const slotInsert: BookingSlotInsert = {
+          tour_id: tourId,
+          month: slot.month,
+          year: slot.year,
+          bookable_places: slot.bookablePlaces,
+          show: slot.show,
+          display_order: i,
+        }
+
+        const { data: insertedSlot, error: slotError } = await supabase
+          .from('booking_slots')
+          .insert(slotInsert)
+          .select()
+          .single()
+
+        if (slotError) {
+          console.error('Booking slot insert error:', slotError)
+          return { success: false, error: slotError.message }
+        }
+
+        // 2. Insert booking_slot_dates for this slot (if any)
+        if (slot.dates && slot.dates.length > 0) {
+          const dateInserts: BookingSlotDateInsert[] = slot.dates
+            .filter((d) => d.date) // Only include dates that have a value
+            .map((d) => ({
+              booking_slot_id: insertedSlot.id,
+              date: d.date,
+              places: d.places || 0,
+              show: true, // Default to true, you can make this configurable
+            }))
+
+          if (dateInserts.length > 0) {
+            const { error: datesError } = await supabase
+              .from('booking_slot_dates')
+              .insert(dateInserts)
+
+            if (datesError) {
+              console.error('Booking slot dates insert error:', datesError)
+              return {
+                success: false,
+                error: `Booking slot created but dates failed: ${datesError.message}`,
+              }
+            }
+          }
+        }
+      }
+
+      return { success: true }
+    } catch (error) {
+      console.error('Insert booking slots error:', error)
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+      }
+    }
+  }
   //==============
   // UPDATE TOUR
   //==============

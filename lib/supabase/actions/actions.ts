@@ -49,14 +49,33 @@ export async function updateUserProfileAction(updates: {
 // ============================================
 // CREATE TOUR ACTION
 // ============================================
+interface BookingSlot {
+  bookablePlaces: number
+  show: boolean
+  month: string
+  year: string
+  dates: Array<{ date: string; places: number }>
+}
 
 type ActionResult =
   | { success: true; tourId: number; message: string }
   | { success: false; error: string }
 
+interface Dates {
+  bookablePlaces: number
+  show: boolean
+  month: string
+  year: string
+  dates: { date: string; places: number }[]
+}
+
+// ============================================
+// CREATE TOUR ACTION
+// ============================================
 export async function createTourAction(
+  availableDates: BookingSlot[],
   tourData: TourFormData,
-  imageFiles?: File[] // ✅ Optional images parameter
+  imageFiles?: File[]
 ): Promise<ActionResult> {
   try {
     // ✅ 1. Authenticate
@@ -73,12 +92,12 @@ export async function createTourAction(
       }
     }
 
-    // ✅ 2. Authorize (check admin role)
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .single()
+    // ✅ 2. Authorize (check admin role) - commented out for now
+    // const { data: profile } = await supabase
+    //   .from('profiles')
+    //   .select('role')
+    //   .eq('id', user.id)
+    //   .single()
 
     // if (profile?.role !== 'admin') {
     //   return {
@@ -117,20 +136,32 @@ export async function createTourAction(
       }
     }
 
-    // ✅ 5. Create tour FIRST (we need the tourId for images)
+    // ✅ 5. Create tour FIRST (we need the tourId)
     const result = await TourService.insertTour(tourData)
 
     if (!result.success) {
       return result
     }
 
-    const tourId = result.tourId // ✅ Get the tour ID
+    const tourId = result.tourId
 
-    // ✅ 6. Upload images if provided
+    // ✅ 6. Insert booking slots with dates
+    const bookingSlotsResult = await TourService.insertBookingSlots(
+      tourId,
+      availableDates
+    )
+
+    if (!bookingSlotsResult.success) {
+      return {
+        success: false,
+        error: `Tour created but booking slots failed: ${bookingSlotsResult.error}`,
+      }
+    }
+
+    // ✅ 7. Upload images if provided
     if (imageFiles && imageFiles.length > 0) {
       const fileNames = imageFiles.map((file) => file.name)
 
-      // ✅ HERE: Call uploadMultipleTourImages
       const uploadResult = await StorageService.uploadMultipleTourImages(
         tourId,
         imageFiles,
@@ -144,14 +175,14 @@ export async function createTourAction(
         }
       }
 
-      // ✅ 7. Save image URLs to database
+      // ✅ 8. Save image URLs to database
       const imageInserts = uploadResult.images.map((img, index) => ({
         tour_id: tourId,
         image_url: img.url,
         storage_path: img.path,
-        image_alt: tourData.tourName, // Use tour name as alt text
+        image_alt: tourData.tourName,
         display_order: index,
-        is_primary: index === 0, // First image is primary
+        is_primary: index === 0,
       }))
 
       const { error: imageError } = await supabase
@@ -168,17 +199,19 @@ export async function createTourAction(
       }
     }
 
-    // ✅ 8. Revalidate paths on success
+    // ✅ 9. Revalidate paths on success
     revalidatePath('/admin/view-tours')
     revalidatePath('/tours')
     revalidatePath(`/tours/${tourData.slug}`)
 
-    // ✅ 9. Return success with message
+    // ✅ 10. Return success with message
     return {
       success: true,
       tourId,
-      message: `Tour created successfully${
-        imageFiles?.length ? ` with ${imageFiles.length} images` : ''
+      message: `Tour created successfully with ${
+        availableDates.length
+      } booking slot(s)${
+        imageFiles?.length ? ` and ${imageFiles.length} images` : ''
       }!`,
     }
   } catch (error) {
@@ -223,7 +256,7 @@ export async function updateTourAction(
 
     // Convert camelCase to snake_case for update
     const updates: any = {}
-    
+
     if (tourData.tourName) updates.tour_name = tourData.tourName
     if (tourData.country) updates.country = tourData.country
     if (tourData.price) updates.price = tourData.price

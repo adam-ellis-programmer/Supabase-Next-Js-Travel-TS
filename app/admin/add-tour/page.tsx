@@ -302,11 +302,14 @@ const AdminAddTour = () => {
     }))
 
     // console.log(availableDates)
-    // return 
 
     try {
       // ✅ Call the Server Action
-      const result = await createTourAction(tourData, tourImages)
+      const result = await createTourAction(
+        availableDates,
+        tourData,
+        tourImages
+      )
 
       if (result.success) {
         alert('Tour created successfully!')
@@ -1099,10 +1102,15 @@ const AdminAddTour = () => {
                     {/* --DATES */}
                     {/* ================================================== */}
 
-                    <div>
-                      <label className='block text-sm font-semibold text-gray-700 mb-2'>
-                        Available Dates
-                      </label>
+                    <div className=''>
+                      <div className='grid grid-cols-2'>
+                        <label className='block text-sm font-semibold text-gray-700 mb-2'>
+                          Available Places
+                        </label>
+                        <label className='block text-sm font-semibold text-gray-700 mb-2'>
+                          Available Dates
+                        </label>
+                      </div>
                       <div className='space-y-3'>
                         {slot.dates.map((date, dateIndex) => (
                           <div key={dateIndex} className='flex gap-2'>
