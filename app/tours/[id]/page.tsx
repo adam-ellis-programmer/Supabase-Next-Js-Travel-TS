@@ -26,9 +26,9 @@ const TourPage = async ({ params }: TourPageProps) => {
 
   // Remove 'as any' - TypeScript now knows data is TourWithRelations
   const data = result.data
-  const { booking_slots, itineraries, tour_images } = data
+  const { booking_slots, itineraries, tour_images, price } = data
 
-  console.log(booking_slots)
+  console.log(price)
 
   return (
     <div className='min-h-[calc(100vh-120px)]'>
@@ -77,7 +77,7 @@ const TourPage = async ({ params }: TourPageProps) => {
         <div className=''>
           <TourHeader text={`Booking`} classes='text-2xl text-center' />
           <div className=''>
-            <BookingCalender bookingSlots={booking_slots} />
+            <BookingCalender booking_slots={booking_slots} />
           </div>
           <div className=''>
             <h2 className='text-center text-2xl my-10'>Tours you might like</h2>

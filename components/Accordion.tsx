@@ -8,8 +8,6 @@ import { Itinerary } from '@/types/tours'
 
 // Add 'item' to the props type
 const TourAccordion = ({ item, i }: { item: Itinerary; i: number }) => {
-  console.log(item)
-
   return (
     <Accordion type='single' collapsible className='mb-2'>
       <AccordionItem value={`item-${i}`}>

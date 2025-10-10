@@ -2,43 +2,40 @@
 import React, { useState } from 'react'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
+import { BookingSlotWithDates } from '@/types/tours'
 
 const people = Array.from({ length: 10 }, (_, i) => i)
 
-const bookingDatesFromDb = [
-  '6/10/2025',
-  '13/10/2025',
-  '20/10/2025',
-  '27/10/2025',
-  //-----------
-  '3/11/2025',
-  '10/11/2025',
-  '17/11/2025',
-  '24/11/2025',
-]
+interface BookingCalenderProps {
+  booking_slots: BookingSlotWithDates[]
+}
 
-const BookingCalender = () => {
+const BookingCalender = ({ booking_slots }: BookingCalenderProps) => {
   const [selected, setSelected] = useState<Date | undefined>()
+  const [selectedSlotInfo, setSelectedSlotInfo] = useState<{
+    places: number
+    price: number
+  } | null>(null)
 
-  // Convert string dates to Date objects
-  const availableDates = bookingDatesFromDb.map((dateStr) => {
-    const [day, month, year] = dateStr
-      .split('/')
-      .map((num) => parseInt(num.trim()))
-    return new Date(year, month - 1, day)
+  // Build a map of dates to their slot info for quick lookup
+  const dateInfoMap = new Map<string, { places: number; slotId: number }>()
+  const availableDates: Date[] = []
+
+  booking_slots?.forEach((slot) => {
+    slot.booking_slot_dates?.forEach((dateObj) => {
+      if (dateObj.show && dateObj.places > 0) {
+        const date = new Date(dateObj.date)
+        availableDates.push(date)
+        dateInfoMap.set(dateObj.date, {
+          places: dateObj.places,
+          slotId: slot.id,
+        })
+      }
+    })
   })
-
   // console.log(availableDates)
-  //
-  // Your disabledDates function is called once per date by DayPicker:
-  // Disable all dates EXCEPT those in availableDates
+
   const disabledDates = (date: Date) => {
-    // console.log(date)
-
-    // prettier-ignore
-    // console.log(typeof date);
-
-    // tries each date object and returns true / false ?
     return !availableDates.some(
       (availableDate) =>
         date.getFullYear() === availableDate.getFullYear() &&
@@ -47,22 +44,49 @@ const BookingCalender = () => {
     )
   }
 
-  console.log('Is Oct 5 disabled?', disabledDates(new Date(2025, 9, 5)))
+  const handleDateSelect = (date: Date | undefined) => {
+    console.log(date)
 
-  /**
-   * so the way some works is some loops around
-   * each item in the bookingDatesFromDb array
-   *
-   */
+    setSelected(date)
+    if (date) {
+      const dateStr = date.toISOString().split('T')[0]
+      const info = dateInfoMap.get(dateStr)
+
+      if (info) {
+        setSelectedSlotInfo({ places: info.places, price: 1355 })
+      }
+    }
+  }
+  // console.log(selectedSlotInfo)
 
   return (
     <div className=''>
-      <p className='text-center capitalize text-2xl mt-5'>you pay £1,355</p>
+      {/* Display available months */}
+      <div className='mb-4'>
+        <h3 className='font-semibold mb-2'>Available Months:</h3>
+        <div className='flex flex-wrap gap-2'>
+          {booking_slots?.map((slot) => (
+            <span
+              key={slot.id}
+              className='px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm'
+            >
+              {slot.month} {slot.year}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <p className='text-center capitalize text-2xl mt-5'>
+        {selectedSlotInfo
+          ? `You pay £${selectedSlotInfo.price} (${selectedSlotInfo.places} places available)`
+          : 'Select a date'}
+      </p>
+
       <div className='flex justify-center mt-5'>
         <DayPicker
           mode='single'
           selected={selected}
-          onSelect={setSelected}
+          onSelect={handleDateSelect}
           disabled={disabledDates}
           modifiers={{
             available: availableDates,
@@ -73,6 +97,7 @@ const BookingCalender = () => {
           }}
         />
       </div>
+
       <label htmlFor='pax' className='mt-5 block'>
         <p className='text-[1.4rem] mb-3'>select passengers</p>
         <select name='' id='pax' className='border w-full p-3'>
@@ -85,7 +110,10 @@ const BookingCalender = () => {
       </label>
 
       <div className='flex justify-center mt-5'>
-        <button className='bg-orange-500 text-white text-2xl p-3 rounded'>
+        <button
+          className='bg-orange-500 text-white text-2xl p-3 rounded disabled:bg-gray-400'
+          disabled={!selected}
+        >
           Book Now!
         </button>
       </div>
