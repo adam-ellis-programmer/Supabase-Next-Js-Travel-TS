@@ -7,68 +7,75 @@ import TourComments from '@/components/TourComments'
 import BookingCalender from '@/components/BookingCalender'
 import TourOverView from '@/components/TourOverView'
 import TourExtraInfo from '@/components/TourExtraInfo'
+import { TourService } from '@/lib/supabase/services/tour-service'
 
-const days = 12
-const tempArr = Array.from({ length: days }, (_, i) => {
-  return { item: i }
-})
+// Define the params type
+interface TourPageProps {
+  params: {
+    id: string
+  }
+}
 
-// SEED FIRST 
-// APPLY DISCOUNT AT CHECKOUT
+const TourPage = async ({ params }: TourPageProps) => {
+  const id = parseInt(params.id)
+  const result = await TourService.getTourById(id)
 
-// <div className='group cursor-pointer'>
-const TourPage = () => {
+  if (!result.success) {
+    throw new Error(result.error)
+  }
+
+  // Remove 'as any' - TypeScript now knows data is TourWithRelations
+  const data = result.data
+  const { booking_slots, itineraries, tour_images } = data
+
+  console.log(booking_slots)
+
   return (
-    <div className='min-h-[calc(100vh-120px)] '>
+    <div className='min-h-[calc(100vh-120px)]'>
       {/* hero */}
       <div className='h-[400px] relative mb-7'>
         <img
           className='h-full w-full object-cover object-center'
-          src='https://ldnjbkiqxrljdlauxbqe.supabase.co/storage/v1/object/public/site/Hero4.jpg'
-          alt=''
+          src={tour_images[0]?.image_url || '/fallback.jpg'}
+          alt={tour_images[0]?.image_alt || 'Tour image'}
         />
         <div className='absolute top-0 left-0 w-full h-full bg-black/40 flex items-center'>
           <div className='text-white p-8'>
-            <p className='text-4xl font-bold'>12 Day</p>
-            <p className='text-4xl font-bold'>Thai Adventure</p>
+            <p className='text-4xl font-bold'>{data.duration}</p>
+            <p className='text-4xl font-bold'>{data.tour_name}</p>
           </div>
         </div>
       </div>
 
-      <div className='md:grid grid-cols-3 md:w-[90%] mx-auto  gap-5'>
+      <div className='md:grid grid-cols-3 md:w-[90%] mx-auto gap-5'>
         <div className=''>
           <TourHeader text={`Tour Details`} classes='text-2xl text-center' />
-          <TourOverView />
+          <TourOverView data={data} />
           <div className='mt-4'>
-            {tempArr.map((item, i) => {
-              return <TourAccordion i={i} key={i} />
-            })}
+            {itineraries.map((itinerary, index) => (
+              <TourAccordion key={itinerary.id} item={itinerary} i={index} />
+            ))}
           </div>
-          <TourExtraInfo />
+          <TourExtraInfo data={data} />
         </div>
+
         <div className=''>
-          <TourHeader text={`Images`} classes='text-2xl text-center ' />
+          <TourHeader text={`Images`} classes='text-2xl text-center' />
           <div className='grid grid-cols-2 gap-4 mt-5'>
-            <TourImge />
-            <TourImge />
-            <TourImge />
-            <TourImge />
-            <TourImge />
-            <TourImge />
+            {tour_images.map((image) => (
+              <TourImge key={image.id} image={image} />
+            ))}
           </div>
-          {/* Comments Div */}
           <TourComments />
         </div>
+
         <div className=''>
-          <TourHeader text={`Booking`} classes='text-2xl text-center ' />
+          <TourHeader text={`Booking`} classes='text-2xl text-center' />
           <div className=''>
-            <BookingCalender />
+            <BookingCalender bookingSlots={booking_slots} />
           </div>
           <div className=''>
-            <h2 className='text-center text-2xl my-10'>
-              {' '}
-              Tours you might like
-            </h2>
+            <h2 className='text-center text-2xl my-10'>Tours you might like</h2>
             <MightLike />
             <MightLike />
             <MightLike />

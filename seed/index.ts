@@ -5,7 +5,6 @@ import { booking_slots } from './data/booking_slots'
 import { itineraries } from './data/itineraries'
 import { tour_images } from './data/tour_images'
 import { tours } from './data/tours'
-import { TourService } from '@/lib/supabase/services/tour-service'
 
 interface SeedResult {
   table: string
@@ -102,9 +101,17 @@ export class DatabaseSeeder {
     // Create mapping: ref_id → real database ID
     const tourIdMap = new Map<string, number>()
 
+    console.log('1: ==============')
+    console.log(tourIdMap)
+    console.log('1: ==============')
+
     tours.forEach((tour, index) => {
       tourIdMap.set(tour.ref_id, insertedTours[index].id)
     })
+
+    console.log('2: ==============')
+    console.log(tourIdMap)
+    console.log('2: ==============')
 
     console.log('📍 Tour ID Mapping:')
     tourIdMap.forEach((realId, refId) => {

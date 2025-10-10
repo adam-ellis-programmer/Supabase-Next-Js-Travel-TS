@@ -33,13 +33,23 @@ export class TourService {
   static async getTourById(
     tourId: number
   ): Promise<
-    { success: true; data: Tour } | { success: false; error: string }
+    | { success: true; data: TourWithRelations }
+    | { success: false; error: string }
   > {
     const supabase = await createClient()
 
     const { data, error } = await supabase
       .from('tours')
-      .select('*')
+      .select(
+        `*,
+       booking_slots(
+         *,
+         booking_slot_dates(*)
+       ),
+       itineraries(*),
+       tour_images(*)
+      `
+      )
       .eq('id', tourId)
       .single()
 

@@ -27,10 +27,10 @@ export interface Tour {
   dietary_options: string
   payment_cancellation: string
   good_to_know: string[]
-  booking_slots: BookingSlot[]
   bookable_pax: number
   created_at: string
   updated_at: string
+  // REMOVED: booking_slots - this is a relation, not a column
 }
 
 export interface Itinerary {
@@ -53,36 +53,42 @@ export interface TourImage {
   created_at: string
 }
 
-// export interface TourWithImages extends Tour {
-//   tour_images?: {
-//     id: number
-//     image_url: string
-//     storage_path: string
-//     display_order: number
-//   }
-// }
-
-// Add this to your types file
-// *** added after we fetched the iamges array ***  //
-// *** in get published tours ***  //
-export interface TourWithImages extends Tour {
-  tour_images?: Array<{
-    id: number
-    image_url: string
-    storage_path: string
-    display_order: number
-  }>
-}
-export interface dates {
-  // ...
+// Booking slot types
+export interface BookingSlotDate {
+  id: number
+  booking_slot_id: number
+  date: string
+  places: number
+  show: boolean
+  created_at: string
 }
 
 export interface BookingSlot {
-  dates: object[]
-  bookablePlaces: number
-  show: boolean
+  id: number
+  tour_id: number
   month: string
   year: string
+  bookable_places: number
+  show: boolean
+  display_order: number
+  created_at: string
+  updated_at: string
+}
+
+export interface BookingSlotWithDates extends BookingSlot {
+  booking_slot_dates: BookingSlotDate[]
+}
+
+// Query result types (tour with relations)
+export interface TourWithRelations extends Tour {
+  booking_slots: BookingSlotWithDates[]
+  itineraries: Itinerary[]
+  tour_images: TourImage[]
+}
+
+// Legacy type for backwards compatibility if needed
+export interface TourWithImages extends Tour {
+  tour_images?: TourImage[]
 }
 
 // Form types (camelCase - matches your React form state)
@@ -112,7 +118,6 @@ export interface TourFormData {
   dietaryOptions: string
   paymentCancellation: string
   goodToKnow: string[]
-  // bookingSlots: BookingSlot[]
   bookablePax: number
 }
 
@@ -123,17 +128,8 @@ export interface ItineraryDay {
 }
 
 // Insert types (what you send to the database)
-export type TourInsert = Omit<
-  Tour,
-  'id' | 'created_at' | 'updated_at' | 'booking_slots'
->
+export type TourInsert = Omit<Tour, 'id' | 'created_at' | 'updated_at'>
 export type ItineraryInsert = Omit<
   Itinerary,
   'id' | 'created_at' | 'updated_at'
 >
-
-// Query result types (tour with relations)
-export interface TourWithRelations extends Tour {
-  itineraries?: Itinerary[]
-  tour_images?: TourImage[]
-}
