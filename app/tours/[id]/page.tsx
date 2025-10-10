@@ -69,6 +69,11 @@ const TourPage = async ({ params }: TourPageProps) => {
           <TourComments />
         </div>
 
+        {/* IntrinsicAttributes is TypeScript's 
+        base type for React components that says 
+        "these are the only props allowed". When 
+        you see this error, it means: */}
+
         <div className=''>
           <TourHeader text={`Booking`} classes='text-2xl text-center' />
           <div className=''>
