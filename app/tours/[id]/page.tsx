@@ -13,6 +13,7 @@ const tempArr = Array.from({ length: days }, (_, i) => {
   return { item: i }
 })
 
+// SEED FIRST 
 // APPLY DISCOUNT AT CHECKOUT
 
 // <div className='group cursor-pointer'>

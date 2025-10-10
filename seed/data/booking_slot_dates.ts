@@ -1,52 +1,77 @@
+// seed/data/booking_slot_dates.ts
+
 interface BookingSlotDateSeed {
-  booking_slot_id: number
+  slot_ref_id: string // ← Reference to booking slot
   date: string
   places: number
   show: boolean
 }
 
 export const booking_slot_dates: BookingSlotDateSeed[] = [
-  // January 2025 - Vietnam Tour (booking_slot_id: 1)
+  // Vietnam January Slot - 5 dates
   {
-    booking_slot_id: 1,
-    date: '2025-01-15',
+    slot_ref_id: 'slot_vietnam_jan',
+    date: '2025-01-05',
+    places: 3,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_vietnam_jan',
+    date: '2025-01-12',
     places: 5,
     show: true,
   },
   {
-    booking_slot_id: 1,
-    date: '2025-01-22',
-    places: 8,
+    slot_ref_id: 'slot_vietnam_jan',
+    date: '2025-01-19',
+    places: 4,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_vietnam_jan',
+    date: '2025-01-26',
+    places: 3,
     show: true,
   },
 
-  // February 2025 - Vietnam Tour (booking_slot_id: 2)
+  // Vietnam February Slot - 4 dates
   {
-    booking_slot_id: 2,
-    date: '2025-02-10',
-    places: 10,
-    show: true,
-  },
-  {
-    booking_slot_id: 2,
-    date: '2025-02-24',
-    places: 7,
-    show: true,
-  },
-
-  // December 2024 - Thailand Tour (booking_slot_id: 3)
-  {
-    booking_slot_id: 3,
-    date: '2024-12-15',
+    slot_ref_id: 'slot_vietnam_feb',
+    date: '2025-02-02',
     places: 6,
     show: true,
   },
-
-  // January 2025 - Thailand Tour (booking_slot_id: 4)
   {
-    booking_slot_id: 4,
-    date: '2025-01-20',
-    places: 8,
+    slot_ref_id: 'slot_vietnam_feb',
+    date: '2025-02-09',
+    places: 5,
     show: true,
   },
+  {
+    slot_ref_id: 'slot_vietnam_feb',
+    date: '2025-02-16',
+    places: 4,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_vietnam_feb',
+    date: '2025-02-23',
+    places: 0,
+    show: true,
+  },
+
+  // Thailand December Slot - 5 dates
+  {
+    slot_ref_id: 'slot_thailand_dec',
+    date: '2024-12-10',
+    places: 4,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_thailand_dec',
+    date: '2024-12-17',
+    places: 3,
+    show: true,
+  },
+  // ... more dates
 ]

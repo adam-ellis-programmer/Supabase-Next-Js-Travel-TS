@@ -53,6 +53,26 @@ export interface TourImage {
   created_at: string
 }
 
+// export interface TourWithImages extends Tour {
+//   tour_images?: {
+//     id: number
+//     image_url: string
+//     storage_path: string
+//     display_order: number
+//   }
+// }
+
+// Add this to your types file
+// *** added after we fetched the iamges array ***  //
+// *** in get published tours ***  //
+export interface TourWithImages extends Tour {
+  tour_images?: Array<{
+    id: number
+    image_url: string
+    storage_path: string
+    display_order: number
+  }>
+}
 export interface dates {
   // ...
 }

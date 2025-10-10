@@ -1,47 +1,52 @@
+// seed/data/itineraries.ts
+
 interface ItinerarySeed {
-  tour_id: number
+  tour_ref_id: string // ← Reference to tour
   day_number: number
   day_title: string
   day_description: string
 }
 
 export const itineraries: ItinerarySeed[] = [
-  // Vietnam tour itinerary (assuming tour_id: 1)
+  // Vietnam Tour - 12 days
   {
-    tour_id: 1,
+    tour_ref_id: 'tour_vietnam_12day',
     day_number: 1,
     day_title: 'Arrival in Hanoi',
-    day_description:
-      "Welcome to Vietnam! Upon arrival at Hanoi airport, you'll be greeted by your guide and transferred to your hotel in the Old Quarter. After checking in, enjoy a welcome dinner featuring authentic Vietnamese cuisine.",
+    day_description: 'Welcome to Vietnam! Transfer to hotel...',
   },
   {
-    tour_id: 1,
+    tour_ref_id: 'tour_vietnam_12day',
     day_number: 2,
     day_title: 'Hanoi City Tour',
-    day_description:
-      'Explore the highlights of Hanoi including the Ho Chi Minh Mausoleum, Temple of Literature, and the bustling Old Quarter. In the evening, enjoy a traditional water puppet show.',
+    day_description: 'Explore Ho Chi Minh Mausoleum...',
   },
   {
-    tour_id: 1,
+    tour_ref_id: 'tour_vietnam_12day',
     day_number: 3,
     day_title: 'Ha Long Bay Cruise',
-    day_description:
-      'Journey to Ha Long Bay, a UNESCO World Heritage site. Board your cruise ship and spend the day exploring limestone karsts, mysterious caves, and emerald waters.',
+    day_description: 'Journey to Ha Long Bay...',
+  },
+  // ... days 4-12
+  {
+    tour_ref_id: 'tour_vietnam_12day',
+    day_number: 12,
+    day_title: 'Departure from Ho Chi Minh City',
+    day_description: 'Final breakfast and airport transfer...',
   },
 
-  // Thailand tour itinerary (assuming tour_id: 2)
+  // Thailand Tour - 10 days
   {
-    tour_id: 2,
+    tour_ref_id: 'tour_thailand_10day',
     day_number: 1,
     day_title: 'Arrival in Phuket',
-    day_description:
-      'Arrive in Phuket and transfer to your beachfront resort. Spend the afternoon relaxing on Patong Beach and exploring the local area.',
+    day_description: 'Welcome to Thailand! Beach relaxation...',
   },
   {
-    tour_id: 2,
+    tour_ref_id: 'tour_thailand_10day',
     day_number: 2,
-    day_title: 'Phi Phi Islands Day Trip',
-    day_description:
-      'Full day excursion to the stunning Phi Phi Islands. Snorkel in Maya Bay, explore Viking Cave, and enjoy lunch on the beach.',
+    day_title: 'Phi Phi Islands',
+    day_description: 'Full day boat trip to Phi Phi...',
   },
+  // ... days 3-10
 ]

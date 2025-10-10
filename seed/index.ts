@@ -5,6 +5,7 @@ import { booking_slots } from './data/booking_slots'
 import { itineraries } from './data/itineraries'
 import { tour_images } from './data/tour_images'
 import { tours } from './data/tours'
+import { TourService } from '@/lib/supabase/services/tour-service'
 
 interface SeedResult {
   table: string
@@ -20,63 +21,18 @@ export class DatabaseSeeder {
     this.supabase = createServiceClient()
   }
 
-  /**
-   * Seed a single table with data
-   */
-  async seedTable(table: string, data: any[]): Promise<SeedResult> {
-    try {
-      console.log(`🌱 Seeding ${table}...`)
-
-      const { error } = await this.supabase.from(table).insert(data)
-
-      if (error) {
-        console.error(`❌ Error seeding ${table}:`, error)
-        return {
-          table,
-          success: false,
-          error: error.message,
-        }
-      }
-
-      console.log(`✅ Successfully seeded ${table} with ${data.length} records`)
-      return {
-        table,
-        success: true,
-        count: data.length,
-      }
-    } catch (error) {
-      console.error(`❌ Exception seeding ${table}:`, error)
-      return {
-        table,
-        success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
-      }
-    }
-  }
-
-  /**
-   * Clear all data from a table
-   */
   async clearTable(table: string): Promise<SeedResult> {
     try {
       console.log(`🧹 Clearing ${table}...`)
-
       const { error } = await this.supabase.from(table).delete().neq('id', 0)
 
       if (error) {
         console.error(`❌ Error clearing ${table}:`, error)
-        return {
-          table,
-          success: false,
-          error: error.message,
-        }
+        return { table, success: false, error: error.message }
       }
 
       console.log(`✅ Successfully cleared ${table}`)
-      return {
-        table,
-        success: true,
-      }
+      return { table, success: true }
     } catch (error) {
       console.error(`❌ Exception clearing ${table}:`, error)
       return {
@@ -87,16 +43,13 @@ export class DatabaseSeeder {
     }
   }
 
-  /**
-   * Seed all tables in the correct order (respecting foreign key constraints)
-   */
   async seedAll(clearFirst: boolean = false): Promise<SeedResult[]> {
     const results: SeedResult[] = []
 
     console.log('🚀 Starting database seeding...')
     console.log('================================\n')
 
-    // Clear tables first if requested (in reverse order)
+    // Clear tables if requested
     if (clearFirst) {
       console.log('🧹 Clearing existing data...\n')
 
@@ -112,16 +65,26 @@ export class DatabaseSeeder {
         const result = await this.clearTable(table)
         results.push(result)
       }
-
       console.log('\n')
     }
 
-    // ✅ Step 1: Insert tours and get their IDs
+    // ✅ Step 1: Insert tours and create ref_id → real_id mapping
     console.log(`🌱 Seeding tours...`)
+
+    console.log('==============')
+    console.log('TOURS-ORIG', tours)
+    console.log('==============')
+    // Remove ref_id before inserting
+    const toursForDB = tours.map(({ ref_id, ...tour }) => tour)
+
+    console.log('==============')
+    console.log('TOURS-FRO-DB', toursForDB)
+    console.log('==============')
+
     const { data: insertedTours, error: toursError } = await this.supabase
       .from('tours')
-      .insert(tours)
-      .select('id, slug')
+      .insert(toursForDB)
+      .select('id')
 
     if (toursError) {
       console.error(`❌ Error seeding tours:`, toursError)
@@ -134,52 +97,93 @@ export class DatabaseSeeder {
     }
 
     console.log(`✅ Successfully seeded tours with ${tours.length} records`)
-    results.push({
-      table: 'tours',
-      success: true,
-      count: tours.length,
+    results.push({ table: 'tours', success: true, count: tours.length })
+
+    // Create mapping: ref_id → real database ID
+    const tourIdMap = new Map<string, number>()
+
+    tours.forEach((tour, index) => {
+      tourIdMap.set(tour.ref_id, insertedTours[index].id)
     })
 
-    // Create a mapping: original index → actual database ID
-    const tourIdMap = new Map<number, number>()
-    insertedTours.forEach((tour: any, index: number) => {
-      tourIdMap.set(index + 1, tour.id) // Map fake id (1,2,3) to real id
+    console.log('📍 Tour ID Mapping:')
+    tourIdMap.forEach((realId, refId) => {
+      console.log(`   ${refId} → ${realId}`)
     })
+    console.log()
 
-    // ✅ Step 2: Insert itineraries with correct tour_ids
-    const itinerariesWithRealIds = itineraries.map((itinerary) => ({
-      ...itinerary,
-      tour_id: tourIdMap.get(itinerary.tour_id) || itinerary.tour_id,
-    }))
-
-    const itinerariesResult = await this.seedTable(
-      'itineraries',
-      itinerariesWithRealIds
+    // ✅ Step 2: Insert itineraries
+    console.log(`🌱 Seeding itineraries...`)
+    const itinerariesForDB = itineraries.map(
+      ({ tour_ref_id, ...itinerary }) => ({
+        ...itinerary,
+        tour_id: tourIdMap.get(tour_ref_id)!,
+      })
     )
-    results.push(itinerariesResult)
 
-    // ✅ Step 3: Insert tour_images with correct tour_ids
-    const tourImagesWithRealIds = tour_images.map((image) => ({
+    const { error: itinerariesError } = await this.supabase
+      .from('itineraries')
+      .insert(itinerariesForDB)
+
+    if (itinerariesError) {
+      console.error(`❌ Error seeding itineraries:`, itinerariesError)
+      results.push({
+        table: 'itineraries',
+        success: false,
+        error: itinerariesError.message,
+      })
+    } else {
+      console.log(
+        `✅ Successfully seeded itineraries with ${itineraries.length} records`
+      )
+      results.push({
+        table: 'itineraries',
+        success: true,
+        count: itineraries.length,
+      })
+    }
+
+    // ✅ Step 3: Insert tour images
+    console.log(`🌱 Seeding tour_images...`)
+    const tourImagesForDB = tour_images.map(({ tour_ref_id, ...image }) => ({
       ...image,
-      tour_id: tourIdMap.get(image.tour_id) || image.tour_id,
+      tour_id: tourIdMap.get(tour_ref_id)!,
     }))
 
-    const tourImagesResult = await this.seedTable(
-      'tour_images',
-      tourImagesWithRealIds
-    )
-    results.push(tourImagesResult)
+    const { error: imagesError } = await this.supabase
+      .from('tour_images')
+      .insert(tourImagesForDB)
 
-    // ✅ Step 4: Insert booking_slots with correct tour_ids and get their IDs
-    const bookingSlotsWithRealIds = booking_slots.map((slot) => ({
-      ...slot,
-      tour_id: tourIdMap.get(slot.tour_id) || slot.tour_id,
-    }))
+    if (imagesError) {
+      console.error(`❌ Error seeding tour_images:`, imagesError)
+      results.push({
+        table: 'tour_images',
+        success: false,
+        error: imagesError.message,
+      })
+    } else {
+      console.log(
+        `✅ Successfully seeded tour_images with ${tour_images.length} records`
+      )
+      results.push({
+        table: 'tour_images',
+        success: true,
+        count: tour_images.length,
+      })
+    }
 
+    // ✅ Step 4: Insert booking slots
     console.log(`🌱 Seeding booking_slots...`)
+    const bookingSlotsForDB = booking_slots.map(
+      ({ tour_ref_id, slot_ref_id, ...slot }) => ({
+        ...slot,
+        tour_id: tourIdMap.get(tour_ref_id)!,
+      })
+    )
+
     const { data: insertedSlots, error: slotsError } = await this.supabase
       .from('booking_slots')
-      .insert(bookingSlotsWithRealIds)
+      .insert(bookingSlotsForDB)
       .select('id')
 
     if (slotsError) {
@@ -201,24 +205,48 @@ export class DatabaseSeeder {
       count: booking_slots.length,
     })
 
-    // Create a mapping for booking slot IDs
-    const slotIdMap = new Map<number, number>()
-    insertedSlots.forEach((slot: any, index: number) => {
-      slotIdMap.set(index + 1, slot.id)
+    // Create mapping: slot_ref_id → real database ID
+    const slotIdMap = new Map<string, number>()
+    booking_slots.forEach((slot, index) => {
+      slotIdMap.set(slot.slot_ref_id, insertedSlots[index].id)
     })
 
-    // ✅ Step 5: Insert booking_slot_dates with correct booking_slot_ids
-    const bookingSlotDatesWithRealIds = booking_slot_dates.map((date) => ({
-      ...date,
-      booking_slot_id:
-        slotIdMap.get(date.booking_slot_id) || date.booking_slot_id,
-    }))
+    console.log('📍 Booking Slot ID Mapping:')
+    slotIdMap.forEach((realId, refId) => {
+      console.log(`   ${refId} → ${realId}`)
+    })
+    console.log()
 
-    const bookingSlotDatesResult = await this.seedTable(
-      'booking_slot_dates',
-      bookingSlotDatesWithRealIds
+    // ✅ Step 5: Insert booking slot dates
+    console.log(`🌱 Seeding booking_slot_dates...`)
+    const bookingSlotDatesForDB = booking_slot_dates.map(
+      ({ slot_ref_id, ...date }) => ({
+        ...date,
+        booking_slot_id: slotIdMap.get(slot_ref_id)!,
+      })
     )
-    results.push(bookingSlotDatesResult)
+
+    const { error: datesError } = await this.supabase
+      .from('booking_slot_dates')
+      .insert(bookingSlotDatesForDB)
+
+    if (datesError) {
+      console.error(`❌ Error seeding booking_slot_dates:`, datesError)
+      results.push({
+        table: 'booking_slot_dates',
+        success: false,
+        error: datesError.message,
+      })
+    } else {
+      console.log(
+        `✅ Successfully seeded booking_slot_dates with ${booking_slot_dates.length} records`
+      )
+      results.push({
+        table: 'booking_slot_dates',
+        success: true,
+        count: booking_slot_dates.length,
+      })
+    }
 
     // Summary
     console.log('\n================================')
@@ -241,20 +269,11 @@ export class DatabaseSeeder {
     return results
   }
 
-  /**
-   * Seed only specific tables
-   */
-  async seedTables(
-    tables: string[],
-    clearFirst: boolean = false
-  ): Promise<SeedResult[]> {
-    // For specific table seeding, just use seedAll with clearFirst
-    // This ensures proper foreign key handling
+  async seedTables(tables: string[], clearFirst: boolean = false) {
     return this.seedAll(clearFirst)
   }
 }
 
-// Helper function to run seeder
 export async function runSeeder(clearFirst: boolean = false) {
   const seeder = new DatabaseSeeder()
   return await seeder.seedAll(clearFirst)

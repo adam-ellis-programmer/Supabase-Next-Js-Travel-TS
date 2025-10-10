@@ -1,4 +1,5 @@
 // ========== ToursPageCard.tsx ==========
+import Link from 'next/link'
 import React from 'react'
 import { FaStar, FaClock, FaMapMarkerAlt, FaUsers } from 'react-icons/fa'
 
@@ -16,11 +17,21 @@ interface Tour {
   description: string
 }
 
+export interface TourImage {
+  id: number
+  image_url: string
+  storage_path: string
+  display_order: number
+}
+
 interface ToursPageCardProps {
   tour: Tour
+  // tour_images?: TourImage[]
 }
 
 const ToursPageCard = ({ tour }: ToursPageCardProps) => {
+  console.log(tour)
+
   return (
     <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 mb-4 group'>
       <div className='grid md:grid-cols-[280px_1fr] h-full'>
@@ -79,9 +90,13 @@ const ToursPageCard = ({ tour }: ToursPageCardProps) => {
               </p>
               <p className='text-gray-500 text-xs'>per person</p>
             </div>
-            <button className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl'>
+
+            <Link
+              href={`/tours/${tour.id}`}
+              className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl'
+            >
               View Details
-            </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -7,6 +7,7 @@ import type {
   TourInsert,
   ItineraryInsert,
   TourWithRelations,
+  TourWithImages,
 } from '@/types/tours'
 
 interface BookingSlotInsert {
@@ -86,16 +87,29 @@ export class TourService {
   //==============
   // GET ALL PUBLISHED TOURS
   //==============
+  // used to be data: Tours[]
   static async getPublishedTours(): Promise<
-    { success: true; data: Tour[] } | { success: false; error: string }
+    | { success: true; data: TourWithImages[] }
+    | { success: false; error: string }
   > {
     const supabase = await createClient()
 
     const { data, error } = await supabase
       .from('tours')
-      .select('*')
+      .select(
+        `*,
+        tour_images(
+            id,
+        image_url,
+        storage_path,
+        display_order
+        )
+        `
+      )
       .eq('publish', true)
       .order('created_at', { ascending: false })
+      .order('display_order', { foreignTable: 'tour_images', ascending: true })
+      .limit(1, { foreignTable: 'tour_images' })
 
     if (error) {
       console.error('Get published tours error:', error)
