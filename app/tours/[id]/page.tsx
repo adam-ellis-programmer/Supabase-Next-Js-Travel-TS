@@ -8,6 +8,7 @@ import BookingCalender from '@/components/BookingCalender'
 import TourOverView from '@/components/TourOverView'
 import TourExtraInfo from '@/components/TourExtraInfo'
 import { TourService } from '@/lib/supabase/services/tour-service'
+import { createClient } from '@/lib/supabase/server' // Import your server client
 
 // Define the params type
 interface TourPageProps {
@@ -20,13 +21,18 @@ const TourPage = async ({ params }: TourPageProps) => {
   const { id } = await params
   const tourId = parseInt(id)
 
+  // Get the authenticated user
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
   const result = await TourService.getTourById(tourId)
 
   if (!result.success) {
     throw new Error(result.error)
   }
 
-  // Remove 'as any' - TypeScript now knows data is TourWithRelations
   const data = result.data
   const { booking_slots, itineraries, tour_images, price } = data
 
@@ -71,15 +77,15 @@ const TourPage = async ({ params }: TourPageProps) => {
           <TourComments />
         </div>
 
-        {/* IntrinsicAttributes is TypeScript's 
-        base type for React components that says 
-        "these are the only props allowed". When 
-        you see this error, it means: */}
-
         <div className=''>
           <TourHeader text={`Booking`} classes='text-2xl text-center' />
           <div className=''>
-            <BookingCalender booking_slots={booking_slots} price={price} />
+            <BookingCalender
+              tourId={tourId}
+              booking_slots={booking_slots}
+              price={price}
+              userId={user?.id} // Pass user ID (will be undefined if not logged in)
+            />
           </div>
           <div className=''>
             <h2 className='text-center text-2xl my-10'>Tours you might like</h2>

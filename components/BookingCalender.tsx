@@ -1,24 +1,43 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
 import { BookingSlotWithDates } from '@/types/tours'
+import { useRouter } from 'next/navigation'
+import { CartService } from '@/lib/supabase/services/cart-service'
+import { insertCartItem } from '@/lib/supabase/actions/cart-actions'
 
 interface BookingCalenderProps {
   booking_slots: BookingSlotWithDates[]
   price: number
+  tourId: number
+  userId?: string // Optional - undefined if not logged in
 }
 
-const BookingCalender = ({ booking_slots, price }: BookingCalenderProps) => {
+const BookingCalender = ({
+  booking_slots,
+  price,
+  tourId,
+  userId,
+}: BookingCalenderProps) => {
+  const router = useRouter()
   const [selected, setSelected] = useState<Date | undefined>()
   const [selectedSlotInfo, setSelectedSlotInfo] = useState<{
     places: number
-    price: number
+    slotId: number
+    bookingSlotDateId: number
   } | null>(null)
   const [numPassengers, setNumPassengers] = useState<number>(1)
 
   // Build a map of dates to their slot info for quick lookup
-  const dateInfoMap = new Map<string, { places: number; slotId: number }>()
+  const dateInfoMap = new Map<
+    string,
+    {
+      places: number
+      slotId: number
+      bookingSlotDateId: number
+    }
+  >()
   const availableDates: Date[] = []
 
   booking_slots?.forEach((slot) => {
@@ -29,6 +48,7 @@ const BookingCalender = ({ booking_slots, price }: BookingCalenderProps) => {
         dateInfoMap.set(dateObj.date, {
           places: dateObj.places,
           slotId: slot.id,
+          bookingSlotDateId: dateObj.id, // Store the booking_slot_date ID
         })
       }
     })
@@ -44,9 +64,8 @@ const BookingCalender = ({ booking_slots, price }: BookingCalenderProps) => {
   }
 
   const handleDateSelect = (date: Date | undefined) => {
-    console.log('date', date)
     setSelected(date)
-    setNumPassengers(1) // Reset to 1 when date changes
+    setNumPassengers(1)
 
     if (date) {
       const year = date.getFullYear()
@@ -54,43 +73,64 @@ const BookingCalender = ({ booking_slots, price }: BookingCalenderProps) => {
       const day = String(date.getDate()).padStart(2, '0')
       const dateStr = `${year}-${month}-${day}`
 
-      console.log('date string', dateStr)
-
       const info = dateInfoMap.get(dateStr)
 
-      console.log('dateInfoMap', dateInfoMap)
-      console.log('INFO', info)
-
       if (info) {
-        setSelectedSlotInfo({ places: info.places, price: price })
+        setSelectedSlotInfo({
+          places: info.places,
+          slotId: info.slotId,
+          bookingSlotDateId: info.bookingSlotDateId,
+        })
       }
     } else {
       setSelectedSlotInfo(null)
     }
   }
 
-  const handleBooking = () => {
-    console.log('making booking...')
-    console.log('Places available:', selectedSlotInfo?.places)
-    console.log('Number of passengers:', numPassengers)
-    console.log(
-      'Total price:',
-      selectedSlotInfo?.price ? selectedSlotInfo.price * numPassengers : 0
-    )
+  const handleBooking = async () => {
+    // Check if user is logged in
+    if (!userId) {
+      // Redirect to login page
+      router.push('/login?redirect=/tours/' + tourId)
+      return
+    }
+
+    if (!selected || !selectedSlotInfo) {
+      alert('Please select a date')
+      return
+    }
+
+    const year = selected.getFullYear()
+    const month = String(selected.getMonth() + 1).padStart(2, '0')
+    const day = String(selected.getDate()).padStart(2, '0')
+    const dateStr = `${year}-${month}-${day}`
+
+    const cartData = {
+      user_id: userId,
+      tour_id: tourId,
+      booking_slot_date_id: selectedSlotInfo.bookingSlotDateId,
+      slot_id: selectedSlotInfo.slotId,
+      num_passengers: numPassengers,
+      selected_date: dateStr,
+      price_when_added: price,
+    }
+
+    console.log('Adding to cart:', cartData)
+
+    const res = await insertCartItem(cartData)
+    console.log(res)
   }
 
   const handlePaxNum = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setNumPassengers(Number(e.target.value))
   }
 
-  // Generate array based on available places
   const people = selectedSlotInfo
     ? Array.from({ length: selectedSlotInfo.places }, (_, i) => i + 1)
     : []
 
   return (
     <div className=''>
-      {/* Display available months */}
       <div className='mb-4'>
         <h3 className='font-semibold mb-2'>Available Months:</h3>
         <div className='flex flex-wrap gap-2'>
@@ -107,7 +147,7 @@ const BookingCalender = ({ booking_slots, price }: BookingCalenderProps) => {
 
       <p className='text-center capitalize text-2xl mt-5'>
         {selectedSlotInfo
-          ? `You pay £${selectedSlotInfo.price * numPassengers} (${
+          ? `You pay £${price * numPassengers} (${
               selectedSlotInfo.places
             } places available)`
           : 'Select a date'}
@@ -153,7 +193,7 @@ const BookingCalender = ({ booking_slots, price }: BookingCalenderProps) => {
           className='bg-orange-500 text-white text-2xl p-3 rounded disabled:bg-gray-400'
           disabled={!selected}
         >
-          Book Now!
+          {userId ? 'Add to Cart' : 'Login to Book'}
         </button>
       </div>
     </div>
