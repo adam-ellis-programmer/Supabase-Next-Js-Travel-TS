@@ -84,13 +84,32 @@ export class CartService {
       .from('carts')
       .select(
         `
+      id,
+      cart_items (
         id,
-        cart_items(
-        id)
-        `
+        tour_id,
+        booking_slot_date_id,
+        num_passengers,
+        selected_date,
+        price_when_added,
+        tours (
+          id,
+          tour_name,
+          duration,
+          price,
+          tour_images (
+            image_url
+          )
+        ),
+        booking_slot_dates (
+          places
+        )
+      )
+    `
       )
       .eq('user_id', userId)
-    // .single()
-    return { success: true, data }
+      .limit(1, { referencedTable: 'cart_items.tours.tour_images' })
+      .single()
+    return data
   }
 }

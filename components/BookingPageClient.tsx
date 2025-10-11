@@ -111,7 +111,7 @@ const BookingPageClient = ({
                     key={item.id}
                     item={item}
                     onRemove={removeItem}
-                    isRemoving={isRemoving}
+                    // isRemoving={isRemoving}
                   />
                 ))}
               </div>

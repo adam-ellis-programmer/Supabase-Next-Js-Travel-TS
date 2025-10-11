@@ -16,44 +16,8 @@ const BookingPage = async () => {
     redirect('/login?redirect=/booking')
   }
 
-  const testData = await CartService.fetchCart(user.id)
-  console.log('TEST DATA', testData)
-
-  // Fetch user's cart with items
-  const { data: cartData, error } = await supabase
-    .from('carts')
-    .select(
-      `
-      id,
-      cart_items (
-        id,
-        tour_id,
-        booking_slot_date_id,
-        num_passengers,
-        selected_date,
-        price_when_added,
-        tours (
-          id,
-          tour_name,
-          duration,
-          price,
-          tour_images (
-            image_url
-          )
-        ),
-        booking_slot_dates (
-          places
-        )
-      )
-    `
-    )
-    .eq('user_id', user.id)
-    .single()
-
-  if (error) {
-    console.error('Error fetching cart:', error)
-  }
-  // console.log('data-->', cartData)
+  const cartData = await CartService.fetchCart(user.id)
+  console.log('TEST DATA', cartData)
 
   // Transform data to match CartItemType
   const cartItems =
