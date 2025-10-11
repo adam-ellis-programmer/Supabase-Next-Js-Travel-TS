@@ -1,21 +1,21 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
 import { BookingSlotWithDates } from '@/types/tours'
 
-const people = Array.from({ length: 10 }, (_, i) => i)
-
 interface BookingCalenderProps {
   booking_slots: BookingSlotWithDates[]
+  price: number
 }
 
-const BookingCalender = ({ booking_slots }: BookingCalenderProps) => {
+const BookingCalender = ({ booking_slots, price }: BookingCalenderProps) => {
   const [selected, setSelected] = useState<Date | undefined>()
   const [selectedSlotInfo, setSelectedSlotInfo] = useState<{
     places: number
     price: number
   } | null>(null)
+  const [numPassengers, setNumPassengers] = useState<number>(1)
 
   // Build a map of dates to their slot info for quick lookup
   const dateInfoMap = new Map<string, { places: number; slotId: number }>()
@@ -33,7 +33,6 @@ const BookingCalender = ({ booking_slots }: BookingCalenderProps) => {
       }
     })
   })
-  // console.log(availableDates)
 
   const disabledDates = (date: Date) => {
     return !availableDates.some(
@@ -45,19 +44,49 @@ const BookingCalender = ({ booking_slots }: BookingCalenderProps) => {
   }
 
   const handleDateSelect = (date: Date | undefined) => {
-    console.log(date)
-
+    console.log('date', date)
     setSelected(date)
+    setNumPassengers(1) // Reset to 1 when date changes
+
     if (date) {
-      const dateStr = date.toISOString().split('T')[0]
+      const year = date.getFullYear()
+      const month = String(date.getMonth() + 1).padStart(2, '0')
+      const day = String(date.getDate()).padStart(2, '0')
+      const dateStr = `${year}-${month}-${day}`
+
+      console.log('date string', dateStr)
+
       const info = dateInfoMap.get(dateStr)
 
+      console.log('dateInfoMap', dateInfoMap)
+      console.log('INFO', info)
+
       if (info) {
-        setSelectedSlotInfo({ places: info.places, price: 1355 })
+        setSelectedSlotInfo({ places: info.places, price: price })
       }
+    } else {
+      setSelectedSlotInfo(null)
     }
   }
-  // console.log(selectedSlotInfo)
+
+  const handleBooking = () => {
+    console.log('making booking...')
+    console.log('Places available:', selectedSlotInfo?.places)
+    console.log('Number of passengers:', numPassengers)
+    console.log(
+      'Total price:',
+      selectedSlotInfo?.price ? selectedSlotInfo.price * numPassengers : 0
+    )
+  }
+
+  const handlePaxNum = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setNumPassengers(Number(e.target.value))
+  }
+
+  // Generate array based on available places
+  const people = selectedSlotInfo
+    ? Array.from({ length: selectedSlotInfo.places }, (_, i) => i + 1)
+    : []
 
   return (
     <div className=''>
@@ -78,7 +107,9 @@ const BookingCalender = ({ booking_slots }: BookingCalenderProps) => {
 
       <p className='text-center capitalize text-2xl mt-5'>
         {selectedSlotInfo
-          ? `You pay £${selectedSlotInfo.price} (${selectedSlotInfo.places} places available)`
+          ? `You pay £${selectedSlotInfo.price * numPassengers} (${
+              selectedSlotInfo.places
+            } places available)`
           : 'Select a date'}
       </p>
 
@@ -98,19 +129,27 @@ const BookingCalender = ({ booking_slots }: BookingCalenderProps) => {
         />
       </div>
 
-      <label htmlFor='pax' className='mt-5 block'>
-        <p className='text-[1.4rem] mb-3'>select passengers</p>
-        <select name='' id='pax' className='border w-full p-3'>
-          {people.map((item, i) => (
-            <option key={i} value={item + 1}>
-              {item + 1}
-            </option>
-          ))}
-        </select>
-      </label>
+      {selectedSlotInfo && (
+        <label htmlFor='pax' className='mt-5 block'>
+          <p className='text-[1.4rem] mb-3'>select passengers</p>
+          <select
+            onChange={handlePaxNum}
+            value={numPassengers}
+            id='pax'
+            className='border w-full p-3'
+          >
+            {people.map((num) => (
+              <option key={num} value={num}>
+                {num}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
 
       <div className='flex justify-center mt-5'>
         <button
+          onClick={handleBooking}
           className='bg-orange-500 text-white text-2xl p-3 rounded disabled:bg-gray-400'
           disabled={!selected}
         >

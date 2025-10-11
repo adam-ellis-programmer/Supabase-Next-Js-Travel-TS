@@ -17,8 +17,10 @@ interface TourPageProps {
 }
 
 const TourPage = async ({ params }: TourPageProps) => {
-  const id = parseInt(params.id)
-  const result = await TourService.getTourById(id)
+  const { id } = await params
+  const tourId = parseInt(id)
+
+  const result = await TourService.getTourById(tourId)
 
   if (!result.success) {
     throw new Error(result.error)
@@ -77,7 +79,7 @@ const TourPage = async ({ params }: TourPageProps) => {
         <div className=''>
           <TourHeader text={`Booking`} classes='text-2xl text-center' />
           <div className=''>
-            <BookingCalender booking_slots={booking_slots} />
+            <BookingCalender booking_slots={booking_slots} price={price} />
           </div>
           <div className=''>
             <h2 className='text-center text-2xl my-10'>Tours you might like</h2>
