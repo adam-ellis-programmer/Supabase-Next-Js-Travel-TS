@@ -13,8 +13,14 @@ import TopSellers from '@/components/TopSellers'
 import PopularDest from '@/components/PopularDest'
 import Activities from '@/components/Activities'
 import Reviews from '@/components/Reviews'
+import { HomePage } from '@/lib/supabase/services/site/home-page-service'
 
-export default function Home() {
+export default async function Home() {
+  const showcase = await HomePage.getShowCase()
+  const popular = await HomePage.getPopular()
+  const activities = await HomePage.getActivities()
+  console.log(activities)
+
   return (
     <main className=''>
       <Hero />
