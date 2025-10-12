@@ -15,7 +15,7 @@ const BookingPage = async () => {
   if (!user) {
     redirect('/login?redirect=/booking')
   }
-  //
+
   const cartData = await CartService.fetchCart(user.id)
   console.log('TEST DATA', cartData)
 

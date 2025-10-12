@@ -119,6 +119,7 @@ const BookingCalender = ({
 
     const res = await insertCartItem(cartData)
     console.log(res)
+    router.push('/booking')
   }
 
   const handlePaxNum = (e: React.ChangeEvent<HTMLSelectElement>) => {

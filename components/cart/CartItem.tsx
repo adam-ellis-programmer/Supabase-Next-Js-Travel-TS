@@ -1,11 +1,5 @@
 'use client'
-import {
-  FaShoppingCart,
-  FaTrash,
-  FaArrowLeft,
-  FaCreditCard,
-  FaLock,
-} from 'react-icons/fa'
+import { FaTrash } from 'react-icons/fa'
 
 interface CartItemType {
   id: number
@@ -16,15 +10,20 @@ interface CartItemType {
   price: number
   image: string
 }
+
 interface CartItemProps {
   item: CartItemType
   onRemove: (id: number) => void
+  isRemoving: boolean
 }
 
-// Cart Item Component
-const CartItem = ({ item, onRemove }: CartItemProps) => {
+const CartItem = ({ item, onRemove, isRemoving }: CartItemProps) => {
   return (
-    <div className='bg-white border border-gray-200 rounded-lg p-4 mb-3 hover:shadow-md transition-shadow'>
+    <div
+      className={`bg-white border border-gray-200 rounded-lg p-4 mb-3 hover:shadow-md transition-all ${
+        isRemoving ? 'opacity-50 pointer-events-none' : ''
+      }`}
+    >
       <div className='flex gap-4'>
         <img
           src={item.image}
@@ -41,9 +40,19 @@ const CartItem = ({ item, onRemove }: CartItemProps) => {
         <div className='flex flex-col items-end justify-between'>
           <button
             onClick={() => onRemove(item.id)}
-            className='text-red-500 hover:text-red-700 transition-colors'
+            disabled={isRemoving}
+            className={`transition-all ${
+              isRemoving
+                ? 'text-gray-400 cursor-not-allowed'
+                : 'text-red-500 hover:text-red-700'
+            }`}
+            aria-label={isRemoving ? 'Removing...' : 'Remove item'}
           >
-            <FaTrash />
+            {isRemoving ? (
+              <div className='animate-spin h-4 w-4 border-2 border-red-500 border-t-transparent rounded-full' />
+            ) : (
+              <FaTrash />
+            )}
           </button>
           <p className='text-lg font-bold text-rose-600'>£{item.price}</p>
         </div>

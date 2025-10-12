@@ -112,4 +112,21 @@ export class CartService {
       .single()
     return data
   }
+
+  static async deleteCartItem(cartItemId: number) {
+    const supabase = await createClient()
+
+    const { data, error } = await supabase
+      .from('cart_items')
+      .delete()
+      .eq('id', cartItemId)
+      .select()
+
+    if (error) {
+      console.error('Error deleting cart item:', error)
+      return { success: false, error: error.message }
+    }
+
+    return { success: true, data }
+  }
 }
