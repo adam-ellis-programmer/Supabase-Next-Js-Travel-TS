@@ -19,15 +19,16 @@ export default async function Home() {
   const showcase = await HomePage.getShowCase()
   const popular = await HomePage.getPopular()
   const activities = await HomePage.getActivities()
-  console.log(activities)
+  const hero = await HomePage.getHero()
+  // console.log(activities)
 
   return (
     <main className=''>
-      <Hero />
+      <Hero data={hero} />
       <Container>
-        <TopSellers />
+        <TopSellers data={showcase} />
       </Container>
-      <PopularDest />
+      <PopularDest data={popular} />
       <Activities />
       <Reviews />
     </main>

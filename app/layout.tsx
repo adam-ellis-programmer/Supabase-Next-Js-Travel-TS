@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { Geist, Exo_2 } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
 import './globals.css'
+
+/* ✅ Add Swiper styles here */
+// import 'swiper/css';
+// import 'swiper/css/navigation';
+// import 'swiper/css/pagination';
+// import 'swiper/css/scrollbar';
+
 import Nav from '@/components/layout/Nav'
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
