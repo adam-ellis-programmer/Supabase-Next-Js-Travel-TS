@@ -12,7 +12,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className='mt-10 bg-[#244057] text-white'>
+    <footer className=' bg-[#244057] text-white'>
       <div className='grid md:grid-cols-3 gap-8 px-6 py-12 max-w-7xl mx-auto'>
         {/* Company Info */}
         <div>

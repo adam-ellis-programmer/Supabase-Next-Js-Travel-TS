@@ -1,7 +1,42 @@
 import React from 'react'
 import { FaStar, FaQuoteLeft } from 'react-icons/fa'
+import { Review } from '../Reviews'
 
-const ReviewCard = () => {
+interface ReviewItem {
+  item: Review
+}
+
+// Helper functions
+const getRelativeTime = (dateString: string) => {
+  const date = new Date(dateString)
+  const now = new Date()
+  const diffInMs = now.getTime() - date.getTime()
+  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24))
+
+  if (diffInDays === 0) return 'Today'
+  if (diffInDays === 1) return '1 day ago'
+  if (diffInDays < 7) return `${diffInDays} days ago`
+  if (diffInDays < 30) {
+    const weeks = Math.floor(diffInDays / 7)
+    return weeks === 1 ? '1 week ago' : `${weeks} weeks ago`
+  }
+  if (diffInDays < 365) {
+    const months = Math.floor(diffInDays / 30)
+    return months === 1 ? '1 month ago' : `${months} months ago`
+  }
+  const years = Math.floor(diffInDays / 365)
+  return years === 1 ? '1 year ago' : `${years} years ago`
+}
+
+const formatTourDate = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+}
+
+const ReviewCard = ({ item }: ReviewItem) => {
+  // Generate star array based on rating
+  const stars = Array.from({ length: 5 }, (_, i) => i < item.rating)
+
   return (
     <div className='shadow-2xl bg-[#305570] rounded-lg overflow-hidden hover:shadow-3xl transition-all duration-300 hover:-translate-y-1'>
       {/* Header with profile */}
@@ -17,49 +52,55 @@ const ReviewCard = () => {
             <div className='h-full w-full rounded-full overflow-hidden border-4 border-white/20'>
               <img
                 className='w-full h-full object-cover object-center'
-                src='https://ldnjbkiqxrljdlauxbqe.supabase.co/storage/v1/object/public/site/person1.jpg'
-                alt='Sarah Smith'
+                src={item.reviewer_image_url}
+                alt={item.reviewer_name}
               />
             </div>
           </div>
 
-          {/* Stars positioned near profile */}
+          {/* Stars positioned near profile - dynamic based on rating */}
           <div className='flex justify-center gap-1 mt-3 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1.5 w-fit mx-auto'>
-            <FaStar className='text-lg text-yellow-400' />
-            <FaStar className='text-lg text-yellow-400' />
-            <FaStar className='text-lg text-yellow-400' />
-            <FaStar className='text-lg text-yellow-400' />
-            <FaStar className='text-lg text-yellow-400' />
+            {stars.map((filled, index) => (
+              <FaStar
+                key={index}
+                className={`text-lg ${
+                  filled ? 'text-yellow-400' : 'text-gray-400'
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
 
       {/* Name and title */}
       <div className='text-center px-6 pb-3'>
-        <h3 className='text-2xl font-bold text-white'>Sarah Smith</h3>
-        <p className='text-blue-200 text-sm mt-1'>Verified Traveler</p>
-        <p className='text-white/60 text-xs mt-1'>Vietnam Tour • March 2025</p>
+        <h3 className='text-2xl font-bold text-white'>{item.reviewer_name}</h3>
+        <p className='text-blue-200 text-sm mt-1'>{item.reviewer_title}</p>
+        <p className='text-white/60 text-xs mt-1'>
+          {item.tour_name} • {formatTourDate(item.tour_date)}
+        </p>
       </div>
 
       {/* Review content */}
       <div className='px-6 pb-8'>
         <div className='bg-white/5 backdrop-blur-sm rounded-lg p-5 border border-white/10'>
           <p className='text-white/90 text-center leading-relaxed italic'>
-            "An absolutely incredible experience from start to finish! The tour
-            was perfectly organized, our guide was knowledgeable and friendly,
-            and every destination exceeded my expectations. The food, culture,
-            and landscapes were breathtaking. I can't recommend this enough!"
+            "{item.review_text}"
           </p>
         </div>
 
         {/* Additional info */}
         <div className='flex justify-center gap-4 mt-4 text-xs text-white/60'>
-          <span className='flex items-center gap-1'>
-            <span className='w-2 h-2 bg-green-400 rounded-full'></span>
-            Verified Purchase
-          </span>
-          <span>•</span>
-          <span>2 weeks ago</span>
+          {item.is_verified && (
+            <>
+              <span className='flex items-center gap-1'>
+                <span className='w-2 h-2 bg-green-400 rounded-full'></span>
+                Verified Purchase
+              </span>
+              <span>-</span>
+            </>
+          )}
+          <span>{getRelativeTime(item.created_at)}</span>
         </div>
       </div>
     </div>

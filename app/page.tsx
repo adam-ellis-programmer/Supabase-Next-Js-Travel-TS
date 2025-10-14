@@ -20,7 +20,8 @@ export default async function Home() {
   const popular = await HomePage.getPopular()
   const activities = await HomePage.getActivities()
   const hero = await HomePage.getHero()
-  // console.log(activities)
+  const reviews = await HomePage.getReviews()
+  console.log({ reviews })
 
   return (
     <main className=''>
@@ -29,8 +30,8 @@ export default async function Home() {
         <TopSellers data={showcase} />
       </Container>
       <PopularDest data={popular} />
-      <Activities />
-      <Reviews />
+      <Activities data={activities} />
+      <Reviews data={reviews} />
     </main>
   )
 }

@@ -4,16 +4,11 @@ import React from 'react'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-
-// Import Swiper styles
-// import 'swiper/css'
-// import 'swiper/css/navigation'
-// import 'swiper/css/pagination'
-// import 'swiper/css/scrollbar'
+import { ActivitesData, ActivitiesTS } from '../Activities'
 
 import ActivityCard from '../cards/ActivityCard'
-const testArr = Array.from({ length: 15 }, (_, i) => i)
-const ActivitySwiper = () => {
+// const testArr = Array.from({ length: 15 }, (_, i) => i)
+const ActivitySwiper = ({ data }: ActivitesData) => {
   return (
     <div className='w-full px-4 '>
       <Swiper
@@ -38,13 +33,13 @@ const ActivitySwiper = () => {
             spaceBetween: 24,
           },
         }}
-        onSwiper={(swiper) => console.log(swiper)}
+        // onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log('slide change')}
       >
-        {testArr.map((item, i) => {
+        {data.map((item, i) => {
           return (
             <SwiperSlide>
-              <ActivityCard />
+              <ActivityCard item={item} />
             </SwiperSlide>
           )
         })}

@@ -57,9 +57,35 @@ export class HomePage {
     return data
   }
 
+  /**
+   * id
+   * category
+   * color_hex
+   * emoji
+   * fitness_level
+   * icon_name
+   * image_url
+   *
+   */
+
   static async getActivities() {
     const supabase = await createClient()
-    const { data, error } = await supabase.from('activities').select(`*`)
+    const { data, error } = await supabase.from('activities').select(
+      `
+      id,
+      category,
+      color_hex,
+      emoji,
+      fitness_level,
+      icon_name,
+      image_url,
+      name
+      `
+    )
+
+    if (error || !data) {
+      throw new Error('Failed to load hero')
+    }
     return data
   }
   // ==================
@@ -86,7 +112,13 @@ export class HomePage {
     return data // TypeScript knows this is never null
   }
 
-  // get activities
-  // get reviews
-  // get heo
+  static async getReviews() {
+    const supabase = await createClient()
+    const { data, error } = await supabase.from('reviews').select(`*`).limit(10)
+
+    if (error || !data) {
+      throw new Error('Failed to load hero')
+    }
+    return data // TypeScript knows this is never null
+  }
 }
