@@ -3,6 +3,7 @@ import LongCard from './cards/LongCard'
 
 export interface TopSellers {
   best_seller: string
+  id: string
   tour_name: string
   destinations: string
   duration: string

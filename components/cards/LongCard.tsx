@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from '../ui/button'
 import { FaClock, FaMapMarkerAlt, FaStar, FaUsers } from 'react-icons/fa'
 import { TopSellers } from '@/components/TopSellers'
+import Link from 'next/link'
 
 interface LongCardProps {
   data: TopSellers // Single item, not array
@@ -18,6 +19,7 @@ const LongCard = ({ data }: LongCardProps) => {
     tags,
     price,
     image,
+    id,
   } = data
 
   const truncate = (text: string) => {
@@ -97,9 +99,11 @@ const LongCard = ({ data }: LongCardProps) => {
             </p>
             <p className='text-gray-500 text-xs'>per person</p>
           </div>
-          <Button className='bg-blue-600 hover:bg-blue-700 px-6 py-2 h-auto text-base shadow-lg hover:shadow-xl transition-all'>
-            More Info
-          </Button>
+          <Link href={`/tours/${id}`}>
+            <Button className='bg-blue-600 hover:bg-blue-700 px-6 py-2 h-auto text-base shadow-lg hover:shadow-xl transition-all'>
+              More Info
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

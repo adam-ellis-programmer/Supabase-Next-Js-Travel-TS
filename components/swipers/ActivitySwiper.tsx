@@ -6,10 +6,10 @@ import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 // Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import 'swiper/css/scrollbar'
+// import 'swiper/css'
+// import 'swiper/css/navigation'
+// import 'swiper/css/pagination'
+// import 'swiper/css/scrollbar'
 
 import ActivityCard from '../cards/ActivityCard'
 const testArr = Array.from({ length: 15 }, (_, i) => i)

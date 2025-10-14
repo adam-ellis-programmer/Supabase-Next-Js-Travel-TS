@@ -19,7 +19,8 @@ export class HomePage {
           description,
           tags,
           price,
-          image:tour_images(image_url)
+          image:tour_images(image_url),
+          id
             `
       )
       .eq('show_case', true)
