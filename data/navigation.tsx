@@ -11,7 +11,7 @@ export const megaMenuData: MegaMenuData = {
       {
         region: 'Southeast Asia',
         destinations: [
-          { name: 'Bangkok', slug: 'bangkok' },
+          { name: '12 day thailand exp', slug: 'bangkok' },
           { name: 'Phuket', slug: 'phuket' },
           { name: 'Hanoi', slug: 'hanoi' },
           { name: 'Ho Chi Minh City', slug: 'ho-chi-minh' },

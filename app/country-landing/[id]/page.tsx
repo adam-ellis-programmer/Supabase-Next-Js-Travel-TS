@@ -1,4 +1,6 @@
 import React from 'react'
+import { LandingPage } from '@/lib/supabase/services/site/landing-page-service'
+import Link from 'next/link'
 import {
   FaPlane,
   FaMapMarkedAlt,
@@ -14,7 +16,18 @@ import {
   FaArrowRight,
 } from 'react-icons/fa'
 // ALTER TABLE countries ADD COLUMN slug TEXT UNIQUE;
-const CountryLandingPage = () => {
+const CountryLandingPage = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) => {
+  // const id = (await params).id
+  const { id } = await params
+  console.log('ID: ', id)
+
+  const res = await LandingPage.getPage(id)
+  console.log(res)
+
   // Variables that can be easily swapped
   const countryData = {
     name: 'Australia',

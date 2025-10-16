@@ -21,7 +21,11 @@ const SuperNav = ({ type }: SuperNavProps) => {
     <div className='absolute mt-12 z-30 top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl border border-gray-100'>
       <div className='border-b mb-5'>
         {/* If admin then show admin controll buttons */}
-        <h3>dev buttons</h3>
+        <h3 className='mb-4'>
+          <span className='bg-rose-400 p-2 rounded-lg text-white'>
+            dev buttons
+          </span>
+        </h3>
 
         <ul className='all-unset grid grid-cols-6 gap-4 mb-5'>
           {devLinks.map((link, i) => {
@@ -38,25 +42,40 @@ const SuperNav = ({ type }: SuperNavProps) => {
       <div className='grid grid-cols-12 gap-8'>
         {/* Left side - Links */}
         <div className='col-span-8 grid grid-cols-2 gap-6'>
-          {data.categories.map((category, index) => (
-            <div key={index}>
-              <h3 className='font-bold text-gray-900 mb-3 text-sm uppercase tracking-wider'>
-                {category.region}
-              </h3>
-              <ul className='space-y-2'>
-                {category.destinations.map((destination) => (
-                  <li key={destination.slug}>
-                    <Link
-                      href={`/${type}/${destination.slug}`}
-                      className='text-gray-600 hover:text-blue-600 transition-colors text-sm'
-                    >
-                      {destination.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {data.categories.map((category, index) => {
+            // console.log('category-- ', category)
+            const createSlug = (text: string): string => {
+              return text
+                .toLowerCase()
+                .replace(/\s+/g, '-') // Replace one or more spaces with hyphen
+                .replace(/[^\w\-]+/g, '') // Remove special characters (optional)
+                .trim()
+            }
+
+            return (
+              <div key={index}>
+                <h3 className='font-bold text-gray-900 mb-3 text-sm uppercase tracking-wider'>
+                  <Link
+                    href={`/country-landing/${createSlug(category.region)}`}
+                  >
+                    {category.region} --
+                  </Link>
+                </h3>
+                <ul className='space-y-2'>
+                  {category.destinations.map((destination) => (
+                    <li key={destination.slug}>
+                      <Link
+                        href={`/${type}/${destination.slug}`}
+                        className='text-gray-600 hover:text-blue-600 transition-colors text-sm'
+                      >
+                        {destination.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          })}
         </div>
 
         {/* Right side - Featured Image */}
