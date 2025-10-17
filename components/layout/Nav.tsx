@@ -8,11 +8,45 @@ import NavButtons from './super nav/NavButtons'
 import Link from 'next/link'
 import NavAuth from '../buttons/NavAuth'
 import { createClient } from '@/lib/supabase/server'
-
+import { NavService } from '@/lib/supabase/services/site/navigation-service'
 const Nav = async () => {
-  const supabase = createClient()
-  // const { data: { user }, error } = await supabase.auth.getUser()
-  // console.log(user)
+  const { countriesData, toursData } = await NavService.getNavData()
+  // console.log(countries)
+
+  const formattedCountriesData = countriesData.reduce((acc, country) => {
+    if (!acc[country.continent]) {
+      acc[country.continent] = {
+        count: 0,
+        countries: [],
+        name: country.continent,
+      }
+    }
+
+    acc[country.continent].countries.push(country)
+    acc[country.continent].count = acc[country.continent].countries.length
+
+    return acc
+  }, {})
+
+  // console.log(formattedCountriesData)
+  // country
+  // console.log(toursData)
+
+  const formattedToursData = toursData.reduce((acc, item) => {
+    if (!acc[item.country]) {
+      acc[item.country] = {
+        countries: [],
+      }
+    }
+
+    if (item.country === item.country) {
+      acc[item.country].countries.push(item)
+    }
+
+    return acc
+  }, {})
+
+  console.log(formattedToursData)
 
   return (
     <nav className='border-b'>

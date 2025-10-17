@@ -21,7 +21,7 @@ export default async function Home() {
   const activities = await HomePage.getActivities()
   const hero = await HomePage.getHero()
   const reviews = await HomePage.getReviews()
-  console.log({ reviews })
+  // console.log({ reviews })
 
   return (
     <main className=''>

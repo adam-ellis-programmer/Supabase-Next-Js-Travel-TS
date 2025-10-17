@@ -1,6 +1,7 @@
 import React from 'react'
 import { LandingPage } from '@/lib/supabase/services/site/landing-page-service'
 import Link from 'next/link'
+
 import {
   FaPlane,
   FaMapMarkedAlt,

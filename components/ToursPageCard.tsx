@@ -30,7 +30,7 @@ interface ToursPageCardProps {
 }
 
 const ToursPageCard = ({ tour }: ToursPageCardProps) => {
-  console.log(tour)
+  // console.log(tour)
 
   return (
     <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 mb-4 group'>

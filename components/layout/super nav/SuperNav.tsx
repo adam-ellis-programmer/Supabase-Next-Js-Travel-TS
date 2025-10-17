@@ -4,10 +4,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { megaMenuData } from '@/data/navigation'
 import { links as devLinks } from '@/dev/DevButtons'
+
 interface SuperNavProps {
   type: 'tours' | 'destinations'
 }
-
 // CLICK ON A LINK TOUR AND IT TAKES US TO ALL TOURS IN THAT AREA
 // CLICK ON A DESTINATION AND IT TAKES US TO ALL TOURS IN THAT DESTINATION
 // MAKE ONE PAGE THAT HANDLES BOTH TYPES OF DATA
