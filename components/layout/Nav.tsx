@@ -11,8 +11,10 @@ import { createClient } from '@/lib/supabase/server'
 import { NavService } from '@/lib/supabase/services/site/navigation-service'
 const Nav = async () => {
   const { countriesData, toursData } = await NavService.getNavData()
-  // console.log(countries)
 
+  //=========================================
+  // -- countries data
+  //=========================================
   const formattedCountriesData = countriesData.reduce((acc, country) => {
     if (!acc[country.continent]) {
       acc[country.continent] = {
@@ -28,10 +30,9 @@ const Nav = async () => {
     return acc
   }, {})
 
-  // console.log(formattedCountriesData)
-  // country
-  // console.log(toursData)
-
+  //=========================================
+  // -- tours data
+  //=========================================
   const formattedToursData = toursData.reduce((acc, item) => {
     if (!acc[item.country]) {
       acc[item.country] = {
@@ -46,7 +47,19 @@ const Nav = async () => {
     return acc
   }, {})
 
-  console.log(formattedToursData)
+  const sortedContinents = toursData.reduce((acc, item) => {
+    if (!acc[item.continent]) {
+      acc[item.continent] = []
+    }
+
+    if (item.continent === item.continent) {
+      acc[item.continent].push(item)
+    }
+
+    return acc
+  }, {})
+
+  console.log(sortedContinents)
 
   return (
     <nav className='border-b'>

@@ -15,7 +15,7 @@ export const metadata = {
 export default async function AllToursPage() {
   // Fetch tours on the server
   const result = await TourService.getPublishedTours()
-  console.log(result)
+  // console.log(result)
 
   if (!result.success) {
     return (

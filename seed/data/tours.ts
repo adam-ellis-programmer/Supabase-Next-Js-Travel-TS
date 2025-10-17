@@ -27,11 +27,13 @@ interface TourSeed {
   payment_cancellation: string
   good_to_know: string[]
   bookable_pax: number
+  continent: string
 }
 
 export const tours: TourSeed[] = [
   {
     ref_id: 'tour_vietnam_12day',
+    continent: 'Asia',
     tour_name: 'Amazing Vietnam 12 Day Adventure',
     slug: 'amazing-vietnam-12-day-adventure',
     country: 'vietnam',
@@ -107,6 +109,7 @@ export const tours: TourSeed[] = [
   },
   {
     ref_id: 'tour_thailand_10day',
+    continent: 'Asia',
     tour_name: 'Thailand Island Hopping Paradise',
     slug: 'thailand-island-hopping-paradise',
     country: 'thailand',
@@ -180,6 +183,7 @@ export const tours: TourSeed[] = [
   },
   {
     ref_id: 'tour_japan_11day',
+    continent: 'Asia',
     tour_name: 'Japan Cultural Discovery',
     slug: 'japan-cultural-discovery',
     country: 'japan',
@@ -255,6 +259,7 @@ export const tours: TourSeed[] = [
   },
   {
     ref_id: 'tour_bali_10day',
+    continent: 'Asia',
     tour_name: 'Bali Spiritual Wellness Retreat',
     slug: 'bali-spiritual-wellness-retreat',
     country: 'indonesia',
@@ -332,6 +337,7 @@ export const tours: TourSeed[] = [
   },
   {
     ref_id: 'tour_cambodia_12day',
+    continent: 'Asia',
     tour_name: 'Cambodia Ancient Temples Explorer',
     slug: 'cambodia-ancient-temples-explorer',
     country: 'cambodia',
