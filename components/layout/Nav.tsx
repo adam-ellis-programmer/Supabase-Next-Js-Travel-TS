@@ -47,14 +47,41 @@ const Nav = async () => {
     return acc
   }, {})
 
+  // const sortedContinents = toursData.reduce((acc, item) => {
+  //   // console.log(item)
+
+  //   if (!acc[item.continent]) {
+  //     acc[item.continent] = {
+  //       continent: item.continent,
+  //       countries: [],
+  //     }
+  //   }
+
+  //   if (item.continent === item.continent) {
+  //     acc[item.continent].countries.push(item)
+  //   }
+
+  //   return acc
+  // }, {})
+
+  // console.log(sortedContinents)
+
   const sortedContinents = toursData.reduce((acc, item) => {
+    // 1:  Initialize continent if it doesn't exist
     if (!acc[item.continent]) {
-      acc[item.continent] = []
+      acc[item.continent] = {
+        continent: item.continent,
+        countries: {}, // Use an object to group by country
+      }
     }
 
-    if (item.continent === item.continent) {
-      acc[item.continent].push(item)
+    // 2: Initialize country array if it doesn't exist
+    if (!acc[item.continent].countries[item.country]) {
+      acc[item.continent].countries[item.country] = []
     }
+
+    // 3: Add the tour to the appropriate country
+    acc[item.continent].countries[item.country].push(item)
 
     return acc
   }, {})

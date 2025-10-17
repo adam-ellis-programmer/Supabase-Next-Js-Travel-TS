@@ -289,4 +289,286 @@ export const tour_images: TourImageSeed[] = [
     display_order: 5,
     is_primary: false,
   },
+
+  // Add these tour image objects to your tour_images.ts file
+
+  // ===== PERU TOUR - 6 images =====
+  {
+    tour_ref_id: 'tour_peru_14day',
+    image_url:
+      'https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=1200',
+    storage_path: 'tours/peru-14day/machu-picchu.jpg',
+    image_alt: 'Machu Picchu ancient Inca citadel at sunrise',
+    display_order: 0,
+    is_primary: true,
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    image_url:
+      'https://images.unsplash.com/photo-1526392060635-9d6019884377?w=1200',
+    storage_path: 'tours/peru-14day/cusco-plaza.jpg',
+    image_alt: 'Colonial architecture in Cusco main square',
+    display_order: 1,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    image_url:
+      'https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?w=1200',
+    storage_path: 'tours/peru-14day/amazon-river.jpg',
+    image_alt: 'Amazon rainforest river view',
+    display_order: 2,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    image_url:
+      'https://images.unsplash.com/photo-1531968455001-5c5272a41129?w=1200',
+    storage_path: 'tours/peru-14day/lake-titicaca.jpg',
+    image_alt: 'Lake Titicaca floating islands',
+    display_order: 3,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    image_url:
+      'https://images.unsplash.com/photo-1591081658714-f576fb7ea3ed?w=1200',
+    storage_path: 'tours/peru-14day/nazca-lines.jpg',
+    image_alt: 'Aerial view of Nazca Lines',
+    display_order: 4,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    image_url:
+      'https://images.unsplash.com/photo-1577915509669-e8daeb28b498?w=1200',
+    storage_path: 'tours/peru-14day/sacred-valley.jpg',
+    image_alt: 'Sacred Valley terraced landscapes',
+    display_order: 5,
+    is_primary: false,
+  },
+
+  // ===== MOROCCO TOUR - 6 images =====
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    image_url:
+      'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=1200',
+    storage_path: 'tours/morocco-10day/sahara-desert.jpg',
+    image_alt: 'Camel caravan in Sahara Desert at sunset',
+    display_order: 0,
+    is_primary: true,
+  },
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    image_url:
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200',
+    storage_path: 'tours/morocco-10day/chefchaouen.jpg',
+    image_alt: 'Blue streets of Chefchaouen',
+    display_order: 1,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    image_url:
+      'https://images.unsplash.com/photo-1597212618440-806262de4f6b?w=1200',
+    storage_path: 'tours/morocco-10day/marrakech-souk.jpg',
+    image_alt: 'Colorful spices in Marrakech souk',
+    display_order: 2,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    image_url:
+      'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=1200',
+    storage_path: 'tours/morocco-10day/fes-medina.jpg',
+    image_alt: 'Ancient medina of Fes from above',
+    display_order: 3,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    image_url:
+      'https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=1200',
+    storage_path: 'tours/morocco-10day/ait-benhaddou.jpg',
+    image_alt: 'Ait Benhaddou ancient kasbah',
+    display_order: 4,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    image_url:
+      'https://images.unsplash.com/photo-1569383746724-6f1b882b8f46?w=1200',
+    storage_path: 'tours/morocco-10day/atlas-mountains.jpg',
+    image_alt: 'Atlas Mountains scenic road',
+    display_order: 5,
+    is_primary: false,
+  },
+
+  // ===== ICELAND TOUR - 6 images =====
+  {
+    tour_ref_id: 'tour_iceland_8day',
+    image_url:
+      'https://images.unsplash.com/photo-1504829857797-ddff29c27927?w=1200',
+    storage_path: 'tours/iceland-8day/northern-lights.jpg',
+    image_alt: 'Northern Lights dancing over Iceland',
+    display_order: 0,
+    is_primary: true,
+  },
+  {
+    tour_ref_id: 'tour_iceland_8day',
+    image_url:
+      'https://images.unsplash.com/photo-1520769669658-f07657f5a307?w=1200',
+    storage_path: 'tours/iceland-8day/ice-cave.jpg',
+    image_alt: 'Blue ice cave interior',
+    display_order: 1,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_iceland_8day',
+    image_url:
+      'https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1200',
+    storage_path: 'tours/iceland-8day/black-beach.jpg',
+    image_alt: 'Reynisfjara black sand beach',
+    display_order: 2,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_iceland_8day',
+    image_url:
+      'https://images.unsplash.com/photo-1490650404312-a2175773bbf5?w=1200',
+    storage_path: 'tours/iceland-8day/gullfoss.jpg',
+    image_alt: 'Gullfoss waterfall in winter',
+    display_order: 3,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_iceland_8day',
+    image_url:
+      'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=1200',
+    storage_path: 'tours/iceland-8day/blue-lagoon.jpg',
+    image_alt: 'Blue Lagoon geothermal spa',
+    display_order: 4,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_iceland_8day',
+    image_url:
+      'https://images.unsplash.com/photo-1509424878502-16e650cd60d5?w=1200',
+    storage_path: 'tours/iceland-8day/glacier-hike.jpg',
+    image_alt: 'Glacier hiking on Vatnajökull',
+    display_order: 5,
+    is_primary: false,
+  },
+
+  // ===== EGYPT TOUR - 6 images =====
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    image_url:
+      'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?w=1200',
+    storage_path: 'tours/egypt-11day/pyramids-giza.jpg',
+    image_alt: 'Great Pyramids of Giza and Sphinx',
+    display_order: 0,
+    is_primary: true,
+  },
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    image_url:
+      'https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1200',
+    storage_path: 'tours/egypt-11day/abu-simbel.jpg',
+    image_alt: 'Abu Simbel temple colossal statues',
+    display_order: 1,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    image_url:
+      'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=1200',
+    storage_path: 'tours/egypt-11day/nile-cruise.jpg',
+    image_alt: 'Traditional felucca sailing on Nile',
+    display_order: 2,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    image_url:
+      'https://images.unsplash.com/photo-1562679299-266edff2db30?w=1200',
+    storage_path: 'tours/egypt-11day/valley-kings.jpg',
+    image_alt: 'Valley of the Kings tomb entrance',
+    display_order: 3,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    image_url:
+      'https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1200',
+    storage_path: 'tours/egypt-11day/karnak-temple.jpg',
+    image_alt: 'Karnak Temple columns',
+    display_order: 4,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    image_url:
+      'https://images.unsplash.com/photo-1580977276076-ae4b8c219b8e?w=1200',
+    storage_path: 'tours/egypt-11day/red-sea.jpg',
+    image_alt: 'Red Sea coral reef snorkeling',
+    display_order: 5,
+    is_primary: false,
+  },
+
+  // ===== INDIA TOUR - 6 images =====
+  {
+    tour_ref_id: 'tour_india_15day',
+    image_url:
+      'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1200',
+    storage_path: 'tours/india-15day/taj-mahal.jpg',
+    image_alt: 'Taj Mahal at sunrise reflection',
+    display_order: 0,
+    is_primary: true,
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    image_url:
+      'https://images.unsplash.com/photo-1599661046827-dacff0c0f09a?w=1200',
+    storage_path: 'tours/india-15day/jaipur-palace.jpg',
+    image_alt: 'Hawa Mahal Palace of Winds in Jaipur',
+    display_order: 1,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    image_url:
+      'https://images.unsplash.com/photo-1609920658906-8223bd289001?w=1200',
+    storage_path: 'tours/india-15day/varanasi-ghats.jpg',
+    image_alt: 'Evening ceremony on Varanasi ghats',
+    display_order: 2,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    image_url:
+      'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1200',
+    storage_path: 'tours/india-15day/kerala-backwaters.jpg',
+    image_alt: 'Kerala backwaters houseboat cruise',
+    display_order: 3,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    image_url:
+      'https://images.unsplash.com/photo-1506461883276-594a12b11cf3?w=1200',
+    storage_path: 'tours/india-15day/amber-fort.jpg',
+    image_alt: 'Amber Fort Jaipur with elephants',
+    display_order: 4,
+    is_primary: false,
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    image_url:
+      'https://images.unsplash.com/photo-1587135941948-670b381f08ce?w=1200',
+    storage_path: 'tours/india-15day/spice-plantation.jpg',
+    image_alt: 'Kerala spice plantation tour',
+    display_order: 5,
+    is_primary: false,
+  },
 ]

@@ -402,4 +402,425 @@ export const itineraries: ItinerarySeed[] = [
     day_description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, voluptatibus. Itaque, blanditiis molestiae repellendus eius cum aut earum nisi dolorem tempora aliquam voluptatem delectus, maxime, assumenda temporibus laudantium ab. Maxime dolorem accusantium harum doloribus sapiente repellat impedit, quos reprehenderit libero. Final breakfast and free time for last-minute shopping at Russian Market or visiting Wat Phnom temple. Transfer to Phnom Penh International Airport for your departure flight. Leave Cambodia with unforgettable memories of ancient temples, beautiful beaches, and warm Khmer hospitality.',
   },
+
+  // Add these itinerary objects to your itineraries.ts file
+
+  // ===== PERU TOUR - 14 days =====
+  {
+    tour_ref_id: 'tour_peru_14day',
+    day_number: 1,
+    day_title: 'Arrival in Lima',
+    day_description:
+      'Welcome to Peru! Upon arrival at Jorge Chávez International Airport, meet your guide and transfer to your hotel in the historic Miraflores district. After settling in, enjoy a walking tour of colonial Lima including the Plaza de Armas, Cathedral, and Government Palace. Welcome dinner featuring traditional Peruvian cuisine including ceviche and pisco sours.',
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    day_number: 2,
+    day_title: 'Lima to Cusco',
+    day_description:
+      'Morning flight to Cusco, the ancient capital of the Inca Empire. Take it easy today to acclimatize to the altitude (3,400m). Gentle walking tour of Cusco including the impressive Qorikancha (Sun Temple) and the bohemian San Blas neighborhood. Afternoon coca tea and rest. Evening briefing for the upcoming Inca Trail trek.',
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    day_number: 3,
+    day_title: 'Sacred Valley Exploration',
+    day_description:
+      'Full day exploring the Sacred Valley. Visit the colorful Pisac market where locals trade handicrafts and produce. Explore the impressive Pisac archaeological site with panoramic valley views. Traditional lunch in a local community. Afternoon visit to Ollantaytambo, a living Inca town with magnificent fortress ruins. Overnight in the Sacred Valley.',
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    day_number: 4,
+    day_title: 'Inca Trail Day 1 - Wayllabamba',
+    day_description:
+      'Early morning start for the classic Inca Trail! Drive to Km 82 starting point. Begin trekking through the Urubamba Valley with spectacular mountain views. Pass through local villages and archaeological sites. Gradual ascent along the Cusichaca River. Camp at Wayllabamba (3,000m) after approximately 6 hours of hiking. Hearty dinner prepared by trek crew.',
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    day_number: 5,
+    day_title: "Inca Trail Day 2 - Dead Woman's Pass",
+    day_description:
+      "The most challenging day! Early start for the steep climb to Dead Woman's Pass (4,200m), the highest point of the trail. Breathtaking views reward your effort. Descend to Pacaymayo Valley for lunch. Continue to the second pass visiting Runkurakay ruins. Descend to Chaquicocha camp (3,600m). Total hiking time approximately 7-8 hours.",
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    day_number: 6,
+    day_title: 'Inca Trail Day 3 - Cloud Forest',
+    day_description:
+      'Most scenic day of the trek! Pass through diverse ecosystems from alpine to cloud forest. Explore several Inca sites including Phuyupatamarca (City Above the Clouds). Dramatic descent down ancient stone steps. Arrive at Wiñay Wayna with its impressive agricultural terraces. Final night camping near the Sun Gate. Farewell dinner with porters.',
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    day_number: 7,
+    day_title: 'Machu Picchu Sunrise',
+    day_description:
+      'Pre-dawn start for the final stretch to the Sun Gate. Watch the sunrise illuminate Machu Picchu - an unforgettable moment! Comprehensive guided tour of the citadel learning about its history, architecture, and mysteries. Optional climb Huayna Picchu for aerial views. Afternoon train to Aguas Calientes, then return to Cusco. Celebration dinner.',
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    day_number: 8,
+    day_title: 'Flight to Puerto Maldonado',
+    day_description:
+      'Morning flight from Cusco to Puerto Maldonado, gateway to the Amazon. Boat journey up the Tambopata River to your eco-lodge deep in the rainforest. Afternoon jungle walk to spot monkeys, sloths, and tropical birds. Night walk to observe nocturnal creatures including tarantulas and tree frogs. Fall asleep to the symphony of the jungle.',
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    day_number: 9,
+    day_title: 'Amazon Wildlife & Canopy Tower',
+    day_description:
+      'Early morning visit to a clay lick where hundreds of parrots and macaws gather. Canopy tower climb for spectacular rainforest views and bird watching. Afternoon piranha fishing and swimming in the river (safe areas only!). Learn about medicinal plants from indigenous guides. Night caiman spotting expedition by boat.',
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    day_number: 10,
+    day_title: 'Amazon to Lake Titicaca',
+    day_description:
+      "Morning return to Puerto Maldonado. Flight to Juliaca via Lima, then scenic drive to Puno on the shores of Lake Titicaca (3,800m), the world's highest navigable lake. Check into hotel with lake views. Evening at leisure to rest and acclimatize. Traditional music performance at dinner.",
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    day_number: 11,
+    day_title: 'Uros Floating Islands',
+    day_description:
+      'Full day boat excursion on Lake Titicaca. Visit the remarkable Uros floating islands made entirely of totora reeds. Meet local families and learn about their unique way of life. Continue to Taquile Island for lunch and to observe traditional textile weaving. Return to Puno with stunning sunset views over the lake.',
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    day_number: 12,
+    day_title: 'Journey to Nazca',
+    day_description:
+      'Early morning flight from Juliaca to Lima, then continue by comfortable bus to Nazca (6 hours) through dramatic coastal desert scenery. Stop at the Ballestas Islands ("Poor Man\'s Galapagos") to see sea lions, penguins, and countless seabirds. Arrive in Nazca and visit the museum to understand the mysterious Nazca Lines.',
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    day_number: 13,
+    day_title: 'Nazca Lines Overflight',
+    day_description:
+      'Morning flight over the enigmatic Nazca Lines in small aircraft. Marvel at the enormous geometric patterns and figures including the hummingbird, monkey, and astronaut, visible only from the air. Visit ancient Nazca aqueducts still in use today. Afternoon return to Lima. Farewell dinner in the seaside district of Barranco.',
+  },
+  {
+    tour_ref_id: 'tour_peru_14day',
+    day_number: 14,
+    day_title: 'Departure from Lima',
+    day_description:
+      'Free morning for last-minute shopping at Indian Market or visiting any missed Lima sights. Optional visit to Larco Museum with its impressive pre-Columbian art collection. Transfer to airport for international departure. Leave Peru with incredible memories of Inca wonders, Amazon adventures, and warm Peruvian hospitality.',
+  },
+  // Add these itinerary objects to your itineraries.ts file
+
+  // ===== MOROCCO TOUR - 10 days =====
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    day_number: 1,
+    day_title: 'Arrival in Casablanca',
+    day_description:
+      'Welcome to Morocco! Arrive at Mohammed V International Airport and meet your guide. Visit the impressive Hassan II Mosque, one of the largest mosques in the world with stunning Atlantic Ocean views. Transfer to Rabat, the capital city. Explore the Kasbah of the Udayas and Hassan Tower. Check into your riad and enjoy a welcome dinner with traditional Moroccan specialties.',
+  },
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    day_number: 2,
+    day_title: 'Rabat to Chefchaouen',
+    day_description:
+      "Journey north through the Rif Mountains to the enchanting blue city of Chefchaouen. This photographer's paradise is painted in countless shades of blue. Explore the medina's narrow streets, visit local artisan workshops, and climb to the Spanish Mosque for panoramic views. Evening at leisure to soak in the peaceful mountain atmosphere. Overnight in a traditional riad.",
+  },
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    day_number: 3,
+    day_title: 'Chefchaouen to Fes',
+    day_description:
+      "Morning departure to Fes with a stop at the Roman ruins of Volubilis, Morocco's best-preserved archaeological site. Continue to the imperial city of Meknes to see the massive Bab Mansour gate. Arrive in Fes, Morocco's spiritual and cultural capital. Check into your riad in the medina. Traditional hammam spa experience in the evening.",
+  },
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    day_number: 4,
+    day_title: 'Fes Medina Discovery',
+    day_description:
+      "Full day exploring the UNESCO-listed Fes el-Bali medina with an expert local guide. Navigate the maze-like streets visiting the Bou Inania Madrasa, ancient tanneries, Nejjarine Museum, and Al-Karaouine University (world's oldest). Watch traditional craftsmen at work in the souks. Lunch at a traditional restaurant. Evening rooftop dinner with medina views.",
+  },
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    day_number: 5,
+    day_title: 'Journey to Sahara Desert',
+    day_description:
+      'Epic journey to the Sahara Desert crossing the Middle Atlas Mountains. Stop in Ifrane, "Morocco\'s Switzerland," and cedar forests where Barbary monkeys roam. Cross the Ziz Valley with its million palm trees. Arrive in Merzouga at the edge of the Erg Chebbi dunes. Sunset camel trek into the desert. Overnight in Berber camp under countless stars. Traditional music around the campfire.',
+  },
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    day_number: 6,
+    day_title: 'Desert to Dades Valley',
+    day_description:
+      'Wake early to watch the sunrise over the dunes. Camel ride back to Merzouga. Visit a Gnawa music family and explore underground irrigation channels. Drive through dramatic landscapes to Todra Gorge with its 300m high canyon walls. Continue through the Valley of Roses to Dades Valley. Overnight in a kasbah hotel with stunning valley views.',
+  },
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    day_number: 7,
+    day_title: 'Dades to Marrakech',
+    day_description:
+      "Scenic drive along the Road of 1000 Kasbahs. Visit the UNESCO World Heritage site of Ait Benhaddou, a spectacular fortified village featured in many Hollywood films. Cross the High Atlas Mountains via the dramatic Tizi n'Tichka pass (2,260m). Arrive in vibrant Marrakech. Evening visit to the legendary Jemaa el-Fnaa square with its entertainers and food stalls.",
+  },
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    day_number: 8,
+    day_title: 'Marrakech Exploration',
+    day_description:
+      "Full day discovering Marrakech's treasures. Visit the Bahia Palace, Saadian Tombs, and Koutoubia Mosque. Explore the colorful souks with their spices, textiles, and handicrafts. Lunch in a hidden riad restaurant. Afternoon visit to the beautiful Majorelle Garden. Participate in a cooking class learning to prepare tagine and other Moroccan dishes. Feast on your creations for dinner.",
+  },
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    day_number: 9,
+    day_title: 'Atlas Mountains Excursion',
+    day_description:
+      "Day trip to the High Atlas Mountains. Visit a traditional Berber village and enjoy mint tea with a local family. Optional mule ride or hike to waterfalls in the Ourika Valley. Learn about Argan oil production at a women's cooperative. Return to Marrakech for a farewell dinner in a palace restaurant with belly dancing and traditional music performances.",
+  },
+  {
+    tour_ref_id: 'tour_morocco_10day',
+    day_number: 10,
+    day_title: 'Departure from Marrakech',
+    day_description:
+      'Free morning for last-minute shopping in the souks or relaxing at a café. Optional visit to the Menara Gardens or Yves Saint Laurent Museum. Transfer to Marrakech Menara Airport for your departure. Leave Morocco with memories of dramatic landscapes, ancient cities, warm hospitality, and the magic of the Sahara.',
+  },
+
+  // ===== ICELAND TOUR - 8 days =====
+  {
+    tour_ref_id: 'tour_iceland_8day',
+    day_number: 1,
+    day_title: 'Arrival & Reykjavik',
+    day_description:
+      'Welcome to Iceland! Arrival at Keflavík Airport and transfer to Reykjavik. Stop at the famous Blue Lagoon for a relaxing soak in the mineral-rich geothermal waters - perfect after your flight. Check into your hotel in central Reykjavik. Evening walking tour of the compact city center including Hallgrímskirkja church and the harbor. Welcome dinner featuring fresh Icelandic seafood.',
+  },
+  {
+    tour_ref_id: 'tour_iceland_8day',
+    day_number: 2,
+    day_title: 'Golden Circle & South Coast',
+    day_description:
+      'Begin the Ring Road adventure! Visit the Golden Circle highlights: Þingvellir National Park (continental divide), Geysir geothermal area with erupting hot springs, and mighty Gullfoss waterfall. Continue south to Seljalandsfoss waterfall where you can walk behind the cascade. End at Skógafoss waterfall. First Northern Lights hunting opportunity tonight (weather permitting). Overnight in Vík.',
+  },
+  {
+    tour_ref_id: 'tour_iceland_8day',
+    day_number: 3,
+    day_title: 'Black Beaches & Glacier Lagoon',
+    day_description:
+      'Explore Reynisfjara black sand beach with its basalt columns and powerful Atlantic waves. Journey through vast lava fields to Vatnajökull National Park. Marvel at Jökulsárlón Glacier Lagoon where icebergs float serenely. Walk on Diamond Beach where ice chunks sparkle on black sand. Natural ice cave exploration with specialized guides and equipment. Northern Lights wake-up call if visible.',
+  },
+  {
+    tour_ref_id: 'tour_iceland_8day',
+    day_number: 4,
+    day_title: 'East Fjords Journey',
+    day_description:
+      'Scenic drive through the dramatic East Fjords with towering mountains and picturesque fishing villages. Stop at Djúpivogur and explore the charming harbor. Continue through winding coastal roads with stunning ocean views. Possible whale watching opportunities from shore. Arrive in Egilsstaðir, the capital of East Iceland. Soak in local hot springs. Northern Lights viewing if conditions allow.',
+  },
+  {
+    tour_ref_id: 'tour_iceland_8day',
+    day_number: 5,
+    day_title: 'Lake Mývatn & North Iceland',
+    day_description:
+      "Drive to Lake Mývatn area, a geothermal wonderland. Explore pseudo-craters, bubbling mud pools at Hverir, and bizarre lava formations at Dimmuborgir. Visit powerful Dettifoss, Europe's most powerful waterfall. Whale watching tour from Húsavík, the whale capital of Iceland. Relax in Mývatn Nature Baths with mountain views. Overnight in Akureyri, Iceland's second city.",
+  },
+  {
+    tour_ref_id: 'tour_iceland_8day',
+    day_number: 6,
+    day_title: 'Snæfellsnes Peninsula',
+    day_description:
+      'Long but spectacular drive to Snæfellsnes Peninsula, "Iceland in Miniature." Photo stop at Hvítserkur rock formation. Explore charming fishing villages, dramatic sea cliffs, and Kirkjufell mountain (most photographed mountain in Iceland). Visit Snæfellsjökull National Park with its glacier-capped volcano. Black church at Búðir. Final evening in countryside location perfect for Northern Lights.',
+  },
+  {
+    tour_ref_id: 'tour_iceland_8day',
+    day_number: 7,
+    day_title: 'West Iceland & Return',
+    day_description:
+      "Explore West Iceland highlights including Hraunfossar and Barnafoss waterfalls. Visit Deildartunguhver, Europe's most powerful hot spring. Optional glacier hiking on Langjökull with crampons and ice axes. Return to Reykjavik for farewell dinner at a top restaurant. Final Northern Lights opportunity - your guide knows the best spots away from city lights.",
+  },
+  {
+    tour_ref_id: 'tour_iceland_8day',
+    day_number: 8,
+    day_title: 'Departure',
+    day_description:
+      'Transfer to Keflavík Airport for departure. Optional early morning visit to the Blue Lagoon if flight schedule permits. Leave Iceland with memories of otherworldly landscapes, the magical Northern Lights (hopefully!), and the raw power of nature in this land of fire and ice.',
+  },
+
+  // Add these itinerary objects to your itineraries.ts file
+
+  // ===== EGYPT TOUR - 11 days =====
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    day_number: 1,
+    day_title: 'Arrival in Cairo',
+    day_description:
+      'Welcome to Egypt, land of the Pharaohs! Arrive at Cairo International Airport and meet your Egyptologist guide. Transfer to your hotel near the pyramids. Evening visit to the Khan el-Khalili bazaar, one of the oldest markets in the Middle East. Welcome dinner with views of the illuminated pyramids. Briefing about the upcoming adventure.',
+  },
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    day_number: 2,
+    day_title: 'Pyramids & Sphinx',
+    day_description:
+      "Full day at the Giza Plateau. Early morning visit to the Great Pyramids - last surviving Wonder of the Ancient World. Optional entry inside the Great Pyramid. Meet the enigmatic Sphinx and learn its mysteries. Visit the Solar Boat Museum. Afternoon at the Saqqara necropolis to see the Step Pyramid, the world's oldest pyramid. Evening sound and light show at the pyramids.",
+  },
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    day_number: 3,
+    day_title: 'Egyptian Museum & Old Cairo',
+    day_description:
+      "Morning visit to the Egyptian Museum housing the world's greatest collection of Pharaonic artifacts, including Tutankhamun's golden treasures. Explore Coptic Cairo including the Hanging Church and Ben Ezra Synagogue. Visit the Citadel of Saladin and Mohamed Ali Mosque with panoramic city views. Evening flight to Luxor. Check into your Nile-view hotel.",
+  },
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    day_number: 4,
+    day_title: 'Valley of the Kings',
+    day_description:
+      "Cross to the West Bank of the Nile. Explore the Valley of the Kings, entering three elaborate pharaonic tombs (optional Tutankhamun's tomb). Visit the magnificent Temple of Hatshepsut and the Colossi of Memnon. Afternoon visit to Karnak Temple, the largest ancient religious site in the world. Board your 5-star Nile cruise ship. Dinner and belly dancing show onboard.",
+  },
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    day_number: 5,
+    day_title: 'Nile Cruise - Edfu & Kom Ombo',
+    day_description:
+      "Sail to Edfu. Morning visit to the Temple of Horus, Egypt's best-preserved temple. Return to ship for lunch while sailing to Kom Ombo. Afternoon visit to the unusual double temple dedicated to Sobek the crocodile god and Horus. See the ancient calendar and surgical instruments carved in stone. Sunset sailing towards Aswan. Galabeya party onboard.",
+  },
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    day_number: 6,
+    day_title: 'Aswan & Philae Temple',
+    day_description:
+      'Morning visit to the Aswan High Dam and the Unfinished Obelisk. Motorboat ride to the island of Philae to explore the romantic Temple of Isis. Afternoon felucca sailing around Elephantine Island and the Botanical Gardens. Visit a Nubian village for tea with a local family. Optional evening visit to the Sound and Light show at Philae Temple.',
+  },
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    day_number: 7,
+    day_title: 'Abu Simbel Excursion',
+    day_description:
+      'Very early morning drive through the desert to Abu Simbel (or optional flight). Marvel at the colossal temples of Ramesses II and Nefertari, rescued from flooding by UNESCO. Learn about the incredible feat of moving these massive structures. Return to Aswan and disembark from cruise. Afternoon train journey back to Luxor enjoying Nile Valley scenery.',
+  },
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    day_number: 8,
+    day_title: 'Luxor to Red Sea',
+    day_description:
+      'Morning visit to Luxor Temple connected to Karnak by the ancient Avenue of Sphinxes. Drive across the Eastern Desert to Hurghada on the Red Sea coast (4 hours). Check into your beach resort. Afternoon at leisure to enjoy the beach, pool, or optional activities. Fresh seafood dinner by the sea.',
+  },
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    day_number: 9,
+    day_title: 'Red Sea Paradise',
+    day_description:
+      "Full day to enjoy the Red Sea. Morning snorkeling or diving excursion to explore spectacular coral reefs teeming with tropical fish. The Red Sea offers some of the world's best diving. Afternoon options include glass-bottom boat tour, parasailing, or simply relaxing on the beach. Evening at leisure at the resort.",
+  },
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    day_number: 10,
+    day_title: 'Desert Safari & Return to Cairo',
+    day_description:
+      'Morning desert safari by 4x4 to a Bedouin village. Experience traditional Bedouin hospitality, camel riding, and learn about desert life. Afternoon flight from Hurghada to Cairo. Farewell dinner cruise on the Nile with traditional entertainment including whirling dervishes and belly dancing.',
+  },
+  {
+    tour_ref_id: 'tour_egypt_11day',
+    day_number: 11,
+    day_title: 'Departure',
+    day_description:
+      'Transfer to Cairo International Airport for your departure. Optional morning visit to the new Grand Egyptian Museum (if open) or last-minute shopping for papyrus, perfumes, and souvenirs. Leave Egypt with unforgettable memories of ancient wonders, the eternal Nile, and warm Egyptian hospitality.',
+  },
+
+  // ===== INDIA TOUR - 15 days =====
+  {
+    tour_ref_id: 'tour_india_15day',
+    day_number: 1,
+    day_title: 'Arrival in Delhi',
+    day_description:
+      'Namaste and welcome to incredible India! Arrive at Indira Gandhi International Airport and transfer to your hotel. Afternoon at leisure to rest and adjust to the sensory feast that is India. Evening welcome dinner at a renowned restaurant featuring diverse Indian cuisines. Briefing about Indian customs and the journey ahead.',
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    day_number: 2,
+    day_title: 'Old & New Delhi',
+    day_description:
+      "Full day exploring India's capital. Morning rickshaw ride through the chaotic lanes of Old Delhi. Visit Jama Masjid (India's largest mosque), walk through Chandni Chowk market, and see the Red Fort. Afternoon in New Delhi: India Gate, Parliament House, and Humayun's Tomb. Visit Gandhi Memorial. Evening at leisure in Connaught Place.",
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    day_number: 3,
+    day_title: 'Delhi to Agra',
+    day_description:
+      'Morning drive to Agra via the new expressway (3 hours). Check into your hotel with Taj Mahal views. Afternoon visit to Agra Fort, a UNESCO World Heritage site with its palaces, mosques, and halls. Sunset visit to Mehtab Bagh gardens for perfect Taj Mahal photos across the river. Evening at leisure to explore local markets.',
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    day_number: 4,
+    day_title: 'Taj Mahal & Fatehpur Sikri',
+    day_description:
+      'Dawn visit to the Taj Mahal to witness the marble monument change colors with the sunrise - truly magical! Return for breakfast. Visit the exquisite Tomb of Itimad-ud-Daulah (Baby Taj). Afternoon excursion to Fatehpur Sikri, the abandoned Mughal capital with perfectly preserved palaces and mosques. Continue to Jaipur, the Pink City.',
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    day_number: 5,
+    day_title: 'Jaipur Palaces & Forts',
+    day_description:
+      'Morning excursion to Amber Fort. Ascend to the fort on decorated elephants or by jeep. Explore the stunning palace complex with its mirror palace and panoramic views. Photo stop at Hawa Mahal (Palace of Winds). Visit the City Palace and its museums, and Jantar Mantar astronomical observatory. Afternoon cooking class learning Rajasthani cuisine.',
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    day_number: 6,
+    day_title: 'Jaipur to Varanasi',
+    day_description:
+      "Morning visit to a traditional textile workshop to see block printing and carpet weaving. Afternoon flight to Varanasi, India's holiest city. Check into your hotel near the ghats. Evening Aarti ceremony on the Ganges - witness the spectacular ritual with fire, incense, and chanting as thousands gather for prayers. Truly unforgettable spiritual experience.",
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    day_number: 7,
+    day_title: 'Spiritual Varanasi',
+    day_description:
+      'Pre-dawn boat ride on the Ganges to watch the sunrise and observe morning rituals. See pilgrims bathing in the sacred waters and priests performing ceremonies. Walk through the ancient narrow lanes. Visit Sarnath where Buddha gave his first sermon. Evening visit to a local family for dinner and cultural exchange.',
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    day_number: 8,
+    day_title: 'Flight to Kerala',
+    day_description:
+      "Morning flight to Cochin (Kochi) in tropical Kerala via Delhi. Dramatic change from North to South India! Transfer to your hotel. Evening Kathakali dance performance - elaborate costumes, dramatic makeup, and expressive storytelling. Dinner featuring Kerala's famous seafood and coconut-based cuisine.",
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    day_number: 9,
+    day_title: 'Cochin Heritage',
+    day_description:
+      "Explore Fort Cochin's colonial heritage. Visit the iconic Chinese fishing nets, Jewish Quarter with its 400-year-old synagogue, and spice markets. See St. Francis Church where Vasco da Gama was buried. Visit Mattancherry Palace with its Hindu murals. Afternoon cooking class learning to prepare Kerala specialties using fresh spices. Evening sunset harbor cruise.",
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    day_number: 10,
+    day_title: 'Journey to Munnar',
+    day_description:
+      "Scenic drive into the Western Ghats mountains to Munnar hill station (4 hours). Stop at waterfalls and spice gardens en route. This region produces some of India's finest tea. Check into your resort surrounded by tea plantations. Afternoon visit to tea museum and factory. Learn about tea processing and enjoy tastings. Cool mountain air provides welcome relief from coastal humidity.",
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    day_number: 11,
+    day_title: 'Munnar to Thekkady',
+    day_description:
+      'Morning nature walk through tea estates with chances to spot Nilgiri tahr and exotic birds. Drive to Thekkady/Periyar (3 hours), famous for its wildlife sanctuary. Afternoon spice plantation tour - see cardamom, pepper, vanilla, and cinnamon growing. Evening Kalaripayattu martial arts demonstration, the ancient art that influenced kung fu.',
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    day_number: 12,
+    day_title: 'Periyar Wildlife & Backwaters',
+    day_description:
+      'Early morning boat safari on Periyar Lake looking for elephants, sambar deer, and birds. With luck, spot tigers or leopards. Drive to Alleppey, Venice of the East (3 hours). Board your traditional houseboat for overnight backwaters cruise. Sail through palm-fringed canals, observe village life, and enjoy fresh Kerala meals prepared onboard.',
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    day_number: 13,
+    day_title: 'Backwaters to Marari Beach',
+    day_description:
+      'Morning cruise through narrow canals observing rural Kerala life - coir making, toddy tapping, fishing. Disembark and transfer to Marari Beach, a pristine stretch of palm-fringed sand. Check into beach resort. Afternoon at leisure for swimming, ayurvedic massage, or beach walks. Fresh seafood dinner on the beach.',
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    day_number: 14,
+    day_title: 'Beach Relaxation',
+    day_description:
+      'Full day at leisure to unwind after your India adventure. Optional activities include yoga session, cycling through fishing villages, cooking demonstration, or simply relaxing by the Arabian Sea. Visit local fish market in the morning. Farewell dinner featuring a grand Kerala feast served on banana leaves.',
+  },
+  {
+    tour_ref_id: 'tour_india_15day',
+    day_number: 15,
+    day_title: 'Departure from Cochin',
+    day_description:
+      'Transfer to Cochin International Airport (2 hours) for your departure. Optional stop at local markets for last-minute spice shopping. Leave India with incredible memories of magnificent monuments, spiritual experiences, diverse landscapes, and the warmth of Indian hospitality. Namaste until we meet again!',
+  },
 ]

@@ -463,4 +463,524 @@ export const booking_slot_dates: BookingSlotDateSeed[] = [
     places: 6,
     show: true,
   },
+
+  // Add these booking slot date objects to your booking_slot_dates.ts file
+
+  // ===== PERU APRIL =====
+  {
+    slot_ref_id: 'slot_peru_apr',
+    date: '2025-04-05',
+    places: 6,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_peru_apr',
+    date: '2025-04-12',
+    places: 5,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_peru_apr',
+    date: '2025-04-19',
+    places: 4,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_peru_apr',
+    date: '2025-04-26',
+    places: 3,
+    show: true,
+  },
+
+  // ===== PERU MAY =====
+  {
+    slot_ref_id: 'slot_peru_may',
+    date: '2025-05-03',
+    places: 7,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_peru_may',
+    date: '2025-05-10',
+    places: 5,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_peru_may',
+    date: '2025-05-17',
+    places: 4,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_peru_may',
+    date: '2025-05-24',
+    places: 6,
+    show: true,
+  },
+
+  // ===== PERU SEPTEMBER =====
+  {
+    slot_ref_id: 'slot_peru_sep',
+    date: '2025-09-06',
+    places: 8,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_peru_sep',
+    date: '2025-09-13',
+    places: 6,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_peru_sep',
+    date: '2025-09-20',
+    places: 5,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_peru_sep',
+    date: '2025-09-27',
+    places: 4,
+    show: true,
+  },
+
+  // ===== MOROCCO MARCH =====
+  {
+    slot_ref_id: 'slot_morocco_mar',
+    date: '2025-03-01',
+    places: 7,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_morocco_mar',
+    date: '2025-03-08',
+    places: 6,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_morocco_mar',
+    date: '2025-03-15',
+    places: 5,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_morocco_mar',
+    date: '2025-03-22',
+    places: 8,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_morocco_mar',
+    date: '2025-03-29',
+    places: 4,
+    show: true,
+  },
+
+  // ===== MOROCCO APRIL =====
+  {
+    slot_ref_id: 'slot_morocco_apr',
+    date: '2025-04-05',
+    places: 7,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_morocco_apr',
+    date: '2025-04-12',
+    places: 6,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_morocco_apr',
+    date: '2025-04-19',
+    places: 0,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_morocco_apr',
+    date: '2025-04-26',
+    places: 5,
+    show: true,
+  },
+
+  // ===== MOROCCO MAY =====
+  {
+    slot_ref_id: 'slot_morocco_may',
+    date: '2025-05-03',
+    places: 8,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_morocco_may',
+    date: '2025-05-10',
+    places: 6,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_morocco_may',
+    date: '2025-05-17',
+    places: 4,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_morocco_may',
+    date: '2025-05-24',
+    places: 5,
+    show: true,
+  },
+
+  // ===== MOROCCO OCTOBER =====
+  {
+    slot_ref_id: 'slot_morocco_oct',
+    date: '2025-10-04',
+    places: 9,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_morocco_oct',
+    date: '2025-10-11',
+    places: 7,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_morocco_oct',
+    date: '2025-10-18',
+    places: 6,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_morocco_oct',
+    date: '2025-10-25',
+    places: 5,
+    show: true,
+  },
+
+  // ===== ICELAND JANUARY =====
+  {
+    slot_ref_id: 'slot_iceland_jan',
+    date: '2025-01-04',
+    places: 5,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_iceland_jan',
+    date: '2025-01-11',
+    places: 4,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_iceland_jan',
+    date: '2025-01-18',
+    places: 3,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_iceland_jan',
+    date: '2025-01-25',
+    places: 6,
+    show: true,
+  },
+
+  // ===== ICELAND FEBRUARY =====
+  {
+    slot_ref_id: 'slot_iceland_feb',
+    date: '2025-02-01',
+    places: 5,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_iceland_feb',
+    date: '2025-02-08',
+    places: 4,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_iceland_feb',
+    date: '2025-02-15',
+    places: 0,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_iceland_feb',
+    date: '2025-02-22',
+    places: 3,
+    show: true,
+  },
+
+  // ===== ICELAND MARCH =====
+  {
+    slot_ref_id: 'slot_iceland_mar',
+    date: '2025-03-01',
+    places: 6,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_iceland_mar',
+    date: '2025-03-08',
+    places: 5,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_iceland_mar',
+    date: '2025-03-15',
+    places: 4,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_iceland_mar',
+    date: '2025-03-22',
+    places: 3,
+    show: true,
+  },
+
+  // ===== ICELAND NOVEMBER =====
+  {
+    slot_ref_id: 'slot_iceland_nov',
+    date: '2025-11-01',
+    places: 7,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_iceland_nov',
+    date: '2025-11-08',
+    places: 5,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_iceland_nov',
+    date: '2025-11-15',
+    places: 6,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_iceland_nov',
+    date: '2025-11-22',
+    places: 4,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_iceland_nov',
+    date: '2025-11-29',
+    places: 3,
+    show: true,
+  },
+
+  // ===== EGYPT FEBRUARY =====
+  {
+    slot_ref_id: 'slot_egypt_feb',
+    date: '2025-02-02',
+    places: 8,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_egypt_feb',
+    date: '2025-02-09',
+    places: 7,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_egypt_feb',
+    date: '2025-02-16',
+    places: 6,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_egypt_feb',
+    date: '2025-02-23',
+    places: 5,
+    show: true,
+  },
+
+  // ===== EGYPT MARCH =====
+  {
+    slot_ref_id: 'slot_egypt_mar',
+    date: '2025-03-02',
+    places: 9,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_egypt_mar',
+    date: '2025-03-09',
+    places: 7,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_egypt_mar',
+    date: '2025-03-16',
+    places: 6,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_egypt_mar',
+    date: '2025-03-23',
+    places: 0,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_egypt_mar',
+    date: '2025-03-30',
+    places: 5,
+    show: true,
+  },
+
+  // ===== EGYPT APRIL =====
+  {
+    slot_ref_id: 'slot_egypt_apr',
+    date: '2025-04-06',
+    places: 8,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_egypt_apr',
+    date: '2025-04-13',
+    places: 6,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_egypt_apr',
+    date: '2025-04-20',
+    places: 5,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_egypt_apr',
+    date: '2025-04-27',
+    places: 4,
+    show: true,
+  },
+
+  // ===== EGYPT NOVEMBER =====
+  {
+    slot_ref_id: 'slot_egypt_nov',
+    date: '2025-11-02',
+    places: 10,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_egypt_nov',
+    date: '2025-11-09',
+    places: 8,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_egypt_nov',
+    date: '2025-11-16',
+    places: 7,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_egypt_nov',
+    date: '2025-11-23',
+    places: 6,
+    show: true,
+  },
+
+  // ===== INDIA FEBRUARY =====
+  {
+    slot_ref_id: 'slot_india_feb',
+    date: '2025-02-03',
+    places: 7,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_india_feb',
+    date: '2025-02-10',
+    places: 6,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_india_feb',
+    date: '2025-02-17',
+    places: 5,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_india_feb',
+    date: '2025-02-24',
+    places: 4,
+    show: true,
+  },
+
+  // ===== INDIA MARCH =====
+  {
+    slot_ref_id: 'slot_india_mar',
+    date: '2025-03-03',
+    places: 8,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_india_mar',
+    date: '2025-03-10',
+    places: 6,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_india_mar',
+    date: '2025-03-17',
+    places: 5,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_india_mar',
+    date: '2025-03-24',
+    places: 0,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_india_mar',
+    date: '2025-03-31',
+    places: 4,
+    show: true,
+  },
+
+  // ===== INDIA OCTOBER =====
+  {
+    slot_ref_id: 'slot_india_oct',
+    date: '2025-10-06',
+    places: 9,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_india_oct',
+    date: '2025-10-13',
+    places: 7,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_india_oct',
+    date: '2025-10-20',
+    places: 6,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_india_oct',
+    date: '2025-10-27',
+    places: 5,
+    show: true,
+  },
+
+  // ===== INDIA NOVEMBER =====
+  {
+    slot_ref_id: 'slot_india_nov',
+    date: '2025-11-03',
+    places: 8,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_india_nov',
+    date: '2025-11-10',
+    places: 7,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_india_nov',
+    date: '2025-11-17',
+    places: 6,
+    show: true,
+  },
+  {
+    slot_ref_id: 'slot_india_nov',
+    date: '2025-11-24',
+    places: 5,
+    show: true,
+  },
 ]
