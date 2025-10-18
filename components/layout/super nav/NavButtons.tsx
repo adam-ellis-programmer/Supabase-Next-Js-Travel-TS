@@ -25,15 +25,15 @@ const NavButtons = () => {
         <li>
           <Button
             className='bg-rose-500 mx-1'
-            onMouseEnter={() => handleMouseEnter('tours')}
-          >
-            Tours
-          </Button>
-          <Button
-            className='bg-rose-500 mx-1'
             onMouseEnter={() => handleMouseEnter('destinations')}
           >
             Destinations
+          </Button>
+          <Button
+            className='bg-rose-500 mx-1'
+            onMouseEnter={() => handleMouseEnter('tours')}
+          >
+            Tours
           </Button>
         </li>
       </ul>

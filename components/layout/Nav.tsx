@@ -9,6 +9,17 @@ import Link from 'next/link'
 import NavAuth from '../buttons/NavAuth'
 import { createClient } from '@/lib/supabase/server'
 import { NavService } from '@/lib/supabase/services/site/navigation-service'
+
+// type is more commonly used for index signatures and record-like structures.
+type ToursByCountry = {
+  [country1: string]: {
+    tours: Array<{
+      country: any
+      continent: any
+      slug: any
+    }>
+  }
+}
 const Nav = async () => {
   const { countriesData, toursData } = await NavService.getNavData()
 
@@ -30,58 +41,33 @@ const Nav = async () => {
     return acc
   }, {})
 
-  //=========================================
-  // -- tours data
-  //=========================================
-  const formattedToursData = toursData.reduce((acc, item) => {
+  // 1: Initialize continent if it doesn't exist
+  // 2: Initialize country array if it doesn't exist
+  // 3: Add the tour to the appropriate country
+
+  const sortedTours = toursData.reduce<ToursByCountry>((acc, item) => {
     if (!acc[item.country]) {
       acc[item.country] = {
-        countries: [],
+        tours: [],
       }
     }
 
-    if (item.country === item.country) {
-      acc[item.country].countries.push(item)
-    }
-
+    acc[item.country].tours.push(item)
     return acc
   }, {})
 
-  // const sortedContinents = toursData.reduce((acc, item) => {
-  //   // console.log(item)
-
-  //   if (!acc[item.continent]) {
-  //     acc[item.continent] = {
-  //       continent: item.continent,
-  //       countries: [],
-  //     }
-  //   }
-
-  //   if (item.continent === item.continent) {
-  //     acc[item.continent].countries.push(item)
-  //   }
-
-  //   return acc
-  // }, {})
-
-  // console.log(sortedContinents)
+  // console.log(sortedTours)
 
   const sortedContinents = toursData.reduce((acc, item) => {
-    // 1:  Initialize continent if it doesn't exist
     if (!acc[item.continent]) {
       acc[item.continent] = {
-        continent: item.continent,
-        countries: {}, // Use an object to group by country
+        tours: {
+          // asia: [],
+          // europe: []
+        },
+        tourCount: 0,
       }
     }
-
-    // 2: Initialize country array if it doesn't exist
-    if (!acc[item.continent].countries[item.country]) {
-      acc[item.continent].countries[item.country] = []
-    }
-
-    // 3: Add the tour to the appropriate country
-    acc[item.continent].countries[item.country].push(item)
 
     return acc
   }, {})
@@ -111,6 +97,3 @@ const Nav = async () => {
 }
 
 export default Nav
-
-
-
