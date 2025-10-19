@@ -12,7 +12,8 @@ export class NavService {
       .select(`
         country,
         continent,
-        slug
+        slug,
+        tour_name
         `)
 
     if (!countriesData || !toursData || error) {

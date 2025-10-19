@@ -4,7 +4,12 @@ import { Button } from '../../ui/button'
 import { useState } from 'react'
 import SuperNav from './SuperNav'
 
-const NavButtons = () => {
+interface data {
+  sortedContinents: any
+  sortedTours: any
+}
+
+const NavButtons = ({ sortedContinents, sortedTours }: data) => {
   const [showSuperNav, setShowSuperNav] = useState(false)
   // prettier-ignore
   const [activeMenu, setActiveMenu] = useState<'tours' | 'destinations'>('tours')
@@ -37,7 +42,13 @@ const NavButtons = () => {
           </Button>
         </li>
       </ul>
-      {showSuperNav && <SuperNav type={activeMenu} />}
+      {showSuperNav && (
+        <SuperNav
+          type={activeMenu}
+          sortedContinents={sortedContinents}
+          sortedTours={sortedTours}
+        />
+      )}
     </div>
   )
 }

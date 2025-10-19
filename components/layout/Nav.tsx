@@ -11,6 +11,7 @@ import { createClient } from '@/lib/supabase/server'
 import { NavService } from '@/lib/supabase/services/site/navigation-service'
 
 // type is more commonly used for index signatures and record-like structures.
+
 type ToursByCountry = {
   [country1: string]: {
     tours: Array<{
@@ -18,6 +19,22 @@ type ToursByCountry = {
       continent: any
       slug: any
     }>
+    country: ''
+    count: 0
+  }
+}
+
+type ToursByContinentAndCountry = {
+  [continent: string]: {
+    tours: {
+      [country: string]: Array<{
+        country: any
+        continent: any
+        slug: any
+      }>
+    }
+    tourCount: number
+    continent: string
   }
 }
 const Nav = async () => {
@@ -26,6 +43,9 @@ const Nav = async () => {
   //=========================================
   // -- countries data
   //=========================================
+  // ---------------
+  // test with limited select data:
+  // ---------------
   const formattedCountriesData = countriesData.reduce((acc, country) => {
     if (!acc[country.continent]) {
       acc[country.continent] = {
@@ -49,30 +69,47 @@ const Nav = async () => {
     if (!acc[item.country]) {
       acc[item.country] = {
         tours: [],
+        country: '',
+        count: 0,
       }
     }
 
     acc[item.country].tours.push(item)
+    acc[item.country].country = item.country
+    acc[item.country].count += 1
     return acc
   }, {})
 
-  // console.log(sortedTours)
-
-  const sortedContinents = toursData.reduce((acc, item) => {
-    if (!acc[item.continent]) {
-      acc[item.continent] = {
-        tours: {
-          // asia: [],
-          // europe: []
-        },
-        tourCount: 0,
+  const sortedContinents = toursData.reduce<ToursByContinentAndCountry>(
+    (acc, item) => {
+      if (!acc[item.continent]) {
+        acc[item.continent] = {
+          tours: {
+            // asia: [...],
+            // europe: [...]
+          },
+          tourCount: 0,
+          continent: '',
+        }
       }
-    }
+      acc[item.continent].tours[item.country] = []
 
-    return acc
-  }, {})
+      acc[item.continent].tours[item.country].push(item)
+      // Step 4: Increment count (runs for EVERY tour)
+      acc[item.continent].tourCount += 1
+      acc[item.continent].continent = item.continent
+      return acc
+    },
+    {}
+  )
 
-  console.log(sortedContinents)
+  // console.log('sortedContinents:', sortedContinents)
+
+  const destinations = Object.values(sortedContinents)
+  const tours = Object.values(sortedTours)
+  // console.log('sortedTours:', sortedTours)
+
+  // console.log(tours)
 
   return (
     <nav className='border-b'>
@@ -85,7 +122,10 @@ const Nav = async () => {
           </div>
         </Link>
 
-        <NavButtons />
+        <NavButtons
+          sortedContinents={sortedContinents}
+          sortedTours={sortedTours}
+        />
         <div className='flex'>
           <MobileNav />
           <NavAuth />

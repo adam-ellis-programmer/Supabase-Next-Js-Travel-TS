@@ -7,15 +7,23 @@ import { links as devLinks } from '@/dev/DevButtons'
 
 interface SuperNavProps {
   type: 'tours' | 'destinations'
+  sortedContinents: any
+  sortedTours: any
 }
+
 // CLICK ON A LINK TOUR AND IT TAKES US TO ALL TOURS IN THAT AREA
 // CLICK ON A DESTINATION AND IT TAKES US TO ALL TOURS IN THAT DESTINATION
 // MAKE ONE PAGE THAT HANDLES BOTH TYPES OF DATA
 // MAYBE USE THE LANDING PAGE ?
 
-const SuperNav = ({ type }: SuperNavProps) => {
+const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
   // object lookup useing [type]
   const data = megaMenuData[type]
+
+  const destinations = Object.values(sortedContinents)
+  const tours = Object.values(sortedTours)
+
+  console.log({ tours, destinations })
 
   return (
     <div className='absolute mt-12 z-30 top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl border border-gray-100'>
