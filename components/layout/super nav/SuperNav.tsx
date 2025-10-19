@@ -3,7 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { megaMenuData } from '@/data/navigation'
-import { links as devLinks } from '@/dev/DevButtons'
+import DevButtons from '@/dev/DevButtons'
 
 interface SuperNavProps {
   type: 'tours' | 'destinations'
@@ -11,79 +11,76 @@ interface SuperNavProps {
   sortedTours: any
 }
 
-// CLICK ON A LINK TOUR AND IT TAKES US TO ALL TOURS IN THAT AREA
-// CLICK ON A DESTINATION AND IT TAKES US TO ALL TOURS IN THAT DESTINATION
-// MAKE ONE PAGE THAT HANDLES BOTH TYPES OF DATA
-// MAYBE USE THE LANDING PAGE ?
-
 const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
-  // object lookup useing [type]
   const data = megaMenuData[type]
 
   const destinations = Object.values(sortedContinents)
   const tours = Object.values(sortedTours)
 
-  console.log({ tours, destinations })
+  const megaData = {
+    destinations,
+    tours,
+  }
+
+  const navData = megaData[type] as any[]
 
   return (
-    <div className='absolute mt-12 z-30 top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl border border-gray-100'>
-      <div className='border-b mb-5'>
-        {/* If admin then show admin controll buttons */}
-        <h3 className='mb-4'>
-          <span className='bg-rose-400 p-2 rounded-lg text-white'>
-            dev buttons
-          </span>
-        </h3>
-
-        <ul className='all-unset grid grid-cols-6 gap-4 mb-5'>
-          {devLinks.map((link, i) => {
-            return (
-              <li key={i}>
-                <Link className='' href={link.link}>
-                  {link.text}
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
-      </div>
+    <div className='absolute mt-12 z-30 top-20 left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl border border-gray-100'>
+      <DevButtons />
       <div className='grid grid-cols-12 gap-8'>
         {/* Left side - Links */}
         <div className='col-span-8 grid grid-cols-2 gap-6'>
-          {data.categories.map((category, index) => {
-            // console.log('category-- ', category)
-            const createSlug = (text: string): string => {
-              return text
-                .toLowerCase()
-                .replace(/\s+/g, '-') // Replace one or more spaces with hyphen
-                .replace(/[^\w\-]+/g, '') // Remove special characters (optional)
-                .trim()
-            }
+          {type === 'destinations' ? (
+            // DESTINATIONS VIEW: Show continents with countries underneath
+            <>
+              {navData.map((continent, index) => {
+                console.log('continent: (countryName) ', Object.keys(continent.tours))
 
-            return (
-              <div key={index}>
-                <h3 className='font-bold text-gray-900 mb-3 text-sm uppercase tracking-wider'>
-                  <Link
-                    href={`/country-landing/${createSlug(category.region)}`}
-                  >
-                    {category.region} --
-                  </Link>
-                </h3>
-                <ul className='space-y-2'>
-                  {category.destinations.map((destination) => (
-                    <li key={destination.slug}>
-                      <Link
-                        href={`/${type}/${destination.slug}`}
-                        className='text-gray-600 hover:text-blue-600 transition-colors text-sm'
-                      >
-                        {destination.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )
-          })}
+                return (
+                  <div key={index}>
+                    <h3 className='font-bold text-gray-900 mb-3 text-sm uppercase tracking-wider'>
+                      {continent.text} ({continent.count})
+                    </h3>
+                    <ul className='space-y-2'>
+                      {Object.keys(continent.tours).map((countryName) => (
+                        <li key={countryName}>
+                          <Link
+                            href={`/country-landing/${countryName}`}
+                            className='text-gray-600 hover:text-blue-600 transition-colors text-sm capitalize'
+                          >
+                            {countryName}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )
+              })}
+            </>
+          ) : (
+            // TOURS VIEW: Show countries with tour names underneath
+            <>
+              {navData.map((country, index) => (
+                <div key={index}>
+                  <h3 className='font-bold text-gray-900 mb-3 text-sm uppercase tracking-wider'>
+                    {country.text} ({country.count})
+                  </h3>
+                  <ul className='space-y-2'>
+                    {country.tours.map((tour: any) => (
+                      <li key={tour.slug}>
+                        <Link
+                          href={`/tours/${tour.slug}`}
+                          className='text-gray-600 hover:text-blue-600 transition-colors text-sm'
+                        >
+                          {tour.tour_name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </>
+          )}
         </div>
 
         {/* Right side - Featured Image */}

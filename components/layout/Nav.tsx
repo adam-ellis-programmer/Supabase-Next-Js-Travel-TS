@@ -19,7 +19,7 @@ type ToursByCountry = {
       continent: any
       slug: any
     }>
-    country: ''
+    text: ''
     count: 0
   }
 }
@@ -33,8 +33,8 @@ type ToursByContinentAndCountry = {
         slug: any
       }>
     }
-    tourCount: number
-    continent: string
+    count: number
+    text: string
   }
 }
 const Nav = async () => {
@@ -69,13 +69,13 @@ const Nav = async () => {
     if (!acc[item.country]) {
       acc[item.country] = {
         tours: [],
-        country: '',
+        text: '',
         count: 0,
       }
     }
 
-    acc[item.country].tours.push(item)
-    acc[item.country].country = item.country
+    acc[item.country].tours.push(item) // ??
+    acc[item.country].text = item.country
     acc[item.country].count += 1
     return acc
   }, {})
@@ -88,16 +88,16 @@ const Nav = async () => {
             // asia: [...],
             // europe: [...]
           },
-          tourCount: 0,
-          continent: '',
+          count: 0,
+          text: '',
         }
       }
       acc[item.continent].tours[item.country] = []
 
       acc[item.continent].tours[item.country].push(item)
       // Step 4: Increment count (runs for EVERY tour)
-      acc[item.continent].tourCount += 1
-      acc[item.continent].continent = item.continent
+      acc[item.continent].count += 1
+      acc[item.continent].text = item.continent
       return acc
     },
     {}
@@ -109,7 +109,11 @@ const Nav = async () => {
   const tours = Object.values(sortedTours)
   // console.log('sortedTours:', sortedTours)
 
-  // console.log(tours)
+  // const megaData = {
+  //   destinations,
+  //   tours,
+  // }
+  // console.log(megaData['destinations'])
 
   return (
     <nav className='border-b'>
