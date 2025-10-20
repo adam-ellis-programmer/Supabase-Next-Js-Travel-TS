@@ -10,10 +10,13 @@ export class NavService {
 
     const { data: toursData, error: toursError } = await supabase.from('tours')
       .select(`
+        id,
         country,
         continent,
         slug,
-        tour_name
+        tour_name, 
+        tour_images(
+        image_url)
         `)
 
     if (!countriesData || !toursData || error) {

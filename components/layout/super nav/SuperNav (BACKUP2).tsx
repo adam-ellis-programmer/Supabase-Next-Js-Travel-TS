@@ -34,7 +34,10 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
             // DESTINATIONS VIEW: Show continents with countries underneath
             <>
               {navData.map((continent, index) => {
-                console.log('continent: (countryName) ', Object.keys(continent.tours))
+                console.log(
+                  'tour (keys): (countryName) ',
+                  Object.keys(continent.tours)
+                )
 
                 return (
                   <div key={index}>

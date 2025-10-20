@@ -18,6 +18,9 @@ type ToursByCountry = {
       country: any
       continent: any
       slug: any
+      tour_images: Array<{
+        image_url: string
+      }>
     }>
     text: ''
     count: 0
@@ -31,6 +34,9 @@ type ToursByContinentAndCountry = {
         country: any
         continent: any
         slug: any
+        tour_images: Array<{
+          image_url: string
+        }>
       }>
     }
     count: number
@@ -39,6 +45,7 @@ type ToursByContinentAndCountry = {
 }
 const Nav = async () => {
   const { countriesData, toursData } = await NavService.getNavData()
+  console.log(toursData)
 
   //=========================================
   // -- countries data
