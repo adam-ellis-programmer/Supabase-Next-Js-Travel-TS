@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { megaMenuData } from '@/data/navigation'
 import DevButtons from '@/dev/DevButtons'
+import AdminNavButtons from '@/components/admin/AdminNavButtons'
 
 interface SuperNavProps {
   type: 'tours' | 'destinations'
@@ -17,6 +18,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
   const [listedCountries, setListedCountries] = useState(null)
   const [listedTours, setlistedTours] = useState(null)
   const [destImage, setDestImage] = useState(null)
+  const [destImageText, setDestImageText] = useState('')
   const [tourImage, settourImage] = useState(null)
 
   const destinations = Object.values(sortedContinents)
@@ -33,6 +35,8 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
   useEffect(() => {
     if (type === 'destinations' && destinations.length > 0) {
       const firstContinent = destinations[0]
+      console.log(firstContinent)
+      setDestImageText(firstContinent.text)
       const countries = Object.entries(firstContinent.tours)
 
       setListedCountries(countries)
@@ -50,8 +54,9 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
     }
   }, [type]) // Only depend on type, not navData
 
-  const handleDestMouseEnter = (data, index) => {
-    // console.log('dest--->:', data)
+  const handleDestMouseEnter = (text, data, index) => {
+    // console.log('dest--->:', text)
+    setDestImageText(text)
     const countries = Object.entries(data)
 
     setListedCountries(countries)
@@ -72,6 +77,9 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
 
   const handleListedCountriesMouseEnter = (item) => {
     // Update image when hovering over country
+    console.log(item)
+    setDestImageText(item[0])
+
     if (item[1][0]?.tour_images?.[3]?.image_url) {
       setDestImage(item[1][0].tour_images[3].image_url)
     } else if (item[1][0]?.tour_images?.[0]?.image_url) {
@@ -83,6 +91,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
   return (
     <div className='absolute mt-12 z-30 top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl  border-gray-100'>
       {/* <DevButtons /> */}
+      <AdminNavButtons />
       <div className='grid grid-cols-12 gap-8'>
         <div className=' col-span-9 '>
           {type === 'destinations' ? (
@@ -97,6 +106,8 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
                   </h3> */}
                   <ul>
                     {navData.map((continent, continentIndex) => {
+                      // console.log('continent--', continent)
+
                       const countryNames = Object.keys(continent.tours)
                       return (
                         <li
@@ -104,12 +115,15 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
                           className=' bg-slate-700 text-white cursor-pointer mb-[1px] pl-5  rounded-lg  text-lg'
                           onMouseEnter={() =>
                             handleDestMouseEnter(
+                              continent.text,
                               continent.tours,
                               continentIndex
                             )
                           }
                         >
-                          <h3>{continent.text}</h3>
+                          <Link href={`/country-landing/${continent.slug}`}>
+                            <h3>{continent.text}</h3>
+                          </Link>
                         </li>
                       )
                     })}
@@ -122,6 +136,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
                   <ul>
                     {listedCountries &&
                       listedCountries.map((item, i) => {
+                        // console.log(item)
                         return (
                           <li
                             className='bg-slate-700 text-white pl-5  mb-[1px] rounded-lg  text-lg cursor-pointer'
@@ -130,13 +145,18 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
                               handleListedCountriesMouseEnter(item)
                             }
                           >
-                            <p>{item[0]}</p>
+                            <Link href={`/country-landing/${item[0]}`}>
+                              <p>{item[0]}</p>
+                            </Link>
                           </li>
                         )
                       })}
                   </ul>
                 </div>
-                <div className='border'>
+                <div className='border relative '>
+                  <span className='capitalize absolute right-2 top-2 bg-rose-500 text-white p-1 rounded-lg'>
+                    {destImageText}
+                  </span>
                   <img
                     src={
                       destImage ||
@@ -153,30 +173,33 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
             // TOURS
             // =============================================================================
             <div>
-              <div className='border grid grid-cols-12'>
-                <ul className='grid grid-cols-3 col-span-7 border border-red-500'>
+              <div className=' grid grid-cols-12 gap-5'>
+                <ul className='grid grid-cols-3  gap-x-2 col-span-7'>
                   {navData.map((country, countryIndex) => {
                     return (
                       <li
                         key={countryIndex}
                         onClick={() => handleToursMouseEnter(country)}
-                        className='cursor-default inline'
+                        className='cursor-pointer inline bg-slate-700 mb-[1px] rounded-lg text-white pl-3'
                       >
-                        <h3 className='border inline'>{country.text}</h3>
+                        <h3 className=''>{country.text}</h3>
                       </li>
                     )
                   })}
                 </ul>
-                <div className='border border-red-600 col-span-5'>
-                  <h3 className='text-center '>available tours</h3>
+                <div className=' col-span-5'>
+                  {/* <h3 className='text-center '>available tours</h3> */}
                   <ul>
                     {listedTours &&
                       listedTours.tours.map((item, i) => {
-                        console.log('tour-itme--: ', item)
+                        // console.log('tour-itme--: ', item)
 
                         return (
                           <li key={i}>
-                            <Link className='border' href={`/tours/${item.id}`}>
+                            <Link
+                              className='cursor-pointer bg-slate-700 text-white rounded-lg mb-[1px] px-2 py-1'
+                              href={`/tours/${item.id}`}
+                            >
                               {item.tour_name}
                             </Link>
                           </li>
