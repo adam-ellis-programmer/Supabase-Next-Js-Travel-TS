@@ -9,6 +9,11 @@ import Link from 'next/link'
 const AdminNavButtons = () => {
   return (
     <div className='mb-5 border-b pb-3'>
+      <div className='flex justify-end left-0 w-full absolute px-5'>
+        <span className='bg-rose-500 text-sm p-1 px-2 rounded-lg text-white cursor-pointer'>
+          close admin
+        </span>
+      </div>
       <h3 className='mb-3 flex items-center'>
         <MdAdminPanelSettings className='text-4xl text-rose-400' />
         <span className='bg-rose-400 text-lg  rounded-lg p-1 text-white'>

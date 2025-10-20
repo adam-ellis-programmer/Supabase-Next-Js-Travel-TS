@@ -91,6 +91,11 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
   return (
     <div className='absolute mt-12 z-30 top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl  border-gray-100'>
       {/* <DevButtons /> */}
+      {/* <div className='mb-2 flex justify-start cursor-pointer'>
+        <span className='bg-rose-500 text-sm p-1 px-2 rounded-lg text-white'>
+          show admin
+        </span>
+      </div> */}
       <AdminNavButtons />
       <div className='grid grid-cols-12 gap-8'>
         <div className=' col-span-9 '>
@@ -153,7 +158,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
                       })}
                   </ul>
                 </div>
-                <div className='border relative '>
+                <div className=' relative '>
                   <span className='capitalize absolute right-2 top-2 bg-rose-500 text-white p-1 rounded-lg'>
                     {destImageText}
                   </span>
@@ -211,12 +216,20 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
             </div>
           )}
         </div>
-        <div className='border col-span-3'>
+        <div className=' col-span-3 relative'>
           <img
             src='https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200'
             className='w-full h-full rounded-lg object-cover'
             alt='Featured destination'
           />
+          <div className='absolute bottom-5 w-full text-white'>
+            <p className='text-center  text-2xl font-bold leading-snug text-shadow-md shadow-2xl'>
+              book now{' '}
+            </p>
+            <p className='text-center  text-2xl font-bold leading-snug text-shadow-md shadow-2xl'>
+              and pay 50% less{' '}
+            </p>
+          </div>
         </div>
       </div>
     </div>
