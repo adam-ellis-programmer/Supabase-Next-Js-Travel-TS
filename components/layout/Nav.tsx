@@ -137,10 +137,10 @@ const Nav = async () => {
   return (
     <nav className='border-b'>
       {/* nav container */}
-      <div className='flex justify-between max-w-[1200px] mx-auto items-center  h-[100px]'>
+      <div className='flex justify-between max-w-[1200px] mx-auto items-center  h-[100px] px-5 md:px-0'>
         <Link href={`/`}>
           <div className=' flex'>
-            <FaPlaneDeparture className='text-3xl text-blue-400' />
+            <FaPlaneDeparture className='text-3xl text-blue-400 ' />
             <h3 className='text-2xl font-bold mx-4'>TravelExplorer</h3>
           </div>
         </Link>

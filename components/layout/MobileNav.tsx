@@ -20,7 +20,7 @@ const MobileNav = ({ sortedContinents, sortedTours }) => {
   const [isNaveOpen, setIsNaveOpen] = useState(false)
   const handleToggle = () => {
     //...
-    console.log('clicked ...')
+    // console.log('clicked ...')
     setIsNaveOpen(!isNaveOpen)
   }
 
@@ -37,8 +37,6 @@ const MobileNav = ({ sortedContinents, sortedTours }) => {
   // console.log('sortedContinents', sortedContinents)
 
   const continentData = Object.entries(sortedContinents)
-
-  // console.log('test data: ', continentData)
 
   return (
     <div className='block md:hidden'>
@@ -68,8 +66,6 @@ const MobileNav = ({ sortedContinents, sortedTours }) => {
               <p className='text-2xl text-center mb-5'>Choose an Area</p>
               <ul className='grid grid-cols-2 gap-2 '>
                 {continentData.map((item, i) => {
-                  console.log('itme--', item)
-
                   return (
                     <li
                       className='relative '
