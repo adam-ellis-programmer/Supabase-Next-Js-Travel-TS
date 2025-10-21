@@ -51,19 +51,26 @@ const AccordionNav = ({
   }
   return (
     <>
-      <div className='space-x-2'>
-        <span className='text-lg py-1 bg-pink-500 px-3 rounded-lg text-white mb-5 inline-block cursor-pointer'>
+      <div className='space-x-2 space-y-1 mb-5'>
+        <span className='text-lg py-1 bg-pink-500 px-3 rounded-lg text-white  inline-block cursor-pointer'>
           open all
         </span>
-        <span className='text-lg py-1 bg-sky-600 px-5 rounded-lg text-white mb-5 inline-block cursor-pointer'>
+        <span className='text-lg py-1 bg-sky-600 px-5 rounded-lg text-white  inline-block cursor-pointer'>
           best sellers
         </span>
         <Link
           href={`/auth/login`}
           onClick={handleMobileTourNav}
-          className='text-lg py-1 bg-orange-600 px-5 rounded-lg text-white mb-5 inline-block cursor-pointer'
+          className='text-lg py-1 bg-orange-600 px-5 rounded-lg text-white  inline-block cursor-pointer'
         >
           <span className=''>login</span>
+        </Link>
+        <Link
+          href={`/`}
+          onClick={handleMobileTourNav}
+          className='text-lg py-1 bg-slate-800 px-5 rounded-lg text-white  inline-block cursor-pointer'
+        >
+          <span className=''>home</span>
         </Link>
       </div>
 

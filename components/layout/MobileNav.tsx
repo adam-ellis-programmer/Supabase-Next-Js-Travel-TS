@@ -34,7 +34,22 @@ const MobileNav = ({ sortedContinents, sortedTours }) => {
     }
   }, [isNaveOpen])
 
-  // console.log('sortedContinents', sortedContinents)
+  // Handle screen resize - remove scroll lock on md+ screens
+  useEffect(() => {
+    const handleResize = () => {
+      // md breakpoint for Tailwind (768px)
+      if (window.innerWidth >= 768) {
+        document.documentElement.classList.remove('no-scroll')
+        setIsNaveOpen(false)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   const continentData = Object.entries(sortedContinents)
 
@@ -49,10 +64,10 @@ const MobileNav = ({ sortedContinents, sortedTours }) => {
           {/* header section */}
           <section className=' pb-5'>
             <div className=' flex justify-between'>
-              <div className=' flex'>
+              <Link onClick={handleToggle} href={`/`} className=' flex'>
                 <FaPlaneDeparture className='text-3xl text-blue-400' />
                 <h3 className='text-2xl font-bold mx-4'>TravelExplorer</h3>
-              </div>
+              </Link>
               <button onClick={handleToggle} className='cursor-pointer'>
                 <FaBarsStaggered className='text-3xl' />
               </button>
