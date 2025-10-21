@@ -38,8 +38,8 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
       console.log(firstContinent)
       setDestImageText(firstContinent.text)
       const countries = Object.entries(firstContinent.tours)
-
       setListedCountries(countries)
+
 
       // Set initial image from first country's first tour
       if (
@@ -87,6 +87,9 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
       setDestImage(item[1][0].tour_images[0].image_url)
     }
   }
+
+  // set showAdmin in local storage!
+  // local storage pattern 
 
   return (
     <div className='absolute mt-12 z-30 top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl  border-gray-100'>

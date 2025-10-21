@@ -14,13 +14,13 @@ const AdminNavButtons = () => {
           close admin
         </span>
       </div>
-      <h3 className='mb-3 flex items-center'>
+      <h3 className='mb-3 flex items-center '>
         <MdAdminPanelSettings className='text-4xl text-rose-400' />
         <span className='bg-rose-400 text-lg  rounded-lg p-1 text-white'>
           Admin Controls
         </span>
       </h3>
-      <div className=' inline space-x-2'>
+      <div className=' inline space-x-2 '>
         <Button>
           <MdAdminPanelSettings />
           admin

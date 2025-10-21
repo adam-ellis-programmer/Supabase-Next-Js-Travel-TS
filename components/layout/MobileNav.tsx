@@ -6,8 +6,16 @@ import { links as devLinks } from '@/dev/DevButtons'
 import Link from 'next/link'
 
 import { megaMenuData } from '@/data/navigation'
+import AccordionNav from './mobile nav/AccordionNav'
+import AdminControls from './mobile nav/AdminControls'
 
-const MobileNav = () => {
+const MobileNav = ({ sortedContinents, sortedTours }) => {
+  console.log({
+    text: 'test data',
+    sortedTours,
+    sortedContinents,
+  })
+
   const [isNaveOpen, setIsNaveOpen] = useState(false)
   const handleToggle = () => {
     //...
@@ -24,6 +32,11 @@ const MobileNav = () => {
       document.documentElement.classList.remove('no-scroll')
     }
   }, [isNaveOpen])
+
+  /**
+   * images on top of nav (continents)
+   *
+   */
   return (
     <div className='block md:hidden'>
       <button onClick={handleToggle} className='cursor-pointer'>
@@ -32,6 +45,7 @@ const MobileNav = () => {
 
       {isNaveOpen && (
         <div className='absolute top-0 bottom-0 left-0 right-0 h-full max-w-[600px] mx-auto z-30 bg-white p-5'>
+          {/* header section */}
           <section className=''>
             <div className=' flex justify-between'>
               <div className=' flex'>
@@ -44,56 +58,108 @@ const MobileNav = () => {
             </div>
           </section>
 
-          <section className=' grid grid-cols-2 mt-5'>
-            <ul>
-              <li>
-                <h2>Australia</h2>
-                <ul className='ml-5'>
-                  <li>list item 1</li>
-                  <li>list item 1</li>
-                  <li>list item 1</li>
-                </ul>
-              </li>
+          {/* countries section (continents) */}
+          <div className=' h-full overflow-scroll'>
+            <AdminControls />
+            <section className=''>
+              <p className='text-2xl text-center mb-5'>Choose an Area</p>
+              <ul className='grid grid-cols-2 gap-2 '>
+                <li className='relative cursor-pointer'>
+                  <img
+                    src='https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200'
+                    className='w-full h-full rounded-lg object-cover'
+                    alt='Featured destination'
+                  />
+                  <div className=' absolute top-0 left-0 w-full h-full bg-[#16225080]'></div>
+                  <div className='absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 text-white'>
+                    <p className='text-lg text-center font-bold'>Tours in</p>
+                    <p className='text-lg text-center font-bold'>Asia</p>
+                  </div>
+                </li>
 
-              <li className='mt-2'>
-                <h2> Vietnam</h2>
-                <ul className='ml-5'>
-                  <li>list item 1</li>
-                  <li>list item 1</li>
-                  <li>list item 1</li>
-                </ul>
-              </li>
+                <li className='relative cursor-pointer'>
+                  <img
+                    src='https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200'
+                    className='w-full h-full rounded-lg object-cover'
+                    alt='Featured destination'
+                  />
+                  <div className=' absolute top-0 left-0 w-full h-full bg-[#16225080]'></div>
+                  <div className='absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 text-white'>
+                    <p className='text-lg text-center font-bold'>Tours in</p>
+                    <p className='text-lg text-center font-bold'>Asia</p>
+                  </div>
+                </li>
+                <li className='relative cursor-pointer'>
+                  <img
+                    src='https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200'
+                    className='w-full h-full rounded-lg object-cover'
+                    alt='Featured destination'
+                  />
+                  <div className=' absolute top-0 left-0 w-full h-full bg-[#16225080]'></div>
+                  <div className='absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 text-white'>
+                    <p className='text-lg text-center font-bold'>Tours in</p>
+                    <p className='text-lg text-center font-bold'>Asia</p>
+                  </div>
+                </li>
+                <li className='relative cursor-pointer'>
+                  <img
+                    src='https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200'
+                    className='w-full h-full rounded-lg object-cover'
+                    alt='Featured destination'
+                  />
+                  <div className=' absolute top-0 left-0 w-full h-full bg-[#16225080]'></div>
+                  <div className='absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 text-white'>
+                    <p className='text-lg text-center font-bold'>Tours in</p>
+                    <p className='text-lg text-center font-bold'>Asia</p>
+                  </div>
+                </li>
+                <li className='relative cursor-pointer'>
+                  <img
+                    src='https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200'
+                    className='w-full h-full rounded-lg object-cover'
+                    alt='Featured destination'
+                  />
+                  <div className=' absolute top-0 left-0 w-full h-full bg-[#16225080]'></div>
+                  <div className='absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 text-white'>
+                    <p className='text-lg text-center font-bold'>Tours in</p>
+                    <p className='text-lg text-center font-bold'>Asia</p>
+                  </div>
+                </li>
+                <li className='relative cursor-pointer'>
+                  <img
+                    src='https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200'
+                    className='w-full h-full rounded-lg object-cover'
+                    alt='Featured destination'
+                  />
+                  <div className=' absolute top-0 left-0 w-full h-full bg-[#16225080]'></div>
+                  <div className='absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 text-white'>
+                    <p className='text-lg text-center font-bold'>Tours in</p>
+                    <p className='text-lg text-center font-bold'>Asia</p>
+                  </div>
+                </li>
+              </ul>
+            </section>
 
-              <li className='mt-2'>
-                <h2>Cambodia</h2>
-                <ul className='ml-5'>
-                  <li>list item 1</li>
-                  <li>list item 1</li>
-                  <li>list item 1</li>
-                </ul>
-              </li>
-            </ul>
+            <section className='mt-4'>
+              <p className='text-center text-2xl my-5'>Browse Our Trips</p>
+              <AccordionNav />
+            </section>
 
-            <div>images </div>
-          </section>
-
-          <section className='absolute mt-10'>
-            <h4 className='text-center'> dev buttons</h4>
-            <ul className='grid grid-cols-3 gap-7'>
-              {devLinks.map((link, i) => {
-                return (
-                  <li key={i} onClick={handleToggle}>
-                    <Link
-                      className='bg-blue-400 rounded-md p-1 w-full block text-center'
-                      href={link.link}
-                    >
-                      {link.text}
-                    </Link>
+            <section className='my-5 pb-10'>
+                <p className='text-2xl mb-5'>Contact</p>
+                <ul>
+                  <li>
+                    Address: 1 London Road London SE12 12A
                   </li>
-                )
-              })}
-            </ul>
-          </section>
+                  <li>
+                    Phone: 0207 330 987
+                  </li>
+                  <li>
+                    Email: hello@company.com
+                  </li>
+                </ul>
+            </section>
+          </div>
         </div>
       )}
     </div>

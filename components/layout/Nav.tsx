@@ -128,7 +128,7 @@ const Nav = async () => {
     {}
   )
 
-  console.log('sortedContinents:', sortedContinents)
+  // console.log('sortedContinents:', sortedContinents)
 
   const destinations = Object.values(sortedContinents)
   const tours = Object.values(sortedTours)
@@ -139,6 +139,7 @@ const Nav = async () => {
   //   tours,
   // }
   // console.log(megaData['destinations'])
+
 
   return (
     <nav className='border-b'>
@@ -156,7 +157,10 @@ const Nav = async () => {
           sortedTours={sortedTours}
         />
         <div className='flex'>
-          <MobileNav />
+          <MobileNav
+            sortedContinents={sortedContinents}
+            sortedTours={sortedTours}
+          />
           <NavAuth />
         </div>
         {/* sign in / out buttons */}
