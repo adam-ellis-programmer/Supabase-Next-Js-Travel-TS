@@ -6,11 +6,16 @@ import { MdAdminPanelSettings } from 'react-icons/md'
 
 import { RiMoneyPoundBoxLine } from 'react-icons/ri'
 import Link from 'next/link'
-const AdminNavButtons = () => {
+const AdminNavButtons = ({ showAdminButtons, setshowAdminButtons }) => {
   return (
     <div className='mb-5 border-b pb-3'>
       <div className='flex justify-end left-0 w-full absolute px-5'>
-        <span className='bg-rose-500 text-sm p-1 px-2 rounded-lg text-white cursor-pointer'>
+        <span
+          onClick={() => {
+            setshowAdminButtons(false)
+          }}
+          className='bg-rose-500 text-sm p-1 px-2 rounded-lg text-white cursor-pointer'
+        >
           close admin
         </span>
       </div>

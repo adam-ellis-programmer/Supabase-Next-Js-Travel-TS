@@ -20,4 +20,19 @@ export class LandingPage {
 
     return data
   }
+
+  static async auth(page: string) {
+    const supabase = await createClient()
+
+    const { data, error } = await supabase
+      .from('hero_sections')
+      .select(`image_url`)
+      .eq('page_location', page)
+
+    if (error || !data) {
+      throw new Error('Error getting landing page data!!')
+    }
+
+    return data
+  }
 }

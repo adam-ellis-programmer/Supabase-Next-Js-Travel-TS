@@ -1,10 +1,14 @@
 import { LoginForm } from '@/components/login-form'
+import { LandingPage } from '@/lib/supabase/services/site/landing-page-service'
 
-export default function Page() {
+export default async function Page() {
+  const res = await LandingPage.auth('auth_screen')
+
+
   return (
     <div className='relative h-[88vh]'>
       <img
-        src='https://images.pexels.com/photos/758744/pexels-photo-758744.jpeg'
+        src={res[0].image_url}
         className='absolute w-full top-0 left-0 h-full object-cover object-center z-10'
         alt=''
       />

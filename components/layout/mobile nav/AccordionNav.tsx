@@ -58,9 +58,13 @@ const AccordionNav = ({
         <span className='text-lg py-1 bg-sky-600 px-5 rounded-lg text-white mb-5 inline-block cursor-pointer'>
           best sellers
         </span>
-        <span className='text-lg py-1 bg-orange-600 px-5 rounded-lg text-white mb-5 inline-block cursor-pointer'>
-          login
-        </span>
+        <Link
+          href={`/auth/login`}
+          onClick={handleMobileTourNav}
+          className='text-lg py-1 bg-orange-600 px-5 rounded-lg text-white mb-5 inline-block cursor-pointer'
+        >
+          <span className=''>login</span>
+        </Link>
       </div>
 
       <Accordion type='single' collapsible className='mb-3'>
@@ -68,7 +72,11 @@ const AccordionNav = ({
           return (
             <AccordionItem key={i} value={`item-${i}`} className='mb-[2px]'>
               <AccordionTrigger className='bg-pink-500 px-5 py-2 text-white text-lg font-bold'>
-               <p> Tours in {item[0]} <span className='ml-3'>({item[1].tours.length})</span></p>
+                <p>
+                  {' '}
+                  Tours in {item[0]}{' '}
+                  <span className='ml-3'>({item[1].tours.length})</span>
+                </p>
               </AccordionTrigger>
               <ul className='ml-2 '>
                 {item[1].tours.map((item, i) => {

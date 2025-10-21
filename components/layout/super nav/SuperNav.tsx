@@ -20,6 +20,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
   const [destImage, setDestImage] = useState(null)
   const [destImageText, setDestImageText] = useState('')
   const [tourImage, settourImage] = useState(null)
+  const [showAdminButtons, setshowAdminButtons] = useState(false)
 
   const destinations = Object.values(sortedContinents)
   const tours = Object.values(sortedTours)
@@ -92,13 +93,25 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
 
   return (
     <div className='absolute mt-12 z-[1000] top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl  border-gray-100'>
-      <DevButtons />
-      {/* <div className='mb-2 flex justify-start cursor-pointer'>
-        <span className='bg-rose-500 text-sm p-1 px-2 rounded-lg text-white'>
-          show admin
-        </span>
-      </div> */}
-      <AdminNavButtons />
+      {/* <DevButtons /> */}
+      {!showAdminButtons && (
+        <div className='mb-2 flex justify-start cursor-pointer'>
+          <span
+            onClick={() => {
+              setshowAdminButtons(!showAdminButtons)
+            }}
+            className='bg-rose-500 text-sm p-1 px-2 rounded-lg text-white'
+          >
+            show admin
+          </span>
+        </div>
+      )}
+      {showAdminButtons && (
+        <AdminNavButtons
+          showAdminButtons={showAdminButtons}
+          setshowAdminButtons={setshowAdminButtons}
+        />
+      )}
       <div className='grid grid-cols-12 gap-8'>
         <div className=' col-span-9 '>
           {type === 'destinations' ? (
@@ -221,7 +234,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
         <div className=' col-span-3 relative cursor-pointer'>
           <img
             src='https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200'
-            className='w-full h-full rounded-lg object-cover'
+            className='w-full rounded-lg object-cover h-[200px]'
             alt='Featured destination'
           />
           <div className='absolute bottom-5 w-full text-white'>
@@ -232,7 +245,9 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
               and pay 50% less{' '}
             </p>
           </div>
-          <span className='absolute top-1 right-2 bg-indigo-200 rounded-lg px-[4px] text-sm'>advert</span>
+          <span className='absolute top-1 right-2 bg-indigo-200 rounded-lg px-[4px] text-sm'>
+            advert
+          </span>
         </div>
       </div>
     </div>
