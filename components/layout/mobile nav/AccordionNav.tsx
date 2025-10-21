@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import {
   Accordion,
   AccordionContent,
@@ -32,25 +33,49 @@ const tempArr = Array.from({ length: 5 }, (item, i) => {
   }
 })
 
-console.log(tempArr)
-console.log('ran')
+const AccordionNav = ({
+  sortedTours,
+  setIsNaveOpen,
+}: {
+  sortedTours: any
+  setIsNaveOpen: (isNaveOpen: boolean) => null
+}) => {
+  // console.log('accordion sortedTours: ', sortedTours)
 
-const AccordionNav = () => {
+  const tourData = Object.entries(sortedTours)
+  console.log('tourDAta', tourData)
+
+  const handleMobileTourNav = () => {
+    ///..
+    setIsNaveOpen(false)
+  }
   return (
     <>
-      {cs.map((item, i) => {
+      <span className='text-lg py-1 bg-pink-500 px-2 rounded-lg text-white mb-5 inline-block cursor-pointer'>
+        open all
+      </span>
+      {tourData.map((item, i) => {
         return (
           <Accordion type='single' collapsible className='mb-3' key={i}>
             <AccordionItem value='item-1' className=''>
               <AccordionTrigger className='bg-pink-500 px-5 py-2 text-white text-lg font-bold'>
-                Tours in {item}
+                Tours in {item[0]}
               </AccordionTrigger>
               <ul className='ml-2 '>
-                {tempArr.map((item, i) => {
+                {item[1].tours.map((item, i) => {
+                  console.log(item)
+
                   return (
                     <li className='text-lg ' key={i}>
-                      <AccordionContent className=''>
-                        <p className='font-bold text-lg'>{item.item}</p>
+                      <AccordionContent className='mt-2'>
+                        <p className='font-bold text-lg cursor-pointer'>
+                          <Link
+                            href={`/tours/${item.id}`}
+                            onClick={handleMobileTourNav}
+                          >
+                            {item.tour_name}
+                          </Link>
+                        </p>
                       </AccordionContent>
                     </li>
                   )

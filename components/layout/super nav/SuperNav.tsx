@@ -40,7 +40,6 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
       const countries = Object.entries(firstContinent.tours)
       setListedCountries(countries)
 
-
       // Set initial image from first country's first tour
       if (
         countries.length > 0 &&
@@ -89,7 +88,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
   }
 
   // set showAdmin in local storage!
-  // local storage pattern 
+  // local storage pattern
 
   return (
     <div className='absolute mt-12 z-30 top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl  border-gray-100'>
@@ -219,7 +218,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
             </div>
           )}
         </div>
-        <div className=' col-span-3 relative'>
+        <div className=' col-span-3 relative cursor-pointer'>
           <img
             src='https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200'
             className='w-full h-full rounded-lg object-cover'
@@ -233,6 +232,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
               and pay 50% less{' '}
             </p>
           </div>
+          <span className='absolute top-1 right-2 bg-indigo-200 rounded-lg px-[4px] text-sm'>advert</span>
         </div>
       </div>
     </div>

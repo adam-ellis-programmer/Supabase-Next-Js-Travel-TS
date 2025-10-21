@@ -9,7 +9,8 @@ import Link from 'next/link'
 import NavAuth from '../buttons/NavAuth'
 import { createClient } from '@/lib/supabase/server'
 import { NavService } from '@/lib/supabase/services/site/navigation-service'
-import { it } from 'node:test'
+import test, { it } from 'node:test'
+import { getSlug } from '../utils/regex'
 
 // type is more commonly used for index signatures and record-like structures.
 
@@ -43,23 +44,13 @@ type ToursByContinentAndCountry = {
     count: number
     text: string
     slug: string
+    img: string
   }
-}
-
-const getSlug = (text: string): string => {
-  return text
-    .toLowerCase() // Convert to lowercase
-    .trim() // Remove whitespace from both ends
-    .replace(/\s+/g, '-') // Replace spaces with hyphens
-    .replace(/[^\w\-]+/g, '') // Remove all non-word chars except hyphens
-    .replace(/\-\-+/g, '-') // Replace multiple hyphens with single hyphen
-    .replace(/^-+/, '') // Trim hyphens from start
-    .replace(/-+$/, '') // Trim hyphens from end
 }
 
 const Nav = async () => {
   const { countriesData, toursData } = await NavService.getNavData()
-  console.log(toursData)
+  // console.log(toursData)
 
   //=========================================
   // -- countries data
@@ -104,6 +95,7 @@ const Nav = async () => {
   const sortedContinents = toursData.reduce<ToursByContinentAndCountry>(
     (acc, item) => {
       // console.log('-- item--', item)
+      // console.log('ITEM:', item.tour_images[0].image_url)
 
       if (!acc[item.continent]) {
         acc[item.continent] = {
@@ -114,6 +106,7 @@ const Nav = async () => {
           count: 0,
           text: '',
           slug: '',
+          img: '',
         }
       }
       acc[item.continent].tours[item.country] = []
@@ -123,6 +116,7 @@ const Nav = async () => {
       acc[item.continent].count += 1
       acc[item.continent].text = item.continent
       acc[item.continent].slug = getSlug(item.continent)
+      acc[item.continent].img = item.tour_images[0].image_url
       return acc
     },
     {}
@@ -139,7 +133,6 @@ const Nav = async () => {
   //   tours,
   // }
   // console.log(megaData['destinations'])
-
 
   return (
     <nav className='border-b'>
