@@ -45,7 +45,7 @@ const MobileNav = ({ sortedContinents, sortedTours }) => {
       </button>
 
       {isNaveOpen && (
-        <div className='absolute top-0 bottom-0 left-0 right-0 h-full max-w-[600px] mx-auto z-30 bg-white p-5'>
+        <div className='absolute top-0 bottom-0 left-0 right-0 h-full max-w-[600px] mx-auto z-[1000] bg-white p-5'>
           {/* header section */}
           <section className=' pb-5'>
             <div className=' flex justify-between'>

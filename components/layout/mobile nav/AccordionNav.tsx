@@ -58,6 +58,9 @@ const AccordionNav = ({
         <span className='text-lg py-1 bg-sky-600 px-5 rounded-lg text-white mb-5 inline-block cursor-pointer'>
           best sellers
         </span>
+        <span className='text-lg py-1 bg-orange-600 px-5 rounded-lg text-white mb-5 inline-block cursor-pointer'>
+          login
+        </span>
       </div>
 
       <Accordion type='single' collapsible className='mb-3'>

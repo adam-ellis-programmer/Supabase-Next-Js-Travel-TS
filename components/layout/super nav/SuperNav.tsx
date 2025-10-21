@@ -91,8 +91,8 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
   // local storage pattern
 
   return (
-    <div className='absolute mt-12 z-30 top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl  border-gray-100'>
-      {/* <DevButtons /> */}
+    <div className='absolute mt-12 z-[1000] top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl  border-gray-100'>
+      <DevButtons />
       {/* <div className='mb-2 flex justify-start cursor-pointer'>
         <span className='bg-rose-500 text-sm p-1 px-2 rounded-lg text-white'>
           show admin
