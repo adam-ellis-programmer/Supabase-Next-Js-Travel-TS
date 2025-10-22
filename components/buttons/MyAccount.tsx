@@ -1,12 +1,13 @@
+'use client'
 import Link from 'next/link'
 import React from 'react'
-
+import { MdAdminPanelSettings } from 'react-icons/md'
 const MyAccount = ({
   mobile = false,
   setIsNaveOpen,
 }: {
   mobile?: boolean
-  setIsNaveOpen: (boolean: false) => null
+  setIsNaveOpen?: (boolean: false) => void
 }) => {
   const handleCloseMobile = () => {
     if (mobile) {
@@ -17,10 +18,11 @@ const MyAccount = ({
   return (
     <Link
       href={`/auth/account`}
-      className='capitalize bg-rose-600 text-sm p-1 px-2 rounded-lg text-white'
+      className='capitalize bg-rose-600 text-sm p-1 px-2 rounded-lg text-white inline-flex items-center space-x-2'
       onClick={handleCloseMobile}
     >
-      <span className=''>My Account</span>
+      <MdAdminPanelSettings />
+      <span className=''> My Account</span>
     </Link>
   )
 }

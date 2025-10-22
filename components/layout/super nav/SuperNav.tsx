@@ -7,7 +7,7 @@ import { megaMenuData } from '@/data/navigation'
 import DevButtons from '@/dev/DevButtons'
 import AdminNavButtons from '@/components/admin/AdminNavButtons'
 import MyAccount from '@/components/buttons/MyAccount'
-
+import { MdAdminPanelSettings } from 'react-icons/md'
 interface SuperNavProps {
   type: 'tours' | 'destinations'
   sortedContinents: any
@@ -104,8 +104,9 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
             onClick={() => {
               setshowAdminButtons(!showAdminButtons)
             }}
-            className=' capitalize bg-blue-600 text-sm p-1 px-2 rounded-lg text-white'
+            className=' capitalize bg-slate-600 text-sm p-1 px-2 rounded-lg text-white inline-flex items-center'
           >
+            <MdAdminPanelSettings className='mr-2'/>
             show admin
           </span>
         </div>
