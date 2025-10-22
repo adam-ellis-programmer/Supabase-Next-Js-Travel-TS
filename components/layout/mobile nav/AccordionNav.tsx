@@ -50,13 +50,16 @@ const AccordionNav = ({
     setIsNaveOpen(false)
   }
 
+  const btnGrid = ' grid grid-cols-2 mb-5 gap-3'
+  const btnFlex = ' space-x-2 space-y-1 mb-5'
   return (
     <>
-      <div className='space-x-2 space-y-1 mb-5'>
-        <span className='text-lg py-1 bg-pink-500 px-3 rounded-lg text-white inline-block cursor-pointer'>
+      {/* space-x-2 space-y-1 mb-5 */}
+      <div className={`${btnGrid} `}>
+        <span className='text-center text-lg py-1 bg-pink-500 px-3 rounded-md font-bold text-white inline-block cursor-pointer'>
           open all
         </span>
-        <span className='text-lg py-1 bg-sky-600 px-5 rounded-lg text-white inline-block cursor-pointer'>
+        <span className='text-center text-lg py-1 bg-sky-600 px-5 rounded-md font-bold text-white inline-block cursor-pointer'>
           best sellers
         </span>
 
@@ -67,13 +70,13 @@ const AccordionNav = ({
               <LogoutButton
                 handleMobileTourNav={handleMobileTourNav}
                 mobile={true}
-                className='text-lg py-1 bg-red-600 px-5 rounded-lg text-white inline-block cursor-pointer ml-0'
+                className='text-lg py-1 bg-red-600 px-5 rounded-md font-bold text-white inline-block cursor-pointer ml-0'
               />
             ) : (
               <Link
                 href={`/auth/login`}
                 onClick={handleMobileTourNav}
-                className='text-lg py-1 bg-orange-600 px-5 rounded-lg text-white inline-block cursor-pointer'
+                className='text-lg py-1 bg-orange-600 px-5 rounded-md font-bold text-white inline-block cursor-pointer'
               >
                 <span>login</span>
               </Link>
@@ -84,7 +87,7 @@ const AccordionNav = ({
         <Link
           href={`/`}
           onClick={handleMobileTourNav}
-          className='text-lg py-1 bg-slate-800 px-5 rounded-lg text-white inline-block cursor-pointer'
+          className='text-center text-lg py-1 bg-zinc-500 px-5 rounded-md font-bold text-white inline-block cursor-pointer'
         >
           <span>home</span>
         </Link>
