@@ -14,6 +14,8 @@ interface SuperNavProps {
 }
 
 const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
+  // console.log('super nav mounted')
+
   const data = megaMenuData[type]
   const [listedCountries, setListedCountries] = useState(null)
   const [listedTours, setlistedTours] = useState(null)
@@ -36,7 +38,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
   useEffect(() => {
     if (type === 'destinations' && destinations.length > 0) {
       const firstContinent = destinations[0]
-      console.log(firstContinent)
+      // console.log(firstContinent)
       setDestImageText(firstContinent.text)
       const countries = Object.entries(firstContinent.tours)
       setListedCountries(countries)
@@ -52,7 +54,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
       // Initialize tours view with first country
       setlistedTours(tours[0])
     }
-  }, [type]) // Only depend on type, not navData
+  }, [type])
 
   const handleDestMouseEnter = (text, data, index) => {
     // console.log('dest--->:', text)
@@ -77,7 +79,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
 
   const handleListedCountriesMouseEnter = (item) => {
     // Update image when hovering over country
-    console.log(item)
+    // console.log(item)
     setDestImageText(item[0])
 
     if (item[1][0]?.tour_images?.[3]?.image_url) {

@@ -15,6 +15,7 @@ import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { loginAction } from '@/lib/supabase/actions/auth-actions'
 
 export function LoginForm({
   className,
@@ -28,18 +29,22 @@ export function LoginForm({
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-    const supabase = createClient()
     setIsLoading(true)
     setError(null)
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-      if (error) throw error
-      // Update this route to redirect to an authenticated route. The user already has an active session.
+      // Call the server action
+      const result = await loginAction(email, password)
+
+      if (result.error) {
+        throw new Error(result.error)
+      }
+
+      // Redirect after successful login
       router.push('/protected')
+      // revalidatePath() (server) → Tells Next.js to refetch server components
+      // router.refresh() (client) → Forces the current route to re-render
+      // router.refresh() // Extra refresh to ensure everything updates
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {

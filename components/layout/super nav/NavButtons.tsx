@@ -1,7 +1,7 @@
-// components/nav/NavButtons.tsx
+// NavButtons.tsx
 'use client'
 import { Button } from '../../ui/button'
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import SuperNav from './SuperNav'
 
 interface data {
@@ -10,9 +10,12 @@ interface data {
 }
 
 const NavButtons = ({ sortedContinents, sortedTours }: data) => {
+  // console.log('🔵 NavButtons render')
+
   const [showSuperNav, setShowSuperNav] = useState(false)
-  // prettier-ignore
-  const [activeMenu, setActiveMenu] = useState<'tours' | 'destinations'>('tours')
+  const [activeMenu, setActiveMenu] = useState<'tours' | 'destinations'>(
+    'tours'
+  )
 
   const handleMouseEnter = (menuType: 'tours' | 'destinations') => {
     setActiveMenu(menuType)
@@ -22,11 +25,10 @@ const NavButtons = ({ sortedContinents, sortedTours }: data) => {
   return (
     <div
       onMouseLeave={() => setShowSuperNav(false)}
-      className=' h-full  items-center hidden md:flex'
+      className='h-full items-center hidden md:flex'
     >
       <ul className='relative'>
-        {/* Invisible Bridge to keep supanav open */}
-        <div className='absolute h-[30px] -bottom-[60px] z-30 w-full '></div>
+        <div className='absolute h-[30px] -bottom-[60px] z-30 w-full'></div>
         <li>
           <Button
             className='bg-rose-500 mx-1'
@@ -53,4 +55,23 @@ const NavButtons = ({ sortedContinents, sortedTours }: data) => {
   )
 }
 
-export default NavButtons
+// Custom comparison - deep compare the props
+export default memo(NavButtons, (prevProps, nextProps) => {
+  // console.log('🟣 MEMO COMPARISON RUNNING')
+
+  const continentsEqual =
+    JSON.stringify(prevProps.sortedContinents) ===
+    JSON.stringify(nextProps.sortedContinents)
+
+  const toursEqual =
+    JSON.stringify(prevProps.sortedTours) ===
+    JSON.stringify(nextProps.sortedTours)
+
+  const isEqual = continentsEqual && toursEqual
+
+  // console.log('🟣 Continents equal?', continentsEqual)
+  // console.log('🟣 Tours equal?', toursEqual)
+  // console.log('🟣 Should skip render?', isEqual)
+
+  return isEqual
+})

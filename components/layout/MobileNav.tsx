@@ -1,6 +1,6 @@
 'use client'
 import { FaBarsStaggered } from 'react-icons/fa6'
-import React, { useState, useEffect, useEffectEvent } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import { FaPlaneDeparture } from 'react-icons/fa'
 import { links as devLinks } from '@/dev/DevButtons'
 import Link from 'next/link'
@@ -11,11 +11,7 @@ import AdminControls from './mobile nav/AdminControls'
 import { getSlug } from '../utils/regex'
 
 const MobileNav = ({ sortedContinents, sortedTours }) => {
-  // console.log({
-  //   text: 'test data',
-  //   sortedTours,
-  //   sortedContinents,
-  // })
+  // console.log('mobile nav mounted')
 
   const [isNaveOpen, setIsNaveOpen] = useState(false)
   const handleToggle = () => {
@@ -34,9 +30,10 @@ const MobileNav = ({ sortedContinents, sortedTours }) => {
     }
   }, [isNaveOpen])
 
-  // Handle screen resize - remove scroll lock on md+ screens
+  // Handle screen resize and remove scroll lock on md+ screens
   useEffect(() => {
     const handleResize = () => {
+      console.log('resize ran')
       // md breakpoint for Tailwind (768px)
       if (window.innerWidth >= 768) {
         document.documentElement.classList.remove('no-scroll')
@@ -142,4 +139,4 @@ const MobileNav = ({ sortedContinents, sortedTours }) => {
   )
 }
 
-export default MobileNav
+export default memo(MobileNav)

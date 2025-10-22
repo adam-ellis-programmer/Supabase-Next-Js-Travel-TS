@@ -8,15 +8,14 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 
-import Nav from '@/components/layout/Nav'
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : 'http://localhost:3000'
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: 'Next.js and Supabase Starter Kit',
-  description: 'The fastest way to build apps with Next.js and Supabase',
+  title: 'Travel Explorer',
+  description: 'Home Page of the adventure explorer',
 }
 
 const geistSans = Geist({
@@ -30,9 +29,13 @@ const exo2 = Exo_2({
   variable: '--font-exo2',
 })
 
+//=====================================================
 import Container from '@/components/layout/Container'
+import Nav from '@/components/layout/Nav'
 import Footer from '@/components/layout/Footer'
 import DevButtons from '@/dev/DevButtons'
+//=====================================================
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,12 +43,12 @@ export default function RootLayout({
 }>) {
   const dark = false
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang='en'>
       <body
         className={`${exo2.className} antialiased ${
           dark ? 'bg-[#304255] text-white' : ''
         }`}
-      >
+      > 
         {/* <DevButtons />  */}
         <Nav />
         {/* <Container></Container> */}
