@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { megaMenuData } from '@/data/navigation'
 import DevButtons from '@/dev/DevButtons'
 import AdminNavButtons from '@/components/admin/AdminNavButtons'
+import MyAccount from '@/components/buttons/MyAccount'
 
 interface SuperNavProps {
   type: 'tours' | 'destinations'
@@ -97,12 +98,13 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
     <div className='absolute mt-12 z-[1000] top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl  border-gray-100'>
       {/* <DevButtons /> */}
       {!showAdminButtons && (
-        <div className='mb-2 flex justify-start cursor-pointer'>
+        <div className='mb-2 flex justify-start cursor-pointer space-x-2'>
+          <MyAccount />
           <span
             onClick={() => {
               setshowAdminButtons(!showAdminButtons)
             }}
-            className='bg-rose-500 text-sm p-1 px-2 rounded-lg text-white'
+            className=' capitalize bg-blue-600 text-sm p-1 px-2 rounded-lg text-white'
           >
             show admin
           </span>

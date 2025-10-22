@@ -17,10 +17,12 @@ const NavAuth = async () => {
     <div className='hidden md:flex'>
       {user ? (
         <div className='flex items-center gap-4'>
-          <p className='capitalize'>
-            <span className='mr-1 h-[10px] w-[10px] inline-block bg-green-500 rounded-full'></span>{' '}
-            logged in as {user.email?.split('@')[0] || 'User'}
-          </p>
+          <div>
+            <p className='capitalize'>
+              <span className='mr-1 h-[10px] w-[10px] inline-block bg-green-500 rounded-full'></span>{' '}
+              logged in as {user.email?.split('@')[0] || 'User'}
+            </p>
+          </div>
 
           <LogoutButton />
         </div>

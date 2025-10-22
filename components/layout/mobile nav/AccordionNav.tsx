@@ -66,6 +66,7 @@ const AccordionNav = ({
             {user ? (
               <LogoutButton
                 handleMobileTourNav={handleMobileTourNav}
+                mobile={true}
                 className='text-lg py-1 bg-red-600 px-5 rounded-lg text-white inline-block cursor-pointer ml-0'
               />
             ) : (

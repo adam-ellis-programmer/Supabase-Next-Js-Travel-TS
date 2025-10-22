@@ -22,6 +22,14 @@ const Nav = async () => {
   //   new Date().toISOString()
   // )
 
+  const supabase = await createClient()
+
+  // Get the authenticated user
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser()
+
   const { countriesData, toursData, sortedTours, sortedContinents } =
     await NavService.getNavData()
   // console.log(toursData)
@@ -61,10 +69,13 @@ const Nav = async () => {
             <FaPlaneDeparture className='text-3xl text-blue-400 ' />
             <h3 className='text-2xl font-bold mx-4'>TravelExplorer</h3>
           </div>
-          <p className=' mt-1 block md:hidden'>
-            <span className='mr-1 h-[10px] w-[10px] inline-block bg-green-500 rounded-full'></span>{' '}
-            Logged In As Adam
-          </p>
+
+          {user && (
+            <p className=' mt-1 block md:hidden'>
+              <span className='mr-1 h-[10px] w-[10px] inline-block bg-green-500 rounded-full'></span>{' '}
+              Logged In As {user.email?.split('@')[0] || 'User'}
+            </p>
+          )}
         </Link>
         <NavButtons
           sortedContinents={sortedContinents}

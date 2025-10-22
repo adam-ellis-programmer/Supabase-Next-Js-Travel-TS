@@ -9,6 +9,7 @@ import {
   FaMapMarkerAlt,
   FaPlaneDeparture,
 } from 'react-icons/fa'
+import MyAccount from '../buttons/MyAccount'
 
 const Footer = () => {
   return (
@@ -178,6 +179,7 @@ const Footer = () => {
       <div className='border-t border-white/20 px-6 py-4'>
         <div className='max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2 text-sm text-gray-400'>
           <p>&copy; 2025 TravelExplorer. All rights reserved.</p>
+          <MyAccount />
           <div className='flex gap-4'>
             <a href='#' className='hover:text-blue-400 transition-colors'>
               Privacy

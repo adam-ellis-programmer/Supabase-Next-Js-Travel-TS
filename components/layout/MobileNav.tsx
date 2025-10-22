@@ -9,6 +9,7 @@ import { megaMenuData } from '@/data/navigation'
 import AccordionNav from './mobile nav/AccordionNav'
 import AdminControls from './mobile nav/AdminControls'
 import { getSlug } from '../utils/regex'
+import MyAccount from '../buttons/MyAccount'
 
 const MobileNav = ({ sortedContinents, sortedTours }) => {
   // console.log('mobile nav mounted')
@@ -123,9 +124,7 @@ const MobileNav = ({ sortedContinents, sortedTours }) => {
                 <li>Phone: 0207 330 987</li>
                 <li>Email: hello@company.com</li>
                 <li className='mt-5 space-x-3'>
-                  <span className='bg-red-500 text-white p-1 rounded-lg cursor-pointer'>
-                    My Account
-                  </span>
+                  <MyAccount mobile={true} setIsNaveOpen={setIsNaveOpen} />
                   {/* <span className='bg-red-500 text-white p-1 rounded-lg cursor-pointer'>
                     My Profile
                   </span> */}

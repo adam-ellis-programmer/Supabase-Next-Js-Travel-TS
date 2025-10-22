@@ -8,8 +8,10 @@ import { logoutAction } from '@/lib/supabase/actions/auth-actions'
 export function LogoutButton({
   handleMobileTourNav,
   className = '',
+  mobile = false,
 }: {
   className?: string
+  mobile?: boolean
 }) {
   const router = useRouter()
 
@@ -23,8 +25,10 @@ export function LogoutButton({
   }
 
   const handleLogout = () => {
+    if (mobile) {
+      handleMobileTourNav()
+    }
     logout()
-    handleMobileTourNav()
   }
 
   return (
