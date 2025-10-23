@@ -8,16 +8,22 @@ const Bookings = () => {
     CANCELLED: 'cancelled',
   }
 
+  // Helper function for consistent date formatting (avoids hydration errors)
+  const formatDate = (date: Date) => {
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const day = String(date.getDate()).padStart(2, '0')
+    return `${month}/${day}/${year}` // MM/DD/YYYY format
+  }
+
   const testArr = Array.from({ length: 10 }, (_, i) => {
     const statusKeys = Object.keys(statuses)
     const randomStatus = statusKeys[i % 3]
 
     return {
       bookingId: `BK${1000 + i}`,
-      pax: Math.floor(Math.random() * 4) + 1,
-      img: `https://images.unsplash.com/photo-${
-        1500000000000 + i * 1000000
-      }-${i}?w=400&h=300&fit=crop`,
+      pax: (i % 4) + 1, // Deterministic: cycles 1,2,3,4,1,2,3,4...
+      img: '',
       leadPax: [
         'John Doe',
         'Jane Smith',
@@ -25,7 +31,7 @@ const Bookings = () => {
         'Sarah Williams',
         'David Brown',
       ][i % 5],
-      bookedTrips: Math.floor(Math.random() * 3) + 1,
+      bookedTrips: (i % 3) + 1, // Deterministic: cycles 1,2,3,1,2,3...
       tripName: [
         'Bali Adventure',
         'Paris City Tour',
@@ -37,8 +43,8 @@ const Bookings = () => {
       tax: 0.1,
       airPortTax: 0.05,
       status: statuses[randomStatus as keyof typeof statuses],
-      bookingDate: new Date(2024, 9, i + 1).toLocaleDateString(),
-      travelDate: new Date(2025, 0, i + 15).toLocaleDateString(),
+      bookingDate: formatDate(new Date(2024, 9, i + 1)),
+      travelDate: formatDate(new Date(2025, 0, i + 15)),
     }
   })
 
@@ -250,8 +256,8 @@ const Bookings = () => {
                         </div>
 
                         {/* Pricing Breakdown */}
-                        <div className='bg-gray-50 rounded-lg p-4'>
-                          <div className='grid grid-cols-2 md:grid-cols-4 gap-4 text-sm'>
+                        <div className='bg-gray-100 rounded-lg p-4'>
+                          <div className='grid grid-cols-2 md:grid-cols-4 gap-4 text-sm  '>
                             <div>
                               <p className='text-gray-600'>Subtotal</p>
                               <p className='font-semibold text-gray-900'>
