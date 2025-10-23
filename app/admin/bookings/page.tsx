@@ -16,6 +16,14 @@ const Bookings = () => {
     return `${month}/${day}/${year}` // MM/DD/YYYY format
   }
 
+  const tripImages = [
+    'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400&h=300&fit=crop', // Bali Adventure
+    'https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=400&h=300&fit=crop', // Paris City Tour
+    'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&h=300&fit=crop', // Safari Experience
+    'https://images.unsplash.com/photo-1579033461380-adb47c3eb938?w=400&h=300&fit=crop', // Iceland Northern Lights
+    'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop', // Tokyo Culture Trip
+  ]
+
   const testArr = Array.from({ length: 10 }, (_, i) => {
     const statusKeys = Object.keys(statuses)
     const randomStatus = statusKeys[i % 3]
@@ -23,7 +31,18 @@ const Bookings = () => {
     return {
       bookingId: `BK${1000 + i}`,
       pax: (i % 4) + 1, // Deterministic: cycles 1,2,3,4,1,2,3,4...
-      img: '',
+      img: [
+        'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400&h=300&fit=crop', // Bali Adventure
+        'https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=400&h=300&fit=crop', // Paris City Tour
+        'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&h=300&fit=crop', // Safari Experience
+        'https://images.unsplash.com/photo-1579033461380-adb47c3eb938?w=400&h=300&fit=crop', // Iceland Northern Lights
+        'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop', // Tokyo Culture Trip
+        'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400&h=300&fit=crop', // Bali Adventure
+        'https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=400&h=300&fit=crop', // Paris City Tour
+        'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&h=300&fit=crop', // Safari Experience
+        'https://images.unsplash.com/photo-1579033461380-adb47c3eb938?w=400&h=300&fit=crop', // Iceland Northern Lights
+        'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop', // Tokyo Culture Trip
+      ][i],
       leadPax: [
         'John Doe',
         'Jane Smith',
@@ -196,6 +215,7 @@ const Bookings = () => {
                     <div className='flex flex-col lg:flex-row gap-6'>
                       {/* Trip Image */}
                       <div className='lg:w-48 h-32 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0'>
+                        <img src={booking.img} alt='' />
                         <div className='w-full h-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold'>
                           Trip Photo
                         </div>
