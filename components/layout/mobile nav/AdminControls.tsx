@@ -1,10 +1,6 @@
 import React from 'react'
 
-import { IoMdAddCircle } from 'react-icons/io'
-
 import { MdAdminPanelSettings } from 'react-icons/md'
-
-import { RiMoneyPoundBoxLine } from 'react-icons/ri'
 
 import {
   Accordion,
@@ -13,7 +9,10 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
-const AdminControls = () => {
+import { adminLinks } from '@/data/adminNavData'
+import Link from 'next/link'
+
+const AdminControls = ({ handleToggle }) => {
   return (
     <section className=''>
       <Accordion type='single' collapsible className='no-underline'>
@@ -27,35 +26,21 @@ const AdminControls = () => {
             </h3>
           </AccordionTrigger>
           <AccordionContent>
-            <Button className='flex w-full text-2xl justify-start p-0 px-4 mb-1 items-center'>
-              <MdAdminPanelSettings />
-              admin
-            </Button>
-            <Button className='flex w-full text-2xl justify-start p-0 px-4 mb-1 items-center'>
-              <RiMoneyPoundBoxLine />
-              bookings
-            </Button>
-            <Button className='flex w-full text-2xl justify-start p-0 px-4 mb-1 items-center'>
-              <IoMdAddCircle />
-              tour
-            </Button>
-            <Button className='flex w-full text-2xl justify-start p-0 px-4 mb-1 items-center'>
-              <IoMdAddCircle />
-              user
-            </Button>
-            <Button className='flex w-full text-2xl justify-start p-0 px-4 mb-1 items-center'>
-              <IoMdAddCircle />
-              landing
-            </Button>
-
-            <Button className='flex w-full text-2xl justify-start p-0 px-4 mb-1 items-center'>
-              <MdAdminPanelSettings />
-              manage tours
-            </Button>
-            <Button className='flex w-full text-2xl justify-start p-0 px-4 mb-1 items-center'>
-              <MdAdminPanelSettings />
-              log out
-            </Button>
+            <ul>
+              {adminLinks.map((item, i) => {
+                const Icon = item.icon
+                return (
+                  <li>
+                    <Link href={item.href} onClick={handleToggle}>
+                      <Button className='flex w-full text-2xl justify-start p-0 px-4 mb-1 items-center'>
+                        <Icon />
+                        {item.text}
+                      </Button>
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
           </AccordionContent>
         </AccordionItem>
       </Accordion>

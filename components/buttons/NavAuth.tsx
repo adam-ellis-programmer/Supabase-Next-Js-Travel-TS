@@ -3,26 +3,21 @@ import { Button } from '../ui/button'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
+import { getServerUser } from '@/lib/supabase/server-auth'
 
 const NavAuth = async () => {
-  const supabase = await createClient()
-
-  // Get the authenticated user
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser()
+  const { user, error } = await getServerUser()
 
   return (
     <div className='hidden md:flex'>
       {user ? (
         <div className='flex items-center gap-4'>
-          <div>
+          <Link href={`/auth/account`}>
             <p className='capitalize'>
               <span className='mr-1 h-[10px] w-[10px] inline-block bg-green-500 rounded-full'></span>{' '}
               logged in as {user.email?.split('@')[0] || 'User'}
             </p>
-          </div>
+          </Link>
 
           <LogoutButton />
         </div>

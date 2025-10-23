@@ -12,23 +12,27 @@ import { createClient } from '@/lib/supabase/server'
 import { NavService } from '@/lib/supabase/services/site/navigation-service'
 import test, { it } from 'node:test'
 import { getSlug } from '../utils/regex'
+import { getServerUser } from '@/lib/supabase/server-auth'
 
 // type is more commonly used for index signatures and record-like structures.
 let renderCounter = 0
 const Nav = async () => {
+  const { user, error } = await getServerUser()
+
+
   renderCounter++
   // console.log(
   //   '🔴 NAV SERVER RENDER #' + renderCounter,
   //   new Date().toISOString()
   // )
 
-  const supabase = await createClient()
-
+  
+  // const supabase = await createClient()
   // Get the authenticated user
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser()
+  // const {
+  //   data: { user },
+  //   error,
+  // } = await supabase.auth.getUser()
 
   const { countriesData, toursData, sortedTours, sortedContinents } =
     await NavService.getNavData()
@@ -64,19 +68,22 @@ const Nav = async () => {
     <nav className='border-b'>
       {/* nav container */}
       <div className='flex justify-between max-w-[1200px] mx-auto items-center  h-[100px] px-5 md:px-0'>
-        <Link href={`/`}>
-          <div className=' flex'>
-            <FaPlaneDeparture className='text-3xl text-blue-400 ' />
-            <h3 className='text-2xl font-bold mx-4'>TravelExplorer</h3>
-          </div>
-
+        <div>
+          <Link href={`/`}>
+            <div className=' flex'>
+              <FaPlaneDeparture className='text-3xl text-blue-400 ' />
+              <h3 className='text-2xl font-bold mx-4'>TravelExplorer</h3>
+            </div>
+          </Link>
           {user && (
-            <p className=' mt-1 block md:hidden'>
-              <span className='mr-1 h-[10px] w-[10px] inline-block bg-green-500 rounded-full'></span>{' '}
-              Logged In As {user.email?.split('@')[0] || 'User'}
-            </p>
+            <Link href={`/auth/account`} className='mt-1 block md:hidden'>
+              <p className=''>
+                <span className='mr-1 h-[10px] w-[10px] inline-block bg-green-500 rounded-full'></span>{' '}
+                Logged In As {user.email?.split('@')[0] || 'User'}
+              </p>
+            </Link>
           )}
-        </Link>
+        </div>
         <NavButtons
           sortedContinents={sortedContinents}
           sortedTours={sortedTours}

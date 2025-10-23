@@ -159,7 +159,8 @@ const BookedTourCard = ({ booking }: BookedTourCardProps) => {
 
             {/* Action Button */}
             <div className='mt-3'>
-              <Link href={`/tours/${tour.id}`}>
+              {/* <Link href={`/tours/${tour.id}`}> */}
+              <Link href={`/tours/`}>
                 <button className='w-full px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-medium transition-colors text-sm'>
                   View Details
                 </button>

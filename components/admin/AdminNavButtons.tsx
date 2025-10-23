@@ -1,11 +1,13 @@
 import React from 'react'
-
 import { IoMdAddCircle } from 'react-icons/io'
 import { Button } from '../ui/button'
 import { MdAdminPanelSettings } from 'react-icons/md'
-
 import { RiMoneyPoundBoxLine } from 'react-icons/ri'
 import Link from 'next/link'
+import { adminLinks } from '@/data/adminNavData'
+
+// ✅ Pass the actual component, not a string
+
 const AdminNavButtons = ({ showAdminButtons, setshowAdminButtons }) => {
   return (
     <div className='mb-5 border-b pb-3'>
@@ -25,36 +27,23 @@ const AdminNavButtons = ({ showAdminButtons, setshowAdminButtons }) => {
           Admin Controls
         </span>
       </h3>
-      <div className=' inline space-x-2 '>
-        <Button>
-          <MdAdminPanelSettings />
-          admin
-        </Button>
-        <Button>
-          <RiMoneyPoundBoxLine />
-          bookings
-        </Button>
-        <Button>
-          <IoMdAddCircle />
-          tour
-        </Button>
-        <Button>
-          <IoMdAddCircle />
-          user
-        </Button>
-        <Button>
-          <IoMdAddCircle />
-          landing
-        </Button>
 
-        <Button>
-          <MdAdminPanelSettings />
-          manage tours
-        </Button>
-        <Button>
-          <MdAdminPanelSettings />
-          log out
-        </Button>
+      <div className=''>
+        <ul className='space-x-2 flex items-center'>
+          {adminLinks.map((item, i) => {
+            const Icon = item.icon // ✅ Assign to variable with capital letter
+            return (
+              <li key={i} className=''>
+                <Link href={item.href}>
+                  <Button className='flex items-center gap-2'>
+                    <Icon />
+                    {item.text}
+                  </Button>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
       </div>
     </div>
   )

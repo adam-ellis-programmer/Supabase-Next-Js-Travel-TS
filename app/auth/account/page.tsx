@@ -7,12 +7,37 @@ import { Profile } from '@/types/database'
 import UserDetailsCard from '@/components/auth/user/UserDetailsCard'
 // Mock user data - replace with actual Supabase data later
 
+const cs = ['Thailand', 'Vietnam', 'Australia', 'New Zealand']
+const days = [12, 15, 20, 10]
+const prices = [1799, 2500, 3500, 2378]
+
+const countryImages = [
+  'https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80', // Thailand
+  'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80', // Vietnam
+  'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800&q=80', // Australia
+  'https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=800&q=80', // New Zealand
+]
+
+const countryDescriptions = [
+  'Experience the best of Thailand with visits to Bangkok, Chiang Mai, and the stunning islands of Phuket.',
+  'Discover the charm of Vietnam from the bustling streets of Hanoi to the emerald waters of Ha Long Bay and vibrant Ho Chi Minh City.',
+  "Explore Australia's iconic landmarks including the Sydney Opera House, Great Barrier Reef, and the rugged beauty of the Outback.",
+  "Journey through New Zealand's breathtaking landscapes from the adventure capital of Queenstown to the majestic fjords of Milford Sound.",
+]
+
+const dates = [
+  '2025-02-6',
+  '2025-05-5',
+  '2025-07-10',
+  '2025-10-15',
+  '2025-12-24',
+]
 // Mock booked tours - replace with actual Supabase query later
 const mockBookedTours = Array.from({ length: 4 }, (_, i) => ({
   id: `booking-${i}`,
-  booking_date: '2025-11-15',
+  booking_date: dates[i],
   guests: 2,
-  total_price: 1299,
+  total_price: prices[i],
   status:
     i === 0
       ? 'confirmed'
@@ -23,14 +48,12 @@ const mockBookedTours = Array.from({ length: 4 }, (_, i) => ({
       : 'confirmed',
   tour: {
     id: `tour-${i}`,
-    title: '12 Day Thai Adventure',
-    description:
-      'Experience the best of Thailand with visits to Bangkok, Chiang Mai, and the stunning islands of Phuket.',
+    title: `${days[i]} Day ${cs[i]} Adventure`,
+    description: countryDescriptions[i],
     price: 1299,
-    duration: '12 days',
-    location: 'Thailand',
-    image_url:
-      'https://ldnjbkiqxrljdlauxbqe.supabase.co/storage/v1/object/public/site/Hero4.jpg',
+    duration: `${days[i]} days`,
+    location: cs[i],
+    image_url: countryImages[i],
   },
 }))
 

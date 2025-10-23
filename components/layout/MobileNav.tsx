@@ -10,10 +10,11 @@ import AccordionNav from './mobile nav/AccordionNav'
 import AdminControls from './mobile nav/AdminControls'
 import { getSlug } from '../utils/regex'
 import MyAccount from '../buttons/MyAccount'
+import { useAuth } from '@/hooks/useAuth'
 
 const MobileNav = ({ sortedContinents, sortedTours }) => {
   // console.log('mobile nav mounted')
-
+  const { user, isLoading } = useAuth()
   const [isNaveOpen, setIsNaveOpen] = useState(false)
   const handleToggle = () => {
     //...
@@ -74,7 +75,7 @@ const MobileNav = ({ sortedContinents, sortedTours }) => {
 
           {/* countries section (continents) */}
           <div className=' h-full overflow-scroll'>
-            <AdminControls />
+            {user && <AdminControls handleToggle={handleToggle} />}
             <section className=''>
               <p className='text-2xl text-center mb-5'>Choose an Area</p>
               <ul className='grid grid-cols-2 gap-2 '>
@@ -123,12 +124,11 @@ const MobileNav = ({ sortedContinents, sortedTours }) => {
                 <li>Address: 1 London Road London SE12 12A</li>
                 <li>Phone: 0207 330 987</li>
                 <li>Email: hello@company.com</li>
-                <li className='mt-5 space-x-3'>
-                  <MyAccount mobile={true} setIsNaveOpen={setIsNaveOpen} />
-                  {/* <span className='bg-red-500 text-white p-1 rounded-lg cursor-pointer'>
-                    My Profile
-                  </span> */}
-                </li>
+                {user && (
+                  <li className='mt-5 space-x-3'>
+                    <MyAccount mobile={true} setIsNaveOpen={setIsNaveOpen} />
+                  </li>
+                )}
               </ul>
             </section>
           </div>

@@ -18,7 +18,7 @@ const MyAccount = ({
   return (
     <Link
       href={`/auth/account`}
-      className='capitalize bg-rose-600 text-sm p-1 px-2 rounded-lg text-white inline-flex items-center space-x-2'
+      className='capitalize bg-rose-600 text-sm p-1 px-2 rounded-lg text-white inline-flex items-center space-x-2 cursor-pointer'
       onClick={handleCloseMobile}
     >
       <MdAdminPanelSettings />

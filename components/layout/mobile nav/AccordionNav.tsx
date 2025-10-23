@@ -10,7 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-
+import { MdAdminPanelSettings } from 'react-icons/md'
 const AccordionNav = ({
   sortedTours,
   setIsNaveOpen,
@@ -76,9 +76,10 @@ const AccordionNav = ({
               <Link
                 href={`/auth/login`}
                 onClick={handleMobileTourNav}
-                className='text-lg py-1 bg-orange-600 px-5 rounded-md font-bold text-white inline-block cursor-pointer'
+                className='space-x-1  text-lg py-1 bg-orange-600 px-5 rounded-md font-bold text-white inline-flex items-center justify-center cursor-pointer'
               >
-                <span>login</span>
+                <MdAdminPanelSettings />
+                <span className=''>login</span>
               </Link>
             )}
           </>

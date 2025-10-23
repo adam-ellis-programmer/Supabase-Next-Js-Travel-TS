@@ -1,13 +1,13 @@
 'use client'
-// components/nav/SuperNav.tsx
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { megaMenuData } from '@/data/navigation'
 import DevButtons from '@/dev/DevButtons'
 import AdminNavButtons from '@/components/admin/AdminNavButtons'
 import MyAccount from '@/components/buttons/MyAccount'
 import { MdAdminPanelSettings } from 'react-icons/md'
+import { useAuth } from '@/hooks/useAuth'
+
 interface SuperNavProps {
   type: 'tours' | 'destinations'
   sortedContinents: any
@@ -15,9 +15,9 @@ interface SuperNavProps {
 }
 
 const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
-  // console.log('super nav mounted')
+  // ✅ Get user from the hook
+  const { user, isLoading } = useAuth()
 
-  const data = megaMenuData[type]
   const [listedCountries, setListedCountries] = useState(null)
   const [listedTours, setlistedTours] = useState(null)
   const [destImage, setDestImage] = useState(null)
@@ -39,12 +39,10 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
   useEffect(() => {
     if (type === 'destinations' && destinations.length > 0) {
       const firstContinent = destinations[0]
-      // console.log(firstContinent)
       setDestImageText(firstContinent.text)
       const countries = Object.entries(firstContinent.tours)
       setListedCountries(countries)
 
-      // Set initial image from first country's first tour
       if (
         countries.length > 0 &&
         countries[0][1][0]?.tour_images?.[0]?.image_url
@@ -52,19 +50,22 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
         setDestImage(countries[0][1][0].tour_images[0].image_url)
       }
     } else if (type === 'tours' && tours.length > 0) {
-      // Initialize tours view with first country
       setlistedTours(tours[0])
     }
   }, [type])
 
+  // ✅ Hide admin buttons when user logs out
+  useEffect(() => {
+    if (!user) {
+      setshowAdminButtons(false)
+    }
+  }, [user])
+
   const handleDestMouseEnter = (text, data, index) => {
-    // console.log('dest--->:', text)
     setDestImageText(text)
     const countries = Object.entries(data)
-
     setListedCountries(countries)
 
-    // Update image when hovering over continent
     if (
       countries.length > 0 &&
       countries[0][1][0]?.tour_images?.[0]?.image_url
@@ -74,65 +75,55 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
   }
 
   const handleToursMouseEnter = (country) => {
-    // console.log('country', country)
     setlistedTours(country)
   }
 
   const handleListedCountriesMouseEnter = (item) => {
-    // Update image when hovering over country
-    // console.log(item)
     setDestImageText(item[0])
 
     if (item[1][0]?.tour_images?.[3]?.image_url) {
       setDestImage(item[1][0].tour_images[3].image_url)
     } else if (item[1][0]?.tour_images?.[0]?.image_url) {
-      // Fallback to first image if index 3 doesn't exist
       setDestImage(item[1][0].tour_images[0].image_url)
     }
   }
 
-  // set showAdmin in local storage!
-  // local storage pattern
-
   return (
     <div className='absolute mt-12 z-[1000] top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl  border-gray-100'>
       {/* <DevButtons /> */}
-      {!showAdminButtons && (
-        <div className='mb-2 flex justify-start cursor-pointer space-x-2'>
-          <MyAccount />
-          <span
-            onClick={() => {
-              setshowAdminButtons(!showAdminButtons)
-            }}
-            className=' capitalize bg-slate-600 text-sm p-1 px-2 rounded-lg text-white inline-flex items-center'
-          >
-            <MdAdminPanelSettings className='mr-2'/>
-            show admin
-          </span>
-        </div>
+      {user && (
+        <>
+          {!showAdminButtons && (
+            <div className='mb-2 flex justify-start  space-x-2'>
+              <MyAccount />
+              <span
+                onClick={() => {
+                  setshowAdminButtons(!showAdminButtons)
+                }}
+                className='cursor-pointer capitalize bg-slate-600 text-sm p-1 px-2 rounded-lg text-white inline-flex items-center'
+              >
+                <MdAdminPanelSettings className='mr-2' />
+                show admin
+              </span>
+            </div>
+          )}
+          {showAdminButtons && (
+            <AdminNavButtons
+              showAdminButtons={showAdminButtons}
+              setshowAdminButtons={setshowAdminButtons}
+            />
+          )}
+        </>
       )}
-      {showAdminButtons && (
-        <AdminNavButtons
-          showAdminButtons={showAdminButtons}
-          setshowAdminButtons={setshowAdminButtons}
-        />
-      )}
+
       <div className='grid grid-cols-12 gap-8'>
         <div className=' col-span-9 '>
           {type === 'destinations' ? (
-            // =============================================================================
-            // COUNTRIES
-            // =============================================================================
             <>
               <div className='grid grid-cols-3 gap-5'>
                 <div className=''>
-                  {/* <h3 className='caption-top text-center text-2xl mb-5'>
-                    continents available
-                  </h3> */}
                   <ul>
                     {navData.map((continent, continentIndex) => {
-                      // console.log('continent--', continent)
-
                       const countryNames = Object.keys(continent.tours)
                       return (
                         <li
@@ -155,13 +146,9 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
                   </ul>
                 </div>
                 <div className=''>
-                  {/* <h3 className='caption-top text-center text-2xl mb-5'>
-                    countries available
-                  </h3> */}
                   <ul>
                     {listedCountries &&
                       listedCountries.map((item, i) => {
-                        // console.log(item)
                         return (
                           <li
                             className='bg-slate-700 text-white pl-5  mb-[1px] rounded-lg  text-lg cursor-pointer'
@@ -194,9 +181,6 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
               </div>
             </>
           ) : (
-            // =============================================================================
-            // TOURS
-            // =============================================================================
             <div>
               <div className=' grid grid-cols-12 gap-5'>
                 <ul className='grid grid-cols-3  gap-x-2 col-span-7'>
@@ -213,12 +197,9 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
                   })}
                 </ul>
                 <div className=' col-span-5'>
-                  {/* <h3 className='text-center '>available tours</h3> */}
                   <ul>
                     {listedTours &&
                       listedTours.tours.map((item, i) => {
-                        // console.log('tour-itme--: ', item)
-
                         return (
                           <li key={i}>
                             <Link
