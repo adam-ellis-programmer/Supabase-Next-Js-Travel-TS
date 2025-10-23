@@ -18,7 +18,7 @@ export default function Page() {
       />
       <div className=' max-w-sm absolute z-30'>
         <div className='flex flex-col gap-6'>
-          <Card>
+          <Card className='bg-[#eae6e6c1]'>
             <CardHeader>
               <CardTitle className='text-2xl'>
                 <p>Check Your Email and </p>
