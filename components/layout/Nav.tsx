@@ -1,71 +1,27 @@
-// import React from 'react'
-
 // import { useMemo } from 'react'
 import { FaPlaneDeparture } from 'react-icons/fa'
-import { Button } from '../ui/button'
 import MobileNav from './MobileNav'
-import SuperNav from './super nav/SuperNav'
 import NavButtons from './super nav/NavButtons'
 import Link from 'next/link'
 import NavAuth from '../buttons/NavAuth'
-import { createClient } from '@/lib/supabase/server'
 import { NavService } from '@/lib/supabase/services/site/navigation-service'
-import test, { it } from 'node:test'
-import { getSlug } from '../utils/regex'
 import { getServerUser } from '@/lib/supabase/server-auth'
+import { createClient } from '@/lib/supabase/server'
 
-// type is more commonly used for index signatures and record-like structures.
-let renderCounter = 0
+
 const Nav = async () => {
   const { user, error } = await getServerUser()
+  const supabase = await createClient()
+  const { data, error: authError } = await supabase.auth.getClaims()
+
+  console.log('session data', data)
 
 
-  renderCounter++
-  // console.log(
-  //   '🔴 NAV SERVER RENDER #' + renderCounter,
-  //   new Date().toISOString()
-  // )
 
-  
-  // const supabase = await createClient()
-  // Get the authenticated user
-  // const {
-  //   data: { user },
-  //   error,
-  // } = await supabase.auth.getUser()
-
-  const { countriesData, toursData, sortedTours, sortedContinents } =
-    await NavService.getNavData()
-  // console.log(toursData)
-  // console.log('🔴 NAV SERVER RENDER', new Date().toISOString())
-
-  //=========================================
-  // -- countries data
-  //=========================================
-  // ---------------
-  // test with limited select data:
-  // ---------------
-  // const formattedCountriesData = countriesData.reduce((acc, country) => {
-  //   if (!acc[country.continent]) {
-  //     acc[country.continent] = {
-  //       count: 0,
-  //       countries: [],
-  //       name: country.continent,
-  //     }
-  //   }
-
-  //   acc[country.continent].countries.push(country)
-  //   acc[country.continent].count = acc[country.continent].countries.length
-
-  //   return acc
-  // }, {})
-
-  // 1: Initialize continent if it doesn't exist
-  // 2: Initialize country array if it doesn't exist
-  // 3: Add the tour to the appropriate country
-
+  const { sortedTours, sortedContinents } = await NavService.getNavData()
+  // sticky top-0 bg-white z-[2000]
   return (
-    <nav className='border-b'>
+    <nav className='border-b '>
       {/* nav container */}
       <div className='flex justify-between max-w-[1200px] mx-auto items-center  h-[100px] px-5 md:px-0'>
         <div>

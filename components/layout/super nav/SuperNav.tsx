@@ -7,6 +7,8 @@ import AdminNavButtons from '@/components/admin/AdminNavButtons'
 import MyAccount from '@/components/buttons/MyAccount'
 import { MdAdminPanelSettings } from 'react-icons/md'
 import { useAuth } from '@/hooks/useAuth'
+import { useAuthAdmin } from '@/hooks/useAuthAdmin'
+import AuthCheck from '@/components/spinners/AuthCheck'
 
 interface SuperNavProps {
   type: 'tours' | 'destinations'
@@ -16,7 +18,14 @@ interface SuperNavProps {
 
 const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
   // ✅ Get user from the hook
-  const { user, isLoading } = useAuth()
+  const { user } = useAuth()
+
+  const { profile, isAdmin, loading: authLoading } = useAuthAdmin()
+
+  // if (!authLoading) {
+  //   console.log('TEST DATA =================>', profile)
+  //   console.log('isAdmin =================>', isAdmin)
+  // }
 
   const [listedCountries, setListedCountries] = useState(null)
   const [listedTours, setlistedTours] = useState(null)
@@ -91,7 +100,8 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
   return (
     <div className='absolute mt-12 z-[1000] top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl  border-gray-100'>
       {/* <DevButtons /> */}
-      {user && (
+      {authLoading && <AuthCheck />}
+      {user && isAdmin && (
         <>
           {!showAdminButtons && (
             <div className='mb-2 flex justify-start  space-x-2'>

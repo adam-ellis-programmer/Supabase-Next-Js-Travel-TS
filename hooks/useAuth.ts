@@ -13,7 +13,7 @@ export const useAuth = () => {
     // Get initial session
     const getInitialSession = async () => {
       try {
-        const {
+        const { 
           data: { session },
         } = await supabase.auth.getSession()
         setUser(session?.user ?? null)
