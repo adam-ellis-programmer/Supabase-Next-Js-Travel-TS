@@ -24,7 +24,7 @@ const Bookings = () => {
     'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop', // Tokyo Culture Trip
   ]
 
-  const testArr = Array.from({ length: 10 }, (_, i) => {
+  const testArr = Array.from({ length: 15 }, (_, i) => {
     const statusKeys = Object.keys(statuses)
     const randomStatus = statusKeys[i % 3]
 
@@ -37,12 +37,7 @@ const Bookings = () => {
         'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&h=300&fit=crop', // Safari Experience
         'https://images.unsplash.com/photo-1579033461380-adb47c3eb938?w=400&h=300&fit=crop', // Iceland Northern Lights
         'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop', // Tokyo Culture Trip
-        'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400&h=300&fit=crop', // Bali Adventure
-        'https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=400&h=300&fit=crop', // Paris City Tour
-        'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&h=300&fit=crop', // Safari Experience
-        'https://images.unsplash.com/photo-1579033461380-adb47c3eb938?w=400&h=300&fit=crop', // Iceland Northern Lights
-        'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop', // Tokyo Culture Trip
-      ][i],
+      ][i % 5],
       leadPax: [
         'John Doe',
         'Jane Smith',
@@ -128,7 +123,15 @@ const Bookings = () => {
         </section>
 
         {/* Stats Cards */}
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 mb-8'>
+          <div className='bg-white rounded-lg shadow p-6 border-l-4 border-orange-600'>
+            <p className='text-sm text-gray-600 font-medium'>Total Spent</p>
+            <p className='text-3xl font-bold text-gray-900 mt-2'>£55,588</p>
+          </div>
+          <div className='bg-white rounded-lg shadow p-6 border-l-4 border-orange-600'>
+            <p className='text-sm text-gray-600 font-medium'>Pending Funnel</p>
+            <p className='text-3xl font-bold text-gray-900 mt-2'>£20,588</p>
+          </div>
           <div className='bg-white rounded-lg shadow p-6 border-l-4 border-blue-500'>
             <p className='text-sm text-gray-600 font-medium'>Total Bookings</p>
             <p className='text-3xl font-bold text-gray-900 mt-2'>
