@@ -5,6 +5,8 @@ import { DatabaseService } from '@/lib/supabase/services/database-service'
 import { redirect } from 'next/navigation'
 import { Profile } from '@/types/database'
 import UserDetailsCard from '@/components/auth/user/UserDetailsCard'
+import Link from 'next/link'
+import { FaUmbrellaBeach } from 'react-icons/fa'
 // Mock user data - replace with actual Supabase data later
 
 const cs = ['Thailand', 'Vietnam', 'Australia', 'New Zealand']
@@ -91,6 +93,15 @@ const AccountPage = async () => {
           <p className='text-slate-600'>
             Manage your profile and view your bookings
           </p>
+          <Link
+            href={`/auth/manage-bookings`}
+            className='mt-2 items-center 
+            justify-center inline-flex
+             bg-blue-300   rounded-sm px-2 py-[3px] text-sm'
+          >
+            <FaUmbrellaBeach className='mr-2 animate-bounce' />
+            Manage Bookings
+          </Link>
         </div>
 
         {/* User Details Card */}

@@ -43,7 +43,7 @@ export default function RootLayout({
 }>) {
   const dark = false
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <body
         className={`${exo2.className} antialiased ${
           dark ? 'bg-[#304255] text-white' : ''
