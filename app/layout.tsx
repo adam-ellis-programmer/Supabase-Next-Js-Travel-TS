@@ -7,7 +7,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
-
+import { AuthProvider } from '@/contexts/AuthContext'
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : 'http://localhost:3000'
@@ -48,11 +48,13 @@ export default function RootLayout({
         className={`${exo2.className} antialiased ${
           dark ? 'bg-[#304255] text-white' : ''
         }`}
-      > 
+      >
         {/* <DevButtons />  */}
-        <Nav />
         {/* <Container></Container> */}
-        {children}
+        <AuthProvider>
+          <Nav />
+          {children}
+        </AuthProvider>
         <Footer />
       </body>
     </html>

@@ -11,6 +11,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { MdAdminPanelSettings } from 'react-icons/md'
+import { useAuthAdmin } from '@/hooks/useAuthAdmin'
 const AccordionNav = ({
   sortedTours,
   setIsNaveOpen,
@@ -18,31 +19,34 @@ const AccordionNav = ({
   sortedTours: any
   setIsNaveOpen: (isNaveOpen: boolean) => void
 }) => {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
+  // const [user, setUser] = useState(null)
+  // const [loading, setLoading] = useState(true)
   const supabase = createClient()
 
-  useEffect(() => {
-    // Check initial auth state
-    const checkUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      setUser(user)
-      setLoading(false)
-    }
+  const { user,  loading} = useAuthAdmin()
+  console.log(user)
 
-    checkUser()
+  // useEffect(() => {
+  //   // Check initial auth state
+  //   const checkUser = async () => {
+  //     const {
+  //       data: { user },
+  //     } = await supabase.auth.getUser()
+  //     setUser(user)
+  //     setLoading(false)
+  //   }
 
-    // Listen for auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
-    })
+  //   checkUser()
 
-    return () => subscription.unsubscribe()
-  }, [])
+  //   // Listen for auth changes
+  //   const {
+  //     data: { subscription },
+  //   } = supabase.auth.onAuthStateChange((_event, session) => {
+  //     setUser(session?.user ?? null)
+  //   })
+
+  //   return () => subscription.unsubscribe()
+  // }, [])
 
   const tourData = Object.entries(sortedTours)
 

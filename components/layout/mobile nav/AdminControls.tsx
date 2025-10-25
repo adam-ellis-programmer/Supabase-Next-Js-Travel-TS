@@ -30,7 +30,7 @@ const AdminControls = ({ handleToggle }) => {
               {adminLinks.map((item, i) => {
                 const Icon = item.icon
                 return (
-                  <li>
+                  <li key={i}>
                     <Link href={item.href} onClick={handleToggle}>
                       <Button className='flex w-full text-2xl justify-start p-0 px-4 mb-1 items-center'>
                         <Icon />

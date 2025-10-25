@@ -11,10 +11,14 @@ import AdminControls from './mobile nav/AdminControls'
 import { getSlug } from '../utils/regex'
 import MyAccount from '../buttons/MyAccount'
 import { useAuth } from '@/hooks/useAuth'
+import { useAuthAdmin } from '@/contexts/AuthContext'
+// import { useAuthAdmin } from '@/hooks/useAuthAdmin'
 
 const MobileNav = ({ sortedContinents, sortedTours }) => {
   // console.log('mobile nav mounted')
-  const { user, isLoading } = useAuth()
+  // const { user, isLoading } = useAuth()
+  const { user, loading } = useAuthAdmin()
+
   const [isNaveOpen, setIsNaveOpen] = useState(false)
   const handleToggle = () => {
     //...

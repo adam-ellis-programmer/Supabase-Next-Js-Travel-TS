@@ -1,4 +1,5 @@
 'use client'
+import PaxAccordion from '@/components/admin/accordions/PaxAccordion'
 import React, { useState } from 'react'
 
 const Bookings = () => {
@@ -320,6 +321,9 @@ const Bookings = () => {
                               </p>
                             </div>
                           </div>
+                        </div>
+                        <div>
+                          <PaxAccordion />
                         </div>
                       </div>
                     </div>

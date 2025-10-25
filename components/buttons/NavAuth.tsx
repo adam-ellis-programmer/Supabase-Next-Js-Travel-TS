@@ -14,7 +14,7 @@ const NavAuth = async () => {
         <div className='flex items-center gap-4'>
           <Link href={`/auth/account`}>
             <p className='capitalize'>
-              <span className='mr-1 h-[10px] w-[10px] inline-block bg-green-500 rounded-full'></span>{' '}
+              <span className='mr-1 h-[10px] w-[10px] inline-block bg-green-500 rounded-full animate-pulse'></span>{' '}
               logged in as {user.email?.split('@')[0] || 'User'}
             </p>
           </Link>

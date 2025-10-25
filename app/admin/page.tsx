@@ -9,6 +9,7 @@ import {
   FaArrowRight,
 } from 'react-icons/fa'
 import Link from 'next/link'
+import { MdOutlineMailOutline } from 'react-icons/md'
 
 interface AdminCard {
   title: string
@@ -30,11 +31,19 @@ const AdminPage = () => {
       stats: 'Quick action',
     },
     {
+      title: 'Email Sign ups',
+      description: 'View and manage email list',
+      icon: <MdOutlineMailOutline />,
+      href: '/admin/tours/new',
+      color: 'bg-blue-400',
+      stats: 'Quick action',
+    },
+    {
       title: 'View All Tours',
       description: 'Manage existing tours and packages',
       icon: <FaMapMarkedAlt />,
       href: '/admin/tours',
-      color: 'bg-green-500',
+      color: 'bg-sky-500',
       stats: '42 active tours',
     },
     {
@@ -42,7 +51,7 @@ const AdminPage = () => {
       description: 'Moderate and manage user reviews',
       icon: <FaComments />,
       href: '/admin/comments',
-      color: 'bg-purple-500',
+      color: 'bg-rose-700',
       stats: '156 pending reviews',
     },
     {
@@ -50,7 +59,7 @@ const AdminPage = () => {
       description: 'Manage user accounts and permissions',
       icon: <FaUsers />,
       href: '/admin/users',
-      color: 'bg-orange-500',
+      color: 'bg-rose-500',
       stats: '1,234 users',
     },
     {
@@ -58,7 +67,7 @@ const AdminPage = () => {
       description: 'View bookings and revenue statistics',
       icon: <FaChartBar />,
       href: '/admin/analytics',
-      color: 'bg-pink-500',
+      color: 'bg-rose-400',
       stats: 'View insights',
     },
     {

@@ -1,14 +1,15 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { megaMenuData } from '@/data/navigation'
-import DevButtons from '@/dev/DevButtons'
+// import { megaMenuData } from '@/data/navigation'
+// import DevButtons from '@/dev/DevButtons'
+// import { useAuth } from '@/hooks/useAuth'
 import AdminNavButtons from '@/components/admin/AdminNavButtons'
 import MyAccount from '@/components/buttons/MyAccount'
 import { MdAdminPanelSettings } from 'react-icons/md'
-import { useAuth } from '@/hooks/useAuth'
-import { useAuthAdmin } from '@/hooks/useAuthAdmin'
+// import { useAuthAdmin } from '@/hooks/useAuthAdmin'
 import AuthCheck from '@/components/spinners/AuthCheck'
+import { useAuthAdmin } from '@/contexts/AuthContext' // ✅ Import from context
 
 interface SuperNavProps {
   type: 'tours' | 'destinations'
@@ -17,14 +18,23 @@ interface SuperNavProps {
 }
 
 const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
-  // ✅ Get user from the hook
-  const { user } = useAuth()
-
-  const { profile, isAdmin, loading: authLoading } = useAuthAdmin()
+  const {
+    isLoggedIn,
+    user,
+    profile,
+    isAdmin,
+    loading: authLoading,
+  } = useAuthAdmin()
+  console.log('authLoading', authLoading)
 
   // if (!authLoading) {
-  //   console.log('TEST DATA =================>', profile)
+  //   console.log('PROFILE =================>', profile)
+  //   console.log()
   //   console.log('isAdmin =================>', isAdmin)
+  //   console.log()
+  //   console.log('user =================>', user)
+  //   console.log()
+  //   console.log('isLoggedIn =================>', isLoggedIn)
   // }
 
   const [listedCountries, setListedCountries] = useState(null)
@@ -100,21 +110,28 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
   return (
     <div className='absolute mt-12 z-[1000] top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl  border-gray-100'>
       {/* <DevButtons /> */}
+      <h4 className='text-center capitalize text-xl mb-4 font-bold'>
+        choose a {type.slice(0, -1)}
+      </h4>
+
       {authLoading && <AuthCheck />}
-      {user && isAdmin && (
+      {user && (
         <>
           {!showAdminButtons && (
             <div className='mb-2 flex justify-start  space-x-2'>
               <MyAccount />
-              <span
-                onClick={() => {
-                  setshowAdminButtons(!showAdminButtons)
-                }}
-                className='cursor-pointer capitalize bg-slate-600 text-sm p-1 px-2 rounded-lg text-white inline-flex items-center'
-              >
-                <MdAdminPanelSettings className='mr-2' />
-                show admin
-              </span>
+              {/* only show admin button if is admin = true */}
+              {isAdmin && (
+                <span
+                  onClick={() => {
+                    setshowAdminButtons(!showAdminButtons)
+                  }}
+                  className='cursor-pointer capitalize bg-slate-600 text-sm p-1 px-2 rounded-lg text-white inline-flex items-center'
+                >
+                  <MdAdminPanelSettings className='mr-2' />
+                  admin quick links
+                </span>
+              )}
             </div>
           )}
           {showAdminButtons && (

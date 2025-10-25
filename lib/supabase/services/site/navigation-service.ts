@@ -40,7 +40,7 @@ type ToursByContinentAndCountry = {
 export class NavService {
   // Wrap the function with React's cache
   static getNavData = cache(async () => {
-    console.log('🟢 SERVICE: Fetching nav data from database')
+    // console.log('🟢 SERVICE: Fetching nav data from database')
     const supabase = await createClient()
 
     const { data: countriesData, error } = await supabase
@@ -96,7 +96,7 @@ export class NavService {
       {}
     )
 
-    console.log('🟢 SERVICE: Data processed and cached')
+    // console.log('🟢 SERVICE: Data processed and cached')
     return { countriesData, toursData, sortedTours, sortedContinents }
   })
 }

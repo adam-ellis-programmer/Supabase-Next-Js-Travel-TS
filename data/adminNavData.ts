@@ -8,4 +8,5 @@ export const adminLinks = [
   { text: 'add tour', icon: IoMdAddCircle, href: '/admin/add-tour' },
   { text: 'add landing', icon: IoMdAddCircle, href: '/admin/add-landing' },
   { text: 'view tours', icon: MdAdminPanelSettings, href: '/admin/view-tours' },
+  // { text: 'Email Signups', icon: MdAdminPanelSettings, href: '/admin/view-tours' },
 ]

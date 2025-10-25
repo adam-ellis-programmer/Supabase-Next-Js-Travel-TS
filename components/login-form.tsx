@@ -1,10 +1,8 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import {
-  Card,
   CardContent,
   CardDescription,
   CardHeader,
@@ -16,6 +14,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { loginAction } from '@/lib/supabase/actions/auth-actions'
+import { useAuthAdmin } from '@/contexts/AuthContext' // ✅ Import the hook
 
 export function LoginForm({
   className,
@@ -26,6 +25,7 @@ export function LoginForm({
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const { refreshAuth } = useAuthAdmin() // ✅ Get refreshAuth
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -40,11 +40,15 @@ export function LoginForm({
         throw new Error(result.error)
       }
 
-      // Redirect after successful login
+      console.log('✅ Login successful, refreshing auth...')
+
+      // ✅ Wait for client-side auth to sync with server
+      await refreshAuth()
+
+      console.log('✅ Auth refreshed, redirecting...')
+
+      // Now redirect with updated auth state
       router.push('/protected')
-      // revalidatePath() (server) → Tells Next.js to refetch server components
-      // router.refresh() (client) → Forces the current route to re-render
-      // router.refresh() // Extra refresh to ensure everything updates
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {

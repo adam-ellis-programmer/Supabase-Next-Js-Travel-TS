@@ -1,6 +1,10 @@
 // hooks/useAuth.ts
 'use client'
 
+// ✅ Client-Side (Your Hook) - For UI/UX Only
+// ✅ Server-Side - For Actual Security
+// Every sensitive operation MUST verify roles on the server:
+
 import { createClient } from '@/lib/supabase/client'
 import { useEffect, useState } from 'react'
 import type { User } from '@supabase/supabase-js'
@@ -29,7 +33,6 @@ export const useAuthAdmin = () => {
   const [user, setUser] = useState(null)
   const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [test, settest] = useState(null)
   const supabase = createClient()
 
   const fetchProfile = async (userId: string) => {
@@ -47,6 +50,8 @@ export const useAuthAdmin = () => {
     } catch (error) {
       console.error('Error in fetchProfile:', error)
       return null
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -60,7 +65,7 @@ export const useAuthAdmin = () => {
         error,
       } = await supabase.auth.getSession()
 
-      if (!session || error) {
+      if (error) {
         throw new Error('Error getting session data from useAuthAdmin!')
       }
 
@@ -115,9 +120,9 @@ export const useAuthAdmin = () => {
   }, [])
   //
   return {
-    test: '-- dummy test --',
     user,
     profile,
+    isLoggedIn: !!user,
     loading,
     isAdmin: profile?.user_role === 'admin',
   }

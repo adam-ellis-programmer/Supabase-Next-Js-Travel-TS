@@ -5,6 +5,8 @@ import { MdAdminPanelSettings } from 'react-icons/md'
 import { RiMoneyPoundBoxLine } from 'react-icons/ri'
 import Link from 'next/link'
 import { adminLinks } from '@/data/adminNavData'
+import { IoCloseCircleSharp } from 'react-icons/io5'
+import { IoCloseCircle } from 'react-icons/io5'
 
 // ✅ Pass the actual component, not a string
 
@@ -16,9 +18,9 @@ const AdminNavButtons = ({ showAdminButtons, setshowAdminButtons }) => {
           onClick={() => {
             setshowAdminButtons(false)
           }}
-          className='bg-rose-500 text-sm p-1 px-2 rounded-lg text-white cursor-pointer'
+          className=' text-white cursor-pointer'
         >
-          close admin
+          <IoCloseCircle className='text-red-500 text-4xl animate-bounce' />
         </span>
       </div>
       <h3 className='mb-3 flex items-center '>

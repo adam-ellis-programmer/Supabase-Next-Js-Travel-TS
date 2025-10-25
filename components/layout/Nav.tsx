@@ -8,15 +8,12 @@ import { NavService } from '@/lib/supabase/services/site/navigation-service'
 import { getServerUser } from '@/lib/supabase/server-auth'
 import { createClient } from '@/lib/supabase/server'
 
-
 const Nav = async () => {
   const { user, error } = await getServerUser()
   const supabase = await createClient()
   const { data, error: authError } = await supabase.auth.getClaims()
 
-  console.log('session data', data)
-
-
+  // console.log('session data', data)
 
   const { sortedTours, sortedContinents } = await NavService.getNavData()
   // sticky top-0 bg-white z-[2000]
