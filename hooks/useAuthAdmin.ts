@@ -1,9 +1,5 @@
-// hooks/useAuth.ts
+// hooks/useAuthAdmin.ts
 'use client'
-
-// ✅ Client-Side (Your Hook) - For UI/UX Only
-// ✅ Server-Side - For Actual Security
-// Every sensitive operation MUST verify roles on the server:
 
 import { createClient } from '@/lib/supabase/client'
 import { useEffect, useState } from 'react'
@@ -30,8 +26,9 @@ interface Profile {
 }
 
 export const useAuthAdmin = () => {
-  const [user, setUser] = useState(null)
-  const [profile, setProfile] = useState(null)
+  // Fix: Type the state properly
+  const [user, setUser] = useState<User | null>(null)
+  const [profile, setProfile] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
   const supabase = createClient()
 
@@ -79,10 +76,8 @@ export const useAuthAdmin = () => {
     // =====================================
 
     const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
-      //   console.log({ event, session })
-      //   console.log('session', session)
-      //   console.log('event', event)
-      setUser(session?.user)
+      // Fix: Handle the case where session.user might be undefined
+      setUser(session?.user ?? null)
 
       if (session?.user) {
         const profileUser = await fetchProfile(session.user.id)
@@ -110,15 +105,11 @@ export const useAuthAdmin = () => {
     })
 
     // call unsubscribe to remove the callback
-
-    // console.log('data: -->', data)
-
     return () => {
-      //
       data.subscription.unsubscribe()
     }
   }, [])
-  //
+
   return {
     user,
     profile,

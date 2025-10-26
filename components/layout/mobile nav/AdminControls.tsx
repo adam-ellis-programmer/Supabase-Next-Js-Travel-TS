@@ -1,7 +1,5 @@
 import React from 'react'
-
 import { MdAdminPanelSettings } from 'react-icons/md'
-
 import {
   Accordion,
   AccordionContent,
@@ -12,7 +10,13 @@ import { Button } from '@/components/ui/button'
 import { adminLinks } from '@/data/adminNavData'
 import Link from 'next/link'
 
-const AdminControls = ({ handleToggle }) => {
+// Add interface for props
+interface AdminControlsProps {
+  handleToggle: () => void
+}
+
+// Use the interface
+const AdminControls = ({ handleToggle }: AdminControlsProps) => {
   return (
     <section className=''>
       <Accordion type='single' collapsible className='no-underline'>

@@ -8,9 +8,17 @@ import { adminLinks } from '@/data/adminNavData'
 import { IoCloseCircleSharp } from 'react-icons/io5'
 import { IoCloseCircle } from 'react-icons/io5'
 
-// ✅ Pass the actual component, not a string
+// Add this interface to define the prop types
+interface AdminNavButtonsProps {
+  showAdminButtons: boolean
+  setshowAdminButtons: (show: boolean) => void
+}
 
-const AdminNavButtons = ({ showAdminButtons, setshowAdminButtons }) => {
+// Use the interface in the component definition
+const AdminNavButtons = ({
+  showAdminButtons,
+  setshowAdminButtons,
+}: AdminNavButtonsProps) => {
   return (
     <div className='mb-5 border-b pb-3'>
       <div className='flex justify-end left-0 w-full absolute px-5'>

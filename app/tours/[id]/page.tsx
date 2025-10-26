@@ -12,9 +12,9 @@ import { createClient } from '@/lib/supabase/server' // Import your server clien
 
 // Define the params type
 interface TourPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 const TourPage = async ({ params }: TourPageProps) => {

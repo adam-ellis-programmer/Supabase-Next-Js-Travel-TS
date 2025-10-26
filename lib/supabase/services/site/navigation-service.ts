@@ -2,40 +2,13 @@
 import { getSlug } from '@/components/utils/regex'
 import { createClient } from '@/lib/supabase/server'
 import { cache } from 'react'
-
-type ToursByCountry = {
-  [country1: string]: {
-    tours: Array<{
-      country: any
-      continent: any
-      slug: any
-      tour_images: Array<{
-        image_url: string
-      }>
-    }>
-    text: string
-    count: number
-  }
-}
-
-type ToursByContinentAndCountry = {
-  [continent: string]: {
-    tours: {
-      [country: string]: Array<{
-        country: any
-        continent: any
-        slug: any
-        tour_images: Array<{
-          image_url: string
-        }>
-      }>
-    }
-    count: number
-    text: string
-    slug: string
-    img: string
-  }
-}
+import {
+  Tour,
+  ToursByCountry,
+  ToursByContinentAndCountry,
+  ToursByCountryData,
+  ToursByContinent,
+} from '@/types/navigation'
 
 export class NavService {
   // Wrap the function with React's cache
@@ -53,7 +26,7 @@ export class NavService {
         country,
         continent,
         slug,
-        tour_name, 
+        tour_name,
         tour_images(image_url)
       `)
 
@@ -61,10 +34,17 @@ export class NavService {
       throw new Error('Error getting navigation data!!')
     }
 
+    // Cast the data to the Tour type
+    const typedToursData = toursData as Tour[]
+
     // Process data once in the service
-    const sortedTours = toursData.reduce<ToursByCountry>((acc, item) => {
+    const sortedTours = typedToursData.reduce<ToursByCountry>((acc, item) => {
       if (!acc[item.country]) {
-        acc[item.country] = { tours: [], text: '', count: 0 }
+        acc[item.country] = {
+          tours: [],
+          text: '',
+          count: 0,
+        }
       }
       acc[item.country].tours.push(item)
       acc[item.country].text = item.country
@@ -72,7 +52,7 @@ export class NavService {
       return acc
     }, {})
 
-    const sortedContinents = toursData.reduce<ToursByContinentAndCountry>(
+    const sortedContinents = typedToursData.reduce<ToursByContinentAndCountry>(
       (acc, item) => {
         if (!acc[item.continent]) {
           acc[item.continent] = {
@@ -90,13 +70,18 @@ export class NavService {
         acc[item.continent].count += 1
         acc[item.continent].text = item.continent
         acc[item.continent].slug = getSlug(item.continent)
-        acc[item.continent].img = item.tour_images[0]?.image_url || ''
+        acc[item.continent].img = item.tour_images?.[0]?.image_url || ''
         return acc
       },
       {}
     )
 
     // console.log('🟢 SERVICE: Data processed and cached')
-    return { countriesData, toursData, sortedTours, sortedContinents }
+    return {
+      countriesData,
+      toursData: typedToursData,
+      sortedTours,
+      sortedContinents,
+    }
   })
 }
