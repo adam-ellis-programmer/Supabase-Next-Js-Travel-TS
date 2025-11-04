@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 interface HeroData {
   heading: string
@@ -12,33 +13,25 @@ interface HeroProps {
 }
 
 const Hero = ({ data }: HeroProps) => {
-  // console.log(data)
-  // Add null check
-
+  // type narrowing
   if (!data || data.length === 0) {
-    return null // or return a fallback UI
+    return null
   }
-
-  // *****************
-  // After this check, TypeScript KNOWS data is not null
-  // This is called "narrowing" the type
-  //
-  // if we check at databsase get() function
-  // we do not need to do the extra checks here
-  // such as check for | null or !data || data.length === 0
-  // *****************
 
   return (
     <div className='h-[500px] relative'>
-      <img
-        className='w-full object-cover object-center h-[500px]'
+      <Image
         src={data[0].image_url}
-        alt=''
+        alt={data[0].heading || 'Hero image'}
+        fill
+        priority
+        className='object-cover object-center'
+        sizes='100vw'
       />
 
-      <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center bg-[#47566d7b]'>
+      <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center bg-[#47566d7b] z-10'>
         <div>
-          <h1 className='capitalize text-5xl text-white '>{data[0].heading}</h1>
+          <h1 className='capitalize text-5xl text-white'>{data[0].heading}</h1>
           <p className='text-3xl text-white text-center capitalize'>
             {data[0].subheading}
           </p>

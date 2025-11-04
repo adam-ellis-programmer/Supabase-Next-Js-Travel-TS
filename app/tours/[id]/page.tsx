@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import TourAccordion from '@/components/Accordion'
 import MightLike from '@/components/cards/MightLike'
 import TourHeader from '@/components/TourHeader'
@@ -8,20 +9,18 @@ import BookingCalender from '@/components/BookingCalender'
 import TourOverView from '@/components/TourOverView'
 import TourExtraInfo from '@/components/TourExtraInfo'
 import { TourService } from '@/lib/supabase/services/tour-service'
-import { createClient } from '@/lib/supabase/server' // Import your server client
+import { createClient } from '@/lib/supabase/server'
 
-// Define the params type
 interface TourPageProps {
-  params: Promise<{
+  params: {
     id: string
-  }>
+  }
 }
 
 const TourPage = async ({ params }: TourPageProps) => {
   const { id } = await params
   const tourId = parseInt(id)
 
-  // Get the authenticated user
   const supabase = await createClient()
   const {
     data: { user },
@@ -36,18 +35,20 @@ const TourPage = async ({ params }: TourPageProps) => {
   const data = result.data
   const { booking_slots, itineraries, tour_images, price } = data
 
-  console.log(price)
-
   return (
     <div className='min-h-[calc(100vh-120px)]'>
-      {/* hero */}
+      {/* Hero - OPTIMIZED with priority */}
       <div className='h-[400px] relative mb-7'>
-        <img
-          className='h-full w-full object-cover object-center'
+        <Image
           src={tour_images[0]?.image_url || '/fallback.jpg'}
           alt={tour_images[0]?.image_alt || 'Tour image'}
+          fill
+          priority
+          className='object-cover object-center'
+          sizes='100vw'
+          quality={90}
         />
-        <div className='absolute top-0 left-0 w-full h-full bg-black/40 flex items-center'>
+        <div className='absolute top-0 left-0 w-full h-full bg-black/40 flex items-center z-10'>
           <div className='text-white p-8'>
             <p className='text-4xl font-bold'>{data.duration}</p>
             <p className='text-4xl font-bold'>{data.tour_name}</p>
@@ -84,7 +85,7 @@ const TourPage = async ({ params }: TourPageProps) => {
               tourId={tourId}
               booking_slots={booking_slots}
               price={price}
-              userId={user?.id} // Pass user ID (will be undefined if not logged in)
+              userId={user?.id}
             />
           </div>
           <div className=''>

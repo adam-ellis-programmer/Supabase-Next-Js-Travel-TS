@@ -3,6 +3,7 @@ import { Button } from '../ui/button'
 import { FaClock, FaMapMarkerAlt, FaStar, FaUsers } from 'react-icons/fa'
 import { TopSellers } from '@/components/TopSellers'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface LongCardProps {
   data: TopSellers // Single item, not array
@@ -33,10 +34,14 @@ const LongCard = ({ data }: LongCardProps) => {
   return (
     <div className='shadow-2xl grid grid-rows-[300px_1fr] md:grid-rows-[200px_1fr] rounded-lg overflow-hidden hover:shadow-3xl transition-shadow duration-300 bg-white'>
       <div className='relative group'>
-        <img
-          src={image[0]?.image_url}
-          alt={tour_name}
-          className='object-cover object-bottom h-full w-full group-hover:scale-105 transition-transform duration-500'
+        <Image
+          src={data.image[0]?.image_url}
+          alt={data.tour_name}
+          fill
+          className='object-cover'
+          sizes='(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw'
+          placeholder='blur'
+          blurDataURL='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2UyZThlZiIvPjwvc3ZnPg=='
         />
         {/* Overlay badges */}
         {best_seller && (

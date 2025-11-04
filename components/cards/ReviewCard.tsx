@@ -1,4 +1,6 @@
+'use client'
 import React from 'react'
+import Image from 'next/image'
 import { FaStar, FaQuoteLeft } from 'react-icons/fa'
 import { Review } from '../Reviews'
 
@@ -49,11 +51,16 @@ const ReviewCard = ({ item }: ReviewItem) => {
 
         <div className='relative'>
           <div className='h-[120px] w-[120px] rounded-full bg-gradient-to-br from-rose-400 to-rose-600 p-1 shadow-xl'>
-            <div className='h-full w-full rounded-full overflow-hidden border-4 border-white/20'>
-              <img
-                className='w-full h-full object-cover object-center'
+            {/* OPTIMIZED IMAGE */}
+            <div className='h-full w-full rounded-full overflow-hidden border-4 border-white/20 relative'>
+              <Image
                 src={item.reviewer_image_url}
                 alt={item.reviewer_name}
+                fill
+                className='object-cover object-center'
+                sizes='120px'
+                placeholder='blur'
+                blurDataURL='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI2MCIgY3k9IjYwIiByPSI2MCIgZmlsbD0iI2U1ZTdlYiIvPjwvc3ZnPg=='
               />
             </div>
           </div>
