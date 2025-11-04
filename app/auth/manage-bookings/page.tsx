@@ -42,6 +42,7 @@ const ManageBooking = () => {
 
     const dummyData: Booking[] = Array.from({ length: 3 }, (_, i) => {
       return {
+        completed: true,
         bookingId: i + 1,
         leadPaxId: 1,
         numOfPax: getRandomInt(2, 5),
@@ -71,7 +72,6 @@ const ManageBooking = () => {
     setCustomersBookings(dummyData)
     setSelectedBooking(dummyData[0])
     setPassengers(dummyData[0].passengers)
-    
   }, [])
 
   // Handle booking selection
@@ -98,6 +98,8 @@ const ManageBooking = () => {
     field: keyof Passenger,
     value: string | number
   ) => {
+    console.log('chnaged...')
+
     setPassengers(
       passengers.map((pax) =>
         pax.id === id ? { ...pax, [field]: value } : pax
@@ -217,6 +219,7 @@ const ManageBooking = () => {
                     key={passenger.id}
                     className='border border-gray-200 rounded-lg p-4 bg-gray-50'
                   >
+                    <p>hello</p>
                     <div className='flex justify-between items-start mb-3'>
                       <h3 className='font-semibold text-lg text-gray-800'>
                         {passenger.lead

@@ -122,14 +122,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
           {!showAdminButtons && (
             <div className='mb-2 flex justify-start  space-x-2'>
               <MyAccount />
-              {/* <Link
-                href={`/auth/manage-bookings`}
-                className='flex items-center justify-center bg-orange-500 p-1 rounded-lg text-white px-3'
-              >
-                <FaUmbrellaBeach  className='mr-2' />
-                Manage Bookings
-              </Link> */}
-              {/* only show admin button if is admin = true */}
+
               {isAdmin && (
                 <span
                   onClick={() => {
