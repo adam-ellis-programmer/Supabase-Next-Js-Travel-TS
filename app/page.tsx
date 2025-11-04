@@ -14,7 +14,7 @@ import PopularDest from '@/components/PopularDest'
 import Activities from '@/components/Activities'
 import Reviews from '@/components/Reviews'
 import { HomePage } from '@/lib/supabase/services/site/home-page-service'
-
+// git pull origin main
 export default async function Home() {
   const showcase = await HomePage.getShowCase()
   const popular = await HomePage.getPopular()
