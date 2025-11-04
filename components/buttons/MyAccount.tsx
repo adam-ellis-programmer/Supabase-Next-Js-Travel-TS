@@ -2,19 +2,22 @@
 import Link from 'next/link'
 import React from 'react'
 import { MdAdminPanelSettings } from 'react-icons/md'
+
 const MyAccount = ({
   mobile = false,
   setIsNaveOpen,
 }: {
   mobile?: boolean
-  setIsNaveOpen?: (boolean: false) => void
+  setIsNaveOpen?: (value: boolean) => void // Fixed: was (boolean: false)
 }) => {
   const handleCloseMobile = () => {
-    if (mobile) {
+    if (mobile && setIsNaveOpen) {
+      // Added check for setIsNaveOpen Type error fix
       console.log('closed')
       setIsNaveOpen(false)
     }
   }
+
   return (
     <Link
       href={`/auth/account`}

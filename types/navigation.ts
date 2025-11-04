@@ -1,69 +1,83 @@
-// Navigation Type Definitions
-
+// Navigation Types for the Travel Site
 export interface TourImage {
-  id: string
-  tour_id: string
   image_url: string
-  caption?: string
-  display_order?: number
 }
 
 export interface Tour {
-  id: string
+  id: number
+  country: string
+  continent: string
+  slug: string
   tour_name: string
   tour_images: TourImage[]
-  country?: string
-  continent?: string
-  price?: number
-  duration?: number
-  description?: string
-  // Add other tour properties as needed
 }
 
-export interface CountryTours {
-  [countryName: string]: Tour[]
-}
-
-export interface ContinentData {
+export interface ToursByCountryData {
+  tours: Tour[]
   text: string
-  slug: string
-  tours: CountryTours
-  img?: string
-}
-
-export interface SortedContinents {
-  [continentName: string]: ContinentData
+  count: number
 }
 
 export interface ToursByCountry {
-  text: string
-  slug: string
-  tours: Tour[]
+  [country: string]: ToursByCountryData
 }
 
-export interface SortedTours {
-  [countryName: string]: ToursByCountry
+export interface ToursByContinent {
+  tours: {
+    [country: string]: Tour[]
+  }
+  count: number
+  text: string
+  slug: string
+  img: string
+}
+
+export interface ToursByContinentAndCountry {
+  [continent: string]: ToursByContinent
 }
 
 // Props interfaces for components
-export interface NavDataProps {
-  sortedContinents: SortedContinents
-  sortedTours: SortedTours
+export interface NavigationProps {
+  sortedContinents: ToursByContinentAndCountry
+  sortedTours: ToursByCountry
 }
 
-export interface SuperNavProps {
+export interface SuperNavProps extends NavigationProps {
   type: 'tours' | 'destinations'
-  sortedContinents: SortedContinents
-  sortedTours: SortedTours
 }
 
-export interface MobileNavProps {
-  sortedContinents: SortedContinents
-  sortedTours: SortedTours
+// Legacy interfaces (kept for compatibility if needed)
+export interface Destination {
+  name: string
+  slug: string
+  image?: string
+  featured?: boolean
 }
 
-// Helper type for continent entries
-export type ContinentEntry = [string, ContinentData]
+export interface DestinationCategory {
+  region: string
+  destinations: Destination[]
+  featuredImage?: string
+  featuredDestination?: string
+}
 
-// Helper type for country/tour entries
-export type CountryToursEntry = [string, Tour[]]
+export interface MegaMenuData {
+  tours: {
+    categories: DestinationCategory[]
+    featured: {
+      title: string
+      subtitle: string
+      image: string
+      link: string
+    }
+  }
+  destinations: {
+    categories: DestinationCategory[]
+    featured: {
+      title: string
+      subtitle: string
+      image: string
+      link: string
+    }
+  }
+}

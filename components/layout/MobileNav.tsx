@@ -2,27 +2,20 @@
 import { FaBarsStaggered } from 'react-icons/fa6'
 import React, { useState, useEffect, memo } from 'react'
 import { FaPlaneDeparture } from 'react-icons/fa'
-import { links as devLinks } from '@/dev/DevButtons'
 import Link from 'next/link'
 
-import { megaMenuData } from '@/data/navigation'
 import AccordionNav from './mobile nav/AccordionNav'
 import AdminControls from './mobile nav/AdminControls'
 import { getSlug } from '../utils/regex'
 import MyAccount from '../buttons/MyAccount'
-import { useAuth } from '@/hooks/useAuth'
 import { useAuthAdmin } from '@/contexts/AuthContext'
-// import { useAuthAdmin } from '@/hooks/useAuthAdmin'
+import { NavigationProps } from '@/types/navigation'
 
-const MobileNav = ({ sortedContinents, sortedTours }) => {
-  // console.log('mobile nav mounted')
-  // const { user, isLoading } = useAuth()
+const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
   const { user, loading } = useAuthAdmin()
-
   const [isNaveOpen, setIsNaveOpen] = useState(false)
+
   const handleToggle = () => {
-    //...
-    // console.log('clicked ...')
     setIsNaveOpen(!isNaveOpen)
   }
 
@@ -84,6 +77,7 @@ const MobileNav = ({ sortedContinents, sortedTours }) => {
               <p className='text-2xl text-center mb-5'>Choose an Area</p>
               <ul className='grid grid-cols-2 gap-2 '>
                 {continentData.map((item, i) => {
+                  const [continentName, continentDetails] = item
                   return (
                     <li
                       className='relative '
@@ -92,9 +86,9 @@ const MobileNav = ({ sortedContinents, sortedTours }) => {
                         setIsNaveOpen(false)
                       }}
                     >
-                      <Link href={`/country-landing/${getSlug(item[0])}`}>
+                      <Link href={`/country-landing/${getSlug(continentName)}`}>
                         <img
-                          src={item[1].img}
+                          src={continentDetails.img}
                           className='w-full h-full rounded-lg object-cover'
                           alt='Featured destination'
                         />
@@ -104,7 +98,7 @@ const MobileNav = ({ sortedContinents, sortedTours }) => {
                             Tours in
                           </p>
                           <p className='text-lg text-center font-bold inline-block'>
-                            {item[0]}
+                            {continentName}
                           </p>
                         </div>
                       </Link>

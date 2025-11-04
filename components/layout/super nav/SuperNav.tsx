@@ -1,22 +1,33 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-// import { megaMenuData } from '@/data/navigation'
-// import DevButtons from '@/dev/DevButtons'
-// import { useAuth } from '@/hooks/useAuth'
 import AdminNavButtons from '@/components/admin/AdminNavButtons'
 import MyAccount from '@/components/buttons/MyAccount'
 import { MdAdminPanelSettings } from 'react-icons/md'
-// import { useAuthAdmin } from '@/hooks/useAuthAdmin'
 import AuthCheck from '@/components/spinners/AuthCheck'
-import { useAuthAdmin } from '@/contexts/AuthContext' // ✅ Import from context
-import { MdManageSearch } from 'react-icons/md'
-import { FaUmbrellaBeach } from 'react-icons/fa6'
+import { useAuthAdmin } from '@/contexts/AuthContext'
+import {
+  SuperNavProps,
+  ToursByContinent,
+  Tour,
+  ToursByCountryData,
+} from '@/types/navigation'
 
-interface SuperNavProps {
-  type: 'tours' | 'destinations'
-  sortedContinents: any
-  sortedTours: any
+// Define separate types for destinations and tours
+type DestinationItem = {
+  name: string
+  tours: { [country: string]: Tour[] }
+  count: number
+  text: string
+  slug: string
+  img: string
+}
+
+type TourItem = {
+  name: string
+  tours: Tour[]
+  text: string
+  count: number
 }
 
 const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
@@ -27,34 +38,27 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
     isAdmin,
     loading: authLoading,
   } = useAuthAdmin()
-  console.log('authLoading', authLoading)
 
-  // if (!authLoading) {
-  //   console.log('PROFILE =================>', profile)
-  //   console.log()
-  //   console.log('isAdmin =================>', isAdmin)
-  //   console.log()
-  //   console.log('user =================>', user)
-  //   console.log()
-  //   console.log('isLoggedIn =================>', isLoggedIn)
-  // }
-
-  const [listedCountries, setListedCountries] = useState(null)
-  const [listedTours, setlistedTours] = useState(null)
-  const [destImage, setDestImage] = useState(null)
+  const [listedCountries, setListedCountries] = useState<
+    [string, Tour[]][] | null
+  >(null)
+  const [listedTours, setlistedTours] = useState<TourItem | null>(null)
+  const [destImage, setDestImage] = useState<string | null>(null)
   const [destImageText, setDestImageText] = useState('')
-  const [tourImage, settourImage] = useState(null)
   const [showAdminButtons, setshowAdminButtons] = useState(false)
 
-  const destinations = Object.values(sortedContinents)
-  const tours = Object.values(sortedTours)
+  // Create properly typed arrays
+  const destinations: DestinationItem[] = Object.entries(sortedContinents).map(
+    ([key, value]) => ({
+      ...value,
+      name: key,
+    })
+  )
 
-  const megaData = {
-    destinations,
-    tours,
-  }
-
-  const navData = megaData[type] as any[]
+  const tours: TourItem[] = Object.entries(sortedTours).map(([key, value]) => ({
+    ...value,
+    name: key,
+  }))
 
   // Initialize with first continent's data when component mounts or type changes
   useEffect(() => {
@@ -73,16 +77,19 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
     } else if (type === 'tours' && tours.length > 0) {
       setlistedTours(tours[0])
     }
-  }, [type])
+  }, [type, destinations.length, tours.length])
 
-  // ✅ Hide admin buttons when user logs out
+  // Hide admin buttons when user logs out
   useEffect(() => {
     if (!user) {
       setshowAdminButtons(false)
     }
   }, [user])
 
-  const handleDestMouseEnter = (text, data, index) => {
+  const handleDestMouseEnter = (
+    text: string,
+    data: { [country: string]: Tour[] }
+  ) => {
     setDestImageText(text)
     const countries = Object.entries(data)
     setListedCountries(countries)
@@ -95,11 +102,11 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
     }
   }
 
-  const handleToursMouseEnter = (country) => {
+  const handleToursMouseEnter = (country: TourItem) => {
     setlistedTours(country)
   }
 
-  const handleListedCountriesMouseEnter = (item) => {
+  const handleListedCountriesMouseEnter = (item: [string, Tour[]]) => {
     setDestImageText(item[0])
 
     if (item[1][0]?.tour_images?.[3]?.image_url) {
@@ -111,7 +118,6 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
 
   return (
     <div className='absolute mt-12 z-[1000] top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl  border-gray-100'>
-      {/* <DevButtons /> */}
       <h4 className='text-center capitalize text-xl mb-4 font-bold'>
         choose a {type.slice(0, -1)}
       </h4>
@@ -152,8 +158,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
               <div className='grid grid-cols-3 gap-5'>
                 <div className=''>
                   <ul>
-                    {navData.map((continent, continentIndex) => {
-                      const countryNames = Object.keys(continent.tours)
+                    {destinations.map((continent, continentIndex) => {
                       return (
                         <li
                           key={continentIndex}
@@ -161,8 +166,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
                           onMouseEnter={() =>
                             handleDestMouseEnter(
                               continent.text,
-                              continent.tours,
-                              continentIndex
+                              continent.tours
                             )
                           }
                         >
@@ -213,7 +217,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
             <div>
               <div className=' grid grid-cols-12 gap-5'>
                 <ul className='grid grid-cols-3  gap-x-2 col-span-7'>
-                  {navData.map((country, countryIndex) => {
+                  {tours.map((country, countryIndex) => {
                     return (
                       <li
                         key={countryIndex}
