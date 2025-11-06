@@ -1,8 +1,11 @@
 'use client'
 import React, { useState } from 'react'
-import Image from 'next/image'
 import { TourImage } from '@/types/tours'
 
+/**
+ * Alternative TourImge component using regular <img> tag
+ * Use this for data/stress testing when Next.js Image component has issues
+ */
 const TourImge = ({ image }: { image: TourImage }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
@@ -47,17 +50,15 @@ const TourImge = ({ image }: { image: TourImage }) => {
         </div>
       )}
 
-      {/* Next.js Image component - optimized for production */}
+      {/* Regular img tag - more reliable for external URLs during testing */}
       {!hasError && (
-        <Image
+        <img
           src={image.image_url}
           alt={image.image_alt || 'Tour image'}
-          fill
-          className='object-cover object-center transition-transform duration-300 group-hover:scale-110'
-          sizes='(max-width: 768px) 50vw, 25vw'
+          className='absolute inset-0 w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-110'
           onLoad={handleLoad}
           onError={handleError}
-          unoptimized
+          loading='lazy'
         />
       )}
 
