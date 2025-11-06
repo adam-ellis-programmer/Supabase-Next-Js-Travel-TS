@@ -23,7 +23,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_vietnam_12day',
     image_url:
-      'https://images.unsplash.com/photo-1562865048-64da06ad6a6c?w=1200',
+      'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=1200',
     storage_path: 'tours/vietnam-12day/hanoi-old-quarter.jpg',
     image_alt: 'Busy Hanoi Old Quarter street scene',
     display_order: 1,
@@ -41,7 +41,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_vietnam_12day',
     image_url:
-      'https://images.unsplash.com/photo-1552089197-e772b1753f37?w=1200',
+      'https://images.unsplash.com/photo-1528127269322-539801943592?w=1200',
     storage_path: 'tours/vietnam-12day/mekong-delta.jpg',
     image_alt: 'Mekong Delta floating market',
     display_order: 3,
@@ -106,7 +106,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_thailand_10day',
     image_url:
-      'https://images.unsplash.com/photo-1568127730710-9f011c62c28e?w=1200',
+      'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1200',
     storage_path: 'tours/thailand-10day/koh-lanta.jpg',
     image_alt: 'Koh Lanta peaceful beach resort',
     display_order: 4,
@@ -153,7 +153,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_japan_11day',
     image_url:
-      'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1200',
+      'https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?w=1200',
     storage_path: 'tours/japan-11day/fushimi-inari.jpg',
     image_alt: 'Fushimi Inari shrine thousand torii gates',
     display_order: 3,
@@ -162,7 +162,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_japan_11day',
     image_url:
-      'https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?w=1200',
+      'https://images.unsplash.com/photo-1528164344705-47542687000d?w=1200',
     storage_path: 'tours/japan-11day/hiroshima.jpg',
     image_alt: 'Hiroshima Peace Memorial and Atomic Dome',
     display_order: 4,
@@ -171,7 +171,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_japan_11day',
     image_url:
-      'https://images.unsplash.com/photo-1519832064845-eb87e2b42903?w=1200',
+      'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1200',
     storage_path: 'tours/japan-11day/ryokan.jpg',
     image_alt: 'Traditional Japanese ryokan room',
     display_order: 5,
@@ -182,7 +182,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_bali_10day',
     image_url:
-      'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1200',
+      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1200',
     storage_path: 'tours/bali-10day/tegalalang-rice-terraces.jpg',
     image_alt: 'Tegalalang rice terraces in Ubud',
     display_order: 0,
@@ -191,7 +191,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_bali_10day',
     image_url:
-      'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200',
+      'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200',
     storage_path: 'tours/bali-10day/yoga-session.jpg',
     image_alt: 'Sunrise yoga session overlooking jungle',
     display_order: 1,
@@ -200,7 +200,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_bali_10day',
     image_url:
-      'https://images.unsplash.com/photo-1532186651327-6ac23687d189?w=1200',
+      'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=1200',
     storage_path: 'tours/bali-10day/tanah-lot.jpg',
     image_alt: 'Tanah Lot temple at sunset',
     display_order: 2,
@@ -209,7 +209,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_bali_10day',
     image_url:
-      'https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=1200',
+      'https://images.unsplash.com/photo-1573790387438-4da905039392?w=1200',
     storage_path: 'tours/bali-10day/water-purification.jpg',
     image_alt: 'Tirta Empul water purification ceremony',
     display_order: 3,
@@ -218,7 +218,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_bali_10day',
     image_url:
-      'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1200',
+      'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?w=1200',
     storage_path: 'tours/bali-10day/healthy-cuisine.jpg',
     image_alt: 'Organic vegetarian Balinese meal',
     display_order: 4,
@@ -227,7 +227,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_bali_10day',
     image_url:
-      'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200',
+      'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=1200',
     storage_path: 'tours/bali-10day/seminyak-beach.jpg',
     image_alt: 'Seminyak beach at golden hour',
     display_order: 5,
@@ -238,7 +238,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_cambodia_12day',
     image_url:
-      'https://images.unsplash.com/photo-1545389762-36f8c8238fdd?w=1200',
+      'https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=1200',
     storage_path: 'tours/cambodia-12day/angkor-wat.jpg',
     image_alt: 'Angkor Wat at sunrise reflection',
     display_order: 0,
@@ -247,7 +247,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_cambodia_12day',
     image_url:
-      'https://images.unsplash.com/photo-1541796076730-77bef75d8a0e?w=1200',
+      'https://images.unsplash.com/photo-1604072366595-e75dc92d6bdc?w=1200',
     storage_path: 'tours/cambodia-12day/bayon-temple.jpg',
     image_alt: 'Bayon temple stone faces',
     display_order: 1,
@@ -265,7 +265,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_cambodia_12day',
     image_url:
-      'https://images.unsplash.com/photo-1513415277965-8e99d24de3b8?w=1200',
+      'https://images.unsplash.com/photo-1604537466573-5e94508fd243?w=1200',
     storage_path: 'tours/cambodia-12day/tonle-sap.jpg',
     image_alt: 'Tonle Sap floating village',
     display_order: 3,
@@ -274,7 +274,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_cambodia_12day',
     image_url:
-      'https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=1200',
+      'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=1200',
     storage_path: 'tours/cambodia-12day/royal-palace.jpg',
     image_alt: 'Royal Palace Phnom Penh',
     display_order: 4,
@@ -433,7 +433,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_iceland_8day',
     image_url:
-      'https://images.unsplash.com/photo-1504829857797-ddff29c27927?w=1200',
+      'https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=1200',
     storage_path: 'tours/iceland-8day/gullfoss.jpg',
     image_alt: 'Gullfoss waterfall in winter',
     display_order: 3,
@@ -442,7 +442,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_iceland_8day',
     image_url:
-      'https://images.unsplash.com/photo-1586282635924-2e2161a52a1e?w=1200',
+      'https://images.unsplash.com/photo-1520769945061-0a448c463865?w=1200',
     storage_path: 'tours/iceland-8day/blue-lagoon.jpg',
     image_alt: 'Blue Lagoon geothermal spa',
     display_order: 4,
@@ -451,7 +451,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_iceland_8day',
     image_url:
-      'https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1200',
+      'https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=1200',
     storage_path: 'tours/iceland-8day/glacier-hike.jpg',
     image_alt: 'Glacier hiking on Vatnajökull',
     display_order: 5,
@@ -462,7 +462,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_egypt_11day',
     image_url:
-      'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?w=1200',
+      'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=1200',
     storage_path: 'tours/egypt-11day/pyramids-giza.jpg',
     image_alt: 'Great Pyramids of Giza and Sphinx',
     display_order: 0,
@@ -471,7 +471,7 @@ export const tour_images: TourImageSeed[] = [
   {
     tour_ref_id: 'tour_egypt_11day',
     image_url:
-      'https://images.unsplash.com/photo-1518337616003-dcfc2c6888c4?w=1200',
+      'https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1200',
     storage_path: 'tours/egypt-11day/abu-simbel.jpg',
     image_alt: 'Abu Simbel temple colossal statues',
     display_order: 1,
