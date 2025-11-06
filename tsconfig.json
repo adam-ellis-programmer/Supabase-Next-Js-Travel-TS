@@ -29,6 +29,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/booking-confirmation"
-  ],
+, "seed/data/image-tester.js"  ],
   "exclude": ["node_modules"]
 }
