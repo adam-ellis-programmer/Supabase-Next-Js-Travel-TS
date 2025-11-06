@@ -1,6 +1,7 @@
 'use client'
 import PaxAccordion from '@/components/admin/accordions/PaxAccordion'
 import React, { useState } from 'react'
+import Image from 'next/image'
 
 const Bookings = () => {
   const statuses = {
@@ -65,6 +66,8 @@ const Bookings = () => {
 
   const [searchTerm, setSearchTerm] = useState('')
   const [filterStatus, setFilterStatus] = useState('all')
+  // prettier-ignore
+  const [loadingImages, setLoadingImages] = useState<{[key: number]: boolean}>({})
 
   const filteredBookings = testArr.filter((booking) => {
     const matchesSearch =
@@ -108,6 +111,10 @@ const Bookings = () => {
     confirmed: testArr.filter((b) => b.status === 'confirmed').length,
     pending: testArr.filter((b) => b.status === 'pending').length,
     cancelled: testArr.filter((b) => b.status === 'cancelled').length,
+  }
+
+  const handleImageLoad = (index: number) => {
+    setLoadingImages((prev) => ({ ...prev, [index]: false }))
   }
 
   return (
@@ -223,12 +230,24 @@ const Bookings = () => {
                 >
                   <div className='p-6'>
                     <div className='flex flex-col lg:flex-row gap-6'>
-                      {/* Trip Image */}
-                      <div className='lg:w-48 h-32 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0'>
-                        <img src={booking.img} alt='' />
-                        <div className='w-full h-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold'>
-                          Trip Photo
-                        </div>
+                      {/* Trip Image - OPTIMIZED */}
+                      <div className='lg:w-48 h-32 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0 relative'>
+                        {/* Spinner */}
+                        {loadingImages[i] !== false && (
+                          <div className='absolute inset-0 flex items-center justify-center bg-gray-200 z-10'>
+                            <div className='animate-spin rounded-full h-8 w-8 border-4 border-gray-300 border-t-blue-600'></div>
+                          </div>
+                        )}
+
+                        {/* Image */}
+                        <Image
+                          src={booking.img}
+                          alt={booking.tripName}
+                          fill
+                          className='object-cover'
+                          sizes='(max-width: 1024px) 100vw, 192px'
+                          onLoad={() => handleImageLoad(i)}
+                        />
                       </div>
 
                       {/* Booking Details */}
