@@ -245,6 +245,12 @@ const AdminAddTour = () => {
     setArr(updated)
   }
 
+  function completeStep() {
+    // ...
+    const steps = 10
+    const completedSteps = 3
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     // console.log(tourImages)
