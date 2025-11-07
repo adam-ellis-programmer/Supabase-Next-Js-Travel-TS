@@ -6,6 +6,7 @@ import MyAccount from '@/components/buttons/MyAccount'
 import { MdAdminPanelSettings } from 'react-icons/md'
 import AuthCheck from '@/components/spinners/AuthCheck'
 import { useAuthAdmin } from '@/contexts/AuthContext'
+
 import {
   SuperNavProps,
   ToursByContinent,
@@ -31,6 +32,8 @@ type TourItem = {
 }
 
 const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
+  console.log('sortedContinents: ', sortedContinents)
+
   const {
     isLoggedIn,
     user,
@@ -46,6 +49,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
   const [destImage, setDestImage] = useState<string | null>(null)
   const [destImageText, setDestImageText] = useState('')
   const [showAdminButtons, setshowAdminButtons] = useState(false)
+  const [imagesPreloaded, setImagesPreloaded] = useState(false)
 
   // Create properly typed arrays
   const destinations: DestinationItem[] = Object.entries(sortedContinents).map(
@@ -59,6 +63,50 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
     ...value,
     name: key,
   }))
+
+  // Preload all destination images
+  useEffect(() => {
+    if (type === 'destinations' && destinations.length > 0) {
+      const imagesToPreload: string[] = []
+
+      // Collect all unique image URLs
+      destinations.forEach((continent) => {
+        Object.values(continent.tours).forEach((countryTours) => {
+          countryTours.forEach((tour) => {
+            if (tour.tour_images?.[0]?.image_url) {
+              imagesToPreload.push(tour.tour_images[0].image_url)
+            }
+          })
+        })
+      })
+      console.log('imagesToPreload', imagesToPreload)
+
+      // Preload images
+      const preloadImages = async () => {
+        const promises = imagesToPreload.map((src) => {
+          return new Promise((resolve, reject) => {
+            console.log('resolve: ', resolve)
+
+            const img = new Image()
+            img.src = src
+            img.onload = resolve
+            img.onerror = reject
+          })
+        })
+
+        try {
+          await Promise.all(promises)
+          setImagesPreloaded(true)
+          console.log('promises-->', promises)
+        } catch (error) {
+          console.error('Error preloading images:', error)
+          setImagesPreloaded(true) // Still set to true to not block UI
+        }
+      }
+
+      preloadImages()
+    }
+  }, [type, destinations])
 
   // Initialize with first continent's data when component mounts or type changes
   useEffect(() => {
@@ -108,13 +156,13 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
 
   const handleListedCountriesMouseEnter = (item: [string, Tour[]]) => {
     setDestImageText(item[0])
-
-    if (item[1][0]?.tour_images?.[3]?.image_url) {
-      setDestImage(item[1][0].tour_images[3].image_url)
+    if (item[1][0]?.tour_images?.[0]?.image_url) {
+      setDestImage(item[1][0].tour_images[0].image_url)
     } else if (item[1][0]?.tour_images?.[0]?.image_url) {
       setDestImage(item[1][0].tour_images[0].image_url)
     }
   }
+  console.log('listed countries: ', listedCountries)
 
   return (
     <div className='absolute mt-12 z-[1000] top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl  border-gray-100'>
@@ -198,7 +246,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
                       })}
                   </ul>
                 </div>
-                <div className=' relative '>
+                <div className='relative'>
                   <span className='capitalize absolute right-2 top-2 bg-rose-500 text-white p-1 rounded-lg'>
                     {destImageText}
                   </span>
