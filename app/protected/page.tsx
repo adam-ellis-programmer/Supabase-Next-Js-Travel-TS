@@ -1,36 +1,41 @@
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation'
 
-import { createClient } from "@/lib/supabase/server";
-import { InfoIcon } from "lucide-react";
-import { FetchDataSteps } from "@/components/tutorial/fetch-data-steps";
-
+import { createClient } from '@/lib/supabase/server'
+import { InfoIcon } from 'lucide-react'
+import { FetchDataSteps } from '@/components/tutorial/fetch-data-steps'
+import Link from 'next/link'
+import { LogoutButton } from '@/components/logout-button'
 export default async function ProtectedPage() {
-  const supabase = await createClient();
+  const supabase = await createClient()
 
-  const { data, error } = await supabase.auth.getClaims();
+  const { data, error } = await supabase.auth.getClaims()
   if (error || !data?.claims) {
-    redirect("/auth/login");
+    redirect('/auth/login')
   }
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-12">
-      <div className="w-full">
-        <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
-          <InfoIcon size="16" strokeWidth={2} />
-          This is a protected page that you can only see as an authenticated
-          user
+    <div className='relative'>
+      <div className='absolute top-0 left-0 w-full h-full bg-[#3741556f] flex justify-center items-center'>
+        <div className='w-[700px] max-w-[700px] h-[340px] bg-[#ffffff93] rounded-lg p-5'>
+          <section>
+            <p className='text-3xl text-center'>Welcome Back Amy</p>
+          </section>
+          {/* prettier-ignore */}
+          <section className='mt-10'>
+            <p className='text-2xl mb-5'>Where to?</p>
+            <div className='flex justify-center flex-col items-center'>
+            <Link  className='bg-rose-500 block w-1/2 text-center text-white mb-2 text-lg rounded-md' href={`/`}>Home</Link>
+            <Link  className='bg-rose-500 block w-1/2 text-center text-white mb-2 text-lg rounded-md'href={`/auth/account`}>My Account</Link>
+            <LogoutButton />
+            </div>
+          </section>
         </div>
       </div>
-      <div className="flex flex-col gap-2 items-start">
-        <h2 className="font-bold text-2xl mb-4">Your user details</h2>
-        <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
-          {JSON.stringify(data.claims, null, 2)}
-        </pre>
-      </div>
-      <div>
-        <h2 className="font-bold text-2xl mb-4">Next steps</h2>
-        <FetchDataSteps />
-      </div>
+      <img
+        className='w-full h-screen'
+        src='https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2340'
+        alt=''
+      />
     </div>
-  );
+  )
 }
