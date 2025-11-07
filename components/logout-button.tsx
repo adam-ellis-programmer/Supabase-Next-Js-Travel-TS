@@ -1,6 +1,5 @@
 'use client'
 
-import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { logoutAction } from '@/lib/supabase/actions/auth-actions'
@@ -11,40 +10,34 @@ export function LogoutButton({
   className = '',
   mobile = false,
 }: {
-  handleMobileTourNav?: () => void // ✅ Added type
+  handleMobileTourNav?: () => void
   className?: string
   mobile?: boolean
 }) {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
-  const logout = async () => {
+  const handleLogout = async () => {
     setIsLoading(true)
-    try {
-      const supabase = createClient()
-      await supabase.auth.signOut()
 
+    try {
+      // Close mobile nav first if needed
+      if (mobile && handleMobileTourNav) {
+        handleMobileTourNav()
+      }
+
+      // Call the server action (this already does signOut)
       await logoutAction()
 
-      // ✅ Refresh server components to get updated auth state
-      router.refresh()
-
-      // ✅ Navigate to home
+      // Navigate to home
       router.push('/')
 
-      // ✅ Don't set isLoading(false) here - component will unmount during navigation
+      // Refresh to update all server components
+      router.refresh()
     } catch (error) {
       console.error('Error logging out:', error)
-      // ✅ Only reset loading on error
       setIsLoading(false)
     }
-  }
-
-  const handleLogout = () => {
-    if (mobile && handleMobileTourNav) {
-      handleMobileTourNav()
-    }
-    logout()
   }
 
   return (

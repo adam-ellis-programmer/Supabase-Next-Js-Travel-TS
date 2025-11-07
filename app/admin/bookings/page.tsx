@@ -131,7 +131,7 @@ const Bookings = () => {
         </section>
 
         {/* Stats Cards */}
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4 mb-8  lg:sticky top-0 bg-white'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4 mb-8  lg:sticky top-0 bg-white z-50'>
           <div className='bg-white rounded-lg shadow p-6 border-l-4 border-orange-600'>
             <p className='text-sm text-gray-600 font-medium'>Monthly Target</p>
             <p className='text-3xl font-bold text-gray-900 mt-2'>£30,000</p>
