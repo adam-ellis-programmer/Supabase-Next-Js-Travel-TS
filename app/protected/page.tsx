@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { InfoIcon } from 'lucide-react'
 import Link from 'next/link'
 import { LogoutButton } from '@/components/logout-button'
+import { FaSignsPost } from 'react-icons/fa6'
 export default async function ProtectedPage() {
   const supabase = await createClient()
 
@@ -18,8 +19,10 @@ export default async function ProtectedPage() {
     // prettier-ignore
     <div className='relative h-[calc(100vh-103px)]'>
       <div className='absolute top-0 left-0 w-full h-full bg-[#383c4278] flex justify-center items-center'>
-        <div className='w-[700px] max-w-[700px] h-[340px] bg-[#ffffff93] rounded-lg p-5'>
+        <div className='relative w-[700px] max-w-[700px] h-[340px] bg-[#ffffff93] rounded-lg p-5'>
           {/* <InfoIcon /> */}
+          <FaSignsPost className='absolute right-5 top-5 text-7xl text-orange-700 rotate-12'  />
+
           <section>
             <p className='text-3xl text-center capitalize'>Welcome Back {name}</p>
           </section>
