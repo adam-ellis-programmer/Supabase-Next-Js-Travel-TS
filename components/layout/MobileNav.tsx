@@ -19,6 +19,40 @@ const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
     setIsNaveOpen(!isNaveOpen)
   }
 
+  // Preload continent images
+  useEffect(() => {
+    const imagesToPreload: string[] = []
+
+    // Collect all continent images
+    Object.values(sortedContinents).forEach((continent) => {
+      if (continent.img) {
+        imagesToPreload.push(continent.img)
+      }
+    })
+
+    // console.log('Images to preload:', imagesToPreload)
+    // Preload images
+    const preloadImages = async () => {
+      const promises = imagesToPreload.map((src) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image()
+          img.src = src
+          img.onload = resolve
+          img.onerror = reject
+        })
+      })
+
+      try {
+        await Promise.all(promises)
+        console.log('Mobile nav images preloaded successfully')
+      } catch (error) {
+        console.error('Error preloading mobile nav images:', error)
+      }
+    }
+
+    preloadImages()
+  }, [sortedContinents])
+
   useEffect(() => {
     if (isNaveOpen) {
       document.documentElement.classList.add('no-scroll')
@@ -48,6 +82,7 @@ const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
   }, [])
 
   const continentData = Object.entries(sortedContinents)
+  // console.log(continentData)
 
   return (
     <div className='block md:hidden'>
@@ -80,7 +115,7 @@ const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
                   const [continentName, continentDetails] = item
                   return (
                     <li
-                      className='relative '
+                      className='relative h-[150px]'
                       key={i}
                       onClick={() => {
                         setIsNaveOpen(false)

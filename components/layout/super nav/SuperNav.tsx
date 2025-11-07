@@ -32,7 +32,7 @@ type TourItem = {
 }
 
 const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
-  console.log('sortedContinents: ', sortedContinents)
+  // console.log('sortedContinents: ', sortedContinents)
 
   const {
     isLoggedIn,
@@ -79,13 +79,13 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
           })
         })
       })
-      console.log('imagesToPreload', imagesToPreload)
+      // console.log('imagesToPreload', imagesToPreload)
 
       // Preload images
       const preloadImages = async () => {
         const promises = imagesToPreload.map((src) => {
           return new Promise((resolve, reject) => {
-            console.log('resolve: ', resolve)
+            // console.log('resolve: ', resolve)
 
             const img = new Image()
             img.src = src
@@ -97,7 +97,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
         try {
           await Promise.all(promises)
           setImagesPreloaded(true)
-          console.log('promises-->', promises)
+          // console.log('promises-->', promises)
         } catch (error) {
           console.error('Error preloading images:', error)
           setImagesPreloaded(true) // Still set to true to not block UI
@@ -114,6 +114,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
       const firstContinent = destinations[0]
       setDestImageText(firstContinent.text)
       const countries = Object.entries(firstContinent.tours)
+      // console.log('countries---->', countries)
       setListedCountries(countries)
 
       if (
@@ -162,7 +163,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
       setDestImage(item[1][0].tour_images[0].image_url)
     }
   }
-  console.log('listed countries: ', listedCountries)
+  // console.log('listed countries: ', listedCountries)
 
   return (
     <div className='absolute mt-12 z-[1000] top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl  border-gray-100'>
@@ -246,6 +247,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
                       })}
                   </ul>
                 </div>
+                {/* ----- transition to add ------- */}
                 <div className='relative'>
                   <span className='capitalize absolute right-2 top-2 bg-rose-500 text-white p-1 rounded-lg'>
                     {destImageText}
@@ -259,6 +261,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
                     alt='Destination preview'
                   />
                 </div>
+                {/* ----- transition to add ------- */}
               </div>
             </>
           ) : (
