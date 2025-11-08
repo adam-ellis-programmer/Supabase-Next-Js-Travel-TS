@@ -24,7 +24,7 @@ export default async function ProtectedPage() {
       <div className='absolute top-0 left-0 w-full h-full bg-[#383c4278] flex justify-center items-center'>
         <div className='relative w-[700px] max-w-[700px] h-[340px] bg-[#ffffff93] rounded-lg p-5'>
           {/* <InfoIcon /> */}
-          <div className='absolute right-5 top-5  '>
+          <div className='absolute right-5 top-5  animate-bounce'>
           <FaSignsPost className=' text-7xl text-orange-700 '  />
           <p className='absolute top-1 left-3 text-[0.7rem] text-white'>this way</p>
           <p className='absolute top-8 left-3 text-[0.7rem] text-white'>that way</p>
