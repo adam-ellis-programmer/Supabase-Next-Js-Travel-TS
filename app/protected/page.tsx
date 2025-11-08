@@ -13,6 +13,9 @@ export default async function ProtectedPage() {
     redirect('/auth/login')
   }
 
+  // This image needs to be pre-loaded
+  // This image needs to be pre-loaded
+
   const name = data?.claims?.email.split('@')[0]
 
   return (
@@ -21,7 +24,11 @@ export default async function ProtectedPage() {
       <div className='absolute top-0 left-0 w-full h-full bg-[#383c4278] flex justify-center items-center'>
         <div className='relative w-[700px] max-w-[700px] h-[340px] bg-[#ffffff93] rounded-lg p-5'>
           {/* <InfoIcon /> */}
-          <FaSignsPost className='absolute right-5 top-5 text-7xl text-orange-700 rotate-12'  />
+          <div className='absolute right-5 top-5  '>
+          <FaSignsPost className=' text-7xl text-orange-700 '  />
+          <p className='absolute top-1 left-3 text-[0.7rem] text-white'>this way</p>
+          <p className='absolute top-8 left-3 text-[0.7rem] text-white'>that way</p>
+          </div>
 
           <section>
             <p className='text-3xl text-center capitalize'>Welcome Back {name}</p>

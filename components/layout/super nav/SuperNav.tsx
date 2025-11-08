@@ -41,6 +41,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
     isAdmin,
     loading: authLoading,
   } = useAuthAdmin()
+  console.log('isLoggedIn', isLoggedIn)
 
   const [listedCountries, setListedCountries] = useState<
     [string, Tour[]][] | null
@@ -170,6 +171,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
       <h4 className='text-center capitalize text-xl mb-4 font-bold'>
         choose a {type.slice(0, -1)}
       </h4>
+      {/* <p>all tours</p> */}
 
       {authLoading && <AuthCheck />}
       {user && (
