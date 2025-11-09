@@ -13,6 +13,8 @@ import { NavigationProps } from '@/types/navigation'
 
 const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
   const { user, loading } = useAuthAdmin()
+  console.log('user from mobile nav: ', user)
+
   const [isNaveOpen, setIsNaveOpen] = useState(false)
 
   const handleToggle = () => {
@@ -108,7 +110,8 @@ const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
           {/* countries section (continents) */}
           <div className=' h-full overflow-scroll'>
             {user && <AdminControls handleToggle={handleToggle} />}
-            <section className=''>
+
+            <section className='border border-rose-500'> 
               <p className='text-2xl text-center mb-5'>Choose an Area</p>
               <ul className='grid grid-cols-2 gap-2 '>
                 {continentData.map((item, i) => {
@@ -141,6 +144,10 @@ const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
                   )
                 })}
               </ul>
+            </section>
+
+            <section>
+              nav buttons here
             </section>
 
             <section className='mt-4'>

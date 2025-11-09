@@ -5,6 +5,10 @@ import { useRouter } from 'next/navigation'
 import { logoutAction } from '@/lib/supabase/actions/auth-actions'
 import { useState } from 'react'
 
+// window.location.href: Nuke everything (slow but guaranteed)
+// router.push(): Navigate smoothly (fast but state persists)
+// router.refresh(): Update server data (fast but stay on page)
+
 export function LogoutButton({
   handleMobileTourNav,
   className = '',
