@@ -30,6 +30,7 @@ export function LogoutButton({
       await logoutAction()
 
       // Navigate to home
+      window.location.href = '/'
       router.push('/')
 
       // Refresh to update all server components
