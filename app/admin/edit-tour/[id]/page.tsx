@@ -51,7 +51,7 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
   console.log(res.data)
 
   return (
-    <div className='min-h-[calc(100vh-100px)] max-w-[1750px] mx-auto border flex flex-col p-6'>
+    <div className='min-h-[calc(100vh-100px)] max-w-[1760px] mx-auto border flex flex-col p-6'>
       <section className='mb-6'>
         <h1 className=' text-2xl font-bold'>Edit Tour Page</h1>
         <p className='flex items-center space-x-2'>
@@ -161,10 +161,10 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
                         <p className='border-b border-orange-200 py-2 flex items-center space-x-5 justify-between'>
                           <IoIosInformationCircleOutline className='inline-block mr-3 text-lg' />
                           <span className=' flex-1 '>{item}</span>
-                          <div className='flex space-x-3'>
+                          <span className='flex space-x-3'>
                             <MdEditSquare className='text-black  cursor-pointer' />
                             <IoMdCloseCircle className='text-red-500 cursor-pointer' />
-                          </div>
+                          </span>
                         </p>
                       </li>
                     )
@@ -206,12 +206,15 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
                 <p className='mb-3'> {(value as any[]).length} items</p>
                 {/* {console.log(value)} */}
                 {key === 'tour_images' && (
-                  <ul className='grid grid-cols-3 gap-2'>
+                  <ul className='grid grid-cols-2 md:grid-cols-3 gap-2'>
                     {(value as any[]).map((item, i) => {
                       return (
-                        <li key={i} className='relative'>
+                        <li
+                          key={i}
+                          className='relative h-[200px]  lg:h-[100px]'
+                        >
                           <img
-                            className='h-[100px] rounded-lg w-full object-cover object-center'
+                            className='h-full rounded-lg w-full object-cover object-center'
                             src={item.image_url}
                             alt=''
                           />
