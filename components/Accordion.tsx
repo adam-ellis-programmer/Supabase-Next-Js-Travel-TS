@@ -6,7 +6,6 @@ import {
 } from '@/components/ui/accordion'
 import { Itinerary } from '@/types/tours'
 
-// Add 'item' to the props type
 const TourAccordion = ({ item, i }: { item: Itinerary; i: number }) => {
   return (
     <Accordion type='single' collapsible className='mb-2'>
