@@ -193,6 +193,11 @@ export async function getTourByIdAdmin(tourId: number) {
       }
     }
 
+    //      booking_slots(
+    //    *,
+    //    booking_slot_dates(*)
+    //  ),
+
     // Fetch the specific tour with all its data
     const { data: tour, error: tourError } = await supabase
       .from('tours')
@@ -202,6 +207,10 @@ export async function getTourByIdAdmin(tourId: number) {
         tour_images(
          *
         ),
+             booking_slots(
+        *,
+        booking_slot_dates(*)
+          ),
         itineraries(
           *
         )
