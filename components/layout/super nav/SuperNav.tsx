@@ -41,7 +41,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
     isAdmin,
     loading: authLoading,
   } = useAuthAdmin()
-  console.log('isLoggedIn', isLoggedIn)
+  // console.log('isLoggedIn', isLoggedIn)
 
   const [listedCountries, setListedCountries] = useState<
     [string, Tour[]][] | null

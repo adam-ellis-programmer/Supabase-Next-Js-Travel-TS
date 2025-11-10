@@ -14,6 +14,7 @@ import PopularDest from '@/components/PopularDest'
 import Activities from '@/components/Activities'
 import Reviews from '@/components/Reviews'
 import { HomePage } from '@/lib/supabase/services/site/home-page-service'
+import UnderConstruction from '@/components/site/UnderConstruction'
 // git pull origin main
 export default async function Home() {
   const showcase = await HomePage.getShowCase()
@@ -23,6 +24,7 @@ export default async function Home() {
   const reviews = await HomePage.getReviews()
   // console.log({ reviews })
 
+  // return <UnderConstruction />
   return (
     <main className=''>
       <Hero data={hero} />

@@ -12,10 +12,12 @@ import { TourService } from '@/lib/supabase/services/tour-service'
 import { createClient } from '@/lib/supabase/server'
 
 interface TourPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
+
+
 
 const TourPage = async ({ params }: TourPageProps) => {
   const { id } = await params

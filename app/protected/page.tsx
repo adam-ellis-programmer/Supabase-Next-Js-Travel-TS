@@ -20,7 +20,8 @@ export default async function ProtectedPage() {
   return (
     <div className='relative h-[calc(100vh-103px)]'>
       <div className='absolute top-0 left-0 w-full h-full bg-[#383c4278] flex justify-center items-center z-10'>
-        <div className='relative w-[700px] max-w-[700px] h-[340px] bg-[#ffffff93] rounded-lg p-5'>
+        {/* Card Start */}
+        <div className='relative w-[700px] max-w-[700px] h-[340px] bg-[#ffffff93] rounded-lg p-5 shadow-2xl'>
           <div className='absolute right-5 top-5 animate-bounce'>
             <FaSignsPost className='text-7xl text-orange-700' />
             <p className='absolute top-1 left-3 text-[0.7rem] text-white'>

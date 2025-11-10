@@ -28,7 +28,8 @@ const NavButtons = ({ sortedContinents, sortedTours }: data) => {
       className='h-full items-center hidden md:flex'
     >
       <ul className='relative'>
-        <div className='absolute h-[30px] -bottom-[60px] z-30 w-full'></div>
+        {/* bridge */}
+        <div className='absolute -left-[490px] h-[30px] -bottom-[60px] z-30 w-[610%] '></div>
         <li>
           <Button
             className='bg-rose-500 mx-1'

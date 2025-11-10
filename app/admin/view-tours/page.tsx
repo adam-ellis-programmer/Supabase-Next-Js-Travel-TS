@@ -1,8 +1,13 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaPlus, FaSearch, FaFilter } from 'react-icons/fa'
 import AdminTourCard from '@/components/admin/AdminTourCard'
 import Link from 'next/link'
+import {
+  getToursAdmin,
+  deleteTourAdmin,
+} from '@/lib/supabase/actions/admin/admin-actions'
+import { useRouter } from 'next/navigation'
 
 interface Tour {
   id: number
@@ -14,73 +19,60 @@ interface Tour {
   destinations: number
   maxPeople: number
   image: string
+  publish?: boolean
+  bestSeller?: boolean
+  showCase?: boolean
 }
 
 const AdminViewAllTours = () => {
-  // Mock data - replace with real data from database
-  const [tours, setTours] = useState<Tour[]>([
-    {
-      id: 1,
-      name: 'Amazing Vietnam 10 Day Adventure',
-      country: 'vietnam',
-      duration: '10 Days',
-      price: 2500,
-      rating: 4.8,
-      destinations: 5,
-      maxPeople: 15,
-      image:
-        'https://ldnjbkiqxrljdlauxbqe.supabase.co/storage/v1/object/public/site/Hero4.jpg',
-    },
-    {
-      id: 2,
-      name: 'Thailand Beach & Culture Tour',
-      country: 'thailand',
-      duration: '8 Days',
-      price: 1800,
-      rating: 4.7,
-      destinations: 4,
-      maxPeople: 12,
-      image:
-        'https://ldnjbkiqxrljdlauxbqe.supabase.co/storage/v1/object/public/site/Hero4.jpg',
-    },
-    {
-      id: 3,
-      name: 'Japan Cultural Experience',
-      country: 'japan',
-      duration: '12 Days',
-      price: 3500,
-      rating: 4.9,
-      destinations: 6,
-      maxPeople: 10,
-      image:
-        'https://ldnjbkiqxrljdlauxbqe.supabase.co/storage/v1/object/public/site/Hero4.jpg',
-    },
-    {
-      id: 4,
-      name: 'Australian Outback Adventure',
-      country: 'australia',
-      duration: '14 Days',
-      price: 4200,
-      rating: 4.6,
-      destinations: 7,
-      maxPeople: 16,
-      image:
-        'https://ldnjbkiqxrljdlauxbqe.supabase.co/storage/v1/object/public/site/Hero4.jpg',
-    },
-  ])
-
+  const router = useRouter()
+  const [tours, setTours] = useState<Tour[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [filterCountry, setFilterCountry] = useState('all')
 
-  const handleEdit = (id: number) => {
-    console.log('Edit tour:', id)
-    // Navigate to edit page or open modal
+  // Fetch tours on component mount
+  useEffect(() => {
+    loadTours()
+  }, [])
+
+  const loadTours = async () => {
+    setLoading(true)
+    setError(null)
+
+    const result = await getToursAdmin()
+    console.log('result', result)
+
+    if (result.success && result.data) {
+      setTours(result.data)
+    } else {
+      setError(result.error || 'Failed to load tours')
+    }
+
+    setLoading(false)
   }
 
-  const handleDelete = (id: number) => {
-    if (window.confirm('Are you sure you want to delete this tour?')) {
+  const handleEdit = (id: number) => {
+    console.log('Edit tour:', id)
+    // Navigate to edit page
+    // window.location.href = `/admin/edit-tour/${id}`
+    router.push(`/admin/edit-tour/${id}`)
+  }
+
+  const handleDelete = async (id: number) => {
+    if (!window.confirm('Are you sure you want to delete this tour?')) {
+      return
+    }
+
+    const result = await deleteTourAdmin(id)
+
+    if (result.success) {
+      // Remove from local state
       setTours(tours.filter((tour) => tour.id !== id))
-      console.log('Deleted tour:', id)
+      alert('Tour deleted successfully')
+    } else {
+      alert(`Failed to delete tour: ${result.error}`)
     }
   }
 
@@ -90,9 +82,47 @@ const AdminViewAllTours = () => {
       tour.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tour.country.toLowerCase().includes(searchQuery.toLowerCase())
     const matchesCountry =
-      filterCountry === 'all' || tour.country === filterCountry
+      filterCountry === 'all' ||
+      tour.country.toLowerCase() === filterCountry.toLowerCase()
     return matchesSearch && matchesCountry
   })
+
+  // Get unique countries for filter dropdown
+  const countries = Array.from(new Set(tours.map((t) => t.country)))
+
+  // Calculate stats
+  const activeToursCount = tours.filter((t) => t.publish).length
+  const avgRating =
+    tours.length > 0
+      ? (tours.reduce((sum, t) => sum + t.rating, 0) / tours.length).toFixed(1)
+      : '0.0'
+
+  if (loading) {
+    return (
+      <div className='min-h-[calc(100vh-100px)] bg-gray-50 py-8 flex items-center justify-center'>
+        <div className='text-center'>
+          <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4'></div>
+          <p className='text-gray-600'>Loading tours...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className='min-h-[calc(100vh-100px)] bg-gray-50 py-8 flex items-center justify-center'>
+        <div className='text-center'>
+          <div className='text-red-600 text-xl mb-4'>⚠️ {error}</div>
+          <button
+            onClick={loadTours}
+            className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg'
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className='min-h-[calc(100vh-100px)] bg-gray-50 py-8'>
@@ -127,16 +157,20 @@ const AdminViewAllTours = () => {
                 Active Tours
               </p>
               <p className='text-3xl font-bold text-gray-800 mt-1'>
-                {tours.length}
+                {activeToursCount}
               </p>
             </div>
             <div className='bg-white rounded-lg shadow p-4 border-l-4 border-orange-500'>
               <p className='text-gray-600 text-sm font-semibold'>Avg Rating</p>
-              <p className='text-3xl font-bold text-gray-800 mt-1'>4.8</p>
+              <p className='text-3xl font-bold text-gray-800 mt-1'>
+                {avgRating}
+              </p>
             </div>
             <div className='bg-white rounded-lg shadow p-4 border-l-4 border-purple-500'>
               <p className='text-gray-600 text-sm font-semibold'>Countries</p>
-              <p className='text-3xl font-bold text-gray-800 mt-1'>4</p>
+              <p className='text-3xl font-bold text-gray-800 mt-1'>
+                {countries.length}
+              </p>
             </div>
           </div>
 
@@ -165,10 +199,11 @@ const AdminViewAllTours = () => {
                     className='w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white'
                   >
                     <option value='all'>All Countries</option>
-                    <option value='vietnam'>Vietnam</option>
-                    <option value='thailand'>Thailand</option>
-                    <option value='japan'>Japan</option>
-                    <option value='australia'>Australia</option>
+                    {countries.map((country) => (
+                      <option key={country} value={country.toLowerCase()}>
+                        {country.charAt(0).toUpperCase() + country.slice(1)}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -186,8 +221,7 @@ const AdminViewAllTours = () => {
         </div>
 
         {/* Tours Grid */}
-        {/* space-y-4 */}
-        <div className=' grid md:grid-cols-3  gap-5'>
+        <div className='grid md:grid-cols-3 gap-5'>
           {filteredTours.length > 0 ? (
             filteredTours.map((tour) => (
               <AdminTourCard
@@ -198,7 +232,7 @@ const AdminViewAllTours = () => {
               />
             ))
           ) : (
-            <div className='bg-white rounded-lg shadow-lg p-12 text-center'>
+            <div className='col-span-3 bg-white rounded-lg shadow-lg p-12 text-center'>
               <FaSearch className='text-6xl text-gray-300 mx-auto mb-4' />
               <h3 className='text-xl font-bold text-gray-800 mb-2'>
                 No tours found
@@ -206,7 +240,7 @@ const AdminViewAllTours = () => {
               <p className='text-gray-600 mb-6'>
                 Try adjusting your search or filter
               </p>
-              <Link href='/admin/tours/new'>
+              <Link href='/admin/add-tour'>
                 <button className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors'>
                   Add Your First Tour
                 </button>
