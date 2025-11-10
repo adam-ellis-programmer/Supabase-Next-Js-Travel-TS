@@ -48,11 +48,19 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
   )
 
   console.log('Categorized Data:', categorizedData)
+  console.log(res.data)
 
   return (
-    <div className='min-h-[calc(100vh-100px)] max-w-[1700px] mx-auto border flex flex-col p-6'>
+    <div className='min-h-[calc(100vh-100px)] max-w-[1750px] mx-auto border flex flex-col p-6'>
       <section className='mb-6'>
-        <h1 className='text-center text-2xl font-bold'>Edit Tour Page</h1>
+        <h1 className=' text-2xl font-bold'>Edit Tour Page</h1>
+        <p>{res.data.tour_name}</p>
+        <button className='bg-sky-300 p-1 px-2 rounded-sm mt-1 block w-[100px]'>
+          Go Back
+        </button>
+        <button className='bg-blue-300 p-1 px-2 rounded-sm mt-1 block w-[100px]'>
+          Update
+        </button>
       </section>
 
       <div className='grid lg:grid-cols-4 gap-5 flex-1'>
@@ -106,7 +114,7 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
                     key={key}
                     className='border-b text-lg flex items-center justify-between'
                   >
-                    <strong className='text-purple-600'>{key}:</strong>{' '}
+                    <p className=''>{key}:</p>{' '}
                     {value ? (
                       <input
                         className='w-[20px] h-[20px]'
@@ -164,7 +172,7 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
         </div>
         <div>
           <div>
-            <p className='font-bold text-lg'>Heo Image</p>
+            <p className='font-bold text-lg mb-3'>Hero Image</p>
             <div className='relative'>
               <img
                 className='rounded-md w-full object-cover'
@@ -187,8 +195,8 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
           {Object.entries(categorizedData.relatedData || {}).map(
             ([key, value]) => (
               <div key={key}>
-                <p className='text-orange-600 text-2xl'>{key}:</p>{' '}
-                {(value as any[]).length} items
+                <p className='text-orange-600 text-2xl  mt-5 mb-3'>{key}:</p>{' '}
+                <p className='mb-3'> {(value as any[]).length} items</p>
                 {/* {console.log(value)} */}
                 {key === 'tour_images' && (
                   <ul className='grid grid-cols-3 gap-2'>
@@ -234,9 +242,17 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
                               </div>
                             </AccordionTrigger>
                             <AccordionContent className='flex flex-col gap-4 text-balance'>
+                              <div className=' flex justify-end space-x-3'>
+                                <button className='cursor-pointer'>
+                                  <MdEditSquare className='text-black text-2xl' />
+                                </button>
+                                <button className='cursor-pointer'>
+                                  <IoMdCloseCircle className='text-2xl' />
+                                </button>
+                              </div>
                               {/* <p>{item.day_description}</p> */}
                               <textarea
-                                className='min-h-[250px] outline-none'
+                                className='min-h-[250px] outline-none -mt-2'
                                 name=''
                                 id=''
                                 defaultValue={item.day_description}
