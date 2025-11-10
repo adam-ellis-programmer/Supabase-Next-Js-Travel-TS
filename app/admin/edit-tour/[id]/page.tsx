@@ -54,7 +54,10 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
     <div className='min-h-[calc(100vh-100px)] max-w-[1750px] mx-auto border flex flex-col p-6'>
       <section className='mb-6'>
         <h1 className=' text-2xl font-bold'>Edit Tour Page</h1>
-        <p>{res.data.tour_name}</p>
+        <p className='flex items-center space-x-2'>
+          <IoIosInformationCircleOutline className='text-rose-600' />
+          <span>{res.data.tour_name}</span>
+        </p>
         <button className='bg-sky-300 p-1 px-2 rounded-sm mt-1 block w-[100px]'>
           Go Back
         </button>
@@ -72,9 +75,10 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
           <div className='space-y-2 text-sm'>
             {Object.entries(categorizedData.string || {}).map(
               ([key, value]) => (
-                <div key={key}>
-                  <p className='text-orange-600 text-lg cursor-pointer flex items-center justify-between'>
-                    {key} <MdEditSquare className='text-black ' />
+                <div key={key} className='border-b pb-3'>
+                  <p className='text-orange-600  cursor-pointer flex items-center justify-between '>
+                    <span className='text-lg'>{key}</span>
+                    <MdEditSquare className='text-black text-md' />
                   </p>
                   <p className=''>{value as string}</p>
                 </div>
@@ -112,7 +116,7 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
                 ([key, value]) => (
                   <div
                     key={key}
-                    className='border-b text-lg flex items-center justify-between'
+                    className='border-b pb-1 text-md flex items-center justify-between'
                   >
                     <p className=''>{key}:</p>{' '}
                     {value ? (
@@ -157,7 +161,10 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
                         <p className='border-b border-orange-200 py-2 flex items-center space-x-5 justify-between'>
                           <IoIosInformationCircleOutline className='inline-block mr-3 text-lg' />
                           <span className=' flex-1 '>{item}</span>
-                          <MdEditSquare className='text-black ' />
+                          <div className='flex space-x-3'>
+                            <MdEditSquare className='text-black  cursor-pointer' />
+                            <IoMdCloseCircle className='text-red-500 cursor-pointer' />
+                          </div>
                         </p>
                       </li>
                     )
