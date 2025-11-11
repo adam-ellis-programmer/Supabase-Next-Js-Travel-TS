@@ -30,8 +30,8 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
   const categorizedData = Object.entries(res.data).reduce(
     (acc, [key, value]) => {
       //   console.log(key, value)
-
       // Skip related data objects (related tables)
+      // Related table data is an ARRAY of OBJECTS
       if (
         key === 'tour_images' ||
         key === 'itineraries' ||
@@ -148,6 +148,7 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
               )}
             </div>
             <div>
+              {/* ADD DATE PICKER */}
               {Object.entries(categorizedData.relatedData).map(
                 ([key, val], i) => {
                   if (key === 'booking_slots') {
@@ -163,13 +164,16 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
                           {data.map((item, i) => {
                             // console.log('date item', item)
                             return (
-                              <li key={i} className='mb-4 border-b border-dashed border-[#b0a3a3cd]'>
+                              <li
+                                key={i}
+                                className='mb-4 border-b border-dashed border-[#b0a3a3cd]'
+                              >
                                 <div className='flex space-x-4'>
                                   <p>
                                     {item.month} {item.year}
                                   </p>
                                   <button className=''>
-                                    <IoMdCloseCircle />
+                                    <IoMdCloseCircle className='text-red-500' />
                                   </button>
                                 </div>
 
@@ -186,7 +190,7 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
                                             <MdEditSquare className='text-black ' />
                                           </button>
                                           <button className=''>
-                                            <IoMdCloseCircle />
+                                            <IoMdCloseCircle className='text-red-500' />
                                           </button>
                                         </div>
                                       </li>
