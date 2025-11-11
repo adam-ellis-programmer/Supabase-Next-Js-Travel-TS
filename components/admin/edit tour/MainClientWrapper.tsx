@@ -61,12 +61,6 @@ const MainClientWrapper = ({ res }: { res: any }) => {
       <section className='grid lg:grid-cols-4 gap-5 flex-1 '>
         {/* Strings */}
         <div className=' border-blue-400 p-4 overflow-auto'>
-          <div className='flex justify-between mb-4'>
-            <h2 className='font-bold text-lg  '>
-              String Fields ({Object.keys(categorizedData.string || {}).length})
-            </h2>
-            <EditButton />
-          </div>
           <StringFields categorizedData={categorizedData} />
         </div>
 
@@ -76,7 +70,7 @@ const MainClientWrapper = ({ res }: { res: any }) => {
             <h2 className='font-bold text-lg'>
               Number Fields ({Object.keys(categorizedData.number || {}).length})
             </h2>
-            <EditButton />
+            <EditButton  />
           </div>
 
           <NumberFields categorizedData={categorizedData} />
