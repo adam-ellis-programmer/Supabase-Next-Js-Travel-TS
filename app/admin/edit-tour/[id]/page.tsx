@@ -57,8 +57,10 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
   console.log('Categorized Data:', categorizedData)
   console.log(res.data)
 
+  //   update push in one place
+
   return (
-    <div className='min-h-[calc(100vh-100px)] max-w-[1760px] mx-auto border flex flex-col p-6'>
+    <div className='min-h-[calc(100vh-100px)] max-w-[1770px] mx-auto border flex flex-col p-6'>
       <section className='mb-6'>
         <h1 className=' text-2xl font-bold'>Edit Tour Page</h1>
         <p className='flex items-center space-x-2'>
@@ -153,17 +155,18 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
                 ([key, val], i) => {
                   if (key === 'booking_slots') {
                     const data = val as any[]
-                    console.log(val)
+                    // console.log(data?.length)
 
                     return (
                       <div key={i}>
                         <p className='text-orange-600 text-2xl  mt-5 mb-3'>
                           {key}:
                         </p>
+                        <p>{data?.length} Slots</p>
                         <div className='flex justify-end space-x-5 capitalize'>
-                            <span>s</span>
-                            <span>e</span>
-                            <span>d</span>
+                          <span>s</span>
+                          <span>e</span>
+                          <span>d</span>
                         </div>
                         <ul>
                           {data.map((item, i) => {
@@ -183,30 +186,32 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
                                 </div>
 
                                 <ul className='ml-5'>
-                                  {item.booking_slot_dates.map((item, i) => {
-                                    return (
-                                      <li
-                                        key={i}
-                                        className='flex justify-between border-b'
-                                      >
-                                        <div>{item.date}</div>
-                                        <div className='flex space-x-3'>
-                                          <input
-                                            type='checkbox'
-                                            name=''
-                                            id=''
-                                            defaultChecked
-                                          />
-                                          <button className=''>
-                                            <MdEditSquare className='text-black ' />
-                                          </button>
-                                          <button className=''>
-                                            <IoMdCloseCircle className='text-red-500' />
-                                          </button>
-                                        </div>
-                                      </li>
-                                    )
-                                  })}
+                                  {(item.booking_slot_dates as any[]).map(
+                                    (item, i) => {
+                                      return (
+                                        <li
+                                          key={i}
+                                          className='flex justify-between border-b'
+                                        >
+                                          <div>{item.date}</div>
+                                          <div className='flex space-x-3'>
+                                            <input
+                                              type='checkbox'
+                                              name=''
+                                              id=''
+                                              defaultChecked
+                                            />
+                                            <button className=''>
+                                              <MdEditSquare className='text-black ' />
+                                            </button>
+                                            <button className=''>
+                                              <IoMdCloseCircle className='text-red-500' />
+                                            </button>
+                                          </div>
+                                        </li>
+                                      )
+                                    }
+                                  )}
                                   <div className='mt-2 flex justify-end'>
                                     <button className='bg-blue-300 px-5 py-1 rounded-md'>
                                       + add new date
