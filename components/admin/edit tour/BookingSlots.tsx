@@ -1,19 +1,29 @@
 import React from 'react'
 import { IoMdCloseCircle } from 'react-icons/io'
 import { MdEditSquare } from 'react-icons/md'
+import EditButton from './EditButton'
 
 const BookingSlots = ({ categorizedData }: { categorizedData: any }) => {
+  const handleClick = () => {
+    console.log('Handling Booking Updates....')
+  }
   return (
-    <div>
+    <div className='mt-10'>
       {/* ADD DATE PICKER */}
+
       {Object.entries(categorizedData.relatedData).map(([key, val], i) => {
         if (key === 'booking_slots') {
           const data = val as any[]
           // console.log(data?.length)
           return (
-            <div key={i}>
-              <p className='text-orange-600 text-2xl  mt-5 mb-3'>{key}:</p>
-              <p>{data?.length} Slots</p>
+            <div key={i} className=''>
+              {/* <p className='text-orange-600 text-2xl  mt-5 mb-3'>{key}:</p> */}
+              <div className='flex justify-between mb-4'>
+                <h2 className='font-bold text-lg'>
+                  Booking Slot Fields <span>({data?.length})</span>
+                </h2>
+                <EditButton onClick={handleClick} />
+              </div>
               <div className='flex justify-end space-x-5 capitalize'>
                 <span>s</span>
                 <span>e</span>

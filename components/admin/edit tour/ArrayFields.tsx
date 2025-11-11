@@ -1,10 +1,20 @@
 import React from 'react'
 import { IoIosInformationCircleOutline, IoMdCloseCircle } from 'react-icons/io'
 import { MdEditSquare } from 'react-icons/md'
+import EditButton from './EditButton'
 
 const ArrayFields = ({ categorizedData }: { categorizedData: any }) => {
+  const handleClick = () => {
+    console.log('Handle Array updates...')
+  }
   return (
     <div className='space-y-2 text-sm'>
+      <div className='flex justify-between mb-4'>
+        <h2 className='font-bold text-lg '>
+          Array Fields ({Object.keys(categorizedData.array || {}).length})
+        </h2>
+        <EditButton onClick={handleClick} />
+      </div>
       {Object.entries(categorizedData.array || {}).map(([key, value]) => (
         <div key={key}>
           {/* {console.log(value)} */}

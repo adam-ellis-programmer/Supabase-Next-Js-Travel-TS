@@ -66,37 +66,18 @@ const MainClientWrapper = ({ res }: { res: any }) => {
 
         {/* Numbers */}
         <div className=' border-green-400 p-4 overflow-auto'>
-          <div className='flex justify-between mb-4 '>
-            <h2 className='font-bold text-lg'>
-              Number Fields ({Object.keys(categorizedData.number || {}).length})
-            </h2>
-            <EditButton  />
-          </div>
-
           <NumberFields categorizedData={categorizedData} />
 
           {/* Booleans */}
-          <div className=' overflow-auto  mt-10 pt-5'>
-            <div className='flex justify-between mb-4'>
-              <h2 className='font-bold text-lg'>
-                Boolean Fields (
-                {Object.keys(categorizedData.boolean || {}).length})
-              </h2>
-              <EditButton />
-            </div>
-            <Booleans categorizedData={categorizedData} />
-            <BookingSlots categorizedData={categorizedData} />
-          </div>
+
+          <Booleans categorizedData={categorizedData} />
+
+          {/* booking slots */}
+          <BookingSlots categorizedData={categorizedData} />
         </div>
 
         {/* Arrays */}
         <div className=' border-orange-400 p-4 overflow-auto'>
-          <div className='flex justify-between mb-4'>
-            <h2 className='font-bold text-lg '>
-              Array Fields ({Object.keys(categorizedData.array || {}).length})
-            </h2>
-            <EditButton />
-          </div>
           <ArrayFields categorizedData={categorizedData} />
 
           {/* <h2 className='font-bold text-lg mt-4 mb-3'>Related Data</h2> */}
