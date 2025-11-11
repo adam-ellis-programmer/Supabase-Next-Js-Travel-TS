@@ -160,6 +160,11 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
                         <p className='text-orange-600 text-2xl  mt-5 mb-3'>
                           {key}:
                         </p>
+                        <div className='flex justify-end space-x-5 capitalize'>
+                            <span>s</span>
+                            <span>e</span>
+                            <span>d</span>
+                        </div>
                         <ul>
                           {data.map((item, i) => {
                             // console.log('date item', item)
@@ -186,6 +191,12 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
                                       >
                                         <div>{item.date}</div>
                                         <div className='flex space-x-3'>
+                                          <input
+                                            type='checkbox'
+                                            name=''
+                                            id=''
+                                            defaultChecked
+                                          />
                                           <button className=''>
                                             <MdEditSquare className='text-black ' />
                                           </button>
