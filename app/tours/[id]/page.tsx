@@ -17,8 +17,6 @@ interface TourPageProps {
   }>
 }
 
-
-
 const TourPage = async ({ params }: TourPageProps) => {
   const { id } = await params
   const tourId = parseInt(id)

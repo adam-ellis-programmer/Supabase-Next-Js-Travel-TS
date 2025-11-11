@@ -1,7 +1,9 @@
 'use server'
 
 import { createClient } from '../../server'
-
+// ==========================================================================================================
+// -- GET ALL TOURS ADMIN
+// ==========================================================================================================
 export async function getToursAdmin() {
   const supabase = await createClient()
 
@@ -116,6 +118,9 @@ export async function getToursAdmin() {
   }
 }
 
+// ==========================================================================================================
+// -- DELTE TOUR ADMIN
+// ==========================================================================================================
 export async function deleteTourAdmin(tourId: number) {
   const supabase = await createClient()
 
@@ -160,6 +165,9 @@ export async function deleteTourAdmin(tourId: number) {
 
 // ... existing getToursAdmin function ...
 
+// ==========================================================================================================
+// -- GET TOUR BY ID ADMIN
+// ==========================================================================================================
 export async function getTourByIdAdmin(tourId: number) {
   const supabase = await createClient()
 
@@ -193,24 +201,15 @@ export async function getTourByIdAdmin(tourId: number) {
       }
     }
 
-    //      booking_slots(
-    //    *,
-    //    booking_slot_dates(*)
-    //  ),
-
     // Fetch the specific tour with all its data
     const { data: tour, error: tourError } = await supabase
       .from('tours')
       .select(
         `
         *,
-        tour_images(
-         *
+        tour_images(*),
+        booking_slots(*, booking_slot_dates(*)
         ),
-             booking_slots(
-        *,
-        booking_slot_dates(*)
-          ),
         itineraries(
           *
         )
@@ -250,6 +249,9 @@ export async function getTourByIdAdmin(tourId: number) {
   }
 }
 
+// ==========================================================================================================
+// -- UPDATE TOUR ADMIN
+// ==========================================================================================================
 export async function updateTourAdmin(tourId: number, tourData: any) {
   const supabase = await createClient()
 
@@ -293,5 +295,3 @@ export async function updateTourAdmin(tourId: number, tourData: any) {
     return { success: false, error: 'An unexpected error occurred' }
   }
 }
-
-// ... existing deleteTourAdmin function ...
