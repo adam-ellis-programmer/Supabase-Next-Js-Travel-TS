@@ -3,8 +3,17 @@ import React, { useState } from 'react'
 import { MdEditSquare } from 'react-icons/md'
 import { IoMdCheckmarkCircle, IoMdCloseCircle } from 'react-icons/io'
 import EditButton from './EditButton'
+import { updateTourAdmin } from '@/lib/supabase/actions/admin/admin-actions'
 
-const StringFields = ({ categorizedData }: { categorizedData: any }) => {
+const StringFields = ({
+  categorizedData,
+  tourId,
+  res,
+}: {
+  categorizedData: any
+  tourId: number
+  res: any
+}) => {
   // console.log('categorizedData', categorizedData)
 
   // set which index here
@@ -14,15 +23,42 @@ const StringFields = ({ categorizedData }: { categorizedData: any }) => {
 
   const [defaultData, setDefaultData] = useState(categorizedData.string)
 
-  const handleDbUpddate = () => {
+  const handleDbUpddate = async () => {
     console.log('updating string fields...')
+    console.log(categorizedData)
     console.log(defaultData)
+
+    const preparedData = {} as any
+    // console.log(Object.entries(res.data))
+
+    // Skip related data
+    Object.entries(res.data).forEach(([key, val]) => {
+      // console.log(key, val)
+      if (
+        key !== 'itineraries' &&
+        key !== 'tour_images' &&
+        key !== 'booking_slots' &&
+        key !== 'created_at' &&
+        key !== 'updated_at'
+      ) {
+        preparedData[key] = val
+      }
+    })
+
+    // final data fro DB
+    const dataFroDB = {
+      ...preparedData,
+      ...defaultData,
+    }
+
+    console.log('preparedData', dataFroDB)
+    // const res = await updateTourAdmin(tourId, dataFroDB)
+
+    // console.log('RES', res)
   }
 
   const handleEditMode = (index: number) => {
     setEditingIndex(index)
-
-    console.log('Index: ', index)
   }
 
   const handleCancel = () => {
@@ -30,18 +66,15 @@ const StringFields = ({ categorizedData }: { categorizedData: any }) => {
   }
 
   const handleSave = (key: string) => {
-    // console.log(`Saving ${key}:`, editedValues[key])
-    const data = {
+    const updatedData = {
       ...categorizedData.string,
       ...editedValues,
     }
-    // console.log(data)
-    setDefaultData(data)
+    setDefaultData(updatedData)
     setEditingIndex(null)
   }
 
   const hadleTextChange = (key: string, value: string) => {
-    //...
     seteditedValues((prev) => ({
       ...prev,
       [key]: value,

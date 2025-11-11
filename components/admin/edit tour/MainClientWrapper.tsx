@@ -12,7 +12,7 @@ import ArrayFields from './ArrayFields'
 import Images from './Images'
 import EditButton from './EditButton'
 
-const MainClientWrapper = ({ res }: { res: any }) => {
+const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
   const categorizedData = Object.entries(res.data).reduce(
     (acc, [key, value]) => {
       // Skip related data objects (related tables)
@@ -61,7 +61,7 @@ const MainClientWrapper = ({ res }: { res: any }) => {
       <section className='grid lg:grid-cols-4 gap-5 flex-1 '>
         {/* Strings */}
         <div className=' border-blue-400 p-4 overflow-auto'>
-          <StringFields categorizedData={categorizedData} />
+          <StringFields categorizedData={categorizedData} tourId={tourId} res={res}/>
         </div>
 
         {/* Numbers */}

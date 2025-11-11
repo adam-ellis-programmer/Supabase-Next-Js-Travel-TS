@@ -4,7 +4,7 @@ import React from 'react'
 import MainClientWrapper from '@/components/admin/edit tour/MainClientWrapper'
 
 interface AdminEditTourPageProps {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: number }>
 }
 
 const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
@@ -16,7 +16,7 @@ const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
     return <div>Tour not found</div>
   }
 
-  return <MainClientWrapper res={res} />
+  return <MainClientWrapper res={res} tourId={id} />
 }
 
 export default AdminEditTourPage
