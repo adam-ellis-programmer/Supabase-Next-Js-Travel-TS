@@ -277,6 +277,8 @@ export async function updateTourAdmin(tourId: number, tourData: any) {
       return { success: false, error: 'Unauthorized' }
     }
 
+    console.log('user found', profile)
+
     // Update the tour
     const { data, error: updateError } = await supabase
       .from('tours')
@@ -288,6 +290,8 @@ export async function updateTourAdmin(tourId: number, tourData: any) {
     if (updateError) {
       return { success: false, error: updateError.message }
     }
+
+    console.log('update success ', data)
 
     return { success: true, error: null, data }
   } catch (error) {

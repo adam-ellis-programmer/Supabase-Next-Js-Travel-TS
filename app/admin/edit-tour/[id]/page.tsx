@@ -10,7 +10,7 @@ interface AdminEditTourPageProps {
 const AdminEditTourPage = async ({ params }: AdminEditTourPageProps) => {
   const { id } = await params
   const res = await getTourByIdAdmin(Number(id))
-  console.log(res.data)
+  // console.log(res.data)
 
   if (!res.success || !res.data) {
     return <div>Tour not found</div>

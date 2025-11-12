@@ -38,6 +38,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
     },
     {} as Record<string, any>
   )
+  // Update in sections
   return (
     <div className='min-h-[calc(100vh-100px)] max-w-[1770px] mx-auto border flex flex-col p-6'>
       <section className='mb-6 border-b pb-7'>
@@ -61,7 +62,11 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
       <section className='grid lg:grid-cols-4 gap-5 flex-1 '>
         {/* Strings */}
         <div className=' border-blue-400 p-4 overflow-auto'>
-          <StringFields categorizedData={categorizedData} tourId={tourId} res={res}/>
+          <StringFields
+            categorizedData={categorizedData}
+            tourId={tourId}
+            res={res}
+          />
         </div>
 
         {/* Numbers */}

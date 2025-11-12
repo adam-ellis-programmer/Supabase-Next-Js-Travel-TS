@@ -14,22 +14,21 @@ const StringFields = ({
   tourId: number
   res: any
 }) => {
-  // console.log('categorizedData', categorizedData)
-
   // set which index here
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   // gather edited values here
   const [editedValues, seteditedValues] = useState<Record<string, string>>({})
-
+  // set original data
   const [defaultData, setDefaultData] = useState(categorizedData.string)
-
+  const [loading, setLoading] = useState(false)
   const handleDbUpddate = async () => {
-    console.log('updating string fields...')
-    console.log(categorizedData)
-    console.log(defaultData)
+    setLoading(true)
+    const dataToUpdateStageOne = {
+      ...res.data,
+      ...editedValues,
+    }
 
-    const preparedData = {} as any
-    // console.log(Object.entries(defaultData))
+    // Exclude from updates
     const excludedKeys = [
       'itineraries',
       'tour_images',
@@ -38,42 +37,26 @@ const StringFields = ({
       'updated_at',
     ]
 
-    //  computed key values
-    const preppedDefault = Object.entries(defaultData).map(([key, val]) => {
-      console.log(key, val)
-      if (!excludedKeys.includes(key)) {
-        return {
-          [key]: val,
-        }
-      }
-    })
+    // The Journey: Object → Array → Filter → Object
 
-    console.log('preppedDefault-->', preppedDefault)
+    // prettier-ignore
+    const filteredData = Object.entries(dataToUpdateStageOne).filter(([key]) => !excludedKeys.includes(key))
 
-    // Skip related data
-    Object.entries(res.data).forEach(([key, val]) => {
-      // console.log(key, val)
-      if (
-        key !== 'itineraries' &&
-        key !== 'tour_images' &&
-        key !== 'booking_slots' &&
-        key !== 'created_at' &&
-        key !== 'updated_at'
-      ) {
-        preparedData[key] = val
-      }
-    })
+    // from array to object again
+    const cleanedData = Object.fromEntries(filteredData)
+    // console.log(cleanedData)
 
-    // final data fro DB
-    const dataFroDB = {
-      ...preparedData,
-      ...defaultData, // remove createdAt and updatedAt
+    try {
+      console.log('Update Started...')
+      const data = await updateTourAdmin(tourId, cleanedData)
+      console.log('Updated Successfully')
+      console.log('returned data: ', data)
+      setLoading(false)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
     }
-
-    console.log('preparedData', dataFroDB)
-    // const res = await updateTourAdmin(tourId, dataFroDB)
-
-    // console.log('RES', res)
   }
 
   const handleEditMode = (index: number) => {
@@ -83,29 +66,20 @@ const StringFields = ({
   const handleCancel = () => {
     setEditingIndex(null)
   }
-  // const excludedKeys = ['itineraries', 'tour_images', 'booking_slots', 'created_at', 'updated_at']
 
-  // Object.entries(res.data).forEach(([key, val]) => {
-  //   if (!excludedKeys.includes(key)) {
-  //     preparedData[key] = val
-  //   }
-  // })
-  // if obj !== obj then update
   const handleSave = (key: string) => {
-    const updatedData = {
-      ...categorizedData.string,
-      ...editedValues,
-    }
-    setDefaultData(updatedData)
+    console.log(editedValues[key])
+    setDefaultData((prev: {}) => ({
+      ...prev,
+      [key]: editedValues[key],
+    }))
     setEditingIndex(null)
   }
 
   const hadleTextChange = (key: string, value: string) => {
-    seteditedValues((prev) => ({
-      ...prev,
-      [key]: value,
-    }))
+    seteditedValues((prev) => ({ ...prev, [key]: value }))
   }
+  // console.log(editedValues)
 
   return (
     <div className='space-y-2 text-sm'>
@@ -113,7 +87,14 @@ const StringFields = ({
         <h2 className='font-bold text-lg  '>
           String Fields ({Object.keys(categorizedData.string || {}).length})
         </h2>
-        <EditButton onClick={handleDbUpddate} />
+        {loading ? (
+          <div className=' flex items-center space-x-5 cursor-default'>
+            <div className=' animate-spin h-[30px] w-[30px] border-t-black rounded-full border-[4px] border-green-600'></div>
+            <p className='capitalize text-xl'>updating</p>
+          </div>
+        ) : (
+          <EditButton onClick={handleDbUpddate} />
+        )}
       </div>
       <div>
         {Object.entries(defaultData || {}).map(([key, value], i) => (
