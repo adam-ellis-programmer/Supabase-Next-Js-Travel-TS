@@ -1,9 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import EditButton from './EditButton'
 
-const Booleans = ({ categorizedData }: { categorizedData: any }) => {
+const Booleans = ({
+  categorizedData,
+  tourId,
+  res,
+}: {
+  categorizedData: any
+  tourId: number
+  res: any
+}) => {
+  const [editingIndex, setEditingIndex] = useState(null)
+  const [editedItems, seteditedItems] = useState({})
+  // editing index
+  // edited values
+  // loading
+  // default data
+
   const handleClick = () => {
-    console.log('handle booleans')
+    // console.log('handle booleans')
+    // console.log(res.data)
+    // console.log(categorizedData.boolean)
+    console.log('editedItems', editedItems)
+  }
+
+  const handleBooleanChnage = (key: string, value: boolean) => {
+    seteditedItems((prev) => ({ ...prev, [key]: value }))
+    console.log(key, value)
   }
   return (
     <div className='space-y-2 text-sm mt-10'>
@@ -19,24 +42,17 @@ const Booleans = ({ categorizedData }: { categorizedData: any }) => {
             key={key}
             className='border-b pb-1 text-md flex items-center justify-between'
           >
-            <p className=''>{key}:</p>{' '}
-            {value ? (
-              <input
-                className='w-[20px] h-[20px]'
-                type='checkbox'
-                name=''
-                defaultChecked={true}
-                id=''
-              />
-            ) : (
-              <input
-                className='w-[20px] h-[20px]'
-                type='checkbox'
-                name=''
-                id=''
-                defaultChecked={false}
-              />
-            )}
+            <label htmlFor={key} className='w-full'>
+              {key}:
+            </label>
+            <input
+              className='w-[20px] h-[20px]'
+              type='checkbox'
+              name={key}
+              defaultChecked={true}
+              onChange={(e) => handleBooleanChnage(key, e.target.checked)}
+              id={key}
+            />
           </div>
         ))}
       </div>

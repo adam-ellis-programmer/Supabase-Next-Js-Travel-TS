@@ -79,7 +79,11 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
 
           {/* Booleans */}
 
-          <Booleans categorizedData={categorizedData} />
+          <Booleans
+            categorizedData={categorizedData}
+            res={res}
+            tourId={tourId}
+          />
 
           {/* booking slots */}
           <BookingSlots categorizedData={categorizedData} />
