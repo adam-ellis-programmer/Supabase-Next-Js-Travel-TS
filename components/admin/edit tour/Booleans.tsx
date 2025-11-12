@@ -12,6 +12,7 @@ const Booleans = ({
 }) => {
   const [editingIndex, setEditingIndex] = useState(null)
   const [editedItems, seteditedItems] = useState({})
+  const [allBooleans, setallBooleans] = useState(categorizedData.boolean)
   // editing index
   // edited values
   // loading
@@ -21,12 +22,18 @@ const Booleans = ({
     // console.log('handle booleans')
     // console.log(res.data)
     // console.log(categorizedData.boolean)
-    console.log('editedItems', editedItems)
+    console.log('allBooleans', allBooleans)
   }
 
   const handleBooleanChnage = (key: string, value: boolean) => {
-    seteditedItems((prev) => ({ ...prev, [key]: value }))
-    console.log(key, value)
+    const tempdata = {
+      ...categorizedData.boolean,
+    }
+
+    setallBooleans((prev: any) => ({
+      ...prev,
+      [key]: value,
+    }))
   }
   return (
     <div className='space-y-2 text-sm mt-10'>
