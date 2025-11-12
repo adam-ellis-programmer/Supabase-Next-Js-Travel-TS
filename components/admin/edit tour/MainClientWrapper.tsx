@@ -71,7 +71,11 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
 
         {/* Numbers */}
         <div className=' border-green-400 p-4 overflow-auto'>
-          <NumberFields categorizedData={categorizedData} />
+          <NumberFields
+            categorizedData={categorizedData}
+            res={res}
+            tourId={tourId}
+          />
 
           {/* Booleans */}
 

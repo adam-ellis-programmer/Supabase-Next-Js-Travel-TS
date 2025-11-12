@@ -2,7 +2,7 @@ import React from 'react'
 import { IoIosInformationCircleOutline, IoMdCloseCircle } from 'react-icons/io'
 import { MdEditSquare } from 'react-icons/md'
 import EditButton from './EditButton'
-
+import { FaCirclePlus } from 'react-icons/fa6'
 const ArrayFields = ({ categorizedData }: { categorizedData: any }) => {
   const handleClick = () => {
     console.log('Handle Array updates...')
@@ -18,7 +18,13 @@ const ArrayFields = ({ categorizedData }: { categorizedData: any }) => {
       {Object.entries(categorizedData.array || {}).map(([key, value]) => (
         <div key={key}>
           {/* {console.log(value)} */}
-          <p className='text-orange-600 text-2xl my-3 '>{key}:</p>{' '}
+          <div className='flex   items-center  justify-between'>
+            <p className='text-orange-600 text-2xl my-3 '>{key}:</p>
+            <button className='bg-blue-400 h-[30px] flex  items-center text-white space-x-2 p-1 px-3 ml-2 rounded'>
+              <FaCirclePlus />
+              <span>Point </span>
+            </button>
+          </div>
           {(value as any[]).length} items
           <ul>
             {(value as any[]).map((item, i) => {
