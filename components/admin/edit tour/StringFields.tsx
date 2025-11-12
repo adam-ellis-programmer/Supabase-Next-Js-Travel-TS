@@ -29,7 +29,26 @@ const StringFields = ({
     console.log(defaultData)
 
     const preparedData = {} as any
-    // console.log(Object.entries(res.data))
+    // console.log(Object.entries(defaultData))
+    const excludedKeys = [
+      'itineraries',
+      'tour_images',
+      'booking_slots',
+      'created_at',
+      'updated_at',
+    ]
+
+    //  computed key values
+    const preppedDefault = Object.entries(defaultData).map(([key, val]) => {
+      console.log(key, val)
+      if (!excludedKeys.includes(key)) {
+        return {
+          [key]: val,
+        }
+      }
+    })
+
+    console.log('preppedDefault-->', preppedDefault)
 
     // Skip related data
     Object.entries(res.data).forEach(([key, val]) => {
@@ -48,7 +67,7 @@ const StringFields = ({
     // final data fro DB
     const dataFroDB = {
       ...preparedData,
-      ...defaultData,
+      ...defaultData, // remove createdAt and updatedAt
     }
 
     console.log('preparedData', dataFroDB)
@@ -64,7 +83,14 @@ const StringFields = ({
   const handleCancel = () => {
     setEditingIndex(null)
   }
+  // const excludedKeys = ['itineraries', 'tour_images', 'booking_slots', 'created_at', 'updated_at']
 
+  // Object.entries(res.data).forEach(([key, val]) => {
+  //   if (!excludedKeys.includes(key)) {
+  //     preparedData[key] = val
+  //   }
+  // })
+  // if obj !== obj then update
   const handleSave = (key: string) => {
     const updatedData = {
       ...categorizedData.string,
