@@ -11,6 +11,7 @@ import BookingSlots from './BookingSlots'
 import ArrayFields from './ArrayFields'
 import Images from './Images'
 import EditButton from './EditButton'
+import Link from 'next/link'
 
 const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
   const categorizedData = Object.entries(res.data).reduce(
@@ -51,12 +52,20 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
           <IoIosInformationCircleOutline className='text-rose-600' />
           <span>{res.data.tour_name}</span>
         </p>
-        <button className='bg-sky-300 p-1 px-2 rounded-sm mt-1 block w-[100px]'>
-          All Tours
-        </button>
-        <button className='bg-blue-300 p-1 px-2 rounded-sm mt-1 block w-[100px]'>
-          Update
-        </button>
+        <div className=' w-[280px] grid grid-cols-2 gap-1'>
+          <button className='bg-sky-300 p-1 px-2 rounded-sm mt-1 block w-full'>
+            All Tours
+          </button>
+          <button className='bg-blue-300 p-1 px-2 rounded-sm mt-1 block w-full '>
+            Update
+          </button>
+          <Link
+            href={`/tours/${tourId}`}
+            className='bg-blue-300 p-1 px-2 rounded-sm mt-1 block  text-center col-span-2'
+          >
+            View Tour
+          </Link>
+        </div>
       </section>
 
       <section className='grid lg:grid-cols-4 gap-5 flex-1 '>

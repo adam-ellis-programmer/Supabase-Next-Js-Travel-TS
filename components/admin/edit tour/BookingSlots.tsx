@@ -21,7 +21,11 @@ const BookingSlots = ({
   const [slotEditingIndex, setslotEditingIndex] = useState<number | null>(null)
   const [dateSlotIndex, setDateSlotIndex] = useState<number | null>(null)
 
-  //
+  // Track any changes made before we commit to db
+  const [editedChanges, setEditedChanges] = useState({})
+
+  // Track any changes to month / year on slot before we make the changes
+  const [yearMonthChanges, setYearMonthChanges] = useState({})
   const handleClick = () => {
     console.log('Handling Booking Updates....')
     console.log(res)
@@ -75,6 +79,7 @@ const BookingSlots = ({
   const toggleShow = () => {
     console.log('toggeling show ...')
   }
+
   const setEdit = (dateIndex: number, slotIndex: number) => {
     setdateEditingIndex(dateIndex) // date
     setslotEditingIndex(slotIndex) // slot
@@ -95,9 +100,122 @@ const BookingSlots = ({
     setDateSlotIndex(slotIndex)
   }
 
+  const handleSave = (key: string, slotIndex: number) => {
+    console.log('logged', key)
+
+    setDefaultData((prev: any) => {
+      // Create a copy of the booking_slots array
+      const updatedBookingSlots = [...prev.booking_slots]
+
+      // Get the slot index from yearMonthChanges
+      const targetSlotIndex = (yearMonthChanges as any).slotIndex
+
+      // Update the specific slot with the new month/year
+      updatedBookingSlots[targetSlotIndex] = {
+        ...updatedBookingSlots[targetSlotIndex],
+        month:
+          (yearMonthChanges as any).month ||
+          updatedBookingSlots[targetSlotIndex].month,
+        year:
+          (yearMonthChanges as any).year ||
+          updatedBookingSlots[targetSlotIndex].year,
+      }
+
+      return {
+        ...prev,
+        booking_slots: updatedBookingSlots,
+      }
+    })
+
+    setYearMonthChanges({}) // Clear changes after saving
+    handleCancelSlotEdit()
+  }
+
+  const handleDateChange = (
+    value: string,
+    slotIndex: number,
+    dateIndex: number,
+    key: string
+  ) => {
+    console.log(key, value)
+
+    const data =
+      defaultData.booking_slots[slotIndex].booking_slot_dates[dateIndex]
+
+    setEditedChanges((prev: any) => ({
+      ...prev,
+      id: data.id,
+      data: {
+        // we was not preserving previous data just re spreading each time
+        ...defaultData.booking_slots[slotIndex].booking_slot_dates[dateIndex],
+        ...(prev.data || {}), // Preserve previous edits
+        [key]: key === 'places' ? Number(value) : value,
+      },
+    }))
+  }
+
+  const handleSaveDate = (slotIndex: number, dateIndex: number) => {
+    setDefaultData((prev: any) => {
+      // Create a deep copy of the booking_slots array
+      const updatedBookingSlots = [...prev.booking_slots]
+
+      // Create a copy of the specific slot
+      const updatedSlot = { ...updatedBookingSlots[slotIndex] }
+
+      // Create a copy of the booking_slot_dates array
+      const updatedDates = [...updatedSlot.booking_slot_dates]
+      // console.log(...updatedDates[dateIndex])
+
+      // Update the specific date with the edited changes
+      updatedDates[dateIndex] = {
+        ...updatedDates[dateIndex],
+
+        ...(editedChanges as any).data, // Merge in the edited data
+      }
+
+      // Update the slot with the new dates
+      updatedSlot.booking_slot_dates = updatedDates
+
+      // Update the booking_slots array
+      updatedBookingSlots[slotIndex] = updatedSlot
+
+      // Return the new state
+      return {
+        ...prev,
+        booking_slots: updatedBookingSlots,
+      }
+    })
+
+    console.log(editedChanges)
+    setEditedChanges({}) // Clear edited changes after saving
+    handleCancel()
+  }
+
   const handleCancelSlotEdit = () => {
     setDateSlotIndex(null)
   }
+
+  const handleMonthYearChange = (
+    value: string,
+    slotIndex: number,
+    key: string
+  ) => {
+    console.log(value, slotIndex)
+
+    // make an object to track the values we are chnaging
+    // only need one object at a time! for this pattern
+    setYearMonthChanges((prev) => {
+      const data = defaultData.booking_slots[slotIndex]
+      console.log(data)
+
+      return {
+        ...prev,
+        slotIndex: slotIndex, // Track which slot
+        [key]: value, // Update the specific key (month or year)
+      }
+    })
+  }
+
   return (
     <div className='mt-10'>
       {/* ADD DATE PICKER */}
@@ -141,11 +259,25 @@ const BookingSlots = ({
                               type='text'
                               name=''
                               id=''
+                              onChange={(e) =>
+                                handleMonthYearChange(
+                                  e.target.value,
+                                  index,
+                                  'month'
+                                )
+                              }
                             />
                             <input
                               defaultValue={item.year}
                               className='border-[2px] rounded-md w-full mx-2 border-blue-400'
                               type='text'
+                              onChange={(e) =>
+                                handleMonthYearChange(
+                                  e.target.value,
+                                  index,
+                                  'year'
+                                )
+                              }
                             />
                           </div>
                         ) : (
@@ -158,7 +290,7 @@ const BookingSlots = ({
                             <IoMdCheckmarkCircle
                               className='text-green-600 text-xl cursor-pointer hover:text-green-700'
                               title='Save'
-                              // onClick={() => handleSave(key)}
+                              onClick={() => handleSave(key, i)}
                             />
                             <IoMdCloseCircle
                               className='text-red-600 text-xl cursor-pointer hover:text-red-700'
@@ -192,12 +324,28 @@ const BookingSlots = ({
                                     type='number'
                                     defaultValue={item.places}
                                     className='w-[100px]  border-blue-500 border-[2px] rounded-md'
+                                    onChange={(e) =>
+                                      handleDateChange(
+                                        e.target.value,
+                                        index,
+                                        i,
+                                        'places'
+                                      )
+                                    }
                                   />
                                   <input
                                     type='date'
                                     name=''
                                     id=''
                                     className='border-blue-500 border-[2px] rounded-md'
+                                    onChange={(e) =>
+                                      handleDateChange(
+                                        e.target.value,
+                                        index,
+                                        i,
+                                        'date'
+                                      )
+                                    }
                                   />
                                 </div>
                               ) : (
@@ -212,7 +360,7 @@ const BookingSlots = ({
                                   <IoMdCheckmarkCircle
                                     className='text-green-600 text-xl cursor-pointer hover:text-green-700'
                                     title='Save'
-                                    // onClick={() => handleSave(key)}
+                                    onClick={() => handleSaveDate(index, i)}
                                   />
                                   <IoMdCloseCircle
                                     className='text-red-600 text-xl cursor-pointer hover:text-red-700'
@@ -226,7 +374,7 @@ const BookingSlots = ({
                                     type='checkbox'
                                     name=''
                                     id=''
-                                    defaultChecked
+                                    defaultChecked={item.show}
                                   />
                                   <button
                                     onClick={() => setEdit(i, index)}
