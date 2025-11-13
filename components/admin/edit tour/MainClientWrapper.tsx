@@ -86,7 +86,11 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
           />
 
           {/* booking slots */}
-          <BookingSlots categorizedData={categorizedData} />
+          <BookingSlots
+            categorizedData={categorizedData}
+            res={res}
+            tourId={tourId}
+          />
         </div>
 
         {/* Arrays */}
