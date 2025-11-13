@@ -20,7 +20,7 @@ const ArrayFields = ({ categorizedData }: { categorizedData: any }) => {
           {/* {console.log(value)} */}
           <div className='flex   items-center  justify-between'>
             <p className='text-orange-600 text-2xl my-3 '>{key}:</p>
-            <button className='bg-blue-400 h-[30px] flex  items-center text-white space-x-2 p-1 px-3 ml-2 rounded'>
+            <button className='bg-blue-400 h-[30px] flex  items-center  space-x-2 p-1 px-3 ml-2 rounded'>
               <FaCirclePlus />
               <span>Point </span>
             </button>

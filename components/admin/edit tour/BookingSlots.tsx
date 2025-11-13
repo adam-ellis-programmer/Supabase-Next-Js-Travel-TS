@@ -3,9 +3,37 @@ import { IoMdCloseCircle } from 'react-icons/io'
 import { MdEditSquare } from 'react-icons/md'
 import EditButton from './EditButton'
 
-const BookingSlots = ({ categorizedData }: { categorizedData: any }) => {
+const BookingSlots = ({
+  categorizedData,
+  tourId,
+  res,
+}: {
+  categorizedData: any
+  tourId: number
+  res: any
+}) => {
+  //
   const handleClick = () => {
     console.log('Handling Booking Updates....')
+    console.log(res)
+  }
+  const handleAddNewBookingSlot = () => {
+    console.log('adding new date ...')
+  }
+  const handleAddNewDate = () => {
+    console.log('adding new date to slot ...')
+  }
+  const handleDeleteSlot = () => {
+    console.log('deleting  date from slot ...')
+  }
+  const toggleShow = () => {
+    console.log('toggeling show ...')
+  }
+  const toggleEdit = () => {
+    console.log('toggle edit mode ...')
+  }
+  const handleDeleteDate = () => {
+    console.log('deleting date ...')
   }
   return (
     <div className='mt-10'>
@@ -72,7 +100,10 @@ const BookingSlots = ({ categorizedData }: { categorizedData: any }) => {
                           )
                         })}
                         <div className='mt-2 flex justify-end'>
-                          <button className='bg-blue-300 px-5 py-1 rounded-md'>
+                          <button
+                            onClick={handleAddNewDate}
+                            className='bg-blue-300 px-5 py-1 rounded-md'
+                          >
                             + add new date
                           </button>
                         </div>
@@ -82,7 +113,10 @@ const BookingSlots = ({ categorizedData }: { categorizedData: any }) => {
                 })}
               </ul>
               <div className='mt-5 flex justify-center items-center'>
-                <button className='bg-rose-500 text-white p-2 rounded-md'>
+                <button
+                  onClick={handleAddNewBookingSlot}
+                  className='bg-rose-500 text-white p-2 rounded-md'
+                >
                   Add New Booking Slot
                 </button>
               </div>

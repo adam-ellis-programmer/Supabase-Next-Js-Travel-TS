@@ -12,24 +12,39 @@ const Booleans = ({
 }) => {
   const [editingIndex, setEditingIndex] = useState(null)
   const [editedItems, seteditedItems] = useState({})
-  const [allBooleans, setallBooleans] = useState(categorizedData.boolean)
-  // editing index
-  // edited values
-  // loading
-  // default data
 
-  const handleClick = () => {
-    // console.log('handle booleans')
-    // console.log(res.data)
-    // console.log(categorizedData.boolean)
-    console.log('allBooleans', allBooleans)
+  // Init data so we can manipulate this as we click
+  const [allBooleans, setallBooleans] = useState(categorizedData.boolean)
+
+  // Handle the update object as a whole as this
+  // re-inforces object handling principles
+
+  // Convert Object to array, clean it with loop, convert back to object
+  const handleUpdateClick = () => {
+    console.log('res', res.data)
+    const resArr = Object.entries(res.data)
+
+    const excludedKeys = [
+      'itineraries',
+      'tour_images',
+      'booking_slots',
+      'created_at',
+      'updated_at',
+    ]
+
+    const filteredData = resArr.filter(([key]) => !excludedKeys.includes(key))
+    const cleanedObject = Object.fromEntries(filteredData)
+
+    // console.log('allBooleans', allBooleans)
+    // console.log('cleanedObject: ', cleanedObject)
+    const dataToUpdate = {
+      ...cleanedObject,
+      ...allBooleans,
+    }
+    console.log('dataToUpdate', dataToUpdate)
   }
 
   const handleBooleanChnage = (key: string, value: boolean) => {
-    const tempdata = {
-      ...categorizedData.boolean,
-    }
-
     setallBooleans((prev: any) => ({
       ...prev,
       [key]: value,
@@ -42,7 +57,7 @@ const Booleans = ({
           <h2 className='font-bold text-lg'>
             Boolean Fields ({Object.keys(categorizedData.boolean || {}).length})
           </h2>
-          <EditButton onClick={handleClick} />
+          <EditButton onClick={handleUpdateClick} />
         </div>
         {Object.entries(categorizedData.boolean || {}).map(([key, value]) => (
           <div
