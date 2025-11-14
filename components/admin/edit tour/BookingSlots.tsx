@@ -21,6 +21,7 @@ const BookingSlots = ({
   const [dateEditingIndex, setdateEditingIndex] = useState<number | null>(null)
   const [slotEditingIndex, setslotEditingIndex] = useState<number | null>(null)
   const [dateSlotIndex, setDateSlotIndex] = useState<number | null>(null)
+  const [loading, setloading] = useState<boolean>(false)
 
   // Track any changes made before we commit to db
   const [editedChanges, setEditedChanges] = useState({})
@@ -29,6 +30,7 @@ const BookingSlots = ({
   const [yearMonthChanges, setYearMonthChanges] = useState({})
 
   const handleDbUpdateClick = () => {
+    // setloading(true)
     console.log('Handling Booking Updates....')
     console.log('RES:', res)
     console.log('defaultData', defaultData)

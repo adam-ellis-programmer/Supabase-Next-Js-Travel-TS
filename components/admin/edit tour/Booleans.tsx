@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import EditButton from './EditButton'
+import { updateTourAdmin } from '@/lib/supabase/actions/admin/admin-actions'
+import { tr } from 'date-fns/locale'
 
 const Booleans = ({
   categorizedData,
@@ -12,6 +14,7 @@ const Booleans = ({
 }) => {
   const [editingIndex, setEditingIndex] = useState(null)
   const [editedItems, seteditedItems] = useState({})
+  const [loading, setloading] = useState(false)
 
   // Init data so we can manipulate this as we click
   const [allBooleans, setallBooleans] = useState(categorizedData.boolean)
@@ -20,8 +23,10 @@ const Booleans = ({
   // re-inforces object handling principles
 
   // Convert Object to array, clean it with loop, convert back to object
-  const handleUpdateClick = () => {
-    console.log('res', res.data)
+  const handleUpdateClick = async () => {
+    setloading(true)
+
+    //1: convert to array for handling
     const resArr = Object.entries(res.data)
 
     const excludedKeys = [
@@ -32,16 +37,29 @@ const Booleans = ({
       'updated_at',
     ]
 
+    //2: run filter to clean data
     const filteredData = resArr.filter(([key]) => !excludedKeys.includes(key))
     const cleanedObject = Object.fromEntries(filteredData)
 
-    // console.log('allBooleans', allBooleans)
-    // console.log('cleanedObject: ', cleanedObject)
+    // spread out to update end object for db entry
     const dataToUpdate = {
       ...cleanedObject,
       ...allBooleans,
     }
     console.log('dataToUpdate', dataToUpdate)
+    console.log('dataToUpdate', Object.entries(dataToUpdate).length)
+    console.log('making boolean updates to db:')
+
+    try {
+      const res = await updateTourAdmin(tourId, dataToUpdate)
+      console.log('success updating booleans to databse:')
+      console.log('res from databse: ', res)
+      console.log('Log finished')
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setloading(false)
+    }
   }
 
   const handleBooleanChnage = (key: string, value: boolean) => {
@@ -50,6 +68,8 @@ const Booleans = ({
       [key]: value,
     }))
   }
+  console.log('allBooleans', allBooleans)
+
   return (
     <div className='space-y-2 text-sm mt-10'>
       <div>
@@ -57,7 +77,15 @@ const Booleans = ({
           <h2 className='font-bold text-lg'>
             Boolean Fields ({Object.keys(categorizedData.boolean || {}).length})
           </h2>
-          <EditButton onClick={handleUpdateClick} />
+
+          {loading ? (
+            <div className=' flex items-center space-x-5 cursor-default'>
+              <div className=' animate-spin h-[30px] w-[30px] border-t-black rounded-full border-[4px] border-green-600'></div>
+              <p className='capitalize text-xl'>updating</p>
+            </div>
+          ) : (
+            <EditButton onClick={handleUpdateClick} />
+          )}
         </div>
         {Object.entries(categorizedData.boolean || {}).map(([key, value]) => (
           <div
@@ -71,7 +99,7 @@ const Booleans = ({
               className='w-[20px] h-[20px]'
               type='checkbox'
               name={key}
-              defaultChecked={true}
+              defaultChecked={allBooleans[key]}
               onChange={(e) => handleBooleanChnage(key, e.target.checked)}
               id={key}
             />
