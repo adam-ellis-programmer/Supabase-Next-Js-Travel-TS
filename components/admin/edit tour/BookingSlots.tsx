@@ -294,6 +294,30 @@ const BookingSlots = ({
     })
   }
 
+  const handleShowBoolean = (
+    value: boolean,
+    slotIndex: number,
+    dateIndex: number
+  ) => {
+    // console.log('value', value)
+    // console.log('slot index', slotIndex)
+    // console.log('date index', dateIndex)
+    // Main objective is to update the data array here and commit these updates in the
+    // main update function
+    setDefaultData((prev: any) => {
+      // 1: first set the copy so we can do stuff do it
+      const updatedBookingSlotsArr = [...prev.booking_slots]
+      // console.log(updatedBookingSlotsArr)
+
+      return {
+        ...prev,
+        // 2: then set that key to the updated value here
+        booking_slots: updatedBookingSlotsArr,
+      }
+    })
+    // console.log(defaultData)
+  }
+
   return (
     <div className='mt-10'>
       {/* ADD DATE PICKER */}
@@ -455,8 +479,16 @@ const BookingSlots = ({
                                     type='checkbox'
                                     name=''
                                     id=''
+                                    onChange={(e) =>
+                                      handleShowBoolean(
+                                        e.target.checked,
+                                        index,
+                                        i
+                                      )
+                                    }
                                     defaultChecked={item.show}
                                   />
+
                                   <button
                                     onClick={() => setEdit(i, index)}
                                     className=''
