@@ -6,6 +6,7 @@ import { LiaPlusCircleSolid } from 'react-icons/lia'
 
 import { IoMdCheckmarkCircle } from 'react-icons/io'
 import { BiSolidNoEntry } from 'react-icons/bi'
+import { booking_slots } from '@/seed/data/booking_slots'
 
 const BookingSlots = ({
   categorizedData,
@@ -26,10 +27,13 @@ const BookingSlots = ({
 
   // Track any changes to month / year on slot before we make the changes
   const [yearMonthChanges, setYearMonthChanges] = useState({})
-  const handleClick = () => {
+
+  const handleDbUpdateClick = () => {
     console.log('Handling Booking Updates....')
-    console.log(res)
+    console.log('RES:', res)
+    console.log('defaultData', defaultData)
   }
+
   const handleAddNewBookingSlot = () => {
     console.log('adding new date ...')
 
@@ -73,8 +77,27 @@ const BookingSlots = ({
     }))
     console.log(defaultData)
   }
-  const handleDeleteSlot = () => {
-    console.log('deleting  date from slot ...')
+  const handleDeleteSlot = (slotIndex: number) => {
+    console.log('deleting  date from slot ...', slotIndex)
+    // console.log(categorizedData.relatedData['booking_slots'][slotIndex])
+    // console.log(categorizedData.relatedData['booking_slots'])
+
+    // console.log(defaultData.booking_slots)
+
+    setDefaultData((prev: any) => {
+      const data = [...defaultData.booking_slots]
+      const filteredData = data.filter((_, i) => i !== slotIndex)
+
+      const updatedData = {
+        ...prev,
+        booking_slots: filteredData,
+      }
+
+      return {
+        ...prev,
+        ...updatedData,
+      }
+    })
   }
   const toggleShow = () => {
     console.log('toggeling show ...')
@@ -106,6 +129,7 @@ const BookingSlots = ({
     setDefaultData((prev: any) => {
       // Create a copy of the booking_slots array
       const updatedBookingSlots = [...prev.booking_slots]
+      console.log('updatedBookingSlots', updatedBookingSlots)
 
       // Get the slot index from yearMonthChanges
       const targetSlotIndex = (yearMonthChanges as any).slotIndex
@@ -113,6 +137,7 @@ const BookingSlots = ({
       // Update the specific slot with the new month/year
       updatedBookingSlots[targetSlotIndex] = {
         ...updatedBookingSlots[targetSlotIndex],
+        // "Use the new month if it exists, otherwise keep the old month
         month:
           (yearMonthChanges as any).month ||
           updatedBookingSlots[targetSlotIndex].month,
@@ -169,7 +194,6 @@ const BookingSlots = ({
       // Update the specific date with the edited changes
       updatedDates[dateIndex] = {
         ...updatedDates[dateIndex],
-
         ...(editedChanges as any).data, // Merge in the edited data
       }
 
@@ -216,6 +240,58 @@ const BookingSlots = ({
     })
   }
 
+  // console.log('Slot Index', slotIndex)
+  // console.log('Date Index', dateIndex)
+  const deleteDate = (slotIndex: number, dateIndex: number) => {
+    console.log('deleting...')
+
+    // 1. Copy the booking_slots array (updatedBookingSlots)
+
+    // 2. Copy the specific slot we're modifying (updatedSlot)
+
+    // 3. Filter out the date at dateIndex (filteredDates)
+
+    // 4. Update the slot with filtered dates (updatedSlot)
+
+    // 5. Put the updated slot back in the array (updatedBookingSlots)
+
+    /**
+     * 1: take the orignal array and copy
+     * 2: take the nested object and copy
+     * 3: grab that objects booking dates
+     * 4: filter out that deleted date from the booking dates object
+     * 5: set the updated dates to the new filtered dates
+     * 6: finally take the updated slot object and nicely place back in the original level one array
+     *
+     */
+
+    setDefaultData((prev: any) => {
+      // console.log('prev', prev)
+
+      const updatedBookingSlots = [...prev.booking_slots]
+
+      const updatedSlot = { ...updatedBookingSlots[slotIndex] } // working with the actual slot object
+      // console.log('updatedSlot', updatedSlot)
+
+      const datesToUpdate = updatedSlot.booking_slot_dates
+
+      // don't need to spread because .filter() already returns a NEW array!
+      // prettier-ignore
+      const filteredDates = datesToUpdate.filter((_:any, i:number ) => i !== dateIndex)
+
+      // 4. Update the slot with filtered dates
+      updatedSlot.booking_slot_dates = filteredDates
+
+      // 5. Put the updated slot back in the array
+      updatedBookingSlots[slotIndex] = updatedSlot
+
+      return {
+        ...prev,
+        booking_slots: updatedBookingSlots,
+      }
+    })
+  }
+
   return (
     <div className='mt-10'>
       {/* ADD DATE PICKER */}
@@ -231,7 +307,7 @@ const BookingSlots = ({
                 <h2 className='font-bold text-lg'>
                   Booking Slot Fields <span>({data?.length})</span>
                 </h2>
-                <EditButton onClick={handleClick} />
+                <EditButton onClick={handleDbUpdateClick} />
               </div>
               <div className='flex justify-end space-x-5 capitalize'>
                 <span>s</span>
@@ -303,7 +379,10 @@ const BookingSlots = ({
                             <button onClick={() => handleEditSlotDate(index)}>
                               <MdEditSquare className='text-black ' />
                             </button>
-                            <button className=''>
+                            <button
+                              onClick={() => handleDeleteSlot(index)}
+                              className=''
+                            >
                               <IoMdCloseCircle className='text-red-500' />
                             </button>
                           </div>
@@ -356,7 +435,7 @@ const BookingSlots = ({
                               )}
                               {dateEditingIndex === i &&
                               slotEditingIndex === index ? (
-                                <div className='flex space-x-2'>
+                                <div className='flex space-x-2  items-center'>
                                   <IoMdCheckmarkCircle
                                     className='text-green-600 text-xl cursor-pointer hover:text-green-700'
                                     title='Save'
@@ -382,7 +461,10 @@ const BookingSlots = ({
                                   >
                                     <MdEditSquare className='text-black ' />
                                   </button>
-                                  <button className=''>
+                                  <button
+                                    onClick={() => deleteDate(index, i)}
+                                    className=''
+                                  >
                                     <IoMdCloseCircle className='text-red-500' />
                                   </button>
                                 </div>

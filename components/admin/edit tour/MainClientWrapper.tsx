@@ -41,12 +41,12 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
   )
   // Update in sections
   return (
-    <div className='min-h-[calc(100vh-100px)] max-w-[1770px] mx-auto border flex flex-col p-6'>
+    <div className='min-h-[calc(100vh-100px)] max-w-[1770px] mx-auto  flex flex-col p-6'>
       <section className='mb-6 border-b pb-7'>
         <h1 className=' text-2xl font-bold'>Edit Tour Page</h1>
         <p className='capitalize'>
           {' '}
-          access level <span> (5)</span>
+          page access level <span> (5)</span>
         </p>
         <p className='flex items-center space-x-2'>
           <IoIosInformationCircleOutline className='text-rose-600' />
