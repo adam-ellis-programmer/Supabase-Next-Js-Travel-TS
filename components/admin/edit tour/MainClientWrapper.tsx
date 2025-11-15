@@ -12,6 +12,7 @@ import ArrayFields from './ArrayFields'
 import Images from './Images'
 import EditButton from './EditButton'
 import Link from 'next/link'
+import AlertModal from './AlertModal'
 
 const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
   const categorizedData = Object.entries(res.data).reduce(
@@ -42,6 +43,9 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
   // Update in sections
   return (
     <div className='min-h-[calc(100vh-100px)] max-w-[1770px] mx-auto  flex flex-col p-6'>
+      <div className='fixed top-0 left-0 w-full h-full bg-[#32475b6c] flex justify-center items-center'>
+        {/* <AlertModal /> */}
+      </div>
       <section className='mb-6 border-b pb-7'>
         <h1 className=' text-2xl font-bold'>Edit Tour Page</h1>
         <p className='capitalize'>

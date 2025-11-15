@@ -7,6 +7,7 @@ import { LiaPlusCircleSolid } from 'react-icons/lia'
 import { IoMdCheckmarkCircle } from 'react-icons/io'
 import { BiSolidNoEntry } from 'react-icons/bi'
 import { booking_slots } from '@/seed/data/booking_slots'
+import { updateBookingDates } from '@/lib/supabase/actions/admin/booking-slot-actions'
 
 const BookingSlots = ({
   categorizedData,
@@ -29,13 +30,24 @@ const BookingSlots = ({
   // Track any changes to month / year on slot before we make the changes
   const [yearMonthChanges, setYearMonthChanges] = useState({})
 
-  const handleDbUpdateClick = () => {
-    // setloading(true)
+  const handleUpdateClick = async () => {
+    setloading(true)
     console.log('Handling Booking Updates....')
     console.log('RES:', res)
-    console.log('defaultData', defaultData)
-  }
+    console.log('defaultData', defaultData.booking_slots)
 
+    const result = await updateBookingDates(defaultData.booking_slots, tourId)
+
+    if (result.success) {
+      console.log('✅ Success:', result.message)
+      // Optionally refresh data or show success message
+    } else {
+      console.error('❌ Error:', result.message)
+      // Show error message to user
+    }
+
+    setloading(false)
+  }
   const handleAddNewBookingSlot = () => {
     console.log('adding new date ...')
 
@@ -306,9 +318,30 @@ const BookingSlots = ({
     // main update function
     setDefaultData((prev: any) => {
       // 1: first set the copy so we can do stuff do it
+      // 1: first set the copy so we can do stuff do it
       const updatedBookingSlotsArr = [...prev.booking_slots]
       // console.log(updatedBookingSlotsArr)
 
+      const updatedBookingSlot = { ...updatedBookingSlotsArr[slotIndex] }
+      // console.log('booking slot: ', updatedBookingSlot)
+      const updatedBookingDates = updatedBookingSlot.booking_slot_dates
+
+      updatedBookingDates[dateIndex].show = value
+      console.log('updatedBookingDates', updatedBookingDates[dateIndex])
+
+      // PLACE UPDATED OBJECT BACK IN THE NEW ARRAY WE RETURN
+      // PLACE UPDATED OBJECT BACK IN THE NEW ARRAY WE RETURN
+      // PLACE UPDATED OBJECT BACK IN THE NEW ARRAY WE RETURN
+      // <- take the original copy use the slot index and set the new copy of the object
+      // make tracker for unsaved changes made
+      // next create a booking slots action database call with admin check etc
+
+      // --> ARRAY <--      --INDEX--        --> OBJECT <--
+      updatedBookingSlotsArr[slotIndex] = updatedBookingSlot
+      // --> ARRAY <--      --INDEX--        --> OBJECT <--
+
+      // next copy the object we are going to work on {...} and spread
+      // Look up how react looks and detects changes for re-renders
       return {
         ...prev,
         // 2: then set that key to the updated value here
@@ -333,7 +366,14 @@ const BookingSlots = ({
                 <h2 className='font-bold text-lg'>
                   Booking Slot Fields <span>({data?.length})</span>
                 </h2>
-                <EditButton onClick={handleDbUpdateClick} />
+                {loading ? (
+                  <div className=' flex items-center space-x-5 cursor-default'>
+                    <div className=' animate-spin h-[30px] w-[30px] border-t-black rounded-full border-[4px] border-green-600'></div>
+                    <p className='capitalize text-xl'>updating</p>
+                  </div>
+                ) : (
+                  <EditButton onClick={handleUpdateClick} />
+                )}
               </div>
               <div className='flex justify-end space-x-5 capitalize'>
                 <span>s</span>
