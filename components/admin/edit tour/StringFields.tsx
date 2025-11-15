@@ -9,10 +9,12 @@ const StringFields = ({
   categorizedData,
   tourId,
   res,
+  setShowAlert,
 }: {
   categorizedData: any
   tourId: number
   res: any
+  setShowAlert: (boolean: boolean) => void
 }) => {
   // set which index here
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
@@ -52,6 +54,7 @@ const StringFields = ({
       console.log('Updated Successfully')
       console.log('returned data: ', data)
       setLoading(false)
+      setShowAlert(true)
     } catch (error) {
       console.log(error)
     } finally {

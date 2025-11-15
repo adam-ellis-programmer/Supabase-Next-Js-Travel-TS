@@ -40,6 +40,8 @@ const BookingSlots = ({
 
     if (result.success) {
       console.log('✅ Success:', result.message)
+      console.log(result)
+
       // Optionally refresh data or show success message
     } else {
       console.error('❌ Error:', result.message)
@@ -95,7 +97,6 @@ const BookingSlots = ({
     console.log('deleting  date from slot ...', slotIndex)
     // console.log(categorizedData.relatedData['booking_slots'][slotIndex])
     // console.log(categorizedData.relatedData['booking_slots'])
-
     // console.log(defaultData.booking_slots)
 
     setDefaultData((prev: any) => {
