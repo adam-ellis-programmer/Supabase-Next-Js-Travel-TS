@@ -18,7 +18,7 @@ const AlertModal = ({
           />
         </div>
         <div className='flex justify-center items-center  h-full flex-col'>
-          <p className='text-center text-2xl'>update complete</p>
+          <p className='text-center text-2xl capitalize'>update complete!</p>
           <div className='flex justify-center'>
             <div className='text-5xl flex justify-center mt-1'>
               <IoMdCheckmarkCircle className='text-green-500 animate-pulse ' />

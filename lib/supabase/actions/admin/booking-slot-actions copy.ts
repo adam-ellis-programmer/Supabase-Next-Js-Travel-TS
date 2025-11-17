@@ -37,7 +37,7 @@ interface UpdateResult {
   success: boolean
   message: string
 }
-
+// can assign a slotId to each new date in that slot in the dom
 // ==========================================================================================================
 // -- UPDATE BOOKING DATES
 // ==========================================================================================================
@@ -78,10 +78,8 @@ export async function updateBookingDates(
     console.log('currentSlotIds:', currentSlotIds) // log
 
     // Step 3: Identify slots to delete (existed before but not in current data)
-    const slotsToDelete =
-      (existingSlots as ExistingSlot[])?.filter(
-        (slot) => !currentSlotIds.has(slot.id)
-      ) || []
+    // prettier-ignore
+    const slotsToDelete = (existingSlots as ExistingSlot[])?.filter((slot) => !currentSlotIds.has(slot.id)) || []
 
     console.log('slotsToDelete:', slotsToDelete) // log
 
@@ -108,6 +106,7 @@ export async function updateBookingDates(
 
     // Step 5: Insert new booking slots
     const insertedSlots: Array<BookingSlot & { dates: BookingSlotDate[] }> = []
+
     for (const slot of newSlots) {
       const { booking_slot_dates, ...slotData } = slot
 
@@ -126,10 +125,8 @@ export async function updateBookingDates(
 
       if (insertSlotError) throw insertSlotError
 
-      insertedSlots.push({
-        ...(insertedSlot as BookingSlot),
-        dates: booking_slot_dates || [],
-      })
+      // prettier-ignore
+      insertedSlots.push({...(insertedSlot as BookingSlot), dates: booking_slot_dates || [],})
     }
 
     // Step 6: Update existing booking slots
@@ -197,24 +194,20 @@ async function updateBookingSlotDates(
       .filter(Boolean) as number[]
   )
 
+  // categorize
   // Separate into new and existing dates
-  const newDates = dates.filter(
-    (date) => !date.id || !existingDateIds.has(date.id)
-  )
-  const existingUpdatedDates = dates.filter(
-    (date) => date.id && existingDateIds.has(date.id)
-  )
-  const currentDateIds = new Set(
-    dates.map((date) => date.id).filter(Boolean) as number[]
-  )
-
-  console.log('currentDateIds', currentDateIds)
-
+  //
+  // prettier-ignore
+  const newDates = dates.filter((date) => !date.id || !existingDateIds.has(date.id))
+  // prettier-ignore
+  const existingUpdatedDates = dates.filter((date) => date.id && existingDateIds.has(date.id))
+  // prettier-ignore
+  const currentDateIds = new Set(dates.map((date) => date.id).filter(Boolean) as number[])
+  //
   // Delete removed dates
-  const datesToDelete =
-    (existingDates as BookingSlotDate[])?.filter(
-      (date) => date.id && !currentDateIds.has(date.id)
-    ) || []
+  // prettier-ignore
+  const datesToDelete =(existingDates as BookingSlotDate[])?.filter( (date) => date.id && !currentDateIds.has(date.id)) || []
+
   if (datesToDelete.length > 0) {
     const { error: deleteError } = await supabase
       .from('booking_slot_dates')

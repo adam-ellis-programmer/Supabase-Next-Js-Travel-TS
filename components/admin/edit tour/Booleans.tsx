@@ -68,7 +68,7 @@ const Booleans = ({
       [key]: value,
     }))
   }
-  console.log('allBooleans', allBooleans)
+
 
   return (
     <div className='space-y-2 text-sm mt-10'>

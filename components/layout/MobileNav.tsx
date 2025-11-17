@@ -46,7 +46,7 @@ const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
 
       try {
         await Promise.all(promises)
-        console.log('Mobile nav images preloaded successfully')
+        // console.log('Mobile nav images preloaded successfully')
       } catch (error) {
         console.error('Error preloading mobile nav images:', error)
       }

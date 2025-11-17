@@ -31,20 +31,32 @@ const BookingSlots = ({
   const [yearMonthChanges, setYearMonthChanges] = useState({})
 
   const handleUpdateClick = async () => {
-    setloading(true)
+    // setloading(true)
     console.log('Handling Booking Updates....')
     console.log('RES:', res)
     console.log('defaultData', defaultData.booking_slots)
-
+    // return
     const result = await updateBookingDates(defaultData.booking_slots, tourId)
 
-    if (result.success) {
+    if (result?.success) {
       console.log('✅ Success:', result.message)
-      console.log(result)
+      console.log('res from db: ', result)
+
+      const dates = result.existingUpdatedSlots
+
+      // for (const date of dates) {
+      //   // console.log(date)
+
+      //   const { booking_slot_dates } = date
+
+      //   for (const d of booking_slot_dates) {
+      //     console.log(d)
+      //   }
+      // }
 
       // Optionally refresh data or show success message
     } else {
-      console.error('❌ Error:', result.message)
+      console.error('❌ Error:', result?.message)
       // Show error message to user
     }
 
@@ -391,9 +403,12 @@ const BookingSlots = ({
                   return (
                     <li
                       key={index}
-                      className='mb-4 border-b border-dashed border-[#b0a3a3cd]'
+                      className='mb-4 border-b border-dashed border-[#b0a3a3cd] '
                     >
-                      <div className='flex mb-2  border-b-[1px] border-dashed  justify-between '>
+                      <span className='bg-rose-500 text-white rounded-lg px-[2px] p-[1px]'>
+                      {item.id}
+                      </span>
+                      <div className='flex mb-2  border-b-[1px] border-dashed  justify-between  '>
                         {dateSlotIndex === index ? (
                           <div className='flex w-[200px]'>
                             <input
@@ -495,9 +510,9 @@ const BookingSlots = ({
                                   />
                                 </div>
                               ) : (
-                                <div className=' space-x-8'>
-                                  <span className=''>{item.places}</span>
-                                  <span className=''>{item.date}</span>
+                                <div className=''>
+                                  <span className=' inline-block w-12'>{item.places}</span>
+                                  <span className=' inline-block '>{item.date}</span>
                                 </div>
                               )}
                               {dateEditingIndex === i &&
