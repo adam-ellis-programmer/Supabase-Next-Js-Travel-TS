@@ -23,6 +23,7 @@ const BookingSlots = ({
   const [slotEditingIndex, setslotEditingIndex] = useState<number | null>(null)
   const [dateSlotIndex, setDateSlotIndex] = useState<number | null>(null)
   const [loading, setloading] = useState<boolean>(false)
+  const [updateActivate, setupdateActivate] = useState<boolean>(false)
 
   // Track any changes made before we commit to db
   const [editedChanges, setEditedChanges] = useState({})
@@ -36,7 +37,11 @@ const BookingSlots = ({
     console.log('RES:', res)
     console.log('defaultData', defaultData.booking_slots)
     // return
-    const result = await updateBookingDates(defaultData.booking_slots, tourId)
+    const result = await updateBookingDates(
+      updateActivate,
+      defaultData.booking_slots,
+      tourId
+    )
 
     if (result?.success) {
       console.log('✅ Success:', result.message)
@@ -406,7 +411,7 @@ const BookingSlots = ({
                       className='mb-4 border-b border-dashed border-[#b0a3a3cd] '
                     >
                       <span className='bg-rose-500 text-white rounded-lg px-[2px] p-[1px]'>
-                      {item.id}
+                        {item.id}
                       </span>
                       <div className='flex mb-2  border-b-[1px] border-dashed  justify-between  '>
                         {dateSlotIndex === index ? (
@@ -511,8 +516,12 @@ const BookingSlots = ({
                                 </div>
                               ) : (
                                 <div className=''>
-                                  <span className=' inline-block w-12'>{item.places}</span>
-                                  <span className=' inline-block '>{item.date}</span>
+                                  <span className=' inline-block w-12'>
+                                    {item.places}
+                                  </span>
+                                  <span className=' inline-block '>
+                                    {item.date}
+                                  </span>
                                 </div>
                               )}
                               {dateEditingIndex === i &&
