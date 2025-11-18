@@ -23,7 +23,7 @@ const BookingSlots = ({
   const [slotEditingIndex, setslotEditingIndex] = useState<number | null>(null)
   const [dateSlotIndex, setDateSlotIndex] = useState<number | null>(null)
   const [loading, setloading] = useState<boolean>(false)
-  const [updateActivate, setupdateActivate] = useState<boolean>(false)
+  const [updateActivate, setupdateActivate] = useState<boolean>(true)
 
   // Track any changes made before we commit to db
   const [editedChanges, setEditedChanges] = useState({})
@@ -32,40 +32,45 @@ const BookingSlots = ({
   const [yearMonthChanges, setYearMonthChanges] = useState({})
 
   const handleUpdateClick = async () => {
-    // setloading(true)
+    setloading(true)
     console.log('Handling Booking Updates....')
     console.log('RES:', res)
     console.log('defaultData', defaultData.booking_slots)
     // return
-    const result = await updateBookingDates(
-      updateActivate,
-      defaultData.booking_slots,
-      tourId
-    )
 
-    if (result?.success) {
-      console.log('✅ Success:', result.message)
-      console.log('res from db: ', result)
+    try {
+      const result = await updateBookingDates(
+        updateActivate,
+        defaultData.booking_slots,
+        tourId
+      )
 
-      const dates = result.existingUpdatedSlots
+      if (result?.success) {
+        console.log('✅ Success:', result.message)
+        console.log('res from db: ', result)
 
-      // for (const date of dates) {
-      //   // console.log(date)
+        const dates = result.existingUpdatedSlots
 
-      //   const { booking_slot_dates } = date
+        // for (const date of dates) {
+        //   // console.log(date)
 
-      //   for (const d of booking_slot_dates) {
-      //     console.log(d)
-      //   }
-      // }
+        //   const { booking_slot_dates } = date
 
-      // Optionally refresh data or show success message
-    } else {
-      console.error('❌ Error:', result?.message)
-      // Show error message to user
+        //   for (const d of booking_slot_dates) {
+        //     console.log(d)
+        //   }
+        // }
+
+        // Optionally refresh data or show success message
+      } else {
+        console.error('❌ Error:', result?.message)
+        // Show error message to user
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setloading(false)
     }
-
-    setloading(false)
   }
   const handleAddNewBookingSlot = () => {
     console.log('adding new date ...')
@@ -155,13 +160,20 @@ const BookingSlots = ({
     setDateSlotIndex(slotIndex)
   }
 
-  const handleSave = (key: string, slotIndex: number) => {
+  const handleSaveSlotData = (key: string, slotIndex: number) => {
     console.log('logged', key)
+
+    // check if yearMonthChanges has length to stop [Cannot read properties of undefined (reading 'month')]
+    if (Object.keys(yearMonthChanges).length === 0) {
+      handleCancelSlotEdit()
+      return
+    }
 
     setDefaultData((prev: any) => {
       // Create a copy of the booking_slots array
       const updatedBookingSlots = [...prev.booking_slots]
       console.log('updatedBookingSlots', updatedBookingSlots)
+      console.log('yearMonthChanges', yearMonthChanges)
 
       // Get the slot index from yearMonthChanges
       const targetSlotIndex = (yearMonthChanges as any).slotIndex
@@ -453,7 +465,7 @@ const BookingSlots = ({
                             <IoMdCheckmarkCircle
                               className='text-green-600 text-xl cursor-pointer hover:text-green-700'
                               title='Save'
-                              onClick={() => handleSave(key, i)}
+                              onClick={() => handleSaveSlotData(key, i)}
                             />
                             <IoMdCloseCircle
                               className='text-red-600 text-xl cursor-pointer hover:text-red-700'
