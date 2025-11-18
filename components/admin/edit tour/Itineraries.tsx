@@ -1,13 +1,39 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { IoIosInformationCircleOutline, IoMdCloseCircle } from 'react-icons/io'
+import {
+  IoIosInformationCircleOutline,
+  IoMdCheckmarkCircle,
+  IoMdCloseCircle,
+} from 'react-icons/io'
 import { MdEditSquare } from 'react-icons/md'
+
 const Itineraries = ({ categorizedData }: { categorizedData: any }) => {
+  const [editIndex, seteditIndex] = useState<number | null>(null)
+  const [isEditing, setIsEditing] = useState(false)
+
+  const handleSetEditMode = (index: number) => {
+    console.log(index)
+    seteditIndex(index)
+    setIsEditing(true)
+  }
+
+  const handleCancelEditMode = () => {
+    seteditIndex(null)
+    console.log('clicked')
+
+    setIsEditing(false)
+  }
+
+  const handleTextChange = () => {}
+  const handleSaveToDB = () => {}
+  // Hero Images have their own table
+  // Hero Images have their own table
   return (
     <div>
       <h3 className='text-2xl my-5'>Itineraries </h3>
@@ -20,7 +46,7 @@ const Itineraries = ({ categorizedData }: { categorizedData: any }) => {
             <ul>
               <Accordion
                 type='single'
-                collapsible
+                collapsible={!isEditing}
                 className='w-full'
                 defaultValue='item-0'
               >
@@ -28,27 +54,53 @@ const Itineraries = ({ categorizedData }: { categorizedData: any }) => {
                   return (
                     <AccordionItem key={i} value={`item-${i}`}>
                       <AccordionTrigger className='bg-blue-200 mb-3 px-5'>
-                        <div className='w-full flex justify-between'>
-                          <p> {item.day_title}</p>{' '}
-                          <p>Day ({item.day_number})</p>
+                        <div className='w-full flex justify-between '>
+                          {editIndex === i ? (
+                            <input
+                              type='text'
+                              defaultValue={item.day_title}
+                              className='rounded-md w-3/4'
+                            />
+                          ) : (
+                            <p> {item.day_title}</p>
+                          )}
+                          <p className=''>Day ({item.day_number})</p>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className='flex flex-col gap-4 text-balance'>
-                        <div className=' flex justify-end space-x-3'>
-                          <button className='cursor-pointer'>
-                            <MdEditSquare className='text-black text-2xl' />
-                          </button>
-                          <button className='cursor-pointer'>
-                            <IoMdCloseCircle className='text-2xl' />
-                          </button>
-                        </div>
-                        {/* <p>{item.day_description}</p> */}
-                        <textarea
-                          className='min-h-[250px] outline-none -mt-2'
-                          name=''
-                          id=''
-                          defaultValue={item.day_description}
-                        ></textarea>
+                        {editIndex === i ? (
+                          <div className='flex space-x-2 items-center '>
+                            <IoMdCheckmarkCircle
+                              className='text-green-600 text-xl cursor-pointer hover:text-green-700'
+                              title='Save'
+                              onClick={() => handleCancelEditMode()}
+                            />
+                            <IoMdCloseCircle
+                              className='text-red-600 text-xl cursor-pointer hover:text-red-700'
+                              title='Cancel'
+                              onClick={() => handleCancelEditMode()}
+                            />
+                          </div>
+                        ) : (
+                          <div className=' flex justify-end space-x-3'>
+                            <button
+                              onClick={() => handleSetEditMode(i)}
+                              className='cursor-pointer'
+                            >
+                              <MdEditSquare className='text-black text-2xl' />
+                            </button>
+                          </div>
+                        )}
+                        {editIndex === i ? (
+                          <textarea
+                            className='min-h-[250px] outline-none -mt-2 border rounded-lg border-rose-400 p-3'
+                            name=''
+                            id=''
+                            defaultValue={item.day_description}
+                          ></textarea>
+                        ) : (
+                          <p>{item.day_description}</p>
+                        )}
                       </AccordionContent>
                     </AccordionItem>
                   )

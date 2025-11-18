@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/accordion'
 import { MdEditSquare } from 'react-icons/md'
 import { IoMdCloseCircle } from 'react-icons/io'
+import AddNewImagesButton from './AddNewImagesButton'
 const Images = ({ categorizedData }: { categorizedData: any }) => {
   return (
     <div className=''>
@@ -17,6 +18,8 @@ const Images = ({ categorizedData }: { categorizedData: any }) => {
           src='https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?w=1200'
           alt=''
         />
+
+        <AddNewImagesButton />
 
         <div className=' absolute top-0 left-0 w-full flex justify-between  z-10 text-3xl px-2 py-1'>
           <button className=''>
