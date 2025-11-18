@@ -7,10 +7,12 @@ const Booleans = ({
   categorizedData,
   tourId,
   res,
+  setShowAlert,
 }: {
   categorizedData: any
   tourId: number
   res: any
+  setShowAlert: (boolean: boolean) => void
 }) => {
   const [editingIndex, setEditingIndex] = useState(null)
   const [editedItems, seteditedItems] = useState({})
@@ -52,6 +54,7 @@ const Booleans = ({
 
     try {
       const res = await updateTourAdmin(tourId, dataToUpdate)
+      setShowAlert(true)
       console.log('success updating booleans to databse:')
       console.log('res from databse: ', res)
       console.log('Log finished')
@@ -68,7 +71,6 @@ const Booleans = ({
       [key]: value,
     }))
   }
-
 
   return (
     <div className='space-y-2 text-sm mt-10'>

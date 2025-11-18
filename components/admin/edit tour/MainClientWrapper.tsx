@@ -13,9 +13,12 @@ import Images from './Images'
 import EditButton from './EditButton'
 import Link from 'next/link'
 import AlertModal from './AlertModal'
+import Itineraries from './Itineraries'
+import AlertDeleteModal from './AlertDeleteModal'
 
 const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
   const [showAlert, setShowAlert] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
   const categorizedData = Object.entries(res.data).reduce(
     (acc, [key, value]) => {
       // Skip related data objects (related tables)
@@ -45,6 +48,9 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
   return (
     <div className='min-h-[calc(100vh-100px)] max-w-[1770px] mx-auto  flex flex-col p-6'>
       {showAlert && <AlertModal setShowAlert={setShowAlert} />}
+      {showDeleteModal && (
+        <AlertDeleteModal setShowDeleteModal={setShowDeleteModal} />
+      )}
       <section className='mb-6 border-b pb-7'>
         <h1 className=' text-2xl font-bold'>Edit Tour Page</h1>
         <p className='capitalize'>
@@ -68,6 +74,12 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
           >
             View Tour
           </Link>
+          <button
+            onClick={() => setShowDeleteModal(true)}
+            className='bg-rose-300 p-1 px-2 rounded-sm mt-1 block  text-center col-span-2'
+          >
+            Remove Tour
+          </button>
         </div>
       </section>
 
@@ -88,6 +100,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
             categorizedData={categorizedData}
             res={res}
             tourId={tourId}
+            setShowAlert={setShowAlert}
           />
 
           {/* Booleans */}
@@ -96,6 +109,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
             categorizedData={categorizedData}
             res={res}
             tourId={tourId}
+            setShowAlert={setShowAlert}
           />
 
           {/* booking slots */}
@@ -103,42 +117,21 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
             categorizedData={categorizedData}
             res={res}
             tourId={tourId}
+            setShowAlert={setShowAlert}
           />
         </div>
 
         {/* Arrays */}
         <div className=' border-orange-400 p-4 overflow-auto'>
-          <ArrayFields categorizedData={categorizedData} />
-
-          {/* <h2 className='font-bold text-lg mt-4 mb-3'>Related Data</h2> */}
-          <div className='space-y-2 text-sm'></div>
+          <ArrayFields
+            categorizedData={categorizedData}
+            tourId={tourId}
+            setShowAlert={setShowAlert}
+          />
         </div>
-        <div>
-          <div>
-            <div className='flex justify-between mb-5'>
-              <p className='font-bold text-lg'>Hero Image</p>
-              {/* <EditButton /> */}
-            </div>
-            <div className='relative'>
-              <img
-                className='rounded-md w-full object-cover'
-                src='https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?w=1200'
-                alt=''
-              />
-
-              <div className=' absolute top-0 left-0 w-full flex justify-between  z-10 text-3xl px-2 py-1'>
-                <button className=''>
-                  <MdEditSquare className='text-black ' />
-                </button>
-                <button>
-                  {/* <MdDelete className='text-green-600' /> */}
-                  <IoMdCloseCircle />
-                </button>
-              </div>
-            </div>
-          </div>
-          <h2 className='font-bold text-lg mt-4 mb-3'>Related Data</h2>
+        <div className=''>
           <Images categorizedData={categorizedData} />
+          <Itineraries categorizedData={categorizedData} />
         </div>
       </section>
     </div>

@@ -9,10 +9,12 @@ const NumberFields = ({
   categorizedData,
   res,
   tourId,
+  setShowAlert,
 }: {
   categorizedData: any
   res: any
   tourId: number
+  setShowAlert: (boolean: boolean) => void
 }) => {
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [defaultDAta, setDefaultDAta] = useState(categorizedData.number)
@@ -56,6 +58,7 @@ const NumberFields = ({
       const data = await updateTourAdmin(tourId, dataObj)
       console.log('update success')
       console.log('update data', data)
+      setShowAlert(true)
     } catch (error) {
       console.log(error)
     } finally {

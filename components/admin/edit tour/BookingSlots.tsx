@@ -1,22 +1,23 @@
 import React, { useState } from 'react'
 import { IoMdCloseCircle } from 'react-icons/io'
 import { MdEditSquare } from 'react-icons/md'
-import EditButton from './EditButton'
 import { LiaPlusCircleSolid } from 'react-icons/lia'
-
 import { IoMdCheckmarkCircle } from 'react-icons/io'
 import { BiSolidNoEntry } from 'react-icons/bi'
-import { booking_slots } from '@/seed/data/booking_slots'
+import EditButton from './EditButton'
+
 import { updateBookingDates } from '@/lib/supabase/actions/admin/booking-slot-actions'
 
 const BookingSlots = ({
   categorizedData,
   tourId,
   res,
+  setShowAlert,
 }: {
   categorizedData: any
   tourId: number
   res: any
+  setShowAlert: (boolean: boolean) => void
 }) => {
   const [defaultData, setDefaultData] = useState(categorizedData.relatedData)
   const [dateEditingIndex, setdateEditingIndex] = useState<number | null>(null)
@@ -50,18 +51,7 @@ const BookingSlots = ({
         console.log('res from db: ', result)
 
         const dates = result.existingUpdatedSlots
-
-        // for (const date of dates) {
-        //   // console.log(date)
-
-        //   const { booking_slot_dates } = date
-
-        //   for (const d of booking_slot_dates) {
-        //     console.log(d)
-        //   }
-        // }
-
-        // Optionally refresh data or show success message
+        setShowAlert(true)
       } else {
         console.error('❌ Error:', result?.message)
         // Show error message to user
