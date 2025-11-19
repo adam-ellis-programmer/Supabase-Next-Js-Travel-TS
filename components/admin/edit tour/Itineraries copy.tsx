@@ -3,8 +3,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { TbHandGrab } from 'react-icons/tb'
 import { GoGrabber } from 'react-icons/go'
 import { itinerariesUpdate } from '@/lib/supabase/actions/admin/itineraries-actions'
-import { IoMdAddCircleOutline } from 'react-icons/io'
-
 import {
   Accordion,
   AccordionContent,
@@ -19,23 +17,13 @@ import {
 import { MdEditSquare } from 'react-icons/md'
 import EditButton from './EditButton'
 
-const Itineraries = ({
-  categorizedData,
-  tourId,
-  setShowAlert,
-}: {
-  categorizedData: any
-  tourId: number
-  setShowAlert: (boolean: boolean) => void
-}) => {
+const Itineraries = ({ categorizedData }: { categorizedData: any }) => {
   const [editIndex, setEditIndex] = useState<number | null>(null)
   const [isEditing, setIsEditing] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loading, setloading] = useState(false)
   const [defaultData, setDefaultData] = useState(categorizedData.relatedData)
   // Store temporary edits before committing
   const [tempEdits, setTempEdits] = useState<any>({})
-  // Track which items have been modified
-  const [modifiedItems, setModifiedItems] = useState<Set<number>>(new Set())
 
   const handleSetEditMode = (index: number) => {
     console.log(index)
@@ -48,7 +36,11 @@ const Itineraries = ({
     })
   }
 
-  const handleCancelEditMode = () => {
+  const handleCancelEditMode = async () => {
+    const res = await itinerariesUpdate()
+    console.log(res)
+    return
+
     setEditIndex(null)
     setIsEditing(false)
     setTempEdits({}) // Clear temporary edits
@@ -62,35 +54,9 @@ const Itineraries = ({
     }))
   }
 
-  const handleSaveToDB = async () => {
-    if (modifiedItems.size === 0) {
-      console.log('No changes to save')
-      return
-    }
-
-    setLoading(true)
-
-    // Get only the modified items
-    const itemsToUpdate = Array.from(modifiedItems).map((index) => ({
-      ...defaultData.itineraries[index],
-      index, // Include the index if needed for identification
-    }))
-
-    console.log('Items to update:', itemsToUpdate)
-
-    try {
-      const res = await itinerariesUpdate(tourId, itemsToUpdate)
-      console.log(res)
-      // console.log('test', modifiedItems)
-
-      // Clear modified items after successful update
-      setModifiedItems(new Set())
-      setShowAlert(true)
-    } catch (error) {
-      console.error('Error updating itineraries:', error)
-    } finally {
-      setLoading(false)
-    }
+  const handleSaveToDB = () => {
+    console.log('defaultData: ', defaultData.itineraries)
+    // Add your API call here to save to database
   }
 
   const handleSaveToDom = (index: number) => {
@@ -107,19 +73,12 @@ const Itineraries = ({
       itineraries: updatedItineraries,
     })
 
-    // Mark this item as modified
-    setModifiedItems((prev) => new Set(prev).add(index))
-
     console.log('items updated: ', updatedItineraries[index])
 
     // Reset edit mode
     setEditIndex(null)
     setIsEditing(false)
     setTempEdits({})
-  }
-
-  const handleAddDay = () => {
-    console.log('adding day')
   }
 
   return (
@@ -132,15 +91,7 @@ const Itineraries = ({
             <p className='capitalize text-xl'>updating</p>
           </div>
         ) : (
-          <div className='flex items-center space-x-3'>
-            <EditButton onClick={handleSaveToDB} />
-            {modifiedItems.size > 0 && (
-              <span className='text-sm text-orange-600'>
-                {modifiedItems.size} item{modifiedItems.size > 1 ? 's' : ''}{' '}
-                modified
-              </span>
-            )}
-          </div>
+          <EditButton onClick={handleSaveToDB} />
         )}
       </div>
       {Object.entries(defaultData || {}).map(([key, value]) => (
@@ -156,11 +107,7 @@ const Itineraries = ({
                 {(value as any[]).map((item, i) => {
                   return (
                     <AccordionItem key={i} value={`item-${i}`}>
-                      <AccordionTrigger
-                        className={`mb-3 px-5 ${
-                          modifiedItems.has(i) ? 'bg-orange-200' : 'bg-blue-200'
-                        }`}
-                      >
+                      <AccordionTrigger className='bg-blue-200 mb-3 px-5'>
                         <div className='w-full flex justify-between relative'>
                           {editIndex === i ? (
                             <input
@@ -228,15 +175,6 @@ const Itineraries = ({
           )}
         </div>
       ))}
-      <div className='flex justify-end'>
-        <button
-          onClick={handleAddDay}
-          className='flex items-center space-x-3 bg-blue-300 px-4 py-1 rounded'
-        >
-          <IoMdAddCircleOutline />
-          <span className='capitalize'>day</span>
-        </button>
-      </div>
     </div>
   )
 }

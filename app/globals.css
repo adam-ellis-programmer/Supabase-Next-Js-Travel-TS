@@ -115,3 +115,7 @@
     transform: scale(1.2);
   }
 }
+/* 
+body {
+  user-select: none;
+} */
