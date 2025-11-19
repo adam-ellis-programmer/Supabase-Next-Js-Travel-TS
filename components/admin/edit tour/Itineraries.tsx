@@ -59,7 +59,7 @@ const Itineraries = ({ categorizedData }: { categorizedData: any }) => {
                             <input
                               type='text'
                               defaultValue={item.day_title}
-                              className='rounded-md w-3/4'
+                              className='rounded-md w-3/4 px-1 py-2'
                             />
                           ) : (
                             <p> {item.day_title}</p>
