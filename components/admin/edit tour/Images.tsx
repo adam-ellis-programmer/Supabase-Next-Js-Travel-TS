@@ -17,7 +17,7 @@ const Images = ({ categorizedData }: { categorizedData: any }) => {
       <h3 className='text-2xl'>Images </h3>
       <div className='relative my-5 '>
         {/* <div className='relative border border-rose-500 h-[200px] '></div> */}
-        <AddNewHeroImageButton />
+        <AddNewHeroImageButton urlData={categorizedData.string.hero_url} />
         <AddNewImagesButton />
       </div>
       {Object.entries(categorizedData.relatedData || {}).map(([key, value]) => (
