@@ -80,15 +80,14 @@ const Itineraries = ({
 
       // Remove from newItems tracking
       setNewItems((prev) => {
-        const updated = new Set(prev) // what ever the prev is
+        const updated = new Set(prev)
         console.log(updated)
 
         updated.delete(index)
         // Adjust indices for items after the deleted one
         const adjustedSet = new Set<number>()
         updated.forEach((i) => {
-          // drop the stack by one
-          adjustedSet.add(i > index ? i - 1 : i) // shift all indexes after deleted one down by one
+          adjustedSet.add(i > index ? i - 1 : i)
         })
 
         console.log(adjustedSet)

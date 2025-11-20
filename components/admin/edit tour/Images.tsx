@@ -8,28 +8,17 @@ import {
 import { MdEditSquare } from 'react-icons/md'
 import { IoMdCloseCircle } from 'react-icons/io'
 import AddNewImagesButton from './AddNewImagesButton'
+import AddNewHeroImageButton from './AddNewHeroImageButton'
 const Images = ({ categorizedData }: { categorizedData: any }) => {
+  console.log('from images ', categorizedData.string.hero_url)
+
   return (
     <div className=''>
       <h3 className='text-2xl'>Images </h3>
-      <div className='relative my-5'>
-        <img
-          className='rounded-md w-full object-cover'
-          src='https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?w=1200'
-          alt=''
-        />
-
+      <div className='relative my-5 '>
+        {/* <div className='relative border border-rose-500 h-[200px] '></div> */}
+        <AddNewHeroImageButton />
         <AddNewImagesButton />
-
-        <div className=' absolute top-0 left-0 w-full flex justify-between  z-10 text-3xl px-2 py-1'>
-          <button className=''>
-            <MdEditSquare className='text-black ' />
-          </button>
-          <button>
-            {/* <MdDelete className='text-green-600' /> */}
-            <IoMdCloseCircle />
-          </button>
-        </div>
       </div>
       {Object.entries(categorizedData.relatedData || {}).map(([key, value]) => (
         <div key={key}>
