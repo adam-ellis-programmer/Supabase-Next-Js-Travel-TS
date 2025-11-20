@@ -1,24 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { CiImageOn } from 'react-icons/ci'
-import { CiCirclePlus } from 'react-icons/ci'
 import { IoMdCloseCircle } from 'react-icons/io'
-
-const images = [
-  'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80', // Thai Temple
-  'https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80', // Tropical Beach
-  'https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHRoYWlsYW5kfGVufDB8fDB8fHww', // Tropical Beach
-  'https://plus.unsplash.com/premium_photo-1681582960531-7b5de57fb276?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzN8fHRoYWlsYW5kfGVufDB8fDB8fHww', // Tropical Beach
-]
 
 const AddNewImagesButton = () => {
   const [isDragging, setIsDragging] = useState(false)
-  const [fileUrls, setFileUrls] = useState<string[]>([])
   const [files, setFiles] = useState<File[]>([])
 
-  const fileDataIds = new Set()
-
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault() // REQUIRED - allows drop
+    e.preventDefault()
   }
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
@@ -33,40 +22,40 @@ const AddNewImagesButton = () => {
 
   const handleOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
-    const files = e.dataTransfer.files
-    setFiles(files)
-    console.log(files)
+    const droppedFiles = e.dataTransfer.files
+    setFiles((prev) => [...prev, ...Array.from(droppedFiles)])
     setIsDragging(false)
-    handleShowFiles(files)
   }
 
-  const handleShowFiles = (files: FileList) => {
-    console.log(files)
+  const handleRemoveFile = (indexToRemove: number) => {
+    setFiles((prev) => prev.filter((_, index) => index !== indexToRemove))
+  }
 
-    // Create all URLs first
-    const newUrls: string[] = []
+  const handleUpload = async () => {
+    console.log('uploading files:', files)
+    // Upload to Supabase here
     for (const file of files) {
-      const url = URL.createObjectURL(file)
-      newUrls.push(url)
+      // await supabase.storage.from('bucket').upload(...)
     }
-
-    // Update state once with all new URLs
-    setFileUrls((prev) => [...prev, ...newUrls])
   }
 
-  console.log(fileUrls)
-  const handleUpload = () => {
-    console.log('uploading files ....')
+  const handleCancel = () => {
+    // Revoke all URLs before clearing
+    files.forEach((file) => {
+      const url = URL.createObjectURL(file)
+      URL.revokeObjectURL(url)
+    })
+    setFiles([])
   }
 
   return (
     <div>
       <div className='my-5'>
-        {fileUrls && fileUrls.length > 0 && (
+        {files.length > 0 && (
           <>
             <p className='text-center mb-2 capitalize flex space-x-3'>
-              <span>new iamges for upload!</span>
-              <span className=''>({fileUrls.length} items)</span>
+              <span>new images for upload!</span>
+              <span>({files.length} items)</span>
             </p>
             <div className='flex space-x-3 mb-2'>
               <button
@@ -76,7 +65,7 @@ const AddNewImagesButton = () => {
                 upload
               </button>
               <button
-                onClick={() => setFileUrls([])}
+                onClick={handleCancel}
                 className='inline bg-rose-300 rounded-full px-2'
               >
                 cancel
@@ -84,20 +73,30 @@ const AddNewImagesButton = () => {
             </div>
           </>
         )}
-        <ul className='grid grid-cols-3 gap-3 '>
-          {fileUrls &&
-            fileUrls.map((url, i) => {
-              return (
-                <li className='h-[100px] relative' key={i}>
-                  <div className='absolute top-0 left-0 w-full flex justify-end p-2'>
-                    <button className='cursor-pointer '>
-                      <IoMdCloseCircle className='text-2xl text-red-500 ' />
-                    </button>
-                  </div>
-                  <img className='rounded-lg h-full w-full' src={url} alt='' />
-                </li>
-              )
-            })}
+        <ul className='grid grid-cols-3 gap-3'>
+          {files.map((file, i) => {
+            // Create URL on-the-fly for each render
+            const url = URL.createObjectURL(file)
+
+            return (
+              <li className='h-[100px] relative' key={i}>
+                <div className='absolute top-0 left-0 w-full flex justify-end p-2'>
+                  <button
+                    onClick={() => handleRemoveFile(i)}
+                    className='cursor-pointer'
+                  >
+                    <IoMdCloseCircle className='text-2xl text-red-500' />
+                  </button>
+                </div>
+                <img
+                  className='rounded-lg h-full w-full object-cover'
+                  src={url}
+                  alt={file.name}
+                  onLoad={() => URL.revokeObjectURL(url)} // Clean up after load
+                />
+              </li>
+            )
+          })}
         </ul>
       </div>
       <div
@@ -105,7 +104,7 @@ const AddNewImagesButton = () => {
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDrop={handleOnDrop}
-        className={` h-[200px] border border-dashed border-neutral-600 flex justify-center items-center rounded-lg cursor-pointer ${
+        className={`h-[200px] border border-dashed border-neutral-600 flex justify-center items-center rounded-lg cursor-pointer ${
           isDragging ? 'bg-rose-500 border-none' : ''
         }`}
       >
