@@ -84,6 +84,7 @@ export interface TourWithRelations extends Tour {
   booking_slots: BookingSlotWithDates[]
   itineraries: Itinerary[]
   tour_images: TourImage[]
+  main_hero_url: string
 }
 
 // Legacy type for backwards compatibility if needed

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { CiImageOn } from 'react-icons/ci'
 import { IoMdCloseCircle } from 'react-icons/io'
-import { insertTourImages } from '@/lib/supabase/actions/admin/images/main-images'
+import { insertTourImages } from '@/lib/supabase/actions/admin/images/insert-tour-images'
 const AddNewImagesButton = ({ tourId }: { tourId: number }) => {
   const [isDragging, setIsDragging] = useState(false)
   const [files, setFiles] = useState<File[]>([])

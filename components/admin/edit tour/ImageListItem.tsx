@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { IoMdCloseCircle } from 'react-icons/io'
 import { MdEditSquare } from 'react-icons/md'
-
+import { deleteTourImages } from '@/lib/supabase/actions/admin/images/delete-tour-images'
 const ImageListItem = ({
   item,
   i,
@@ -21,8 +21,24 @@ const ImageListItem = ({
     fileInputRef.current?.click()
   }
 
-  const handleDeleteImage = (index: number, id: number) => {
+  const handleDeleteImage = async (index: number, id: number) => {
     console.log('deleting image id: ', id)
+    setLoading(true)
+    setEditId(id)
+
+    const res = await deleteTourImages(id)
+    console.log('res from server: ', res)
+
+    if (res.success) {
+      // ✅ Refresh the page or update state to remove the deleted image
+      // window.location.reload() // Simple solution
+      // OR trigger a state update in parent component
+    } else {
+      // alert(`Error: ${res?.error}`)
+    }
+
+    setLoading(false)
+    setEditId(null)
   }
 
   return (

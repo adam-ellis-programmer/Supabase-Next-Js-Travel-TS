@@ -28,12 +28,14 @@ interface TourSeed {
   good_to_know: string[]
   bookable_pax: number
   continent: string
+  main_hero_url: string
 }
 
 export const tours: TourSeed[] = [
   {
     ref_id: 'tour_vietnam_12day',
     continent: 'Asia',
+    main_hero_url: 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b',
     tour_name: 'Amazing Vietnam 12 Day Adventure',
     slug: 'amazing-vietnam-12-day-adventure',
     country: 'vietnam',
@@ -110,6 +112,7 @@ export const tours: TourSeed[] = [
   {
     ref_id: 'tour_thailand_10day',
     continent: 'Asia',
+    main_hero_url: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a',
     tour_name: 'Thailand Island Hopping Paradise',
     slug: 'thailand-island-hopping-paradise',
     country: 'thailand',
@@ -184,6 +187,7 @@ export const tours: TourSeed[] = [
   {
     ref_id: 'tour_japan_11day',
     continent: 'Asia',
+    main_hero_url: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e',
     tour_name: 'Japan Cultural Discovery',
     slug: 'japan-cultural-discovery',
     country: 'japan',
@@ -260,6 +264,7 @@ export const tours: TourSeed[] = [
   {
     ref_id: 'tour_bali_10day',
     continent: 'Asia',
+    main_hero_url: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4',
     tour_name: 'Bali Spiritual Wellness Retreat',
     slug: 'bali-spiritual-wellness-retreat',
     country: 'indonesia',
@@ -338,6 +343,7 @@ export const tours: TourSeed[] = [
   {
     ref_id: 'tour_cambodia_12day',
     continent: 'Asia',
+    main_hero_url: 'https://images.unsplash.com/photo-1563532444-27e491b75bc6',
     tour_name: 'Cambodia Ancient Temples Explorer',
     slug: 'cambodia-ancient-temples-explorer',
     country: 'cambodia',
@@ -414,12 +420,10 @@ export const tours: TourSeed[] = [
     ],
     bookable_pax: 1,
   },
-
-  // Add these 5 new tour objects to your tours.ts file
-
   {
     ref_id: 'tour_peru_14day',
     continent: 'South America',
+    main_hero_url: 'https://images.unsplash.com/photo-1587595431973-160d0d94add1',
     tour_name: 'Peru Inca Trail & Amazon Adventure',
     slug: 'peru-inca-trail-amazon-adventure',
     country: 'peru',
@@ -497,6 +501,7 @@ export const tours: TourSeed[] = [
   {
     ref_id: 'tour_morocco_10day',
     continent: 'Africa',
+    main_hero_url: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43',
     tour_name: 'Morocco Imperial Cities & Sahara',
     slug: 'morocco-imperial-cities-sahara',
     country: 'morocco',
@@ -574,6 +579,7 @@ export const tours: TourSeed[] = [
   {
     ref_id: 'tour_iceland_8day',
     continent: 'Europe',
+    main_hero_url: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67',
     tour_name: 'Iceland Ring Road & Northern Lights',
     slug: 'iceland-ring-road-northern-lights',
     country: 'iceland',
@@ -652,6 +658,7 @@ export const tours: TourSeed[] = [
   {
     ref_id: 'tour_egypt_11day',
     continent: 'Africa',
+    main_hero_url: 'https://images.unsplash.com/photo-1572252009286-268acec5ca0a',
     tour_name: 'Egypt Pharaohs & Red Sea Discovery',
     slug: 'egypt-pharaohs-red-sea-discovery',
     country: 'egypt',
@@ -730,6 +737,7 @@ export const tours: TourSeed[] = [
   {
     ref_id: 'tour_india_15day',
     continent: 'Asia',
+    main_hero_url: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da',
     tour_name: 'India Golden Triangle & Kerala Backwaters',
     slug: 'india-golden-triangle-kerala-backwaters',
     country: 'india',

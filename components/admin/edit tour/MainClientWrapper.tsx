@@ -17,6 +17,8 @@ import Itineraries from './Itineraries'
 import AlertDeleteModal from './AlertDeleteModal'
 
 const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
+  // console.log('res-->', res)
+
   const [showAlert, setShowAlert] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const categorizedData = Object.entries(res.data).reduce(
@@ -131,7 +133,11 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
         </div>
         <div className=''>
           <Images categorizedData={categorizedData} tourId={tourId} />
-          <Itineraries categorizedData={categorizedData} tourId={tourId}  setShowAlert={setShowAlert}/>
+          <Itineraries
+            categorizedData={categorizedData}
+            tourId={tourId}
+            setShowAlert={setShowAlert}
+          />
         </div>
       </section>
     </div>

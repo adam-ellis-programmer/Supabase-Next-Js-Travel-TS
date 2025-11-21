@@ -33,14 +33,15 @@ const TourPage = async ({ params }: TourPageProps) => {
   }
 
   const data = result.data
-  const { booking_slots, itineraries, tour_images, price } = data
+  const { booking_slots, itineraries, tour_images, price, main_hero_url } = data
 
   return (
     <div className='min-h-[calc(100vh-120px)]'>
       {/* Hero - OPTIMIZED with priority */}
       <div className='h-[400px] relative mb-7'>
         <Image
-          src={tour_images[0]?.image_url || '/fallback.jpg'}
+          // src={tour_images[0]?.image_url || '/fallback.jpg'}
+          src={main_hero_url || '/fallback.jpg'}
           alt={tour_images[0]?.image_alt || 'Tour image'}
           fill
           priority

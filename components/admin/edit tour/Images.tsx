@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import AddNewImagesButton from './AddNewImagesButton'
 import AddNewHeroImageButton from './AddNewHeroImageButton'
 import ImageListItem from './ImageListItem'
+import { handleTest } from '@/lib/supabase/actions/admin/images/test'
 
 const Images = ({
   categorizedData,
@@ -20,11 +21,16 @@ const Images = ({
     }
   }
 
+  const test = async () => {
+    const data = await handleTest()
+    console.log(data)
+  }
+
   return (
     <div className=''>
       <h3 className='text-2xl'>Images</h3>
       <div className='relative my-5'>
-        <AddNewHeroImageButton urlData={categorizedData.string.hero_url} />
+        <AddNewHeroImageButton urlData={categorizedData.string.main_hero_url} />
         <AddNewImagesButton tourId={tourId} />
       </div>
       <p className='text-lg mb-5'>Main Tour Imgaes</p>
@@ -45,6 +51,7 @@ const Images = ({
         </div>
       ))}
 
+      <button onClick={() => test()}>test</button>
       {/* Hidden file input */}
       <input
         ref={fileInputRef}
