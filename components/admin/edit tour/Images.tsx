@@ -21,7 +21,7 @@ const Images = ({ categorizedData }: { categorizedData: any }) => {
         <AddNewHeroImageButton urlData={categorizedData.string.hero_url} />
         <AddNewImagesButton />
       </div>
-
+      <p className='text-lg mb-5'>Main Tour Imgaes</p>
       {Object.entries(categorizedData.relatedData || {}).map(([key, value]) => (
         <div key={key}>
           {key === 'tour_images' && (

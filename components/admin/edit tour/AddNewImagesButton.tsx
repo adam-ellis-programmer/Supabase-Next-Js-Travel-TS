@@ -48,14 +48,37 @@ const AddNewImagesButton = () => {
     setFiles([])
   }
 
+  function getLegthText(length: number) {
+    if (length === 1) {
+      return 'iten'
+    }
+    return 'items'
+  }
+
+  function formatFileSize(bytes: number): string {
+    if (bytes === 0) return '0 Bytes'
+
+    const k = 1024
+    const sizes = ['Bytes', 'KB', 'MB', 'GB']
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+    console.log('i:',i)
+
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i]
+  }
+
+  console.log(Math.log(2))
+
   return (
     <div>
       <div className='my-5'>
         {files.length > 0 && (
           <>
-            <p className='text-center mb-2 capitalize flex space-x-3'>
+            <p className='text-center text-lg mb-2 capitalize flex space-x-3'>
               <span>new images for upload!</span>
-              <span>({files.length} items)</span>
+              <span>
+                ({files.length} {getLegthText(files.length)})
+              </span>
             </p>
             <div className='flex space-x-3 mb-2'>
               <button
@@ -78,8 +101,15 @@ const AddNewImagesButton = () => {
             // Create URL on-the-fly for each render
             const url = URL.createObjectURL(file)
 
+            console.log(file)
+
             return (
               <li className='h-[100px] relative' key={i}>
+                <div className='absolute bottom-0 left-0 w-full '>
+                  <span className='bg-blue-500 rounded-md px-1 text-white'>
+                    {formatFileSize(file.size)}
+                  </span>
+                </div>
                 <div className='absolute top-0 left-0 w-full flex justify-end p-2'>
                   <button
                     onClick={() => handleRemoveFile(i)}
