@@ -130,7 +130,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
           />
         </div>
         <div className=''>
-          <Images categorizedData={categorizedData} />
+          <Images categorizedData={categorizedData} tourId={tourId} />
           <Itineraries categorizedData={categorizedData} tourId={tourId}  setShowAlert={setShowAlert}/>
         </div>
       </section>

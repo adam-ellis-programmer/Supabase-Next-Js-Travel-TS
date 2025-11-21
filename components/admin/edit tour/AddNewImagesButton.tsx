@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { CiImageOn } from 'react-icons/ci'
 import { IoMdCloseCircle } from 'react-icons/io'
-
-const AddNewImagesButton = () => {
+import { insertTourImages } from '@/lib/supabase/actions/admin/images/main-images'
+const AddNewImagesButton = ({ tourId }: { tourId: number }) => {
   const [isDragging, setIsDragging] = useState(false)
   const [files, setFiles] = useState<File[]>([])
 
@@ -32,10 +32,20 @@ const AddNewImagesButton = () => {
   }
 
   const handleUpload = async () => {
+    console.log('uploading...')
     console.log('uploading files:', files)
-    // Upload to Supabase here
-    for (const file of files) {
-      // await supabase.storage.from('bucket').upload(...)
+
+    try {
+      const formData = new FormData()
+      formData.append('tourId', tourId.toString())
+
+      files.forEach((file, i) => {
+        formData.append(`file-${i}`, file)
+      })
+      const res = await insertTourImages(formData)
+      console.log('res from server: ', res)
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -62,7 +72,7 @@ const AddNewImagesButton = () => {
     const sizes = ['Bytes', 'KB', 'MB', 'GB']
     const i = Math.floor(Math.log(bytes) / Math.log(k))
 
-    console.log('i:',i)
+    console.log('i:', i)
 
     return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i]
   }

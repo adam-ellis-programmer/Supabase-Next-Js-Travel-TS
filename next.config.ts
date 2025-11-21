@@ -1,6 +1,11 @@
 // next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb',
+    },
+  },
   // reactStrictMode: false,
   eslint: {
     // Warning: This allows production builds to successfully complete even if

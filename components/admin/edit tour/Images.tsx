@@ -3,7 +3,13 @@ import AddNewImagesButton from './AddNewImagesButton'
 import AddNewHeroImageButton from './AddNewHeroImageButton'
 import ImageListItem from './ImageListItem'
 
-const Images = ({ categorizedData }: { categorizedData: any }) => {
+const Images = ({
+  categorizedData,
+  tourId,
+}: {
+  categorizedData: any
+  tourId: number
+}) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +25,7 @@ const Images = ({ categorizedData }: { categorizedData: any }) => {
       <h3 className='text-2xl'>Images</h3>
       <div className='relative my-5'>
         <AddNewHeroImageButton urlData={categorizedData.string.hero_url} />
-        <AddNewImagesButton />
+        <AddNewImagesButton tourId={tourId} />
       </div>
       <p className='text-lg mb-5'>Main Tour Imgaes</p>
       {Object.entries(categorizedData.relatedData || {}).map(([key, value]) => (

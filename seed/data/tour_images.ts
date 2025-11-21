@@ -7,6 +7,7 @@ interface TourImageSeed {
   image_alt: string
   display_order: number
   is_primary: boolean
+  is_seeded: boolean
 }
 
 export const tour_images: TourImageSeed[] = [
@@ -19,6 +20,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Ha Long Bay limestone karsts at sunset',
     display_order: 0,
     is_primary: true,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_vietnam_12day',
@@ -28,6 +30,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Busy Hanoi Old Quarter street scene',
     display_order: 1,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_vietnam_12day',
@@ -37,6 +40,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Hoi An Ancient Town with lanterns',
     display_order: 2,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_vietnam_12day',
@@ -46,6 +50,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Mekong Delta floating market',
     display_order: 3,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_vietnam_12day',
@@ -55,6 +60,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Sapa rice terraces in northern Vietnam',
     display_order: 4,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_vietnam_12day',
@@ -64,6 +70,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Ho Chi Minh City skyline at night',
     display_order: 5,
     is_primary: false,
+    is_seeded: true,
   },
 
   // ===== THAILAND TOUR - 6 images =====
@@ -75,6 +82,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Phi Phi Islands Maya Bay crystal waters',
     display_order: 0,
     is_primary: true,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_thailand_10day',
@@ -84,6 +92,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Phuket sunset beach with longtail boats',
     display_order: 1,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_thailand_10day',
@@ -93,6 +102,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Krabi limestone cliffs and turquoise water',
     display_order: 2,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_thailand_10day',
@@ -102,6 +112,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Snorkeling with tropical fish',
     display_order: 3,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_thailand_10day',
@@ -111,6 +122,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Koh Lanta peaceful beach resort',
     display_order: 4,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_thailand_10day',
@@ -120,6 +132,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'James Bond Island Phang Nga Bay',
     display_order: 5,
     is_primary: false,
+    is_seeded: true,
   },
 
   // ===== JAPAN TOUR - 6 images =====
@@ -131,6 +144,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Kinkaku-ji Golden Pavilion in Kyoto',
     display_order: 0,
     is_primary: true,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_japan_11day',
@@ -140,6 +154,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Tokyo Shibuya crossing at night',
     display_order: 1,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_japan_11day',
@@ -149,6 +164,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Mount Fuji with cherry blossoms',
     display_order: 2,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_japan_11day',
@@ -158,6 +174,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Fushimi Inari shrine thousand torii gates',
     display_order: 3,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_japan_11day',
@@ -167,6 +184,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Hiroshima Peace Memorial and Atomic Dome',
     display_order: 4,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_japan_11day',
@@ -176,6 +194,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Traditional Japanese ryokan room',
     display_order: 5,
     is_primary: false,
+    is_seeded: true,
   },
 
   // ===== BALI TOUR - 6 images =====
@@ -187,6 +206,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Tegalalang rice terraces in Ubud',
     display_order: 0,
     is_primary: true,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_bali_10day',
@@ -196,6 +216,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Sunrise yoga session overlooking jungle',
     display_order: 1,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_bali_10day',
@@ -205,6 +226,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Tanah Lot temple at sunset',
     display_order: 2,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_bali_10day',
@@ -214,6 +236,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Tirta Empul water purification ceremony',
     display_order: 3,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_bali_10day',
@@ -223,6 +246,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Organic vegetarian Balinese meal',
     display_order: 4,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_bali_10day',
@@ -232,6 +256,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Seminyak beach at golden hour',
     display_order: 5,
     is_primary: false,
+    is_seeded: true,
   },
 
   // ===== CAMBODIA TOUR - 6 images =====
@@ -243,6 +268,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Angkor Wat at sunrise reflection',
     display_order: 0,
     is_primary: true,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_cambodia_12day',
@@ -252,6 +278,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Bayon temple stone faces',
     display_order: 1,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_cambodia_12day',
@@ -261,6 +288,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Ta Prohm jungle temple with tree roots',
     display_order: 2,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_cambodia_12day',
@@ -270,6 +298,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Tonle Sap floating village',
     display_order: 3,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_cambodia_12day',
@@ -279,6 +308,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Royal Palace Phnom Penh',
     display_order: 4,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_cambodia_12day',
@@ -288,6 +318,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Sihanoukville pristine beach',
     display_order: 5,
     is_primary: false,
+    is_seeded: true,
   },
 
   // ===== PERU TOUR - 6 images =====
@@ -299,6 +330,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Machu Picchu ancient Inca citadel at sunrise',
     display_order: 0,
     is_primary: true,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_peru_14day',
@@ -308,6 +340,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Colonial architecture in Cusco main square',
     display_order: 1,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_peru_14day',
@@ -317,6 +350,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Amazon rainforest river view',
     display_order: 2,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_peru_14day',
@@ -326,6 +360,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Lake Titicaca floating islands',
     display_order: 3,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_peru_14day',
@@ -335,6 +370,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Aerial view of Nazca Lines',
     display_order: 4,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_peru_14day',
@@ -344,6 +380,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Sacred Valley terraced landscapes',
     display_order: 5,
     is_primary: false,
+    is_seeded: true,
   },
 
   // ===== MOROCCO TOUR - 6 images =====
@@ -355,6 +392,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Camel caravan in Sahara Desert at sunset',
     display_order: 0,
     is_primary: true,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_morocco_10day',
@@ -364,6 +402,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Blue streets of Chefchaouen',
     display_order: 1,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_morocco_10day',
@@ -373,6 +412,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Colorful spices in Marrakech souk',
     display_order: 2,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_morocco_10day',
@@ -382,6 +422,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Ancient medina of Fes from above',
     display_order: 3,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_morocco_10day',
@@ -391,6 +432,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Ait Benhaddou ancient kasbah',
     display_order: 4,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_morocco_10day',
@@ -400,6 +442,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Atlas Mountains scenic road',
     display_order: 5,
     is_primary: false,
+    is_seeded: true,
   },
 
   // ===== ICELAND TOUR - 6 images =====
@@ -411,6 +454,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Northern Lights dancing over Iceland',
     display_order: 0,
     is_primary: true,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_iceland_8day',
@@ -420,6 +464,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Blue ice cave interior',
     display_order: 1,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_iceland_8day',
@@ -429,6 +474,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Reynisfjara black sand beach',
     display_order: 2,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_iceland_8day',
@@ -438,6 +484,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Gullfoss waterfall in winter',
     display_order: 3,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_iceland_8day',
@@ -447,6 +494,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Blue Lagoon geothermal spa',
     display_order: 4,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_iceland_8day',
@@ -456,6 +504,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Glacier hiking on Vatnajökull',
     display_order: 5,
     is_primary: false,
+    is_seeded: true,
   },
 
   // ===== EGYPT TOUR - 6 images =====
@@ -467,6 +516,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Great Pyramids of Giza and Sphinx',
     display_order: 0,
     is_primary: true,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_egypt_11day',
@@ -476,6 +526,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Abu Simbel temple colossal statues',
     display_order: 1,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_egypt_11day',
@@ -485,6 +536,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Traditional felucca sailing on Nile',
     display_order: 2,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_egypt_11day',
@@ -494,6 +546,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Valley of the Kings tomb entrance',
     display_order: 3,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_egypt_11day',
@@ -503,6 +556,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Karnak Temple columns',
     display_order: 4,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_egypt_11day',
@@ -512,6 +566,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Red Sea coral reef snorkeling',
     display_order: 5,
     is_primary: false,
+    is_seeded: true,
   },
 
   // ===== INDIA TOUR - 6 images =====
@@ -523,6 +578,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Taj Mahal at sunrise reflection',
     display_order: 0,
     is_primary: true,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_india_15day',
@@ -532,6 +588,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Hawa Mahal Palace of Winds in Jaipur',
     display_order: 1,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_india_15day',
@@ -541,6 +598,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Evening ceremony on Varanasi ghats',
     display_order: 2,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_india_15day',
@@ -550,6 +608,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Kerala backwaters houseboat cruise',
     display_order: 3,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_india_15day',
@@ -559,6 +618,7 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Amber Fort Jaipur with elephants',
     display_order: 4,
     is_primary: false,
+    is_seeded: true,
   },
   {
     tour_ref_id: 'tour_india_15day',
@@ -568,5 +628,6 @@ export const tour_images: TourImageSeed[] = [
     image_alt: 'Kerala spice plantation tour',
     display_order: 5,
     is_primary: false,
+    is_seeded: true,
   },
 ]
