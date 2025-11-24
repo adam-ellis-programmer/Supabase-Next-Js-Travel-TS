@@ -10,6 +10,7 @@ import TourOverView from '@/components/TourOverView'
 import TourExtraInfo from '@/components/TourExtraInfo'
 import { TourService } from '@/lib/supabase/services/tour-service'
 import { createClient } from '@/lib/supabase/server'
+import Link from 'next/link'
 
 interface TourPageProps {
   params: Promise<{
@@ -38,6 +39,14 @@ const TourPage = async ({ params }: TourPageProps) => {
 
   return (
     <div className='min-h-[calc(100vh-120px)]'>
+      <div className='fixed bottom-0 left-0 w-full z-20 p-5 flex '>
+        <Link
+          href={`/admin/edit-tour/${id}`}
+          className='bg-blue-300 p-1 rounded-lg'
+        >
+          Edit as admin
+        </Link>
+      </div>
       {/* Hero - OPTIMIZED with priority */}
       {/* <img src={main_hero_url} alt='' /> */}
       <div className='h-[400px] relative mb-7'>
