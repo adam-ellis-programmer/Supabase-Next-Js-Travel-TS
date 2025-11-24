@@ -33,6 +33,7 @@ const Images = ({
   }
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    seteditLoading(true)
     const files = e.target.files
     if (files && files.length > 0) {
       console.log('Selected files:', files)
@@ -42,9 +43,16 @@ const Images = ({
       formData.append('image-id', editId)
       formData.append('tour-id', tourId)
 
-      // Handle the file upload here
-      const res = await updateTourImage(formData)
-      console.log('RES FROM SERVER:', res)
+      try {
+        // Handle the file upload here
+        const res = await updateTourImage(formData)
+        console.log('RES FROM SERVER:', res)
+        router.refresh()
+      } catch (error) {
+        console.log(error)
+      } finally {
+        seteditLoading(false)
+      }
     }
   }
 
