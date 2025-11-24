@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { IoMdCloseCircle } from 'react-icons/io'
 import { MdEditSquare } from 'react-icons/md'
 import { deleteTourImages } from '@/lib/supabase/actions/admin/images/delete-tour-images'
+import { useRouter } from 'next/navigation'
 const ImageListItem = ({
   item,
   i,
@@ -11,6 +12,7 @@ const ImageListItem = ({
   i: number
   fileInputRef: React.RefObject<HTMLInputElement | null>
 }) => {
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [editId, setEditId] = useState<number | null>(null)
 
@@ -26,19 +28,23 @@ const ImageListItem = ({
     setLoading(true)
     setEditId(id)
 
-    const res = await deleteTourImages(id)
-    console.log('res from server: ', res)
+    try {
+      const res = await deleteTourImages(id)
+      console.log('res from server: ', res)
 
-    if (res.success) {
-      // ✅ Refresh the page or update state to remove the deleted image
-      // window.location.reload() // Simple solution
-      // OR trigger a state update in parent component
-    } else {
-      // alert(`Error: ${res?.error}`)
+      if (res.success) {
+        router.refresh()
+        // ✅ Refresh the page or update state to remove the deleted image
+        // window.location.reload() // Simple solution
+        // OR trigger a state update in parent component
+      } else {
+        // alert(`Error: ${res?.error}`)
+      }
+    } catch (error) {
+    } finally {
+      setLoading(false)
+      setEditId(null)
     }
-
-    setLoading(false)
-    setEditId(null)
   }
 
   return (

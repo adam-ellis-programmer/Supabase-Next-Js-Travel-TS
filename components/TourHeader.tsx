@@ -3,7 +3,7 @@ import React from 'react'
 const TourHeader = ({ text, classes }: { text: string; classes: string }) => {
   return (
     <div className={classes}>
-      <span className='bg-rose-500 text-white p-3 inline-block rounded-lg'>{text}</span>
+      <span className='bg-blue-100 p-2 rounded-md'>{text}</span>
     </div>
   )
 }

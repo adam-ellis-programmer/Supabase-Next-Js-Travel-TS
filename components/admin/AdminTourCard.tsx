@@ -25,6 +25,8 @@ interface AdminTourCardProps {
 }
 
 const AdminTourCard = ({ tour, onEdit, onDelete }: AdminTourCardProps) => {
+  // console.log(tour);
+  
   return (
     <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200'>
       <div className='grid md:grid-cols-[150px_1fr] h-full'>

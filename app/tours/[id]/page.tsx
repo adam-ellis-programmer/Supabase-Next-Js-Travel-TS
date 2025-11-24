@@ -59,7 +59,7 @@ const TourPage = async ({ params }: TourPageProps) => {
 
       <div className='md:grid grid-cols-3 md:w-[90%] mx-auto gap-5'>
         <div className=''>
-          <TourHeader text={`Tour Details`} classes='text-2xl text-center' />
+          <TourHeader text={`Main Details`} classes='text-2xl mb-8 font-bold ' />
           <TourOverView data={data} />
           <div className='mt-4'>
             {itineraries.map((itinerary, index) => (
@@ -70,7 +70,7 @@ const TourPage = async ({ params }: TourPageProps) => {
         </div>
 
         <div className=''>
-          <TourHeader text={`Images`} classes='text-2xl text-center' />
+          <TourHeader text={`Images and reviews`} classes='text-2xl mb-8 font-bold ' />
           <div className='grid grid-cols-2 gap-4 mt-5'>
             {tour_images.map((image) => (
               <TourImge key={image.id} image={image} />
@@ -80,7 +80,7 @@ const TourPage = async ({ params }: TourPageProps) => {
         </div>
 
         <div className=''>
-          <TourHeader text={`Booking`} classes='text-2xl text-center' />
+          <TourHeader text={`Booking and related`} classes='text-2xl mb-8 font-bold ' />
           <div className=''>
             <BookingCalender
               tourId={tourId}

@@ -123,6 +123,7 @@ const AdminViewAllTours = () => {
       </div>
     )
   }
+  console.log(filteredTours)
 
   return (
     <div className='min-h-[calc(100vh-100px)] bg-gray-50 py-8'>

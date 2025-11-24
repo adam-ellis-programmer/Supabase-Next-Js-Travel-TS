@@ -132,7 +132,10 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
           />
         </div>
         <div className=''>
+          {/* Manage Images */}
           <Images categorizedData={categorizedData} tourId={tourId} />
+
+          {/* Manage Itineraries */}
           <Itineraries
             categorizedData={categorizedData}
             tourId={tourId}

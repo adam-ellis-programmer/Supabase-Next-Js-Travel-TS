@@ -63,6 +63,7 @@ export async function getToursAdmin() {
         publish,
         best_seller,
         show_case,
+        main_hero_url,
         tour_images!tour_images_tour_id_fkey(
           image_url,
           image_alt,
@@ -87,6 +88,8 @@ export async function getToursAdmin() {
         tour.tour_images?.find((img: any) => img.is_primary) ||
         tour.tour_images?.[0]
 
+      const heroUrl = tour.main_hero_url
+
       return {
         id: tour.id,
         name: tour.tour_name,
@@ -96,7 +99,7 @@ export async function getToursAdmin() {
         rating: parseFloat(tour.rating),
         destinations: tour.destinations,
         maxPeople: tour.group_size,
-        image: primaryImage?.image_url || '/placeholder-tour.jpg',
+        image: heroUrl || primaryImage,
         publish: tour.publish,
         bestSeller: tour.best_seller,
         showCase: tour.show_case,
