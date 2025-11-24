@@ -6,27 +6,20 @@ import { useRouter } from 'next/navigation'
 const ImageListItem = ({
   item,
   i,
-  fileInputRef,
+  handleChangeImage,
 }: {
   item: any
   i: number
-  fileInputRef: React.RefObject<HTMLInputElement | null>
+  handleChangeImage: (index: number, id: number) => void
 }) => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const [editId, setEditId] = useState<number | null>(null)
-
-  const handleChangeImage = (index: number, id: number) => {
-    console.log('changing image id: ', id)
-    setEditId(id)
-    // Trigger the file input click
-    fileInputRef.current?.click()
-  }
+  const [deleteId, setdeleteId] = useState<number | null>(null)
 
   const handleDeleteImage = async (index: number, id: number) => {
     console.log('deleting image id: ', id)
     setLoading(true)
-    setEditId(id)
+    setdeleteId(id)
 
     try {
       const res = await deleteTourImages(id)
@@ -34,22 +27,20 @@ const ImageListItem = ({
 
       if (res.success) {
         router.refresh()
-        // ✅ Refresh the page or update state to remove the deleted image
         // window.location.reload() // Simple solution
-        // OR trigger a state update in parent component
       } else {
         // alert(`Error: ${res?.error}`)
       }
     } catch (error) {
     } finally {
       setLoading(false)
-      setEditId(null)
+      setdeleteId(null)
     }
   }
 
   return (
     <li key={i} className='relative h-[200px] lg:h-[100px]'>
-      {loading && editId === item.id && (
+      {loading && deleteId === item.id && (
         <div className='absolute top-0 left-0 w-full h-full bg-[#363f54d8] rounded-lg flex justify-center items-center'>
           <div className='h-10 w-10 border-white rounded-full border-t border-t-orange-600 border-[2px] animate-spin'></div>
         </div>

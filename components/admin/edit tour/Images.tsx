@@ -6,7 +6,7 @@ import { handleTest } from '@/lib/supabase/actions/admin/images/test'
 import { deleteAll } from '@/lib/supabase/actions/admin/images/delete-tour-images'
 import { TiInfoOutline } from 'react-icons/ti'
 import { useRouter } from 'next/navigation'
-
+import { updateTourImage } from '@/lib/supabase/actions/admin/images/update-tour-image'
 const Images = ({
   categorizedData,
   tourId,
@@ -14,15 +14,37 @@ const Images = ({
   categorizedData: any
   tourId: number
 }) => {
+  const router = useRouter()
   const [isUploading, setIsUploading] = useState(false)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const [deleteAllLoading, setDeleteAllLoading] = useState(false)
-  const router = useRouter()
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [editLoading, seteditLoading] = useState(false)
+  //
+  const [editId, setEditId] = useState<number | null>(null)
+
+  // ref gets passed down into the ImageListItem
+  //
+  // needs to ne moved to parent
+  const handleChangeImage = (index: number, id: number) => {
+    console.log('changing image id logged from iamges parent: ', id)
+    setEditId(id)
+    // Trigger the file input click
+    fileInputRef.current?.click()
+  }
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (files && files.length > 0) {
       console.log('Selected files:', files)
+
+      const formData = new FormData()
+      formData.append('file-data', files[0])
+      formData.append('image-id', editId)
+      formData.append('tour-id', tourId)
+
       // Handle the file upload here
+      const res = await updateTourImage(formData)
+      console.log('RES FROM SERVER:', res)
     }
   }
 
@@ -45,8 +67,6 @@ const Images = ({
       setDeleteAllLoading(false)
       router.refresh()
     }
-
-    // console.log(categorizedData.relatedData['tour_images'])
   }
 
   return (
@@ -54,7 +74,10 @@ const Images = ({
       <h3 className='text-2xl'>Images</h3>
       <div className='relative '>
         {/* Manage Hero Image */}
-        <AddNewHeroImageButton  tourId={tourId} urlData={categorizedData.string.main_hero_url} />
+        <AddNewHeroImageButton
+          tourId={tourId}
+          urlData={categorizedData.string.main_hero_url}
+        />
         {/* Manage Tour Images */}
         <AddNewImagesButton tourId={tourId} />
       </div>
@@ -97,7 +120,7 @@ const Images = ({
                       key={item.id}
                       item={item}
                       i={i}
-                      fileInputRef={fileInputRef}
+                      handleChangeImage={handleChangeImage}
                     />
                   ))}
                 </ul>
