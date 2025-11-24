@@ -34,13 +34,14 @@ const TourPage = async ({ params }: TourPageProps) => {
 
   const data = result.data
   const { booking_slots, itineraries, tour_images, price, main_hero_url } = data
+  console.log(main_hero_url)
 
   return (
     <div className='min-h-[calc(100vh-120px)]'>
       {/* Hero - OPTIMIZED with priority */}
+      {/* <img src={main_hero_url} alt='' /> */}
       <div className='h-[400px] relative mb-7'>
         <Image
-          // src={tour_images[0]?.image_url || '/fallback.jpg'}
           src={main_hero_url || '/fallback.jpg'}
           alt={tour_images[0]?.image_alt || 'Tour image'}
           fill
@@ -59,7 +60,10 @@ const TourPage = async ({ params }: TourPageProps) => {
 
       <div className='md:grid grid-cols-3 md:w-[90%] mx-auto gap-5'>
         <div className=''>
-          <TourHeader text={`Main Details`} classes='text-2xl mb-8 font-bold ' />
+          <TourHeader
+            text={`Main Details`}
+            classes='text-2xl mb-8 font-bold '
+          />
           <TourOverView data={data} />
           <div className='mt-4'>
             {itineraries.map((itinerary, index) => (
@@ -70,7 +74,10 @@ const TourPage = async ({ params }: TourPageProps) => {
         </div>
 
         <div className=''>
-          <TourHeader text={`Images and reviews`} classes='text-2xl mb-8 font-bold ' />
+          <TourHeader
+            text={`Images and reviews`}
+            classes='text-2xl mb-8 font-bold '
+          />
           <div className='grid grid-cols-2 gap-4 mt-5'>
             {tour_images.map((image) => (
               <TourImge key={image.id} image={image} />
@@ -80,7 +87,10 @@ const TourPage = async ({ params }: TourPageProps) => {
         </div>
 
         <div className=''>
-          <TourHeader text={`Booking and related`} classes='text-2xl mb-8 font-bold ' />
+          <TourHeader
+            text={`Booking and related`}
+            classes='text-2xl mb-8 font-bold '
+          />
           <div className=''>
             <BookingCalender
               tourId={tourId}

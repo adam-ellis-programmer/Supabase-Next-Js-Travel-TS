@@ -54,7 +54,7 @@ const Images = ({
       <h3 className='text-2xl'>Images</h3>
       <div className='relative '>
         {/* Manage Hero Image */}
-        <AddNewHeroImageButton urlData={categorizedData.string.main_hero_url} />
+        <AddNewHeroImageButton  tourId={tourId} urlData={categorizedData.string.main_hero_url} />
         {/* Manage Tour Images */}
         <AddNewImagesButton tourId={tourId} />
       </div>
