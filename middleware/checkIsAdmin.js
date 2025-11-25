@@ -6,14 +6,18 @@ import { createClient } from '../lib/supabase/server'
 export async function checkIsAdmin(tour_id) {
   const supabase = await createClient()
 
+  // ===============
+  // check tour
+  // ===============
   const { data: tourData, error: tourDataError } = await supabase
     .from('tours')
     .select(`*`)
     .eq('id', tour_id)
 
   const pageAccessLevel = tourData[0].access
-  console.log('pageAccessLevel', pageAccessLevel)
-
+  // ===============
+  // check profile
+  // ===============
   const { data, error } = await supabase
     .from('profiles')
     .select(`*`)
@@ -22,8 +26,11 @@ export async function checkIsAdmin(tour_id) {
   const isAdmin = data[0].user_role === 'admin'
   const correctRoleLevel = data[0].role_level >= pageAccessLevel
 
-  console.log('correctRoleLevel', correctRoleLevel)
-  // only allow acces if admin and correct role level
+  // ===============
+  // only allow acces
+  // if admin and has
+  //  correct role level
+  // ===============
   if (isAdmin && correctRoleLevel) {
     return true
   }

@@ -77,6 +77,11 @@ const Images = ({
     }
   }
 
+  // sort data by display order
+  const tourImagesData = [...categorizedData.relatedData['tour_images']]
+  // prettier-ignore
+  const sortedData = tourImagesData.sort((a, b) => a.display_order - b.display_order)
+
   return (
     <div className=''>
       <h3 className='text-2xl'>Images</h3>
@@ -123,11 +128,13 @@ const Images = ({
               ) : (
                 // else show current tour images
                 <ul className='grid grid-cols-2 md:grid-cols-3 gap-2 '>
-                  {(value as any[]).map((item, i) => (
+                  {(sortedData as any[]).map((item, i) => (
                     <ImageListItem
                       key={item.id}
                       item={item}
                       i={i}
+                      editLoading={editLoading}
+                      editId={editId}
                       handleChangeImage={handleChangeImage}
                     />
                   ))}

@@ -7,10 +7,14 @@ const ImageListItem = ({
   item,
   i,
   handleChangeImage,
+  editLoading,
+  editId,
 }: {
   item: any
   i: number
   handleChangeImage: (index: number, id: number) => void
+  editLoading: boolean
+  editId: number | null
 }) => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -40,11 +44,12 @@ const ImageListItem = ({
 
   return (
     <li key={i} className='relative h-[200px] lg:h-[100px]'>
-      {loading && deleteId === item.id && (
+      {(loading || editLoading) && (deleteId || editId) === item.id && (
         <div className='absolute top-0 left-0 w-full h-full bg-[#363f54d8] rounded-lg flex justify-center items-center'>
           <div className='h-10 w-10 border-white rounded-full border-t border-t-orange-600 border-[2px] animate-spin'></div>
         </div>
       )}
+
       <img
         className='h-full rounded-lg w-full object-cover object-center'
         src={item.image_url}

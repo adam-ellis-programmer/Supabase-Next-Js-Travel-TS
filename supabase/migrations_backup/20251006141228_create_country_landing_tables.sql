@@ -17,7 +17,7 @@ CREATE TABLE country_landing_pages (
     language TEXT NOT NULL,
     timezone TEXT NOT NULL,
     visa_requirements TEXT NOT NULL,
-    
+     
     -- SEO and metadata
     meta_title TEXT,
     meta_description TEXT,

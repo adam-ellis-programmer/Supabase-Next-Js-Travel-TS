@@ -16,121 +16,77 @@ import {
   FaStar,
   FaArrowRight,
 } from 'react-icons/fa'
-// ALTER TABLE countries ADD COLUMN slug TEXT UNIQUE;
+
 const CountryLandingPage = async ({
   params,
 }: {
   params: Promise<{ id: string }>
 }) => {
-  // const id = (await params).id
   const { id } = await params
   console.log('ID: ', id)
 
   const res = await LandingPage.getPage(id)
   console.log(res)
 
-  // Variables that can be easily swapped
+  const dbData = res[0]
+
+  // Icon mapping for experiences and travel tips
+  const iconMap: { [key: string]: any } = {
+    FaCamera,
+    FaUtensils,
+    FaGlobe,
+    FaMountain,
+    FaClock,
+    FaPlane,
+    FaMoneyBillWave,
+    FaPassport,
+    FaUmbrellaBeach,
+    FaMapMarkedAlt,
+  }
+
+  // Map database data to component structure
   const countryData = {
-    name: 'Australia',
-    tagline: 'Discover the Land Down Under',
-    heroImage:
-      'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1200',
-    description:
-      'From vibrant cities to pristine beaches and the iconic Outback, Australia offers unforgettable adventures for every traveler. Experience world-class wildlife, ancient cultures, and breathtaking natural wonders.',
+    name: dbData.country_name,
+    tagline: dbData.tagline,
+    heroImage: dbData.hero_image_url,
+    description: dbData.description,
 
     quickFacts: {
-      bestTime: 'September to November, March to May',
-      currency: 'Australian Dollar (AUD)',
-      language: 'English',
-      timezone: 'UTC+8 to UTC+11',
-      visa: 'eVisitor or ETA required for most tourists',
+      bestTime: dbData.best_time,
+      currency: dbData.currency,
+      language: dbData.language,
+      timezone: dbData.timezone,
+      visa: dbData.visa,
     },
 
-    topDestinations: [
-      {
-        name: 'Sydney',
-        image:
-          'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=400',
-        description: 'Iconic Opera House, Harbour Bridge, and stunning beaches',
-      },
-      {
-        name: 'Great Barrier Reef',
-        image:
-          'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?w=400',
-        description:
-          "World's largest coral reef system with incredible marine life",
-      },
-      {
-        name: 'Melbourne',
-        image:
-          'https://images.unsplash.com/photo-1514395462725-fb4566210144?w=400',
-        description: 'Cultural capital with art, coffee culture, and sports',
-      },
-      {
-        name: 'Uluru',
-        image:
-          'https://images.unsplash.com/photo-1540961235228-b90082c4c6bb?w=400',
-        description: 'Sacred monolith in the heart of the Red Centre',
-      },
-    ],
+    topDestinations: dbData.landing_page_destinations
+      .sort((a: any, b: any) => a.display_order - b.display_order)
+      .map((dest: any) => ({
+        name: dest.name,
+        image: dest.image_url,
+        description: dest.description,
+      })),
 
-    experiences: [
-      {
-        icon: FaUmbrellaBeach,
-        title: 'Beach & Surf',
-        description: 'World-class beaches and surfing spots',
-      },
-      {
-        icon: FaMountain,
-        title: 'Adventure',
-        description: 'Hiking, diving, and outdoor thrills',
-      },
-      {
-        icon: FaUtensils,
-        title: 'Food & Wine',
-        description: 'Fresh seafood and premium wines',
-      },
-      {
-        icon: FaCamera,
-        title: 'Wildlife',
-        description: 'Unique animals in natural habitats',
-      },
-    ],
+    experiences: dbData.landing_page_experiences
+      .sort((a: any, b: any) => a.display_order - b.display_order)
+      .map((exp: any) => ({
+        icon: iconMap[exp.icon] || FaGlobe,
+        title: exp.title,
+        description: exp.description,
+      })),
 
-    attractions: [
-      'Sydney Opera House',
-      'Great Barrier Reef',
-      'Uluru-Kata Tjuta',
-      'Great Ocean Road',
-      'Bondi Beach',
-      'Daintree Rainforest',
-      'Fraser Island',
-      'Blue Mountains',
-    ],
+    attractions: dbData.attractions,
 
-    travelTips: [
-      {
-        icon: FaClock,
-        title: 'Best Time',
-        tip: 'Spring (Sep-Nov) and Autumn (Mar-May) offer mild weather',
-      },
-      {
-        icon: FaPlane,
-        title: 'Getting Around',
-        tip: 'Domestic flights connect major cities; rent a car for road trips',
-      },
-      {
-        icon: FaMoneyBillWave,
-        title: 'Budget',
-        tip: 'Expect $100-150 AUD per day for mid-range travel',
-      },
-      {
-        icon: FaPassport,
-        title: 'Visa',
-        tip: 'Apply for eVisitor or ETA online before departure',
-      },
-    ],
+    travelTips: dbData.landing_page_travel_tips
+      .sort((a: any, b: any) => a.display_order - b.display_order)
+      .map((tip: any) => ({
+        icon: iconMap[tip.icon] || FaClock,
+        title: tip.title,
+        tip: tip.tip,
+      })),
   }
+
+  console.log('dbData', dbData)
 
   return (
     <div className='bg-white'>

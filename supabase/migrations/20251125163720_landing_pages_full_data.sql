@@ -1,0 +1,971 @@
+-- -- ============================================
+-- -- INSERT ALL COUNTRY LANDING PAGES
+-- -- Complete data for all countries in the system
+-- -- ============================================
+
+-- -- ============================================
+-- -- AUSTRALIA
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name,
+--   slug,
+--   tagline,
+--   hero_image_url,
+--   description,
+--   best_time,
+--   currency,
+--   language,
+--   timezone,
+--   visa,
+--   attractions
+-- ) VALUES (
+--   'Australia',
+--   'australia',
+--   'Discover the Land Down Under',
+--   'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1200',
+--   'From vibrant cities to pristine beaches and the iconic Outback, Australia offers unforgettable adventures for every traveler. Experience world-class wildlife, ancient cultures, and breathtaking natural wonders.',
+--   'September to November, March to May',
+--   'Australian Dollar (AUD)',
+--   'English',
+--   'UTC+8 to UTC+11',
+--   'eVisitor or ETA required for most tourists',
+--   ARRAY['Sydney Opera House', 'Great Barrier Reef', 'Uluru-Kata Tjuta', 'Great Ocean Road', 'Bondi Beach', 'Daintree Rainforest', 'Fraser Island', 'Blue Mountains']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'australia'), 'Sydney', 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=400', 'Iconic Opera House, Harbour Bridge, and stunning beaches', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'australia'), 'Great Barrier Reef', 'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?w=400', 'World''s largest coral reef system with incredible marine life', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'australia'), 'Melbourne', 'https://images.unsplash.com/photo-1514395462725-fb4566210144?w=400', 'Cultural capital with art, coffee culture, and sports', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'australia'), 'Uluru', 'https://images.unsplash.com/photo-1540961235228-b90082c4c6bb?w=400', 'Sacred monolith in the heart of the Red Centre', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'australia'), 'FaUmbrellaBeach', 'Beach & Surf', 'World-class beaches and surfing spots', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'australia'), 'FaMountain', 'Adventure', 'Hiking, diving, and outdoor thrills', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'australia'), 'FaUtensils', 'Food & Wine', 'Fresh seafood and premium wines', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'australia'), 'FaCamera', 'Wildlife', 'Unique animals in natural habitats', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'australia'), 'FaClock', 'Best Time', 'Spring (Sep-Nov) and Autumn (Mar-May) offer mild weather', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'australia'), 'FaPlane', 'Getting Around', 'Domestic flights connect major cities; rent a car for road trips', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'australia'), 'FaMoneyBillWave', 'Budget', 'Expect $100-150 AUD per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'australia'), 'FaPassport', 'Visa', 'Apply for eVisitor or ETA online before departure', 4);
+
+-- -- ============================================
+-- -- JAPAN
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name,
+--   slug,
+--   tagline,
+--   hero_image_url,
+--   description,
+--   best_time,
+--   currency,
+--   language,
+--   timezone,
+--   visa,
+--   attractions
+-- ) VALUES (
+--   'Japan',
+--   'japan',
+--   'Where Tradition Meets Innovation',
+--   'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200',
+--   'Experience the perfect blend of ancient temples and futuristic cities. From cherry blossoms to snow-capped mountains, Japan offers a unique journey through time and culture that captivates every visitor.',
+--   'March to May (Spring), October to November (Autumn)',
+--   'Japanese Yen (JPY)',
+--   'Japanese',
+--   'UTC+9',
+--   'Visa-free for 90 days for most Western tourists',
+--   ARRAY['Fushimi Inari Shrine', 'Tokyo Skytree', 'Hiroshima Peace Memorial', 'Nara Deer Park', 'Shibuya Crossing', 'Arashiyama Bamboo Grove', 'Hakone Hot Springs', 'Nikko Toshogu Shrine']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'japan'), 'Tokyo', 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400', 'Bustling metropolis with modern tech and traditional temples', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'japan'), 'Kyoto', 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400', 'Ancient capital with stunning temples and geisha districts', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'japan'), 'Mount Fuji', 'https://images.unsplash.com/photo-1578637387939-43c525550085?w=400', 'Iconic snow-capped volcano and sacred mountain', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'japan'), 'Osaka', 'https://images.unsplash.com/photo-1590559899731-a382839e5549?w=400', 'Food capital with vibrant nightlife and historic castle', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'japan'), 'FaCamera', 'Cherry Blossoms', 'Witness stunning sakura season', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'japan'), 'FaUtensils', 'Culinary Journey', 'Sushi, ramen, and street food delights', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'japan'), 'FaGlobe', 'Cultural Heritage', 'Ancient temples and tea ceremonies', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'japan'), 'FaMountain', 'Nature & Hot Springs', 'Mountains, forests, and onsen relaxation', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'japan'), 'FaClock', 'Best Time', 'Visit during cherry blossom season (late March-April) or autumn foliage (October-November)', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'japan'), 'FaPlane', 'Getting Around', 'JR Pass for unlimited train travel is a must for tourists', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'japan'), 'FaMoneyBillWave', 'Budget', '¥10,000-15,000 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'japan'), 'FaGlobe', 'Etiquette', 'Remove shoes indoors, bow when greeting, and be quiet on public transport', 4);
+
+-- -- ============================================
+-- -- FRANCE
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'France',
+--   'france',
+--   'Experience Romance, Art, and Culinary Excellence',
+--   'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1200',
+--   'France captivates with its iconic landmarks, world-renowned cuisine, exquisite wines, and rich cultural heritage. From the romantic streets of Paris to the sun-soaked beaches of the French Riviera, and the lavender fields of Provence to the historic châteaux of the Loire Valley, France offers endless enchantment.',
+--   'April to October',
+--   'Euro (EUR)',
+--   'French',
+--   'Europe/Paris',
+--   'Visa-free for EU citizens; Schengen visa for others',
+--   ARRAY['Eiffel Tower', 'Louvre Museum', 'Palace of Versailles', 'Mont Saint-Michel', 'French Riviera', 'Loire Valley Châteaux', 'Provence Lavender Fields', 'Arc de Triomphe']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'france'), 'Paris', 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400', 'City of Light with iconic monuments and world-class museums', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'france'), 'French Riviera', 'https://images.unsplash.com/photo-1590078403838-e3df53fb1056?w=400', 'Glamorous Mediterranean coastline with stunning beaches', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'france'), 'Provence', 'https://images.unsplash.com/photo-1564868109805-15969b13c916?w=400', 'Lavender fields, vineyards, and charming villages', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'france'), 'Loire Valley', 'https://images.unsplash.com/photo-1568084680786-a84f91d1153c?w=400', 'Majestic châteaux and pristine gardens', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'france'), 'FaUtensils', 'Gastronomy', 'Michelin-starred cuisine and fine wines', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'france'), 'FaCamera', 'Art & Culture', 'World-renowned museums and galleries', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'france'), 'FaGlobe', 'Historic Sites', 'Ancient castles and monuments', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'france'), 'FaUmbrellaBeach', 'Coastal Beauty', 'Mediterranean beaches and seaside towns', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'france'), 'FaClock', 'Best Time', 'April to October for pleasant weather, avoid August crowds', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'france'), 'FaPlane', 'Getting Around', 'TGV high-speed trains connect major cities efficiently', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'france'), 'FaMoneyBillWave', 'Budget', '€100-150 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'france'), 'FaGlobe', 'Language', 'Learn basic French phrases; English widely spoken in tourist areas', 4);
+
+-- -- ============================================
+-- -- ITALY
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Italy',
+--   'italy',
+--   'La Dolce Vita Awaits',
+--   'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1200',
+--   'Italy is a treasure trove of art, history, and culinary excellence. Explore ancient Roman ruins, Renaissance masterpieces, picturesque coastal villages, rolling Tuscan vineyards, and savor authentic pasta, pizza, gelato, and espresso in their birthplace.',
+--   'April to June, September to October',
+--   'Euro (EUR)',
+--   'Italian',
+--   'Europe/Rome',
+--   'Visa-free for EU citizens; Schengen visa for others',
+--   ARRAY['Colosseum', 'Vatican City', 'Venice Canals', 'Florence Cathedral', 'Leaning Tower of Pisa', 'Amalfi Coast', 'Pompeii', 'Cinque Terre']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'italy'), 'Rome', 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=400', 'Eternal City with ancient ruins and Renaissance art', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'italy'), 'Venice', 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=400', 'Romantic floating city with historic canals', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'italy'), 'Florence', 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=400', 'Renaissance capital with world-class art', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'italy'), 'Amalfi Coast', 'https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=400', 'Stunning coastal cliffs and colorful villages', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'italy'), 'FaUtensils', 'Italian Cuisine', 'Authentic pasta, pizza, and gelato', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'italy'), 'FaCamera', 'Art & History', 'Renaissance masterpieces and ancient ruins', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'italy'), 'FaGlobe', 'Wine Tours', 'Tuscan vineyards and wine tasting', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'italy'), 'FaUmbrellaBeach', 'Coastal Villages', 'Picturesque seaside towns', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'italy'), 'FaClock', 'Best Time', 'Spring and fall for perfect weather and fewer crowds', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'italy'), 'FaPlane', 'Getting Around', 'Trains connect major cities; rent a car for countryside', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'italy'), 'FaMoneyBillWave', 'Budget', '€80-130 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'italy'), 'FaPassport', 'Etiquette', 'Dress modestly for churches; cover shoulders and knees', 4);
+
+-- -- ============================================
+-- -- SPAIN
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Spain',
+--   'spain',
+--   'Passion, Culture, and Mediterranean Magic',
+--   'https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=1200',
+--   'Spain pulses with vibrant energy, from flamenco dancing and bullfighting to world-class art museums and architectural wonders by Gaudí. Experience sun-drenched beaches, lively tapas bars, historic Moorish palaces, and the passionate spirit of Spanish culture.',
+--   'April to June, September to October',
+--   'Euro (EUR)',
+--   'Spanish',
+--   'Europe/Madrid',
+--   'Visa-free for EU citizens; Schengen visa for others',
+--   ARRAY['Sagrada Familia', 'Alhambra Palace', 'Park Güell', 'Prado Museum', 'Plaza Mayor', 'La Rambla', 'Seville Cathedral', 'Costa del Sol']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'spain'), 'Barcelona', 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400', 'Gaudí architecture and Mediterranean beaches', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'spain'), 'Madrid', 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=400', 'Royal palace and world-class museums', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'spain'), 'Seville', 'https://images.unsplash.com/photo-1560969184-10fe8719e047?w=400', 'Flamenco heart and Moorish architecture', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'spain'), 'Granada', 'https://images.unsplash.com/photo-1558642084-fd07fae5282e?w=400', 'Alhambra Palace and mountain views', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'spain'), 'FaUtensils', 'Tapas Culture', 'Small plates and vibrant nightlife', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'spain'), 'FaCamera', 'Architecture', 'Gaudí masterpieces and Moorish palaces', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'spain'), 'FaGlobe', 'Flamenco', 'Passionate dance and music', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'spain'), 'FaUmbrellaBeach', 'Beach Life', 'Mediterranean and Atlantic coastlines', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'spain'), 'FaClock', 'Best Time', 'Spring and fall for ideal weather', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'spain'), 'FaPlane', 'Getting Around', 'High-speed AVE trains and budget flights', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'spain'), 'FaMoneyBillWave', 'Budget', '€70-120 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'spain'), 'FaGlobe', 'Siesta Time', 'Shops close 2-5pm; plan accordingly', 4);
+
+-- -- ============================================
+-- -- GREECE
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Greece',
+--   'greece',
+--   'Where Myth Meets Paradise',
+--   'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=1200',
+--   'Greece is the cradle of Western civilization, home to ancient ruins, whitewashed island villages, crystal-clear waters, and warm hospitality. Walk in the footsteps of philosophers, explore mythological sites, and indulge in Mediterranean cuisine under endless blue skies.',
+--   'April to June, September to October',
+--   'Euro (EUR)',
+--   'Greek',
+--   'Europe/Athens',
+--   'Visa-free for EU citizens; Schengen visa for others',
+--   ARRAY['Acropolis', 'Santorini Sunset', 'Delphi', 'Meteora Monasteries', 'Mykonos Beaches', 'Ancient Olympia', 'Palace of Knossos', 'Rhodes Old Town']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'greece'), 'Athens', 'https://images.unsplash.com/photo-1555993539-1732b0258235?w=400', 'Ancient Acropolis and modern vibrant city', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'greece'), 'Santorini', 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=400', 'Iconic white buildings and stunning sunsets', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'greece'), 'Mykonos', 'https://images.unsplash.com/photo-1601581987809-a874a81309c9?w=400', 'Beautiful beaches and vibrant nightlife', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'greece'), 'Crete', 'https://images.unsplash.com/photo-1580837119756-563d608dd119?w=400', 'Ancient Minoan culture and diverse landscapes', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'greece'), 'FaCamera', 'Ancient Sites', 'Walk through 3,000 years of history', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'greece'), 'FaUmbrellaBeach', 'Island Hopping', 'Explore stunning Aegean islands', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'greece'), 'FaUtensils', 'Greek Cuisine', 'Fresh Mediterranean flavors', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'greece'), 'FaGlobe', 'Mythology', 'Discover legendary stories', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'greece'), 'FaClock', 'Best Time', 'Shoulder seasons for perfect weather and fewer tourists', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'greece'), 'FaPlane', 'Getting Around', 'Ferries between islands; flights to major destinations', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'greece'), 'FaMoneyBillWave', 'Budget', '€60-100 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'greece'), 'FaGlobe', 'Island Planning', 'Book ferries in advance during summer months', 4);
+
+-- -- ============================================
+-- -- THAILAND
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Thailand',
+--   'thailand',
+--   'The Land of Smiles',
+--   'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1200',
+--   'Thailand enchants visitors with its golden temples, tropical beaches, bustling markets, and legendary street food. Experience the vibrant energy of Bangkok, the serenity of northern mountains, the beauty of island paradises, and the warmth of Thai smiles.',
+--   'November to February',
+--   'Thai Baht (THB)',
+--   'Thai',
+--   'Asia/Bangkok',
+--   'Visa-free for many countries (15-30 days); visa on arrival available',
+--   ARRAY['Grand Palace', 'Phi Phi Islands', 'Wat Pho', 'Chiang Mai Temples', 'Railay Beach', 'Floating Markets', 'Ayutthaya', 'Maya Bay']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'thailand'), 'Bangkok', 'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=400', 'Vibrant capital with golden temples and street food', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'thailand'), 'Phuket', 'https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=400', 'Tropical paradise with stunning beaches', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'thailand'), 'Chiang Mai', 'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?w=400', 'Northern cultural hub with mountain temples', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'thailand'), 'Krabi', 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=400', 'Limestone cliffs and crystal-clear waters', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'thailand'), 'FaUtensils', 'Street Food', 'World-famous Thai cuisine', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'thailand'), 'FaUmbrellaBeach', 'Beach Paradise', 'Tropical islands and white sand', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'thailand'), 'FaGlobe', 'Temple Culture', 'Golden Buddhist temples', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'thailand'), 'FaMountain', 'Adventure', 'Jungle treks and water sports', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'thailand'), 'FaClock', 'Best Time', 'Cool season (November-February) is ideal', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'thailand'), 'FaPlane', 'Getting Around', 'Cheap domestic flights and trains available', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'thailand'), 'FaMoneyBillWave', 'Budget', '฿1,500-2,500 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'thailand'), 'FaGlobe', 'Temple Etiquette', 'Dress modestly; remove shoes before entering', 4);
+
+-- -- ============================================
+-- -- UNITED KINGDOM
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'United Kingdom',
+--   'united-kingdom',
+--   'History, Heritage, and Royal Splendor',
+--   'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1200',
+--   'The United Kingdom offers a captivating blend of royal heritage, literary history, iconic landmarks, and diverse landscapes. Explore historic castles, world-class museums, charming villages, and vibrant cities while experiencing British culture, afternoon tea, and traditional pubs.',
+--   'May to September',
+--   'British Pound (GBP)',
+--   'English',
+--   'Europe/London',
+--   'Visa-free for many countries (up to 6 months); visa required for some',
+--   ARRAY['Big Ben', 'Tower of London', 'Stonehenge', 'Edinburgh Castle', 'British Museum', 'Lake District', 'Windsor Castle', 'Giant''s Causeway']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-kingdom'), 'London', 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=400', 'Royal palaces and world-class museums', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-kingdom'), 'Edinburgh', 'https://images.unsplash.com/photo-1555333145-4acf190da336?w=400', 'Historic castle and medieval old town', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-kingdom'), 'Lake District', 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400', 'Stunning natural beauty and hiking trails', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-kingdom'), 'Bath', 'https://images.unsplash.com/photo-1573164574472-797cdf4a583a?w=400', 'Roman baths and Georgian architecture', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-kingdom'), 'FaGlobe', 'Royal Heritage', 'Palaces, castles, and changing of the guard', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-kingdom'), 'FaCamera', 'Museums & Art', 'World-renowned collections', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-kingdom'), 'FaUtensils', 'British Pubs', 'Traditional fare and afternoon tea', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-kingdom'), 'FaMountain', 'Countryside', 'Rolling hills and historic villages', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-kingdom'), 'FaClock', 'Best Time', 'Summer months for best weather', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-kingdom'), 'FaPlane', 'Getting Around', 'Extensive train and bus networks', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-kingdom'), 'FaMoneyBillWave', 'Budget', '£80-150 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-kingdom'), 'FaGlobe', 'Weather', 'Always carry an umbrella; weather is unpredictable', 4);
+
+-- -- ============================================
+-- -- UNITED STATES
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'United States',
+--   'united-states',
+--   'From Coast to Coast Adventures',
+--   'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=1200',
+--   'The United States offers incredible diversity, from cosmopolitan cities and entertainment capitals to natural wonders like the Grand Canyon and Yellowstone. Experience American innovation, cultural melting pots, national parks, iconic road trips, and the spirit of opportunity.',
+--   'Year-round (varies by region)',
+--   'US Dollar (USD)',
+--   'English',
+--   'America/New_York',
+--   'ESTA or visa required for most international visitors',
+--   ARRAY['Statue of Liberty', 'Grand Canyon', 'Times Square', 'Yellowstone', 'Golden Gate Bridge', 'Las Vegas Strip', 'Mount Rushmore', 'Disney World']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-states'), 'New York City', 'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=400', 'The city that never sleeps', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-states'), 'Los Angeles', 'https://images.unsplash.com/photo-1534190239940-9ba8944ea261?w=400', 'Hollywood glamour and beaches', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-states'), 'Grand Canyon', 'https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?w=400', 'Natural wonder and breathtaking views', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-states'), 'San Francisco', 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400', 'Golden Gate Bridge and tech hub', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-states'), 'FaMountain', 'National Parks', 'Stunning natural landscapes', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-states'), 'FaGlobe', 'City Life', 'Diverse metropolitan experiences', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-states'), 'FaCamera', 'Road Trips', 'Iconic American highways', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-states'), 'FaUtensils', 'Food Diversity', 'Every cuisine imaginable', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-states'), 'FaClock', 'Best Time', 'Varies by region; check specific destinations', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-states'), 'FaPlane', 'Getting Around', 'Domestic flights and car rentals recommended', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-states'), 'FaMoneyBillWave', 'Budget', '$150-250 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'united-states'), 'FaGlobe', 'Tipping', 'Expected 15-20% in restaurants', 4);
+
+-- -- ============================================
+-- -- AUSTRALIA (already exists, keeping for reference)
+-- -- ============================================
+
+-- -- ============================================
+-- -- ICELAND
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Iceland',
+--   'iceland',
+--   'Land of Fire and Ice',
+--   'https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=1200',
+--   'Iceland is a land of fire and ice, where volcanic landscapes meet massive glaciers. Witness the Northern Lights, bathe in geothermal hot springs, explore ice caves, chase waterfalls, and experience the raw, dramatic beauty of this Nordic island nation.',
+--   'June to August (midnight sun), September to March (Northern Lights)',
+--   'Icelandic Króna (ISK)',
+--   'Icelandic, English',
+--   'Atlantic/Reykjavik',
+--   'Visa-free for EU/EEA citizens; Schengen visa for others',
+--   ARRAY['Blue Lagoon', 'Golden Circle', 'Northern Lights', 'Jökulsárlón Glacier Lagoon', 'Gullfoss Waterfall', 'Geysir', 'Reynisfjara Beach', 'Thingvellir National Park']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'iceland'), 'Reykjavik', 'https://images.unsplash.com/photo-1551522435-a13afa10f103?w=400', 'Colorful capital with vibrant culture', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'iceland'), 'Blue Lagoon', 'https://images.unsplash.com/photo-1484821582734-6c6c9f99a672?w=400', 'Geothermal spa in volcanic landscape', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'iceland'), 'Golden Circle', 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400', 'Geysers, waterfalls, and historic sites', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'iceland'), 'Jökulsárlón', 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=400', 'Stunning glacier lagoon with icebergs', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'iceland'), 'FaCamera', 'Northern Lights', 'Witness the aurora borealis', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'iceland'), 'FaGlobe', 'Hot Springs', 'Geothermal pools and spas', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'iceland'), 'FaMountain', 'Glacier Hiking', 'Walk on ancient ice', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'iceland'), 'FaUmbrellaBeach', 'Black Sand Beaches', 'Unique volcanic coastlines', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'iceland'), 'FaClock', 'Best Time', 'Summer for midnight sun; winter for Northern Lights', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'iceland'), 'FaPlane', 'Getting Around', 'Rent a 4WD for Ring Road exploration', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'iceland'), 'FaMoneyBillWave', 'Budget', 'ISK 20,000-30,000 per day; one of Europe''s most expensive', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'iceland'), 'FaGlobe', 'Weather', 'Layer clothing; weather changes rapidly', 4);
+
+-- -- ============================================
+-- -- PORTUGAL
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Portugal',
+--   'portugal',
+--   'Coastal Charm and Rich Heritage',
+--   'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1200',
+--   'Portugal charms visitors with its colorful tiles, Port wine, stunning coastline, and warm hospitality. Explore historic Lisbon, discover Porto''s riverside beauty, relax on Algarve beaches, and experience a rich maritime heritage and delicious seafood cuisine.',
+--   'March to May, September to October',
+--   'Euro (EUR)',
+--   'Portuguese',
+--   'Europe/Lisbon',
+--   'Visa-free for EU citizens; Schengen visa for others',
+--   ARRAY['Belém Tower', 'Jerónimos Monastery', 'Porto Ribeira', 'Pena Palace', 'Douro Valley', 'Algarve Beaches', 'São Jorge Castle', 'Cabo da Roca']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'portugal'), 'Lisbon', 'https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=400', 'Hilly capital with colorful tiles and trams', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'portugal'), 'Porto', 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=400', 'Port wine cellars and riverside charm', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'portugal'), 'Algarve', 'https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=400', 'Golden beaches and dramatic cliffs', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'portugal'), 'Sintra', 'https://images.unsplash.com/photo-1588681664989-032e2ca7fd8c?w=400', 'Fairy-tale palaces and mountain scenery', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'portugal'), 'FaUtensils', 'Portuguese Cuisine', 'Fresh seafood and pastéis de nata', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'portugal'), 'FaGlobe', 'Port Wine', 'Wine tasting in historic cellars', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'portugal'), 'FaUmbrellaBeach', 'Beach Life', 'Atlantic coastline adventures', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'portugal'), 'FaCamera', 'Historic Sites', 'Medieval castles and monasteries', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'portugal'), 'FaClock', 'Best Time', 'Spring and fall for pleasant weather', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'portugal'), 'FaPlane', 'Getting Around', 'Efficient trains between major cities', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'portugal'), 'FaMoneyBillWave', 'Budget', '€60-100 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'portugal'), 'FaGlobe', 'Language', 'English widely spoken in tourist areas', 4);
+
+-- -- ============================================
+-- -- MOROCCO
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Morocco',
+--   'morocco',
+--   'Exotic North African Gateway',
+--   'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=1200',
+--   'Morocco is an exotic blend of ancient medinas, Sahara Desert adventures, Atlas Mountains, and Atlantic coastline. Experience vibrant souks, stunning riads, traditional hammams, aromatic spices, and the welcoming spirit of North African culture.',
+--   'March to May, September to November',
+--   'Moroccan Dirham (MAD)',
+--   'Arabic, French',
+--   'Africa/Casablanca',
+--   'Visa-free for many countries (up to 90 days)',
+--   ARRAY['Jemaa el-Fnaa', 'Hassan II Mosque', 'Sahara Desert', 'Fes Medina', 'Chefchaouen', 'Atlas Mountains', 'Marrakech Souks', 'Ait Benhaddou']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'morocco'), 'Marrakech', 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=400', 'Vibrant souks and medieval medina', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'morocco'), 'Fes', 'https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=400', 'Ancient medina and traditional crafts', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'morocco'), 'Sahara Desert', 'https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?w=400', 'Dune landscapes and camel treks', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'morocco'), 'Chefchaouen', 'https://images.unsplash.com/photo-1597212618440-806262de4f6b?w=400', 'Blue-painted mountain town', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'morocco'), 'FaGlobe', 'Desert Adventures', 'Camel treks and starlit camps', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'morocco'), 'FaUtensils', 'Moroccan Cuisine', 'Tagines and mint tea', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'morocco'), 'FaCamera', 'Ancient Medinas', 'Historic walled cities and souks', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'morocco'), 'FaMountain', 'Atlas Mountains', 'Berber villages and hiking', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'morocco'), 'FaClock', 'Best Time', 'Spring and fall for comfortable temperatures', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'morocco'), 'FaPlane', 'Getting Around', 'Trains between cities; private drivers for desert', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'morocco'), 'FaMoneyBillWave', 'Budget', 'MAD 500-800 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'morocco'), 'FaGlobe', 'Bargaining', 'Haggling is expected in souks', 4);
+
+-- -- ============================================
+-- -- NEW ZEALAND
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'New Zealand',
+--   'new-zealand',
+--   'Middle-earth Magic and Natural Wonders',
+--   'https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=1200',
+--   'New Zealand offers breathtaking landscapes made famous by "The Lord of the Rings" films. Experience dramatic fjords, snow-capped mountains, pristine beaches, geothermal wonders, adventure sports, and Māori culture in this unspoiled paradise.',
+--   'December to February, March to May',
+--   'New Zealand Dollar (NZD)',
+--   'English, Māori',
+--   'Pacific/Auckland',
+--   'eTA or visa required; visa-free for some countries',
+--   ARRAY['Milford Sound', 'Tongariro Alpine Crossing', 'Hobbiton', 'Fox Glacier', 'Bay of Islands', 'Queenstown', 'Rotorua Geysers', 'Abel Tasman']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'new-zealand'), 'Queenstown', 'https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=400', 'Adventure capital with stunning scenery', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'new-zealand'), 'Milford Sound', 'https://images.unsplash.com/photo-1469521669194-babb45599def?w=400', 'Dramatic fjords and waterfalls', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'new-zealand'), 'Rotorua', 'https://images.unsplash.com/photo-1598948485421-33a1655d3c18?w=400', 'Geothermal wonders and Māori culture', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'new-zealand'), 'Bay of Islands', 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400', 'Subtropical beaches and sailing', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'new-zealand'), 'FaMountain', 'Adventure Sports', 'Bungee jumping and hiking', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'new-zealand'), 'FaCamera', 'Scenic Beauty', 'Breathtaking landscapes', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'new-zealand'), 'FaGlobe', 'Māori Culture', 'Indigenous traditions and history', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'new-zealand'), 'FaUmbrellaBeach', 'Coastal Beauty', 'Pristine beaches and fjords', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'new-zealand'), 'FaClock', 'Best Time', 'Summer for beach; fall for fewer crowds', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'new-zealand'), 'FaPlane', 'Getting Around', 'Rent a campervan for ultimate flexibility', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'new-zealand'), 'FaMoneyBillWave', 'Budget', 'NZD 150-250 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'new-zealand'), 'FaGlobe', 'Distances', 'Don''t underestimate driving times', 4);
+
+-- -- ============================================
+-- -- BRAZIL
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Brazil',
+--   'brazil',
+--   'Carnival Spirit and Natural Wonders',
+--   'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1200',
+--   'Brazil pulsates with energy, from Carnival celebrations and samba rhythms to the Amazon rainforest and stunning beaches. Experience the iconic Christ the Redeemer, Copacabana Beach, diverse ecosystems, and the passionate, welcoming Brazilian spirit.',
+--   'December to March (summer), September to November',
+--   'Brazilian Real (BRL)',
+--   'Portuguese',
+--   'America/Sao_Paulo',
+--   'Visa-free for many countries; e-visa available for some',
+--   ARRAY['Christ the Redeemer', 'Iguazu Falls', 'Amazon Rainforest', 'Copacabana Beach', 'Sugarloaf Mountain', 'Pantanal', 'Salvador Historic Center', 'Fernando de Noronha']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'brazil'), 'Rio de Janeiro', 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=400', 'Iconic beaches and Carnival capital', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'brazil'), 'Amazon Rainforest', 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=400', 'World''s largest tropical rainforest', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'brazil'), 'Iguazu Falls', 'https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?w=400', 'Spectacular waterfalls system', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'brazil'), 'Salvador', 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400', 'Afro-Brazilian culture and colonial charm', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'brazil'), 'FaCamera', 'Carnival', 'World''s biggest party', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'brazil'), 'FaUmbrellaBeach', 'Beach Culture', 'Famous coastline and beach life', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'brazil'), 'FaMountain', 'Amazon Adventure', 'Rainforest exploration', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'brazil'), 'FaUtensils', 'Brazilian Cuisine', 'Churrasco and tropical flavors', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'brazil'), 'FaClock', 'Best Time', 'December-March for beaches; June-September for Amazon', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'brazil'), 'FaPlane', 'Getting Around', 'Domestic flights essential due to size', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'brazil'), 'FaMoneyBillWave', 'Budget', 'BRL 200-400 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'brazil'), 'FaGlobe', 'Safety', 'Stay aware in cities; use official taxis', 4);
+
+-- -- ============================================
+-- -- SWITZERLAND
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Switzerland',
+--   'switzerland',
+--   'Alpine Perfection and Timeless Beauty',
+--   'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=1200',
+--   'Switzerland is synonymous with pristine Alpine beauty, precision watches, delicious chocolate, and efficient trains. Explore charming villages, world-class ski resorts, crystal-clear lakes, and experience Swiss perfection in every detail.',
+--   'June to September (hiking), December to March (skiing)',
+--   'Swiss Franc (CHF)',
+--   'German, French, Italian, Romansh',
+--   'Europe/Zurich',
+--   'Visa-free for EU citizens; Schengen visa for others',
+--   ARRAY['Matterhorn', 'Jungfraujoch', 'Chapel Bridge', 'Lake Geneva', 'Swiss Alps', 'Zermatt', 'Interlaken', 'Chillon Castle']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'switzerland'), 'Zermatt', 'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=400', 'Matterhorn views and skiing paradise', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'switzerland'), 'Interlaken', 'https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=400', 'Adventure sports between two lakes', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'switzerland'), 'Lucerne', 'https://images.unsplash.com/photo-1532268694805-0a45f03f0f22?w=400', 'Historic bridges and lake views', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'switzerland'), 'Geneva', 'https://images.unsplash.com/photo-1514565131-fce0801e5785?w=400', 'International city on beautiful lake', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'switzerland'), 'FaMountain', 'Alpine Adventure', 'World-class skiing and hiking', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'switzerland'), 'FaPlane', 'Scenic Trains', 'Glacier Express and panoramic routes', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'switzerland'), 'FaUtensils', 'Swiss Cuisine', 'Cheese fondue and chocolate', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'switzerland'), 'FaGlobe', 'Mountain Villages', 'Charming Alpine towns', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'switzerland'), 'FaClock', 'Best Time', 'Summer for hiking; winter for skiing', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'switzerland'), 'FaPlane', 'Getting Around', 'Swiss Travel Pass for unlimited train travel', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'switzerland'), 'FaMoneyBillWave', 'Budget', 'CHF 200-350 per day; expensive but worth it', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'switzerland'), 'FaGlobe', 'Languages', 'German, French, Italian vary by region', 4);
+
+-- -- ============================================
+-- -- TURKEY
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Turkey',
+--   'turkey',
+--   'Where East Meets West',
+--   'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=1200',
+--   'Turkey bridges two continents, offering a fascinating blend of Eastern and Western cultures. Discover ancient ruins, stunning mosques, unique hot air balloon rides over Cappadocia, bustling bazaars, and delicious Turkish cuisine.',
+--   'April to May, September to October',
+--   'Turkish Lira (TRY)',
+--   'Turkish',
+--   'Europe/Istanbul',
+--   'E-visa available online for most countries',
+--   ARRAY['Hagia Sophia', 'Cappadocia', 'Pamukkale', 'Ephesus', 'Blue Mosque', 'Grand Bazaar', 'Topkapi Palace', 'Göreme']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'turkey'), 'Istanbul', 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=400', 'Historic city spanning two continents', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'turkey'), 'Cappadocia', 'https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?w=400', 'Fairy chimneys and hot air balloons', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'turkey'), 'Pamukkale', 'https://images.unsplash.com/photo-1571406252739-91ba2c38832a?w=400', 'White travertine terraces', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'turkey'), 'Antalya', 'https://images.unsplash.com/photo-1548625149-720da78f5a39?w=400', 'Turkish Riviera beaches', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'turkey'), 'FaCamera', 'Hot Air Balloons', 'Fly over Cappadocia landscape', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'turkey'), 'FaGlobe', 'Ancient Ruins', 'Greek and Roman heritage', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'turkey'), 'FaUtensils', 'Turkish Cuisine', 'Kebabs, baklava, and Turkish tea', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'turkey'), 'FaUmbrellaBeach', 'Coastal Resorts', 'Mediterranean and Aegean shores', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'turkey'), 'FaClock', 'Best Time', 'Spring and fall for ideal temperatures', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'turkey'), 'FaPlane', 'Getting Around', 'Domestic flights and buses available', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'turkey'), 'FaMoneyBillWave', 'Budget', 'TRY 800-1,500 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'turkey'), 'FaGlobe', 'Cultural Respect', 'Dress modestly when visiting mosques', 4);
+
+-- -- ============================================
+-- -- EGYPT
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Egypt',
+--   'egypt',
+--   '5,000 Years of Wonder',
+--   'https://images.unsplash.com/photo-1539768942893-daf53e448371?w=1200',
+--   'Egypt is home to one of the world''s oldest civilizations. Marvel at the Pyramids of Giza, cruise the Nile River, explore ancient temples, discover pharaonic treasures, and immerse yourself in 5,000 years of captivating history.',
+--   'October to April',
+--   'Egyptian Pound (EGP)',
+--   'Arabic',
+--   'Africa/Cairo',
+--   'Visa on arrival or e-visa available for most countries',
+--   ARRAY['Pyramids of Giza', 'Sphinx', 'Valley of the Kings', 'Karnak Temple', 'Abu Simbel', 'Egyptian Museum', 'Luxor Temple', 'Nile Cruise']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'egypt'), 'Cairo', 'https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400', 'Pyramids and ancient Egyptian artifacts', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'egypt'), 'Luxor', 'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=400', 'Valley of the Kings and ancient temples', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'egypt'), 'Aswan', 'https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=400', 'Nile beauty and Nubian culture', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'egypt'), 'Red Sea', 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400', 'World-class diving and beach resorts', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'egypt'), 'FaCamera', 'Ancient Wonders', 'Pyramids and pharaonic temples', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'egypt'), 'FaPlane', 'Nile Cruise', 'Sail through history', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'egypt'), 'FaUmbrellaBeach', 'Red Sea Diving', 'Coral reefs and marine life', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'egypt'), 'FaGlobe', 'Desert Safari', 'Sahara adventures', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'egypt'), 'FaClock', 'Best Time', 'October-April for cooler weather', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'egypt'), 'FaPlane', 'Getting Around', 'Domestic flights between major sites', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'egypt'), 'FaMoneyBillWave', 'Budget', 'EGP 800-1,500 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'egypt'), 'FaGlobe', 'Guides', 'Hire licensed guides for historical sites', 4);
+
+-- -- ============================================
+-- -- CANADA
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Canada',
+--   'canada',
+--   'Wild Beauty and Urban Sophistication',
+--   'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=1200',
+--   'Canada offers vast wilderness, cosmopolitan cities, and friendly locals. Experience the Rocky Mountains, Niagara Falls, vibrant Toronto and Vancouver, French-Canadian culture in Quebec, and pristine natural beauty that stretches from coast to coast.',
+--   'June to September',
+--   'Canadian Dollar (CAD)',
+--   'English, French',
+--   'America/Toronto',
+--   'eTA or visa required depending on nationality',
+--   ARRAY['Niagara Falls', 'Banff National Park', 'CN Tower', 'Old Quebec', 'Stanley Park', 'Lake Louise', 'Parliament Hill', 'Jasper National Park']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'canada'), 'Banff', 'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=400', 'Rocky Mountain paradise', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'canada'), 'Vancouver', 'https://images.unsplash.com/photo-1559511260-66a654ae982a?w=400', 'City surrounded by nature', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'canada'), 'Quebec City', 'https://images.unsplash.com/photo-1517935706615-2717063c2225?w=400', 'European charm in North America', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'canada'), 'Toronto', 'https://images.unsplash.com/photo-1517935706615-2717063c2225?w=400', 'Diverse metropolitan hub', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'canada'), 'FaMountain', 'National Parks', 'Pristine wilderness and wildlife', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'canada'), 'FaGlobe', 'Multicultural Cities', 'Diverse urban experiences', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'canada'), 'FaCamera', 'Natural Wonders', 'Niagara Falls and aurora', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'canada'), 'FaUtensils', 'Culinary Diversity', 'Poutine to international cuisine', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'canada'), 'FaClock', 'Best Time', 'Summer for most regions; winter for skiing', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'canada'), 'FaPlane', 'Getting Around', 'Rent a car for flexibility; distances are vast', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'canada'), 'FaMoneyBillWave', 'Budget', 'CAD 150-250 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'canada'), 'FaGlobe', 'Weather', 'Pack layers; temperatures vary greatly', 4);
+
+-- -- ============================================
+-- -- VIETNAM
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Vietnam',
+--   'vietnam',
+--   'Ancient Culture Meets Natural Beauty',
+--   'https://images.unsplash.com/photo-1528127269322-539801943592?w=1200',
+--   'Vietnam captivates with its stunning natural beauty, rich history, delicious cuisine, and welcoming people. Explore bustling Hanoi, cruise Ha Long Bay, discover ancient Hoi An, experience vibrant Ho Chi Minh City, and savor authentic pho and banh mi.',
+--   'February to April, August to October',
+--   'Vietnamese Dong (VND)',
+--   'Vietnamese',
+--   'Asia/Ho_Chi_Minh',
+--   'E-visa or visa on arrival available for most countries',
+--   ARRAY['Ha Long Bay', 'Hoi An Ancient Town', 'Cu Chi Tunnels', 'Mekong Delta', 'Hue Imperial City', 'Sapa Rice Terraces', 'Phong Nha Caves', 'Mui Ne Beach']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'vietnam'), 'Hanoi', 'https://images.unsplash.com/photo-1528127269322-539801943592?w=400', 'Historic capital with French colonial charm', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'vietnam'), 'Ha Long Bay', 'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=400', 'Limestone karsts and emerald waters', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'vietnam'), 'Hoi An', 'https://images.unsplash.com/photo-1559592413-7cff22b937f7?w=400', 'Lantern-lit ancient port town', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'vietnam'), 'Ho Chi Minh City', 'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=400', 'Bustling southern metropolis', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'vietnam'), 'FaUtensils', 'Street Food', 'Pho, banh mi, and fresh spring rolls', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'vietnam'), 'FaCamera', 'Natural Beauty', 'Karsts, beaches, and rice terraces', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'vietnam'), 'FaGlobe', 'History', 'Ancient towns and war memorials', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'vietnam'), 'FaPlane', 'Boat Cruises', 'Ha Long Bay and Mekong Delta', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'vietnam'), 'FaClock', 'Best Time', 'Varies by region; generally Feb-Apr or Aug-Oct', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'vietnam'), 'FaPlane', 'Getting Around', 'Trains, buses, and domestic flights available', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'vietnam'), 'FaMoneyBillWave', 'Budget', 'VND 600,000-1,200,000 per day; very affordable', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'vietnam'), 'FaGlobe', 'Safety', 'Watch belongings in tourist areas', 4);
+
+-- -- ============================================
+-- -- PERU
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Peru',
+--   'peru',
+--   'Land of the Incas',
+--   'https://images.unsplash.com/photo-1526392060635-9d6019884377?w=1200',
+--   'Peru is home to Machu Picchu, one of the world''s most iconic archaeological sites. Explore Incan ruins, the Amazon rainforest, colorful Andean culture, Lake Titicaca, and savor world-renowned Peruvian cuisine in this land of ancient mysteries.',
+--   'April to October (dry season)',
+--   'Peruvian Sol (PEN)',
+--   'Spanish, Quechua',
+--   'America/Lima',
+--   'Visa-free for most countries (up to 90-183 days)',
+--   ARRAY['Machu Picchu', 'Nazca Lines', 'Lake Titicaca', 'Sacred Valley', 'Colca Canyon', 'Rainbow Mountain', 'Amazon Rainforest', 'Chan Chan']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'peru'), 'Machu Picchu', 'https://images.unsplash.com/photo-1526392060635-9d6019884377?w=400', 'Lost city of the Incas', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'peru'), 'Cusco', 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=400', 'Ancient Incan capital', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'peru'), 'Lima', 'https://images.unsplash.com/photo-1531968455001-5c5272a41129?w=400', 'Culinary capital and colonial architecture', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'peru'), 'Amazon Basin', 'https://images.unsplash.com/photo-1511316695145-4992006ffddb?w=400', 'Pristine rainforest from Iquitos', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'peru'), 'FaMountain', 'Inca Trail', 'Trek to Machu Picchu', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'peru'), 'FaUtensils', 'Peruvian Cuisine', 'Ceviche and fusion gastronomy', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'peru'), 'FaGlobe', 'Ancient Culture', 'Incan and pre-Incan heritage', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'peru'), 'FaCamera', 'Amazon Wildlife', 'Jungle expeditions and biodiversity', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'peru'), 'FaClock', 'Best Time', 'April-October for highlands; year-round for coast', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'peru'), 'FaPlane', 'Getting Around', 'Buses between cities; flights to remote areas', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'peru'), 'FaMoneyBillWave', 'Budget', 'PEN 150-300 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'peru'), 'FaGlobe', 'Altitude', 'Acclimatize in Cusco before Machu Picchu', 4);
+
+-- -- ============================================
+-- -- CAMBODIA
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Cambodia',
+--   'cambodia',
+--   'Kingdom of Wonder and Ancient Temples',
+--   'https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=1200',
+--   'Cambodia is home to the magnificent Angkor Wat and a rich Khmer heritage. Discover ancient temple complexes, vibrant markets, tropical beaches, the mighty Mekong River, and experience the warm hospitality of the Cambodian people in this Southeast Asian gem.',
+--   'November to March',
+--   'Cambodian Riel (KHR), US Dollar accepted',
+--   'Khmer',
+--   'Asia/Phnom_Penh',
+--   'E-visa or visa on arrival available for most countries',
+--   ARRAY['Angkor Wat', 'Bayon Temple', 'Ta Prohm', 'Royal Palace Phnom Penh', 'Tonle Sap Lake', 'Siem Reap', 'Killing Fields Memorial', 'Koh Rong Islands']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'cambodia'), 'Angkor Wat', 'https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=400', 'Largest religious monument in the world', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'cambodia'), 'Siem Reap', 'https://images.unsplash.com/photo-1604072366595-e75dc92d6bdc?w=400', 'Gateway to ancient temples and vibrant culture', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'cambodia'), 'Phnom Penh', 'https://images.unsplash.com/photo-1548365328-8c6db3220e4c?w=400', 'Capital city with royal palace and history', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'cambodia'), 'Sihanoukville', 'https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=400', 'Beach paradise and island escapes', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'cambodia'), 'FaCamera', 'Ancient Temples', 'Explore Angkor archaeological complex', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'cambodia'), 'FaGlobe', 'Khmer Culture', 'Traditional dance and local customs', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'cambodia'), 'FaUtensils', 'Street Food', 'Authentic Khmer cuisine and markets', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'cambodia'), 'FaUmbrellaBeach', 'Island Beaches', 'Tropical coastline and islands', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'cambodia'), 'FaClock', 'Best Time', 'Cool and dry season from November to March', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'cambodia'), 'FaPlane', 'Getting Around', 'Tuk-tuks are main transport; buses between cities', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'cambodia'), 'FaMoneyBillWave', 'Budget', '$30-50 per day; very affordable destination', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'cambodia'), 'FaGlobe', 'Temple Visits', 'Dress modestly; hire guides for historical context', 4);
+
+-- -- ============================================
+-- -- INDIA
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'India',
+--   'india',
+--   'Land of Colors, Spices, and Spirituality',
+--   'https://images.unsplash.com/photo-1548013146-72479768bada?w=1200',
+--   'India is a land of incredible diversity, from the snow-capped Himalayas to tropical Kerala backwaters. Experience the iconic Taj Mahal, vibrant festivals, ancient temples, bustling bazaars, aromatic spices, yoga and spirituality, and warm hospitality across this vast subcontinent.',
+--   'October to March',
+--   'Indian Rupee (INR)',
+--   'Hindi, English, and 21 other official languages',
+--   'Asia/Kolkata',
+--   'E-visa available online for most countries',
+--   ARRAY['Taj Mahal', 'Jaipur City Palace', 'Kerala Backwaters', 'Varanasi Ghats', 'Golden Temple', 'Hampi Ruins', 'Goa Beaches', 'Mumbai Gateway of India']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'india'), 'Delhi', 'https://images.unsplash.com/photo-1548013146-72479768bada?w=400', 'Capital city with Mughal monuments', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'india'), 'Agra', 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=400', 'Home of the iconic Taj Mahal', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'india'), 'Jaipur', 'https://images.unsplash.com/photo-1524230659092-07f99a75c013?w=400', 'Pink City with royal palaces', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'india'), 'Kerala', 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400', 'Tropical paradise with backwaters', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'india'), 'FaGlobe', 'Spiritual Journey', 'Temples, yoga, and meditation', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'india'), 'FaUtensils', 'Indian Cuisine', 'Curries, street food, and chai', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'india'), 'FaCamera', 'Heritage Sites', 'Palaces, forts, and monuments', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'india'), 'FaMountain', 'Diverse Landscapes', 'Mountains, deserts, and beaches', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'india'), 'FaClock', 'Best Time', 'October-March for most regions; avoid summer heat', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'india'), 'FaPlane', 'Getting Around', 'Trains are extensive; domestic flights available', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'india'), 'FaMoneyBillWave', 'Budget', '₹2,000-4,000 per day for mid-range travel', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'india'), 'FaGlobe', 'Cultural Respect', 'Dress modestly at religious sites; remove shoes', 4);
+
+-- -- ============================================
+-- -- INDONESIA
+-- -- ============================================
+-- INSERT INTO landing_pages (
+--   country_name, slug, tagline, hero_image_url, description,
+--   best_time, currency, language, timezone, visa, attractions
+-- ) VALUES (
+--   'Indonesia',
+--   'indonesia',
+--   'Tropical Paradise of 17,000 Islands',
+--   'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1200',
+--   'Indonesia is a vast archipelago of stunning diversity. From Bali''s spiritual temples and rice terraces to Komodo dragons, pristine beaches, active volcanoes, and vibrant Jakarta. Experience island hopping, surfing, diving, ancient temples, and warm Indonesian hospitality.',
+--   'April to October (dry season)',
+--   'Indonesian Rupiah (IDR)',
+--   'Indonesian (Bahasa Indonesia)',
+--   'Asia/Jakarta',
+--   'Visa-free for many countries; visa on arrival available',
+--   ARRAY['Borobudur Temple', 'Bali Rice Terraces', 'Komodo National Park', 'Raja Ampat', 'Mount Bromo', 'Gili Islands', 'Ubud Monkey Forest', 'Tanah Lot Temple']
+-- );
+
+-- INSERT INTO landing_page_destinations (landing_page_id, name, image_url, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'indonesia'), 'Bali', 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400', 'Island of Gods with temples and beaches', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'indonesia'), 'Yogyakarta', 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400', 'Cultural heart with ancient temples', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'indonesia'), 'Komodo Island', 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=400', 'Home of the legendary Komodo dragons', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'indonesia'), 'Lombok', 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=400', 'Pristine beaches and waterfalls', 4);
+
+-- INSERT INTO landing_page_experiences (landing_page_id, icon, title, description, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'indonesia'), 'FaUmbrellaBeach', 'Island Paradise', 'Thousands of tropical islands', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'indonesia'), 'FaGlobe', 'Temple Culture', 'Hindu and Buddhist heritage', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'indonesia'), 'FaMountain', 'Volcanoes', 'Active peaks and sunrise treks', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'indonesia'), 'FaCamera', 'Wildlife', 'Komodo dragons and orangutans', 4);
+
+-- INSERT INTO landing_page_travel_tips (landing_page_id, icon, title, tip, display_order)
+-- VALUES 
+--   ((SELECT id FROM landing_pages WHERE slug = 'indonesia'), 'FaClock', 'Best Time', 'Dry season April-October for most islands', 1),
+--   ((SELECT id FROM landing_pages WHERE slug = 'indonesia'), 'FaPlane', 'Getting Around', 'Island hopping via flights and ferries', 2),
+--   ((SELECT id FROM landing_pages WHERE slug = 'indonesia'), 'FaMoneyBillWave', 'Budget', 'IDR 400,000-800,000 per day; very affordable', 3),
+--   ((SELECT id FROM landing_pages WHERE slug = 'indonesia'), 'FaGlobe', 'Respect', 'Indonesia is Muslim-majority; dress modestly', 4);
+
+  
