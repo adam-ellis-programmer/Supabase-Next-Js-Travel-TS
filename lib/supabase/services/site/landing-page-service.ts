@@ -1,5 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 
+
+
 export class LandingPage {
   static async getPage(country: string) {
     const supabase = await createClient()

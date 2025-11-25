@@ -7,6 +7,7 @@ import { deleteAll } from '@/lib/supabase/actions/admin/images/delete-tour-image
 import { TiInfoOutline } from 'react-icons/ti'
 import { useRouter } from 'next/navigation'
 import { updateTourImage } from '@/lib/supabase/actions/admin/images/update-tour-image'
+
 const Images = ({
   categorizedData,
   tourId,
@@ -19,40 +20,49 @@ const Images = ({
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const [deleteAllLoading, setDeleteAllLoading] = useState(false)
   const [editLoading, seteditLoading] = useState(false)
-  //
   const [editId, setEditId] = useState<number | null>(null)
 
-  // ref gets passed down into the ImageListItem
-  //
-  // needs to ne moved to parent
   const handleChangeImage = (index: number, id: number) => {
-    console.log('changing image id logged from iamges parent: ', id)
+    console.log('changing image id logged from images parent: ', id)
     setEditId(id)
     // Trigger the file input click
     fileInputRef.current?.click()
   }
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('updating from images ...')
+
     seteditLoading(true)
     const files = e.target.files
-    if (files && files.length > 0) {
-      console.log('Selected files:', files)
 
-      const formData = new FormData()
-      formData.append('file-data', files[0])
-      formData.append('image-id', editId)
-      formData.append('tour-id', tourId)
+    // ✅ Guard clause: Check if we have files AND editId
+    if (!files || files.length === 0) {
+      seteditLoading(false)
+      return
+    }
 
-      try {
-        // Handle the file upload here
-        const res = await updateTourImage(formData)
-        console.log('RES FROM SERVER:', res)
-        router.refresh()
-      } catch (error) {
-        console.log(error)
-      } finally {
-        seteditLoading(false)
-      }
+    if (editId === null) {
+      console.error('No image ID selected')
+      seteditLoading(false)
+      return
+    }
+
+    console.log('Selected files:', files)
+
+    const formData = new FormData()
+    formData.append('file-data', files[0])
+    // ✅ Convert numbers to strings
+    formData.append('image-id', editId.toString())
+    formData.append('tour-id', tourId.toString())
+
+    try {
+      const res = await updateTourImage(formData)
+      console.log('RES FROM SERVER:', res)
+      router.refresh()
+    } catch (error) {
+      console.log(error)
+    } finally {
+      seteditLoading(false)
     }
   }
 
@@ -62,7 +72,6 @@ const Images = ({
   }
 
   const handleDeleteAll = async () => {
-    // ...
     setDeleteAllLoading(true)
     try {
       const data = categorizedData.relatedData['tour_images']
@@ -71,7 +80,6 @@ const Images = ({
     } catch (error) {
       console.log(error)
     } finally {
-      // ...
       setDeleteAllLoading(false)
       router.refresh()
     }
@@ -79,8 +87,9 @@ const Images = ({
 
   // sort data by display order
   const tourImagesData = [...categorizedData.relatedData['tour_images']]
-  // prettier-ignore
-  const sortedData = tourImagesData.sort((a, b) => a.display_order - b.display_order)
+  const sortedData = tourImagesData.sort(
+    (a, b) => a.display_order - b.display_order
+  )
 
   return (
     <div className=''>
@@ -94,7 +103,7 @@ const Images = ({
         {/* Manage Tour Images */}
         <AddNewImagesButton tourId={tourId} />
       </div>
-      <p className='text-lg'>Main Tour Imgaes</p>
+      <p className='text-lg'>Main Tour Images</p>
 
       {Object.entries(categorizedData.relatedData['tour_images'] || {}).length >
         0 && (
@@ -145,7 +154,6 @@ const Images = ({
         </div>
       ))}
 
-      {/* <button onClick={() => test()}>test</button> */}
       {/* Hidden file input */}
       <input
         ref={fileInputRef}
