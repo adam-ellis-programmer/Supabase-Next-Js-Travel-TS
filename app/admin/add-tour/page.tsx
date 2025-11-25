@@ -5,7 +5,7 @@ import { DatabaseService } from '@/lib/supabase/services/database-service'
 import { TourFormData } from '@/types/tours'
 import React, { useState } from 'react'
 import { FaSave, FaPlus, FaTimes, FaImage } from 'react-icons/fa'
-
+  
 const AdminAddTour = () => {
   // Basic Information
   const [tourImages, setTourImages] = useState<File[]>([])

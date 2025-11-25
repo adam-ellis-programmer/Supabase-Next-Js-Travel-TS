@@ -28,7 +28,7 @@ const CountryLandingPage = async ({
   console.log('ID: ', id)
 
   const res = await LandingPage.getPage(id)
-  console.log(res)
+  console.log('res:', res)
 
   // ✅ Now you can use the type assertion!
   const dbData = res[0] as LandingPageData
