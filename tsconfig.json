@@ -29,6 +29,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/booking-confirmation"
-, "seed/data/image-tester.js", "lib/supabase/actions/admin/booking-slot-actions.js", "components/admin/edit tour/BookingSlots.tsx"  ],
+, "seed/data/image-tester.js", "lib/supabase/actions/admin/booking-slot-actions.js", "components/admin/edit tour/BookingSlots.tsx", "lib/supabase/actions/actions.ts"  ],
   "exclude": ["node_modules"]
 }

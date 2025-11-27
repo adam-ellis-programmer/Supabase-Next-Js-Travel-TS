@@ -77,6 +77,10 @@ export async function createTourAction(
   tourData: TourFormData,
   imageFiles?: File[]
 ): Promise<ActionResult> {
+  console.log(availableDates)
+  console.log(tourData)
+  console.log(imageFiles)
+
   try {
     // ✅ 1. Authenticate
     const supabase = await createClient()
@@ -136,6 +140,10 @@ export async function createTourAction(
       }
     }
 
+    // **
+    // 1 authenticate and check validation
+    // 2 pass to service
+    // **
     // ✅ 5. Create tour FIRST (we need the tourId)
     const result = await TourService.insertTour(tourData)
 
@@ -226,58 +234,58 @@ export async function createTourAction(
 // ============================================
 // UPDATE TOUR ACTION
 // ============================================
-export async function updateTourAction(
-  tourId: number,
-  tourData: Partial<TourFormData>
-) {
-  try {
-    const supabase = await createClient()
-    const {
-      data: { user },
-      error: authError,
-    } = await supabase.auth.getUser()
+// export async function updateTourAction(
+//   tourId: number,
+//   tourData: Partial<TourFormData>
+// ) {
+//   try {
+//     const supabase = await createClient()
+//     const {
+//       data: { user },
+//       error: authError,
+//     } = await supabase.auth.getUser()
 
-    if (authError || !user) {
-      return { success: false, error: 'Unauthorized: Please log in' }
-    }
+//     if (authError || !user) {
+//       return { success: false, error: 'Unauthorized: Please log in' }
+//     }
 
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .single()
+//     const { data: profile } = await supabase
+//       .from('profiles')
+//       .select('role')
+//       .eq('id', user.id)
+//       .single()
 
-    if (profile?.role !== 'admin') {
-      return {
-        success: false,
-        error: 'Unauthorized: Admin access required',
-      }
-    }
+//     if (profile?.role !== 'admin') {
+//       return {
+//         success: false,
+//         error: 'Unauthorized: Admin access required',
+//       }
+//     }
 
-    // Convert camelCase to snake_case for update
-    const updates: any = {}
+//     // Convert camelCase to snake_case for update
+//     const updates: any = {}
 
-    if (tourData.tourName) updates.tour_name = tourData.tourName
-    if (tourData.country) updates.country = tourData.country
-    if (tourData.price) updates.price = tourData.price
-    // ... add other fields as needed
+//     if (tourData.tourName) updates.tour_name = tourData.tourName
+//     if (tourData.country) updates.country = tourData.country
+//     if (tourData.price) updates.price = tourData.price
+//     // ... add other fields as needed
 
-    const result = await TourService.updateTour(tourId, updates)
+//     const result = await TourService.updateTour(tourId, updates)
 
-    if (result.success) {
-      revalidatePath('/admin/view-tours')
-      revalidatePath('/tours')
-    }
+//     if (result.success) {
+//       revalidatePath('/admin/view-tours')
+//       revalidatePath('/tours')
+//     }
 
-    return result
-  } catch (error) {
-    console.error('Update tour action error:', error)
-    return {
-      success: false,
-      error: 'An unexpected error occurred',
-    }
-  }
-}
+//     return result
+//   } catch (error) {
+//     console.error('Update tour action error:', error)
+//     return {
+//       success: false,
+//       error: 'An unexpected error occurred',
+//     }
+//   }
+// }
 
 // ============================================
 // DELETE TOUR ACTION

@@ -95,6 +95,7 @@ export interface TourWithImages extends Tour {
 // Form types (camelCase - matches your React form state)
 export interface TourFormData {
   tourName: string
+  continent: string
   slug: string
   country: string
   duration: string

@@ -171,8 +171,10 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
       <h4 className='text-center capitalize text-xl mb-4 font-bold'>
         choose a {type.slice(0, -1)}
       </h4>
-      {/* <p>all tours</p> */}
 
+      <Link className='bg-orange-400  absolute top-5 left-5 rounded-lg p-1 px-2' href={'/tours'}>
+        All Tours
+      </Link>
       {authLoading && <AuthCheck />}
       {user && (
         <>
@@ -249,7 +251,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
                       })}
                   </ul>
                 </div>
-                {/* ----- transition to add ------- */}
+                {/* ----- todo: add css transition ------- */}
                 <div className='relative'>
                   <span className='capitalize absolute right-2 top-2 bg-rose-500 text-white p-1 rounded-lg'>
                     {destImageText}
@@ -263,7 +265,7 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
                     alt='Destination preview'
                   />
                 </div>
-                {/* ----- transition to add ------- */}
+                {/* ----- todo: add css transition ------- */}
               </div>
             </>
           ) : (

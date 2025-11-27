@@ -1,14 +1,21 @@
 'use client'
+import HeroImageUpload from '@/components/image uploads/HeroImageUpload'
 import UploadTourImages from '@/components/image uploads/UploadTourImages'
-import { createTourAction } from '@/lib/supabase/actions/actions'
+// import { createTourAction } from '@/lib/supabase/actions/actions'
+import { createTourAction } from '@/lib/supabase/actions/admin/add-new-tour/action'
 import { DatabaseService } from '@/lib/supabase/services/database-service'
 import { TourFormData } from '@/types/tours'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { FaSave, FaPlus, FaTimes, FaImage } from 'react-icons/fa'
-  
+
 const AdminAddTour = () => {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
   // Basic Information
   const [tourImages, setTourImages] = useState<File[]>([])
+  const [heroImgage, setheroImgage] = useState<File | null>(null)
+
   const [tourName, setTourName] = useState('')
   const [country, setCountry] = useState('')
   const [slug, setSlug] = useState('')
@@ -20,6 +27,7 @@ const AdminAddTour = () => {
   const [description, setDescription] = useState('')
   const [rating, setRating] = useState('')
   const [tags, setTags] = useState('')
+  const [continent, setContinent] = useState('')
   const [publish, setPublish] = useState(true)
 
   // Auto-generate slug from tour name
@@ -52,6 +60,9 @@ const AdminAddTour = () => {
   // Add month and date
   const [itineraryDays, setItineraryDays] = useState([
     { dayNumber: 1, dayTitle: '', dayDescription: '' },
+    { dayNumber: 2, dayTitle: '', dayDescription: '' },
+    { dayNumber: 3, dayTitle: '', dayDescription: '' },
+    { dayNumber: 4, dayTitle: '', dayDescription: '' },
   ])
 
   // What's Included/Not Included
@@ -253,8 +264,6 @@ const AdminAddTour = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // console.log(tourImages)
-    // return
 
     setIsSubmitting(true)
     setError(null)
@@ -293,43 +302,43 @@ const AdminAddTour = () => {
       paymentCancellation,
       goodToKnow: goodToKnow.filter((item) => item.trim() !== ''),
       bookablePax: parseInt(bookablePax),
+      continent,
     }
-    // console.log(tourData)
-    // return
-
-    const availableDates = bookingSlots.map((slot) => ({
-      // dates: slot.dates.filter((date) => date.trim() !== ''),
-      dates: slot.dates,
-      places: 0,
-      bookablePlaces: slot.bookablePlaces,
-      show: slot.show,
-      month: slot.month,
-      year: slot.year,
-    }))
-
-    // console.log(availableDates)
+    // ****** KEEP FOR REF ******
+    // const availableDates = bookingSlots.map((slot) => ({
+    //   dates: slot.dates,
+    //   places: 0,
+    //   bookablePlaces: slot.bookablePlaces,
+    //   show: slot.show,
+    //   month: slot.month,
+    //   year: slot.year,
+    // }))
+    // ****** KEEP FOR REF ******
 
     try {
       // ✅ Call the Server Action
       const result = await createTourAction(
-        availableDates,
         tourData,
-        tourImages
+        tourImages,
+        heroImgage,
+        bookingSlots
       )
 
+      console.log('result', result)
+
       if (result.success) {
-        alert('Tour created successfully!')
+        // alert('Tour created successfully!')
         // Optionally redirect or reset form
-        // router.push('/admin/view-tours')
+        router.push('/admin/view-tours')
       } else {
         // can use the ?? ''
         setError(result.error)
-        alert(`Error: ${result.error}`)
+        // alert(`Error: ${result.error}`)
       }
     } catch (err) {
       console.error('Submission error:', err)
       setError('Failed to create tour')
-      alert('Failed to create tour')
+      // alert('Failed to create tour')
     } finally {
       setIsSubmitting(false)
     }
@@ -407,6 +416,20 @@ const AdminAddTour = () => {
                     <option value='japan'>Japan</option>
                     <option value='new zealand'>New Zealand</option>
                   </select>
+                </div>
+
+                <div>
+                  <label className='block text-sm font-semibold text-gray-700 mb-2'>
+                    Continent *
+                  </label>
+                  <input
+                    type='text'
+                    value={continent}
+                    onChange={(e) => setContinent(e.target.value)}
+                    placeholder='12 Days'
+                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    required
+                  />
                 </div>
 
                 <div>
@@ -1182,6 +1205,9 @@ const AdminAddTour = () => {
                 </button>
               </div>
             </section>
+
+            {/* Hero Section */}
+            <HeroImageUpload setheroImgage={setheroImgage} />
 
             {/* Images Section */}
             <UploadTourImages
