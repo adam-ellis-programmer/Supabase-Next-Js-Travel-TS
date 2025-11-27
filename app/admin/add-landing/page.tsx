@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { FaSave, FaPlus, FaTimes, FaGlobe } from 'react-icons/fa'
-
+import { createLandingPageAction } from '@/lib/supabase/actions/admin/add-new-landing-page/action'
 /**
       const { data } = await supabase.storage
         .from('country-images')
@@ -26,6 +26,7 @@ const AdminAddLanding = () => {
   const [experiences, setExperiences] = useState([
     { icon: 'FaUmbrellaBeach', title: '', description: '' },
   ])
+
   const [attractions, setAttractions] = useState([''])
   const [travelTips, setTravelTips] = useState([
     { icon: 'FaClock', title: '', tip: '' },
@@ -44,9 +45,12 @@ const AdminAddLanding = () => {
   }
 
   const handleDestinationImageUpload = (index: number, file: File) => {
+    console.log('file changed and added..')
+
     if (file && file.type.startsWith('image/')) {
       const reader = new FileReader()
       reader.onloadend = () => {
+        // u = updatedArray
         const u = [...topDestinations]
         u[index] = {
           ...u[index],
@@ -92,7 +96,7 @@ const AdminAddLanding = () => {
     }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const landingPageData = {
       countryName,
@@ -107,6 +111,7 @@ const AdminAddLanding = () => {
       travelTips: travelTips.filter((t) => t.title.trim() !== ''),
     }
     console.log('Landing Page Data:', landingPageData)
+    const res = await createLandingPageAction(landingPageData)
   }
 
   const iconOptions = [
@@ -347,6 +352,7 @@ const AdminAddLanding = () => {
               Top Destinations
             </h2>
             <div className='space-y-4'>
+              {/* start of map  =========================================================*/}
               {topDestinations.map((dest, index) => (
                 <div
                   key={index}
@@ -377,6 +383,7 @@ const AdminAddLanding = () => {
                       onChange={(e) => {
                         const u = [...topDestinations]
                         u[index] = { ...u[index], name: e.target.value }
+
                         setTopDestinations(u)
                       }}
                       placeholder='Destination name (e.g., Sydney)'
@@ -412,6 +419,7 @@ const AdminAddLanding = () => {
                                   image: null,
                                   imagePreview: '',
                                 }
+
                                 setTopDestinations(u)
                               }}
                               className='px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm'
@@ -421,6 +429,7 @@ const AdminAddLanding = () => {
                           </div>
                         </div>
                       ) : (
+                        // ===================================================
                         <div
                           onClick={() =>
                             document
@@ -433,7 +442,9 @@ const AdminAddLanding = () => {
                             Upload destination image
                           </p>
                         </div>
+                        // ===================================================
                       )}
+                      <p>hello</p>
                       <input
                         id={`dest-upload-${index}`}
                         type='file'
@@ -460,6 +471,8 @@ const AdminAddLanding = () => {
                   </div>
                 </div>
               ))}
+              {/* end of map ========================================================= */}
+
               <button
                 type='button'
                 onClick={() =>

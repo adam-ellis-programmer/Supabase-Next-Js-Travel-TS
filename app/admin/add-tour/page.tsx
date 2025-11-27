@@ -1220,7 +1220,9 @@ const AdminAddTour = () => {
               <button
                 type='submit'
                 disabled={isSubmitting}
-                className='flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg'
+                className={`flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg ${
+                  isSubmitting ? 'cursor-not-allowed' : ''
+                }`}
               >
                 <FaSave /> Save Tour
               </button>

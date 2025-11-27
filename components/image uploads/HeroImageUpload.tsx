@@ -52,19 +52,20 @@ const HeroImageUpload = ({
   const handleCancelImage = () => {
     setFileUrl(null)
   }
+
   return (
-    <section className='  '>
+    <section className=''>
       <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
         Hero Image
       </h2>
-      <div className=' h-[200px] border-blue-500 border-dashed border-2 rounded-md'>
+      <div className='h-[200px] border-blue-500 border-dashed border-2 rounded-md'>
         <div
           onClick={handleClick}
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
           onDragOver={handleDragOver}
           onDrop={hanldeDrop}
-          className=' flex justify-center items-center flex-col h-full cursor-pointer'
+          className='flex justify-center items-center flex-col h-full cursor-pointer'
         >
           <FaUpload className='text-6xl text-gray-400 mx-auto mb-4' />
           <p className='text-gray-600 mb-2'>
@@ -84,20 +85,23 @@ const HeroImageUpload = ({
         </div>
       </div>
       {fileUrl && (
-        <div className='mt-5 relative'>
-          <div className='absolute top-0 left-0 w-[400px] h-full bg-[#27374659] flex items-center justify-center'>
+        <div className='mt-5 relative group w-[400px]'>
+          {/* Overlay that appears on hover */}
+          <div className='absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-lg'>
             <button
               onClick={handleCancelImage}
               type='button'
-              className='cursor-pointer '
+              className='cursor-pointer transform hover:scale-110 transition-transform'
             >
-              <FaWindowClose className='text-red-600 text-5xl shadow-lg' />
+              <FaWindowClose className='text-red-600 text-5xl drop-shadow-lg' />
             </button>
           </div>
+
+          {/* Image */}
           <img
-            className=' h-[200px] w-[400px] rounded-lg object-cover object-center shadow-md'
+            className='h-[200px] w-[400px] rounded-lg object-cover object-center shadow-md'
             src={fileUrl || ''}
-            alt=''
+            alt='Hero preview'
           />
         </div>
       )}
