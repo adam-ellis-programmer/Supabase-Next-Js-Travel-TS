@@ -108,9 +108,12 @@ const AdminAddLanding = () => {
           setTopDestinations={setTopDestinations}
         />
 
-        <ThingsToExperience />
+        <ThingsToExperience
+          experiences={experiences}
+          setExperiences={setExperiences}
+        />
 
-        {/* <AdminAddLandingOLD /> */}
+        <AdminAddLandingOLD />
       </div>
     </div>
   )

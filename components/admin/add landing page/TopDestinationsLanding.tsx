@@ -2,6 +2,7 @@ import React from 'react'
 import { MdOutlineCloudUpload } from 'react-icons/md'
 import { CiCirclePlus } from 'react-icons/ci'
 import { TiDelete } from 'react-icons/ti'
+import { IoMdAddCircle } from 'react-icons/io'
 
 interface TopDest {
   topDestinations: Array<{
@@ -70,7 +71,7 @@ const TopDestinationsLanding = ({
                   placeholder='Destination Name (Eg: Sydney) '
                 />
 
-                <div className='h-[200px] border border-dashed border-black mt-6'>
+                <div className='h-[200px] border border-dashed border-black mt-6 rounded-md'>
                   <div className='flex justify-center items-center flex-col h-full'>
                     <p className='text-2xl mb-2'>
                       Click Or Drag to upload Destination Image
@@ -80,7 +81,7 @@ const TopDestinationsLanding = ({
                 </div>
                 <textarea
                   name=''
-                  className='mt-5 w-full border border-blue-500 min-h-[100px] text-lg p-3'
+                  className='mt-5 w-full border border-blue-500 min-h-[100px] text-lg p-3 rounded-md'
                   id=''
                   placeholder='Enter Description of Destination'
                 ></textarea>
@@ -92,9 +93,9 @@ const TopDestinationsLanding = ({
       <div className='mt-3 flex'>
         <button
           onClick={handleAddDest}
-          className='flex space-x-2 items-center bg-blue-300 p-2 rounded-md '
+          className='flex space-x-2 items-center bg-blue-500 text-white p-2 rounded-md '
         >
-          <CiCirclePlus className='text-lg' />
+          <IoMdAddCircle className='text-2xl' />
           <span> destination</span>
         </button>
       </div>
