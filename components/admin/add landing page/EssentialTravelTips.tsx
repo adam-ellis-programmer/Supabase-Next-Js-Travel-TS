@@ -42,7 +42,7 @@ const EssentialTravelTips = ({
       <div>
         {travelTips.map((item, i) => {
           return (
-            <div key={i} className='relative border p-5'>
+            <div key={i} className='relative shadow-md p-7 mt-5'>
               <button
                 onClick={() => handleDelte(i)}
                 className='absolute top-2 right-3 text-5xl text-red-400'

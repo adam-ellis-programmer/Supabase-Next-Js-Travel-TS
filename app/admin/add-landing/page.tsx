@@ -32,6 +32,7 @@ const AdminAddLanding = () => {
 
   const [travelTips, setTravelTips] = useState([
     { icon: 'FaClock', title: '', tip: '' },
+    { icon: 'FaClock', title: '', tip: '' },
   ])
 
   // Update function to update state (live edit mode)
@@ -42,6 +43,16 @@ const AdminAddLanding = () => {
   // Update function to update state (live edit mode)
   // Update function to update state (live edit mode)
   // Update function to update state (live edit mode)
+
+  const handleSubmit = () => {
+    const dataToSubmit = {
+      ...topDestinations,
+      ...experiences,
+      ...attractions,
+      ...travelTips,
+    }
+    console.log(dataToSubmit)
+  }
   return (
     <div className='mt-8'>
       <div className='min-h-[calc(100vh-100px)] w-full max-w-[1200px] mx-auto'>
@@ -141,6 +152,15 @@ const AdminAddLanding = () => {
           setTravelTips={setTravelTips}
         />
         {/* <AdminAddLandingOLD /> */}
+
+        <div className='mb-10 flex justify-center'>
+          <button
+            onClick={handleSubmit}
+            className='bg-green-400 p-2 text-lg rounded-lg '
+          >
+            Submit Page
+          </button>
+        </div>
       </div>
     </div>
   )
