@@ -7,6 +7,7 @@ import { LandingPage } from '@/lib/supabase/services/site/landing-page-service'
 import HeroImageUploadLanding from '@/components/admin/add landing page/HeroImageUploadLanding'
 import TopDestinationsLanding from '@/components/admin/add landing page/TopDestinationsLanding'
 import ThingsToExperience from '@/components/admin/add landing page/ThingsToExperience'
+import MustSeeAttractions from '@/components/admin/add landing page/MustSeeAttractions'
 
 // 'attractions',
 const booleanFields = ['is_active']
@@ -24,6 +25,8 @@ const AdminAddLanding = () => {
   const [experiences, setExperiences] = useState([
     { icon: 'FaUmbrellaBeach', title: '', description: '' },
   ])
+
+  const [attractions, setAttractions] = useState([''])
 
   return (
     <div className=''>
@@ -111,6 +114,11 @@ const AdminAddLanding = () => {
         <ThingsToExperience
           experiences={experiences}
           setExperiences={setExperiences}
+        />
+
+        <MustSeeAttractions
+          attractions={attractions}
+          setAttractions={setAttractions}
         />
 
         <AdminAddLandingOLD />
