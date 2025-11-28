@@ -3,6 +3,7 @@ import { MdOutlineCloudUpload } from 'react-icons/md'
 import { CiCirclePlus } from 'react-icons/ci'
 import { TiDelete } from 'react-icons/ti'
 import { IoMdAddCircle } from 'react-icons/io'
+import { FaMapMarkerAlt } from 'react-icons/fa'
 
 interface TopDest {
   topDestinations: Array<{
@@ -45,8 +46,9 @@ const TopDestinationsLanding = ({
   }
   return (
     <section className='mt-10'>
-      <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
-        Top Destinations
+      <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center space-x-2'>
+        <FaMapMarkerAlt />
+        <span> Top Destinations</span>
       </h2>
       <div>
         {topDestinations.map((item, i) => {

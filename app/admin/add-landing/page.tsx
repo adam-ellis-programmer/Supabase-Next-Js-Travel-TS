@@ -3,19 +3,21 @@ import React, { useState } from 'react'
 import { FaSave, FaPlus, FaTimes, FaGlobe } from 'react-icons/fa'
 import { createLandingPageAction } from '@/lib/supabase/actions/admin/add-new-landing-page/action'
 import AdminAddLandingOLD from './page OLD'
+import { BsFillInfoSquareFill } from 'react-icons/bs'
+
 import { LandingPage } from '@/lib/supabase/services/site/landing-page-service'
 import HeroImageUploadLanding from '@/components/admin/add landing page/HeroImageUploadLanding'
 import TopDestinationsLanding from '@/components/admin/add landing page/TopDestinationsLanding'
 import ThingsToExperience from '@/components/admin/add landing page/ThingsToExperience'
 import MustSeeAttractions from '@/components/admin/add landing page/MustSeeAttractions'
+import EssentialTravelTips from '@/components/admin/add landing page/EssentialTravelTips'
 
-// 'attractions',
 const booleanFields = ['is_active']
-const landingPageFields = ['country_name', 'slug', 'tagline', 'description']
-const quickFacts = ['best_time', 'currency', 'language', 'timezone', 'visa']
-
 const pageExperiences = ['icon', 'title', 'description', 'display_order']
 const pageDestinations = ['name', 'image_url', 'description', 'display_order']
+
+const landingPageFields = ['country_name', 'slug', 'tagline', 'description']
+const quickFacts = ['best_time', 'currency', 'language', 'timezone', 'visa']
 
 const AdminAddLanding = () => {
   const [topDestinations, setTopDestinations] = useState([
@@ -28,8 +30,20 @@ const AdminAddLanding = () => {
 
   const [attractions, setAttractions] = useState([''])
 
+  const [travelTips, setTravelTips] = useState([
+    { icon: 'FaClock', title: '', tip: '' },
+  ])
+
+  // Update function to update state (live edit mode)
+  // Update function to update state (live edit mode)
+  // Update function to update state (live edit mode)
+  // Update function to update state (live edit mode)
+  // Update function to update state (live edit mode)
+  // Update function to update state (live edit mode)
+  // Update function to update state (live edit mode)
+  // Update function to update state (live edit mode)
   return (
-    <div className=''>
+    <div className='mt-8'>
       <div className='min-h-[calc(100vh-100px)] w-full max-w-[1200px] mx-auto'>
         <section>
           <div className='mb-8'>
@@ -44,8 +58,8 @@ const AdminAddLanding = () => {
 
         <section>
           <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center gap-2'>
-            <FaGlobe className='text-blue-600' />
-            Basic Information
+            <FaGlobe className='' />
+            <span> Basic Information</span>
           </h2>
           <div className='grid grid-cols-2 gap-3'>
             {landingPageFields.slice(0, 3).map((item, i) => {
@@ -83,8 +97,9 @@ const AdminAddLanding = () => {
 
         {/* Quick Facts */}
         <section className='mt-5'>
-          <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
-            Quick Facts
+          <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center space-x-2'>
+            <BsFillInfoSquareFill />
+            <span>Quick Facts</span>
           </h2>
           <div className='grid gap-3 grid-cols-2'>
             {quickFacts.map((item, i) => {
@@ -121,7 +136,11 @@ const AdminAddLanding = () => {
           setAttractions={setAttractions}
         />
 
-        <AdminAddLandingOLD />
+        <EssentialTravelTips
+          travelTips={travelTips}
+          setTravelTips={setTravelTips}
+        />
+        {/* <AdminAddLandingOLD /> */}
       </div>
     </div>
   )

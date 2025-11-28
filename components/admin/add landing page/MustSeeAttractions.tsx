@@ -1,6 +1,7 @@
 import React from 'react'
 import { IoMdAddCircle } from 'react-icons/io'
 import { TiDelete } from 'react-icons/ti'
+import { MdCastle } from 'react-icons/md'
 
 interface MustSeeAttractionsProps {
   attractions: string[]
@@ -15,8 +16,9 @@ const MustSeeAttractions = ({
 
   return (
     <section className='mt-10'>
-      <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b'>
-        Must-See Attractions
+      <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center space-x-3'>
+        <MdCastle />
+       <span> Must-See Attractions</span>
       </h2>
       <div>
         {attractions.map((item, i) => {
