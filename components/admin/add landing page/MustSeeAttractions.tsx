@@ -23,7 +23,7 @@ const MustSeeAttractions = ({
   }
 
   return (
-    <section className='mt-10 bg-blue-50 p-10 rounded-lg'>
+    <section className='mt-10 bg-blue-50 p-10 rounded-lg shadow-md'>
       <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center space-x-3'>
         <MdCastle />
         <span> Must-See Attractions</span>

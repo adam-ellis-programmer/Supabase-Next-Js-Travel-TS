@@ -39,7 +39,7 @@ const EssentialTravelTips = ({
     setTravelTips(filtered)
   }
   return (
-    <section className='my-10 bg-blue-50 p-10 rounded-lg'>
+    <section className='my-10 bg-blue-50 p-10 rounded-lg shadow-md'>
       <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center space-x-3'>
         <TiInfo />
         <span> Essential Travel Tips</span>
