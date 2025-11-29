@@ -19,8 +19,41 @@ const pageDestinations = ['name', 'image_url', 'description', 'display_order']
 const landingPageFields = ['country_name', 'slug', 'tagline', 'description']
 const quickFacts = ['best_time', 'currency', 'language', 'timezone', 'visa']
 
+const generateSlug = (name: string) => {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim()
+}
+
 const AdminAddLanding = () => {
+  const [heroData, setHeroData] = useState<File | null>(null)
+
+  const [basicInfo, setbasicInfo] = useState({
+    country_name: '',
+    slug: '',
+    tagline: '',
+    description: '',
+  })
+
+  const [quickFactsData, setQuickFactsData] = useState({
+    best_time: '',
+    currency: '',
+    language: '',
+    timezone: '',
+    visa: '',
+  })
+
+  //
   const [topDestinations, setTopDestinations] = useState([
+    {
+      name: '',
+      image: null as File | null,
+      imagePreview: null,
+      description: '',
+    },
     {
       name: '',
       image: null as File | null,
@@ -39,24 +72,41 @@ const AdminAddLanding = () => {
     { icon: 'FaClock', title: '', tip: '' },
   ])
 
-  // Update function to update state (live edit mode)
-  // Update function to update state (live edit mode)
-  // Update function to update state (live edit mode)
-  // Update function to update state (live edit mode)
-  // Update function to update state (live edit mode)
-  // Update function to update state (live edit mode)
-  // Update function to update state (live edit mode)
-  // Update function to update state (live edit mode)
+  const handleLandingFieldsChnage = (e) => {
+    const { name, value } = e.target
+    setbasicInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
 
+  const handleFactChange = (e) => {
+    const { name, value } = e.target
+    setQuickFactsData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+  /**
+ * 
+landing_pages
+landing_page_destinations
+landing_page_experiences
+landing_page_travel_tips
+ */
   const handleSubmit = () => {
     const dataToSubmit = {
-      ...topDestinations,
-      ...experiences,
-      ...attractions,
-      ...travelTips,
+      basicInfo,
+      quickFactsData,
+      topDestinations,
+      experiences,
+      attractions,
+      travelTips,
+      heroData,
     }
     console.log(dataToSubmit)
   }
+
   return (
     <div className='mt-8'>
       <div className='min-h-[calc(100vh-100px)] w-full max-w-[1200px] mx-auto '>
@@ -77,29 +127,32 @@ const AdminAddLanding = () => {
             <span> Basic Information</span>
           </h2>
           <div className='grid grid-cols-2 gap-3'>
-            {landingPageFields.slice(0, 3).map((item, i) => {
+            {landingPageFields.slice(0, 3).map((field, i) => {
               return (
                 <label key={i} className=''>
-                  <p className='text-lg mb-2'>{item} *</p>
+                  <p className='text-lg mb-2'>{field} *</p>
                   <input
                     type='text'
+                    name={field}
                     className={`border border-blue-500 rounded-md w-full text-lg p-2 `}
-                    placeholder={`Enter ${item}`}
+                    placeholder={`Enter ${field}`}
+                    onChange={handleLandingFieldsChnage}
                   />
                 </label>
               )
             })}
           </div>
           <div className='mt-5'>
-            {landingPageFields.slice(3).map((item, i) => {
+            {landingPageFields.slice(3).map((field, i) => {
               return (
                 <label key={i} className=''>
-                  <p className='text-lg mb-2'>{item} *</p>
+                  <p className='text-lg mb-2'>{field} *</p>
                   <textarea
-                    placeholder={`Enter ${item}`}
+                    placeholder={`Enter ${field}`}
                     className='w-full min-h-[200px] border border-blue-600  text-lg p-3 rounded-lg'
-                    name=''
+                    name={field}
                     id=''
+                    onChange={handleLandingFieldsChnage}
                   ></textarea>
                 </label>
               )
@@ -107,7 +160,10 @@ const AdminAddLanding = () => {
           </div>
 
           {/* Hero upload component! */}
-          <HeroImageUploadLanding />
+          <HeroImageUploadLanding
+            heroData={heroData}
+            setHeroData={setHeroData}
+          />
         </section>
 
         {/* Quick Facts */}
@@ -117,18 +173,17 @@ const AdminAddLanding = () => {
             <span>Quick Facts</span>
           </h2>
           <div className='grid gap-3 grid-cols-2'>
-            {quickFacts.map((item, i) => {
+            {quickFacts.map((fact, i) => {
               return (
                 <label key={i} className=''>
-                  <p className='text-lg mb-2'>{item} *</p>
+                  <p className='text-lg mb-2'>{fact} *</p>
                   <input
-                    className={`w-full text-lg p-2 border border-blue-600 rounded-lg ${
-                      i === 4 ? 'col-span-2' : ''
-                    }`}
+                    className={`w-full text-lg p-2 border border-blue-600 rounded-lg`}
                     type='text'
-                    name=''
-                    placeholder={`Enter ${item}`}
+                    name={fact}
+                    placeholder={`Enter ${fact}`}
                     id=''
+                    onChange={handleFactChange}
                   />
                 </label>
               )

@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { MdOutlineCloudUpload } from 'react-icons/md'
 import { AiFillCloseSquare } from 'react-icons/ai'
 
-const HeroImageUploadLanding = () => {
+const HeroImageUploadLanding = ({ heroData, setHeroData }) => {
   const fileSelectInput = useRef(null)
   const [isDragging, setIsDragging] = useState(false)
   const [heroTempUrl, setHeroTempUrl] = useState(null)
@@ -28,6 +28,7 @@ const HeroImageUploadLanding = () => {
     const file = e.dataTransfer.files[0]
     console.log('droped: ', file)
     handleFileDisplay(file)
+    setHeroData(file)
   }
 
   function handleFileDisplay(file: File) {
@@ -43,7 +44,13 @@ const HeroImageUploadLanding = () => {
   const handleHiddenInputChange = (e) => {
     const file = e.target.files[0]
     console.log(file)
+    setHeroData(file)
     handleFileDisplay(file)
+  }
+
+  const handleDeleteHero = () => {
+    setHeroTempUrl(null)
+    setHeroData(null)
   }
   return (
     <div className='mt-5'>
@@ -62,7 +69,7 @@ const HeroImageUploadLanding = () => {
           <div className='absolute h-full w-full overflow-hidden rounded-lg'>
             <div className='bg-[#414e6a8f] absolute top-0  left-0 w-full h-full flex justify-center items-center'>
               <button
-                onClick={() => setHeroTempUrl(null)}
+                onClick={() => handleDeleteHero()}
                 className=' text-6xl text-red-600'
               >
                 <AiFillCloseSquare />

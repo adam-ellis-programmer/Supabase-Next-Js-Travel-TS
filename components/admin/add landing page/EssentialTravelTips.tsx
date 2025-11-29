@@ -38,6 +38,18 @@ const EssentialTravelTips = ({
     const filtered = copy.filter((_, i) => i != index)
     setTravelTips(filtered)
   }
+  // icon
+  // title
+  // tip
+  const handleInputChnage = (
+    index: number,
+    field: 'icon' | 'title' | 'tip',
+    value: string
+  ) => {
+    const copy = [...travelTips]
+    copy[index] = { ...copy[index], [field]: value }
+    setTravelTips(copy)
+  }
   return (
     <section className='my-10 bg-blue-50 p-10 rounded-lg shadow-md'>
       <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center space-x-3'>
@@ -60,6 +72,7 @@ const EssentialTravelTips = ({
                 name=''
                 id=''
                 className='w-full border border-blue-500 p-3 rounded-lg mb-3'
+                onChange={(e) => handleInputChnage(i, 'icon', e.target.value)}
               >
                 {iconOptions.map((item, i) => {
                   return (
@@ -73,6 +86,7 @@ const EssentialTravelTips = ({
                 type='text'
                 className='w-full border border-blue-500 p-3 rounded-lg mb-3'
                 placeholder='Tip Title (Best Time etc)'
+                onChange={(e) => handleInputChnage(i, 'title', e.target.value)}
               />
 
               <textarea
@@ -80,6 +94,7 @@ const EssentialTravelTips = ({
                 id=''
                 className='border border-blue-500 min-h-[100px] p-5 rounded-lg w-full'
                 placeholder='Travel Tip Details'
+                onChange={(e) => handleInputChnage(i, 'tip', e.target.value)}
               ></textarea>
             </div>
           )

@@ -47,6 +47,16 @@ const ThingsToExperience = ({
     const filtered = updatedEx.filter((_, i) => i != index)
     setExperiences(filtered)
   }
+
+  const handleInputChange = (
+    index: number,
+    field: 'description' | 'title' | 'icon',
+    value: string
+  ) => {
+    const copy = [...experiences]
+    copy[index] = { ...copy[index], [field]: value }
+    setExperiences(copy)
+  }
   return (
     <section className='mt-10 bg-blue-50 p-10 rounded-lg shadow-md'>
       <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center space-x-3'>
@@ -69,6 +79,7 @@ const ThingsToExperience = ({
                 name=''
                 id=''
                 className='border border-blue-500 w-full p-2 rounded-md'
+                onChange={(e) => handleInputChange(i, 'icon', e.target.value)}
               >
                 {iconOptions.map((item, i) => {
                   return (
@@ -83,11 +94,15 @@ const ThingsToExperience = ({
                 type='text'
                 className='border mt-3 border-blue-500 w-full rounded-lg p-2'
                 placeholder='Experience Title'
+                onChange={(e) => handleInputChange(i, 'title', e.target.value)}
               />
               <input
                 type='text'
                 className='border mt-3 border-blue-500 w-full rounded-lg p-2'
                 placeholder='Short Description'
+                onChange={(e) =>
+                  handleInputChange(i, 'description', e.target.value)
+                }
               />
             </div>
           )

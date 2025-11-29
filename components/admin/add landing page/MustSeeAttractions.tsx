@@ -22,6 +22,11 @@ const MustSeeAttractions = ({
     setAttractions(filtered)
   }
 
+  const handleChange = (index: number, value: string) => {
+    const copy = [...attractions]
+    copy[index] = value
+    setAttractions(copy)
+  }
   return (
     <section className='mt-10 bg-blue-50 p-10 rounded-lg shadow-md'>
       <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center space-x-3'>
@@ -39,6 +44,7 @@ const MustSeeAttractions = ({
                     type='text'
                     className='border border-blue-500 w-full p-2 rounded-lg '
                     placeholder='Attraction Name'
+                    onChange={(e) => handleChange(i, e.target.value)}
                   />
                   <button
                     onClick={() => deleteAttraction(i)}

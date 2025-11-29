@@ -72,20 +72,20 @@ const TopDestinationsLanding = ({
     handleFileUrl(file, index)
   }
 
-  function handleFileUrl(file: File, index: number) {
-    console.log('log index: ', index)
+  function handleFileData(file: File) {}
 
-    const dest = [...topDestinations]
-    const obj = dest[index]
+  // creates a brand new object with the updated values
+  // not mutating anything
+  function handleFileUrl(file: File, index: number) {
     const url = URL.createObjectURL(file)
-    obj.imagePreview = url
+    const dest = [...topDestinations]
+    dest[index] = { ...dest[index], imagePreview: url, image: file }
     setTopDestinations(dest)
-    console.log(obj)
   }
 
   const handleFileInputClick = (i: number) => {
-    const test = document.getElementById(`input-${i}`)
-    test?.click()
+    const el = document.getElementById(`input-${i}`)
+    el?.click()
   }
   //
   const handleFileChange = (e, index: number) => {
@@ -100,6 +100,19 @@ const TopDestinationsLanding = ({
     obj.imagePreview = null
     setTopDestinations(dest)
   }
+
+  // name
+  // description
+  const handleDestinationChange = (
+    index: number,
+    field: 'name' | 'description',
+    value: string
+  ) => {
+    const copy = [...topDestinations]
+    copy[index] = { ...copy[index], [field]: value }
+    setTopDestinations(copy)
+  }
+
   return (
     <section className='mt-10 bg-blue-50 p-10 rounded-lg shadow-md'>
       <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center space-x-2'>
@@ -108,6 +121,8 @@ const TopDestinationsLanding = ({
       </h2>
       <div>
         {topDestinations.map((item, i) => {
+          console.log('item', item)
+
           return (
             <div
               key={i}
@@ -125,8 +140,12 @@ const TopDestinationsLanding = ({
               <div className=''>
                 <input
                   type='text'
+                  name={`destination-name-${i}`}
                   className='border border-blue-500 w-full p-2 rounded-lg'
                   placeholder='Destination Name (Eg: Sydney) '
+                  onChange={(e) =>
+                    handleDestinationChange(i, 'name', e.target.value)
+                  }
                 />
 
                 {/* Click or Drag File */}
@@ -178,10 +197,13 @@ const TopDestinationsLanding = ({
                   />
                 </div>
                 <textarea
-                  name=''
+                  name={`destination-text-area-${i}`}
                   className='mt-5 w-full border border-blue-500 min-h-[100px] text-lg p-3 rounded-md'
                   id=''
                   placeholder='Enter Description of Destination'
+                  onChange={(e) =>
+                    handleDestinationChange(i, 'description', e.target.value)
+                  }
                 ></textarea>
               </div>
             </div>
