@@ -21,7 +21,12 @@ const quickFacts = ['best_time', 'currency', 'language', 'timezone', 'visa']
 
 const AdminAddLanding = () => {
   const [topDestinations, setTopDestinations] = useState([
-    { name: '', image: null as File | null, imagePreview: '', description: '' },
+    {
+      name: '',
+      image: null as File | null,
+      imagePreview: null,
+      description: '',
+    },
   ])
 
   const [experiences, setExperiences] = useState([
@@ -31,7 +36,6 @@ const AdminAddLanding = () => {
   const [attractions, setAttractions] = useState([''])
 
   const [travelTips, setTravelTips] = useState([
-    { icon: 'FaClock', title: '', tip: '' },
     { icon: 'FaClock', title: '', tip: '' },
   ])
 
@@ -55,7 +59,7 @@ const AdminAddLanding = () => {
   }
   return (
     <div className='mt-8'>
-      <div className='min-h-[calc(100vh-100px)] w-full max-w-[1200px] mx-auto'>
+      <div className='min-h-[calc(100vh-100px)] w-full max-w-[1200px] mx-auto '>
         <section>
           <div className='mb-8'>
             <h1 className='text-4xl font-bold text-gray-800 mb-2'>
@@ -67,7 +71,7 @@ const AdminAddLanding = () => {
           </div>
         </section>
 
-        <section>
+        <section className='mt-10 bg-blue-50 p-10 rounded-lg'>
           <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center gap-2'>
             <FaGlobe className='' />
             <span> Basic Information</span>
@@ -107,7 +111,7 @@ const AdminAddLanding = () => {
         </section>
 
         {/* Quick Facts */}
-        <section className='mt-5'>
+        <section className='mt-10  bg-blue-50 p-10 rounded-lg '>
           <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center space-x-2'>
             <BsFillInfoSquareFill />
             <span>Quick Facts</span>

@@ -12,28 +12,42 @@ const MustSeeAttractions = ({
   attractions,
   setAttractions,
 }: MustSeeAttractionsProps) => {
-  const handleAddAttraction = () => {}
+  const handleAddAttraction = () => {
+    setAttractions((prev) => [...prev, ''])
+  }
+
+  const deleteAttraction = (index: number) => {
+    const copy = [...attractions]
+    const filtered = copy.filter((_, i) => i != index)
+    setAttractions(filtered)
+  }
 
   return (
-    <section className='mt-10'>
+    <section className='mt-10 bg-blue-50 p-10 rounded-lg'>
       <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center space-x-3'>
         <MdCastle />
-       <span> Must-See Attractions</span>
+        <span> Must-See Attractions</span>
       </h2>
       <div>
         {attractions.map((item, i) => {
           return (
             <div key={i}>
-              <div className='grid grid-cols-[1fr_40px] gap-2'>
-                <input
-                  type='text'
-                  className='border border-blue-500 w-full p-2 rounded-lg '
-                  placeholder='Attraction Name'
-                />
-                <button className='text-red-400'>
-                  <TiDelete className='text-5xl' />
-                </button>
-              </div>
+              <label htmlFor=''>
+                <p className='mb-1'>Attraction {i + 1}</p>
+                <div className='grid grid-cols-[1fr_40px] gap-2 mb-3'>
+                  <input
+                    type='text'
+                    className='border border-blue-500 w-full p-2 rounded-lg '
+                    placeholder='Attraction Name'
+                  />
+                  <button
+                    onClick={() => deleteAttraction(i)}
+                    className='text-red-400'
+                  >
+                    <TiDelete className='text-5xl' />
+                  </button>
+                </div>
+              </label>
             </div>
           )
         })}

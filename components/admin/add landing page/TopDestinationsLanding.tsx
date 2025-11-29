@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { MdOutlineCloudUpload } from 'react-icons/md'
 import { CiCirclePlus } from 'react-icons/ci'
 import { TiDelete } from 'react-icons/ti'
 import { IoMdAddCircle } from 'react-icons/io'
 import { FaMapMarkerAlt } from 'react-icons/fa'
+import { AiFillCloseSquare } from 'react-icons/ai'
 
 interface TopDest {
   topDestinations: Array<{
     name: string
     image: File | null
-    imagePreview: string
+    imagePreview: string | null
     description: string
   }>
 
@@ -18,7 +19,7 @@ interface TopDest {
       Array<{
         name: string
         image: File | null
-        imagePreview: string
+        imagePreview: string | null
         description: string
       }>
     >
@@ -28,6 +29,10 @@ const TopDestinationsLanding = ({
   topDestinations,
   setTopDestinations,
 }: TopDest) => {
+  const fileInputRef = useRef(null)
+  const [isDragging, setIsDragging] = useState(false)
+  const [trackItem, setTrackItem] = useState<number | null>(null)
+
   const handleAddDest = () => {
     const newDestData = {
       name: '',
@@ -44,8 +49,59 @@ const TopDestinationsLanding = ({
     const filteredData = d.filter((_, i) => i !== index)
     setTopDestinations(filteredData)
   }
+
+  const handleDragOver = (e, index: number) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(true)
+    setTrackItem(index)
+  }
+  const handleDragLeave = (e, index: number) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(false)
+    setTrackItem(index)
+  }
+  const handleDrop = (e, index: number) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(false)
+    setTrackItem(index)
+    const file = e.dataTransfer.files[0]
+    console.log(file)
+    handleFileUrl(file, index)
+  }
+
+  function handleFileUrl(file: File, index: number) {
+    console.log('log index: ', index)
+
+    const dest = [...topDestinations]
+    const obj = dest[index]
+    const url = URL.createObjectURL(file)
+    obj.imagePreview = url
+    setTopDestinations(dest)
+    console.log(obj)
+  }
+
+  const handleFileInputClick = (i: number) => {
+    const test = document.getElementById(`input-${i}`)
+    test?.click()
+  }
+  //
+  const handleFileChange = (e, index: number) => {
+    setTrackItem(index)
+    const file = e.target.files[0]
+    handleFileUrl(file, index)
+  }
+
+  const handleRemoveUrl = (index: number) => {
+    const dest = [...topDestinations]
+    const obj = dest[index]
+    obj.imagePreview = null
+    setTopDestinations(dest)
+  }
   return (
-    <section className='mt-10'>
+    <section className='mt-10 bg-blue-50 p-10 rounded-lg'>
       <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center space-x-2'>
         <FaMapMarkerAlt />
         <span> Top Destinations</span>
@@ -73,13 +129,53 @@ const TopDestinationsLanding = ({
                   placeholder='Destination Name (Eg: Sydney) '
                 />
 
-                <div className='h-[200px] border border-dashed border-black mt-6 rounded-md'>
-                  <div className='flex justify-center items-center flex-col h-full'>
-                    <p className='text-2xl mb-2'>
-                      Click Or Drag to upload Destination Image
-                    </p>
-                    <MdOutlineCloudUpload className='text-5xl' />
-                  </div>
+                {/* Click or Drag File */}
+                <div
+                  className={`h-[200px] mt-6 rounded-md relative ${
+                    trackItem === i &&
+                    isDragging &&
+                    'bg-blue-100 border-red-500'
+                  }`}
+                >
+                  {item.imagePreview ? (
+                    <div className='absolute top-0 left-0 w-full h-full overflow-hidden flex  items-center bg-[#ffffff] p-4'>
+                      <img
+                        className='w-1/4 object-cover object-center h-full  rounded-lg block shadow-lg'
+                        src={item.imagePreview}
+                        alt=''
+                      />
+
+                      <div className='ml-10'>
+                        <button
+                          onClick={() => handleRemoveUrl(i)}
+                          className='text-5xl text-red-500'
+                        >
+                          <AiFillCloseSquare />
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      onDragOver={(e) => handleDragOver(e, i)}
+                      onDragLeave={(e) => handleDragLeave(e, i)}
+                      onDrop={(e) => handleDrop(e, i)}
+                      onClick={() => handleFileInputClick(i)}
+                      className=' border border-dashed  border-black flex justify-center items-center flex-col h-full cursor-pointer'
+                    >
+                      <p className='text-2xl mb-2'>
+                        Click Or Drag to upload Destination Image
+                      </p>
+                      <MdOutlineCloudUpload className='text-5xl' />
+                    </div>
+                  )}
+                  <input
+                    onChange={(e) => handleFileChange(e, i)}
+                    // ref={fileInputRef}
+                    type='file'
+                    name=''
+                    id={`input-${i}`}
+                    hidden
+                  />
                 </div>
                 <textarea
                   name=''

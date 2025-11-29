@@ -32,10 +32,23 @@ const ThingsToExperience = ({
   experiences,
   setExperiences,
 }: ThingsToExperienceProps) => {
-  const handleAddExperience = () => {}
-  const handleDelte = (index: number) => {}
+  // Add Experience
+  const handleAddExperience = () => {
+    const newExperience = {
+      icon: 'FaUmbrellaBeach',
+      title: '',
+      description: '',
+    }
+    setExperiences((prev) => [...prev, newExperience])
+  }
+  // Delete Experience
+  const handleDelte = (index: number) => {
+    const updatedEx = [...experiences]
+    const filtered = updatedEx.filter((_, i) => i != index)
+    setExperiences(filtered)
+  }
   return (
-    <section className='mt-10'>
+    <section className='mt-10 bg-blue-50 p-10 rounded-lg'>
       <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center space-x-3'>
         <FaCameraRetro />
         <span>Things to Experience</span>

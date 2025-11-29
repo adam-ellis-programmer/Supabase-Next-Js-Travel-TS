@@ -30,10 +30,16 @@ const EssentialTravelTips = ({
   travelTips,
   setTravelTips,
 }: EssentialTravelTipsProps) => {
-  const handleAddTip = () => {}
-  const handleDelte = (index: number) => {}
+  const handleAddTip = () => {
+    setTravelTips((prev) => [...prev, { icon: 'FaClock', title: '', tip: '' }])
+  }
+  const handleDelte = (index: number) => {
+    const copy = [...travelTips]
+    const filtered = copy.filter((_, i) => i != index)
+    setTravelTips(filtered)
+  }
   return (
-    <section className='my-10'>
+    <section className='my-10 bg-blue-50 p-10 rounded-lg'>
       <h2 className='text-2xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center space-x-3'>
         <TiInfo />
         <span> Essential Travel Tips</span>
