@@ -9,6 +9,65 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { FaSave, FaPlus, FaTimes, FaImage } from 'react-icons/fa'
 
+const countriesData = [
+  { value: '', label: 'Select Country', continent: '' },
+  { value: 'australia', label: 'Australia', continent: 'Oceania' },
+  { value: 'vietnam', label: 'Vietnam', continent: 'Asia' },
+  { value: 'thailand', label: 'Thailand', continent: 'Asia' },
+  { value: 'japan', label: 'Japan', continent: 'Asia' },
+  { value: 'new zealand', label: 'New Zealand', continent: 'Oceania' },
+  {
+    value: 'united states',
+    label: 'United States',
+    continent: 'North America',
+  },
+  { value: 'canada', label: 'Canada', continent: 'North America' },
+  { value: 'united kingdom', label: 'United Kingdom', continent: 'Europe' },
+  { value: 'germany', label: 'Germany', continent: 'Europe' },
+  { value: 'france', label: 'France', continent: 'Europe' },
+  { value: 'italy', label: 'Italy', continent: 'Europe' },
+  { value: 'spain', label: 'Spain', continent: 'Europe' },
+  { value: 'netherlands', label: 'Netherlands', continent: 'Europe' },
+  { value: 'belgium', label: 'Belgium', continent: 'Europe' },
+  { value: 'switzerland', label: 'Switzerland', continent: 'Europe' },
+  { value: 'austria', label: 'Austria', continent: 'Europe' },
+  { value: 'sweden', label: 'Sweden', continent: 'Europe' },
+  { value: 'norway', label: 'Norway', continent: 'Europe' },
+  { value: 'denmark', label: 'Denmark', continent: 'Europe' },
+  { value: 'finland', label: 'Finland', continent: 'Europe' },
+  { value: 'ireland', label: 'Ireland', continent: 'Europe' },
+  { value: 'portugal', label: 'Portugal', continent: 'Europe' },
+  { value: 'greece', label: 'Greece', continent: 'Europe' },
+  { value: 'poland', label: 'Poland', continent: 'Europe' },
+  { value: 'czech republic', label: 'Czech Republic', continent: 'Europe' },
+  { value: 'china', label: 'China', continent: 'Asia' },
+  { value: 'south korea', label: 'South Korea', continent: 'Asia' },
+  { value: 'singapore', label: 'Singapore', continent: 'Asia' },
+  { value: 'malaysia', label: 'Malaysia', continent: 'Asia' },
+  { value: 'indonesia', label: 'Indonesia', continent: 'Asia' },
+  { value: 'philippines', label: 'Philippines', continent: 'Asia' },
+  { value: 'india', label: 'India', continent: 'Asia' },
+  {
+    value: 'united arab emirates',
+    label: 'United Arab Emirates',
+    continent: 'Asia',
+  },
+  { value: 'saudi arabia', label: 'Saudi Arabia', continent: 'Asia' },
+  { value: 'israel', label: 'Israel', continent: 'Asia' },
+  { value: 'turkey', label: 'Turkey', continent: 'Asia' },
+  { value: 'south africa', label: 'South Africa', continent: 'Africa' },
+  { value: 'brazil', label: 'Brazil', continent: 'South America' },
+  { value: 'mexico', label: 'Mexico', continent: 'North America' },
+  { value: 'argentina', label: 'Argentina', continent: 'South America' },
+  { value: 'chile', label: 'Chile', continent: 'South America' },
+]
+
+const continents = new Set()
+countriesData.forEach((item) => {
+  continents.add(item.continent)
+})
+console.log(Array.from(continents))
+
 const AdminAddTour = () => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
@@ -40,6 +99,7 @@ const AdminAddTour = () => {
       .trim()
   }
 
+  //
   const handleTourNameChange = (value: string) => {
     setTourName(value)
     if (!slug || slug === generateSlug(tourName)) {
@@ -345,6 +405,17 @@ const AdminAddTour = () => {
   }
   // console.log(bookingSlots)
 
+  const handleCountryChange = (e) => {
+    const continent = e.target.selectedOptions[0].dataset.continent
+    setCountry(e.target.value)
+    setContinent(continent)
+    // console.log(test)
+
+    console.log(e.target.selectedOptions[0].dataset.continent)
+
+    // console.log(e.target.children[0].dataset)
+  }
+
   return (
     <div className='min-h-[calc(100vh-100px)] bg-gray-50 py-8'>
       <div className='max-w-5xl mx-auto px-4'>
@@ -405,16 +476,22 @@ const AdminAddTour = () => {
                   </label>
                   <select
                     value={country}
-                    onChange={(e) => setCountry(e.target.value)}
+                    //
+                    onChange={handleCountryChange}
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                     required
                   >
-                    <option value=''>Select Country</option>
-                    <option value='australia'>Australia</option>
-                    <option value='vietnam'>Vietnam</option>
-                    <option value='thailand'>Thailand</option>
-                    <option value='japan'>Japan</option>
-                    <option value='new zealand'>New Zealand</option>
+                    {countriesData.map((country, index) => {
+                      return (
+                        <option
+                          data-continent={country.continent}
+                          key={index}
+                          value={country.label}
+                        >
+                          {country.label}
+                        </option>
+                      )
+                    })}
                   </select>
                 </div>
 
@@ -422,14 +499,33 @@ const AdminAddTour = () => {
                   <label className='block text-sm font-semibold text-gray-700 mb-2'>
                     Continent *
                   </label>
-                  <input
+
+                  <select
+                    value={continent}
+                    onChange={handleCountryChange}
+                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-not-allowed'
+                    required
+                    disabled
+                  >
+                    {Array.from(continents).map((country, index) => {
+                      console.log(country)
+
+                      return (
+                        <option key={index} value={country}>
+                          {country === '' ? 'Auto Generated' : country}
+                        </option>
+                      )
+                    })}
+                  </select>
+
+                  {/* <input
                     type='text'
                     value={continent}
                     onChange={(e) => setContinent(e.target.value)}
-                    placeholder='12 Days'
+                    placeholder='Enter Continent'
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                     required
-                  />
+                  /> */}
                 </div>
 
                 <div>

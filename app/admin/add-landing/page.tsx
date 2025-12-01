@@ -107,8 +107,16 @@ landing_page_travel_tips
     }
     console.log(dataToSubmit)
 
-    // const res = await createLandingPageAction(dataToSubmit)
-    // console.log('res from server', res)
+    const res = await createLandingPageAction(dataToSubmit)
+    console.log('res from server', res)
+
+    if (res.success) {
+      alert('Landing page created successfully!')
+      // Optionally redirect to the new page
+      // router.push(`/country-landing/${res.data.slug}`)
+    } else {
+      alert(`Error: ${res.error}`)
+    }
   }
 
   return (
