@@ -16,7 +16,12 @@ const booleanFields = ['is_active']
 const pageExperiences = ['icon', 'title', 'description', 'display_order']
 const pageDestinations = ['name', 'image_url', 'description', 'display_order']
 
-const landingPageFields = ['country_name', 'slug', 'tagline', 'description']
+const landingPageFields = [
+  'country_name',
+  'slug',
+  'tagline',
+  'description',
+] as const
 const quickFacts = ['best_time', 'currency', 'language', 'timezone', 'visa']
 
 const generateSlug = (name: string) => {
@@ -54,12 +59,6 @@ const AdminAddLanding = () => {
       imagePreview: null,
       description: '',
     },
-    {
-      name: '',
-      image: null as File | null,
-      imagePreview: null,
-      description: '',
-    },
   ])
 
   const [experiences, setExperiences] = useState([
@@ -74,9 +73,11 @@ const AdminAddLanding = () => {
 
   const handleLandingFieldsChnage = (e) => {
     const { name, value } = e.target
+
     setbasicInfo((prev) => ({
       ...prev,
       [name]: value,
+      ...(name === 'country_name' && { slug: generateSlug(value) }),
     }))
   }
 
@@ -94,7 +95,7 @@ landing_page_destinations
 landing_page_experiences
 landing_page_travel_tips
  */
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const dataToSubmit = {
       basicInfo,
       quickFactsData,
@@ -105,6 +106,9 @@ landing_page_travel_tips
       heroData,
     }
     console.log(dataToSubmit)
+
+    // const res = await createLandingPageAction(dataToSubmit)
+    // console.log('res from server', res)
   }
 
   return (
@@ -134,9 +138,18 @@ landing_page_travel_tips
                   <input
                     type='text'
                     name={field}
-                    className={`border border-blue-500 rounded-md w-full text-lg p-2 `}
-                    placeholder={`Enter ${field}`}
+                    className={`border border-blue-500 rounded-md w-full text-lg p-2 ${
+                      field === 'slug' && 'cursor-not-allowed'
+                    }`}
+                    placeholder={
+                      field === 'slug'
+                        ? `Slug Auto Generated`
+                        : `Enter ${field}`
+                    }
                     onChange={handleLandingFieldsChnage}
+                    disabled={field === 'slug'}
+                    readOnly={field === 'slug'}
+                    value={basicInfo[field as keyof typeof basicInfo]}
                   />
                 </label>
               )
@@ -212,10 +225,10 @@ landing_page_travel_tips
         />
         {/* <AdminAddLandingOLD /> */}
 
-        <div className='mb-10 flex justify-center'>
+        <div className='mb-10 flex px-10 fixed bottom-0 left-0 w-full'>
           <button
             onClick={handleSubmit}
-            className='bg-green-400 p-2 text-lg rounded-lg '
+            className='bg-green-400 p-2 text-lg rounded-lg shadow-lg '
           >
             Submit Page
           </button>
