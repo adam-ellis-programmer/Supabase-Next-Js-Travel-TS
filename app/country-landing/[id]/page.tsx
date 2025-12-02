@@ -1,6 +1,7 @@
 import React from 'react'
 import { LandingPage } from '@/lib/supabase/services/site/landing-page-service'
 import Link from 'next/link'
+
 import {
   FaPlane,
   FaMapMarkedAlt,
@@ -18,19 +19,34 @@ import {
 import { IconType } from 'react-icons'
 // ✅ Import the type you need
 import type { LandingPageData, CountryData } from '@/types/landing-page'
-
+// Using the legacy API
+const url = require('url')
+const generateSlug = (name: string) => {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim()
+}
 const CountryLandingPage = async ({
   params,
 }: {
   params: Promise<{ id: string }>
 }) => {
   const { id } = await params
+
   console.log('ID: ', id)
+  // decode
+  const decodedId = decodeURIComponent(id)
 
-  const res = await LandingPage.getPage(id)
-  console.log('res:', res)
+  // use decoded to create a slug
+  const idToSend = generateSlug(decodedId)
 
-  // ✅ Now you can use the type assertion!
+  // Query with the slug
+  const res = await LandingPage.getPage(idToSend)
+
+  // Type asserted data response
   const dbData = res[0] as LandingPageData
 
   // Icon mapping for experiences and travel tips
@@ -88,8 +104,6 @@ const CountryLandingPage = async ({
         tip: tip.tip,
       })),
   }
-
-  console.log('dbData', dbData)
 
   return (
     <div className='bg-white'>
@@ -235,18 +249,21 @@ const CountryLandingPage = async ({
           Essential Travel Tips
         </h2>
         <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6'>
-          {countryData.travelTips.map((tip) => (
-            <div
-              key={tip.title}
-              className='bg-gray-50 p-6 rounded-lg border border-gray-200'
-            >
-              <tip.icon className='text-3xl text-blue-600 mb-3' />
-              <h3 className='text-lg font-semibold mb-2 text-gray-800'>
-                {tip.title}
-              </h3>
-              <p className='text-gray-600 text-sm'>{tip.tip}</p>
-            </div>
-          ))}
+          {countryData.travelTips.map((tip) => {
+            console.log('tip: ', tip)
+            return (
+              <div
+                key={tip.title}
+                className='bg-gray-50 p-6 rounded-lg border border-gray-200'
+              >
+                <tip.icon className='text-3xl text-blue-600 mb-3' />
+                <h3 className='text-lg font-semibold mb-2 text-gray-800'>
+                  {tip.title}
+                </h3>
+                <p className='text-gray-600 text-sm'>{tip.tip}</p>
+              </div>
+            )
+          })}
         </div>
       </div>
 

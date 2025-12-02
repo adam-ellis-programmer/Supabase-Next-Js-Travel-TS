@@ -1,9 +1,7 @@
 'use client'
 import HeroImageUpload from '@/components/image uploads/HeroImageUpload'
 import UploadTourImages from '@/components/image uploads/UploadTourImages'
-// import { createTourAction } from '@/lib/supabase/actions/actions'
 import { createTourAction } from '@/lib/supabase/actions/admin/add-new-tour/action'
-import { DatabaseService } from '@/lib/supabase/services/database-service'
 import { TourFormData } from '@/types/tours'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
@@ -66,7 +64,6 @@ const continents = new Set()
 countriesData.forEach((item) => {
   continents.add(item.continent)
 })
-console.log(Array.from(continents))
 
 const AdminAddTour = () => {
   const router = useRouter()
@@ -99,7 +96,6 @@ const AdminAddTour = () => {
       .trim()
   }
 
-  //
   const handleTourNameChange = (value: string) => {
     setTourName(value)
     if (!slug || slug === generateSlug(tourName)) {
@@ -203,6 +199,7 @@ const AdminAddTour = () => {
 
   const removeDateFromSlot = (slotIndex: number, dateIndex: number) => {
     const updated = [...bookingSlots]
+    
     updated[slotIndex].dates = updated[slotIndex].dates.filter(
       (_, i) => i !== dateIndex
     )
@@ -409,11 +406,6 @@ const AdminAddTour = () => {
     const continent = e.target.selectedOptions[0].dataset.continent
     setCountry(e.target.value)
     setContinent(continent)
-    // console.log(test)
-
-    console.log(e.target.selectedOptions[0].dataset.continent)
-
-    // console.log(e.target.children[0].dataset)
   }
 
   return (

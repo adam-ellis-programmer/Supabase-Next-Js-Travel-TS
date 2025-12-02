@@ -68,12 +68,12 @@ export function LoginForm({
               Login
             </span>
           </CardTitle>
-          <CardDescription>
+          {/* <CardDescription className='text-black border mt-10 block'>
             Enter your email below to login to your account
-          </CardDescription>
+          </CardDescription> */}
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleLogin}>
+        <CardContent className='mt-5'>
+          <form onSubmit={handleLogin} >
             <div className='flex flex-col gap-6'>
               <div className='grid gap-2'>
                 <Label className='' htmlFor='email'>

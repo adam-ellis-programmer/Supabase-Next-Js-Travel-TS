@@ -141,7 +141,7 @@ landing_page_travel_tips
           <div className='grid grid-cols-2 gap-3'>
             {landingPageFields.slice(0, 3).map((field, i) => {
               return (
-                <label key={i} className=''>
+                <label key={i} className='relative'>
                   <p className='text-lg mb-2'>{field} *</p>
                   <input
                     type='text'
@@ -159,6 +159,16 @@ landing_page_travel_tips
                     readOnly={field === 'slug'}
                     value={basicInfo[field as keyof typeof basicInfo]}
                   />
+                  {field === 'slug' && (
+                    <p className='text-gray-500  h-10 w-full text-sm absolute top-[109%]'>
+                      {' '}
+                      <span className='text-green-700 font-bold'>URL</span>:
+                      /country-landing/
+                      {basicInfo[field as keyof typeof basicInfo] === ''
+                        ? 'slug here'
+                        : basicInfo[field as keyof typeof basicInfo]}
+                    </p>
+                  )}
                 </label>
               )
             })}
