@@ -46,8 +46,6 @@ const iconMap: Record<string, IconType> = {
 }
 
 const ActivityCard = ({ item }: ActivityItem) => {
-  // console.log('activity item->: ', item)
-
   // Get the icon component from the mapping
   const IconComponent = iconMap[item.icon_name] || FaBiking // Fallback to FaBiking if not found
 

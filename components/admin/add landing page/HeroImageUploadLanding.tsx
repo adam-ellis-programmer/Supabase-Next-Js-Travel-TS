@@ -11,14 +11,14 @@ const HeroImageUploadLanding = ({ heroData, setHeroData }) => {
     e.preventDefault()
     e.stopPropagation()
     setIsDragging(true)
-    console.log('logging...')
+    // console.log('logging...')
   }
 
   const onDragLeave = (e) => {
     e.preventDefault()
     e.stopPropagation()
     setIsDragging(false)
-    console.log('leaving drag...')
+    // console.log('leaving drag...')
   }
 
   const onDragDrop = (e) => {
@@ -26,7 +26,7 @@ const HeroImageUploadLanding = ({ heroData, setHeroData }) => {
     e.stopPropagation()
     setIsDragging(false)
     const file = e.dataTransfer.files[0]
-    console.log('droped: ', file)
+    // console.log('droped: ', file)
     handleFileDisplay(file)
     setHeroData(file)
   }
@@ -37,13 +37,13 @@ const HeroImageUploadLanding = ({ heroData, setHeroData }) => {
   }
 
   const handleImageSelect = () => {
-    console.log('clicked')
+    // console.log('clicked')
     fileSelectInput.current.click()
   }
 
   const handleHiddenInputChange = (e) => {
     const file = e.target.files[0]
-    console.log(file)
+    // console.log(file)
     setHeroData(file)
     handleFileDisplay(file)
   }

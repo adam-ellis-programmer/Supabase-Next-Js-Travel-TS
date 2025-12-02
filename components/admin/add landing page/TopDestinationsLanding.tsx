@@ -68,7 +68,7 @@ const TopDestinationsLanding = ({
     setIsDragging(false)
     setTrackItem(index)
     const file = e.dataTransfer.files[0]
-    console.log(file)
+    // console.log(file)
     handleFileUrl(file, index)
   }
 
@@ -121,7 +121,7 @@ const TopDestinationsLanding = ({
       </h2>
       <div>
         {topDestinations.map((item, i) => {
-          console.log('item', item)
+          // console.log('item', item)
 
           return (
             <div

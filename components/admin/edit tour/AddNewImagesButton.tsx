@@ -49,7 +49,7 @@ const AddNewImagesButton = ({ tourId }: { tourId: number }) => {
         formData.append(`file-${i}`, file)
       })
       const res = await insertTourImages(formData)
-      console.log('res from server: ', res)
+      // console.log('res from server: ', res)
     } catch (error) {
       console.log(error)
     } finally {
@@ -87,7 +87,7 @@ const AddNewImagesButton = ({ tourId }: { tourId: number }) => {
     return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i]
   }
 
-  console.log('Math.log()', Math.log(2))
+  // console.log('Math.log()', Math.log(2))
 
   return (
     <div className=''>

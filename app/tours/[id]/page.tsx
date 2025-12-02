@@ -35,7 +35,7 @@ const TourPage = async ({ params }: TourPageProps) => {
 
   const data = result.data
   const { booking_slots, itineraries, tour_images, price, main_hero_url } = data
-  console.log(main_hero_url)
+
 
   return (
     <div className='min-h-[calc(100vh-120px)]'>

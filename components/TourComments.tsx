@@ -15,7 +15,7 @@ const TourComments = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // Handle form submission here
-    console.log({ name, email, comment, rating })
+    // console.log({ name, email, comment, rating })
     // Reset form
     setName('')
     setEmail('')

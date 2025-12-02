@@ -23,14 +23,14 @@ const Images = ({
   const [editId, setEditId] = useState<number | null>(null)
 
   const handleChangeImage = (index: number, id: number) => {
-    console.log('changing image id logged from images parent: ', id)
+    // console.log('changing image id logged from images parent: ', id)
     setEditId(id)
     // Trigger the file input click
     fileInputRef.current?.click()
   }
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('updating from images ...')
+    // console.log('updating from images ...')
 
     seteditLoading(true)
     const files = e.target.files
@@ -47,7 +47,7 @@ const Images = ({
       return
     }
 
-    console.log('Selected files:', files)
+
 
     const formData = new FormData()
     formData.append('file-data', files[0])
@@ -57,7 +57,7 @@ const Images = ({
 
     try {
       const res = await updateTourImage(formData)
-      console.log('RES FROM SERVER:', res)
+
       router.refresh()
     } catch (error) {
       console.log(error)
@@ -68,7 +68,6 @@ const Images = ({
 
   const test = async () => {
     const data = await handleTest()
-    console.log(data)
   }
 
   const handleDeleteAll = async () => {
@@ -76,7 +75,6 @@ const Images = ({
     try {
       const data = categorizedData.relatedData['tour_images']
       const res = await deleteAll(data)
-      console.log('res from server: ', res)
     } catch (error) {
       console.log(error)
     } finally {

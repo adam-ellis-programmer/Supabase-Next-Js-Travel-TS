@@ -17,7 +17,6 @@ const BookingPage = async () => {
   }
 
   const cartData = await CartService.fetchCart(user.id)
-  console.log('TEST DATA', cartData)
 
   // Transform data to match CartItemType
   const cartItems =

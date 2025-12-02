@@ -68,7 +68,7 @@ const AccountPage = async () => {
     error,
   } = await supabase.auth.getUser()
   // comes from supabse auth not our record (update func)
-  console.log(user)
+
 
   // TypeScript has a feature called control flow narrowing.
   // Add the null check RIGHT HERE, before using user.id
@@ -78,7 +78,7 @@ const AccountPage = async () => {
   }
 
   const profile = await DatabaseService.getByid<Profile>('profiles', user.id)
-  console.log('Acc user', profile)
+
 
   if (!profile) {
     return <div>Profile not found</div>

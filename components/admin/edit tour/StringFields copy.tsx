@@ -9,8 +9,8 @@ const StringFields = ({ categorizedData }: { categorizedData: any }) => {
   const [editedValues, setEditedValues] = useState<Record<string, string>>({})
 
   const handleClick = () => {
-    console.log('updating string fields...')
-    console.log('Edited values:', editedValues)
+    // console.log('updating string fields...')
+    // console.log('Edited values:', editedValues)
   }
 
   const handleEditMode = (index: number, key: string, value: string) => {
@@ -21,7 +21,7 @@ const StringFields = ({ categorizedData }: { categorizedData: any }) => {
   }
 
   const handleSave = (key: string) => {
-    console.log(`Saving ${key}:`, editedValues[key])
+    // console.log(`Saving ${key}:`, editedValues[key])
     setEditingIndex(null)
   }
 

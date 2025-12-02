@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import EditButton from './EditButton'
 import { updateTourAdmin } from '@/lib/supabase/actions/admin/admin-actions'
-import { tr } from 'date-fns/locale'
+
 
 const Booleans = ({
   categorizedData,
@@ -48,16 +48,16 @@ const Booleans = ({
       ...cleanedObject,
       ...allBooleans,
     }
-    console.log('dataToUpdate', dataToUpdate)
-    console.log('dataToUpdate', Object.entries(dataToUpdate).length)
-    console.log('making boolean updates to db:')
+    // console.log('dataToUpdate', dataToUpdate)
+    // console.log('dataToUpdate', Object.entries(dataToUpdate).length)
+    // console.log('making boolean updates to db:')
 
     try {
       const res = await updateTourAdmin(tourId, dataToUpdate)
       setShowAlert(true)
-      console.log('success updating booleans to databse:')
-      console.log('res from databse: ', res)
-      console.log('Log finished')
+      // console.log('success updating booleans to databse:')
+      // console.log('res from databse: ', res)
+      // console.log('Log finished')
     } catch (error) {
       console.log(error)
     } finally {

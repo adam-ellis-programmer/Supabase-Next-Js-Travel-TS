@@ -223,7 +223,6 @@ const BookingSlots = ({
 
       // Create a copy of the booking_slot_dates array
       const updatedDates = [...updatedSlot.booking_slot_dates]
-      // console.log(...updatedDates[dateIndex])
 
       // Update the specific date with the edited changes
       updatedDates[dateIndex] = {
@@ -244,7 +243,6 @@ const BookingSlots = ({
       }
     })
 
-    console.log(editedChanges)
     setEditedChanges({}) // Clear edited changes after saving
     handleCancel()
   }
@@ -258,13 +256,10 @@ const BookingSlots = ({
     slotIndex: number,
     key: string
   ) => {
-    console.log(value, slotIndex)
-
     // make an object to track the values we are chnaging
     // only need one object at a time! for this pattern
     setYearMonthChanges((prev) => {
       const data = defaultData.booking_slots[slotIndex]
-      console.log(data)
 
       return {
         ...prev,
@@ -274,11 +269,7 @@ const BookingSlots = ({
     })
   }
 
-  // console.log('Slot Index', slotIndex)
-  // console.log('Date Index', dateIndex)
   const deleteDate = (slotIndex: number, dateIndex: number) => {
-    console.log('deleting...')
-
     // 1. Copy the booking_slots array (updatedBookingSlots)
 
     // 2. Copy the specific slot we're modifying (updatedSlot)
@@ -300,16 +291,12 @@ const BookingSlots = ({
      */
 
     setDefaultData((prev: any) => {
-      // console.log('prev', prev)
-
       const updatedBookingSlots = [...prev.booking_slots]
 
-      const updatedSlot = { ...updatedBookingSlots[slotIndex] } // working with the actual slot object
-      // console.log('updatedSlot', updatedSlot)
+      const updatedSlot = { ...updatedBookingSlots[slotIndex] }
 
       const datesToUpdate = updatedSlot.booking_slot_dates
 
-      // don't need to spread because .filter() already returns a NEW array!
       // prettier-ignore
       const filteredDates = datesToUpdate.filter((_:any, i:number ) => i !== dateIndex)
 

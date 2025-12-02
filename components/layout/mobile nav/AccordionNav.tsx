@@ -23,7 +23,6 @@ const AccordionNav = ({
 }) => {
   const supabase = createClient()
   const { user, loading } = useAuthAdmin()
-  console.log(user)
 
   // Now TypeScript knows the structure
   const tourData: [string, ToursByCountryData][] = Object.entries(sortedTours)

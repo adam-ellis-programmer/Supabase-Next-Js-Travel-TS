@@ -10,7 +10,7 @@ interface data {
 }
 
 const NavButtons = ({ sortedContinents, sortedTours }: data) => {
-  // console.log('🔵 NavButtons render')
+
 
   const [showSuperNav, setShowSuperNav] = useState(false)
   const [activeMenu, setActiveMenu] = useState<'tours' | 'destinations'>(

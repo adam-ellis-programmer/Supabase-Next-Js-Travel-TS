@@ -81,13 +81,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // -- auth refresh used for login page
   //=============================================================
   const refreshAuth = async () => {
-    console.log('🔄 Manually refreshing auth state...')
+    // console.log('🔄 Manually refreshing auth state...')
     try {
       const {
         data: { session },
         error,
       } = await supabase.auth.getSession()
-      console.log('🔄 Refreshed session:', session)
+      // console.log('🔄 Refreshed session:', session)
 
       if (error) throw error
 
@@ -96,10 +96,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (session?.user) {
         const profileData = await fetchProfile(session.user.id)
         setProfile(profileData)
-        console.log('✅ Auth refreshed successfully', {
-          user: session.user.email,
-          isAdmin: profileData?.user_role === 'admin',
-        })
+        // console.log('✅ Auth refreshed successfully', {
+        //   user: session.user.email,
+        //   isAdmin: profileData?.user_role === 'admin',
+        // })
       } else {
         setProfile(null)
         console.log('❌ No session found after refresh')

@@ -27,7 +27,7 @@ const HeroImageUpload = ({
   const hanldeDrop = (e: React.DragEvent) => {
     e.preventDefault()
     setisDragging(false)
-    console.log('drop')
+
     const file = Array.from(e.dataTransfer.files)
     handleFileUrl(file[0])
     setheroImgage(file[0])

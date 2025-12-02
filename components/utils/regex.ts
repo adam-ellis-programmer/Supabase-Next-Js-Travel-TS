@@ -1,6 +1,4 @@
 export const getSlug = (text: string): string => {
-  console.log('getSlug', text)
-
   return text
     .toLowerCase() // Convert to lowercase
     .trim() // Remove whitespace from both ends

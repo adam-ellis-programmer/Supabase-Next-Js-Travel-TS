@@ -15,8 +15,8 @@ const ArrayFields = ({ categorizedData }: { categorizedData: any }) => {
   const [itemIndex, setitemIndex] = useState<number | null>(null)
 
   const handleClick = () => {
-    console.log('Handle Array updates...')
-    console.log(defaultData)
+    // console.log('Handle Array updates...')
+    // console.log(defaultData)
   }
 
   const handleEditMode = (key: string, index: number) => {

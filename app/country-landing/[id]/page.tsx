@@ -36,7 +36,6 @@ const CountryLandingPage = async ({
 }) => {
   const { id } = await params
 
-  console.log('ID: ', id)
   // decode
   const decodedId = decodeURIComponent(id)
 
@@ -250,7 +249,6 @@ const CountryLandingPage = async ({
         </h2>
         <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6'>
           {countryData.travelTips.map((tip) => {
-            console.log('tip: ', tip)
             return (
               <div
                 key={tip.title}

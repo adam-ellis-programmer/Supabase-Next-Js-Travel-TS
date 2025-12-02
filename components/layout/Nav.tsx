@@ -17,7 +17,7 @@ const Nav = async () => {
 
   const { sortedTours, sortedContinents } = await NavService.getNavData()
 
-  console.log('sortedContinents',sortedContinents)
+  // console.log('sortedContinents',sortedContinents)
 
   // sticky top-0 bg-white z-[2000]
   return (

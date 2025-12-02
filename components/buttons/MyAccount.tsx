@@ -13,7 +13,7 @@ const MyAccount = ({
   const handleCloseMobile = () => {
     if (mobile && setIsNaveOpen) {
       // Added check for setIsNaveOpen Type error fix
-      console.log('closed')
+
       setIsNaveOpen(false)
     }
   }

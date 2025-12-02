@@ -29,9 +29,9 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
     destinations,
     tours,
   }
-  console.log('====== mega nav data =======')
+  // console.log('====== mega nav data =======')
   const navData = megaData[type]
-  console.log(navData)
+  // console.log(navData)
 
   return (
     <div className='absolute mt-12 z-30 top-20  left-0 right-0 max-w-[1200px] mx-auto bg-white rounded-2xl p-8 shadow-2xl border border-gray-100'>

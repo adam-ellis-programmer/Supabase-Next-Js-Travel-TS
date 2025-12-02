@@ -42,7 +42,6 @@ const AdminViewAllTours = () => {
     setError(null)
 
     const result = await getToursAdmin()
-    console.log('result', result)
 
     if (result.success && result.data) {
       setTours(result.data)
@@ -54,7 +53,6 @@ const AdminViewAllTours = () => {
   }
 
   const handleEdit = (id: number) => {
-    console.log('Edit tour:', id)
     // Navigate to edit page
     // window.location.href = `/admin/edit-tour/${id}`
     router.push(`/admin/edit-tour/${id}`)
@@ -123,7 +121,6 @@ const AdminViewAllTours = () => {
       </div>
     )
   }
-  console.log(filteredTours)
 
   return (
     <div className='min-h-[calc(100vh-100px)] bg-gray-50 py-8'>

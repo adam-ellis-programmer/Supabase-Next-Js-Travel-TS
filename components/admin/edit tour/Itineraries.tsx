@@ -39,7 +39,6 @@ const Itineraries = ({
   const [itemsToDelete, setItemsToDelete] = useState<Set<number>>(new Set())
 
   const handleSetEditMode = (index: number) => {
-    console.log(index)
     setEditIndex(index)
     setIsEditing(true)
     setTempEdits({
@@ -63,9 +62,6 @@ const Itineraries = ({
 
   const handleToggleDelete = (index: number, checked: boolean) => {
     const item = defaultData.itineraries[index]
-    console.log(index)
-
-    console.log(item)
 
     if (!item.id) {
       // For new items without IDs, just remove them from the array
@@ -81,7 +77,6 @@ const Itineraries = ({
       // Remove from newItems tracking
       setNewItems((prev) => {
         const updated = new Set(prev) // what ever the prev is
-        console.log(updated)
 
         updated.delete(index)
         // Adjust indices for items after the deleted one
@@ -90,8 +85,7 @@ const Itineraries = ({
           // drop the stack by one
           adjustedSet.add(i > index ? i - 1 : i) // shift all indexes after deleted one down by one
         })
-
-        console.log(adjustedSet)
+        // console.log(adjustedSet)
 
         return adjustedSet
       })
@@ -135,9 +129,9 @@ const Itineraries = ({
     // Get IDs to delete
     const idsToDelete = Array.from(itemsToDelete)
 
-    console.log('Items to update:', itemsToUpdate)
-    console.log('Items to insert:', itemsToInsert)
-    console.log('Items to delete:', idsToDelete)
+    // console.log('Items to update:', itemsToUpdate)
+    // console.log('Items to insert:', itemsToInsert)
+    // console.log('Items to delete:', idsToDelete)
 
     try {
       const res = await itinerariesUpdate(
@@ -146,7 +140,7 @@ const Itineraries = ({
         itemsToInsert,
         idsToDelete
       )
-      console.log('Server response:', res)
+      // console.log('Server response:', res)
 
       if (res.success) {
         // Remove deleted items from local state
@@ -194,7 +188,6 @@ const Itineraries = ({
   }
 
   const handleSaveToDom = (index: number) => {
-    console.log('saved!')
     const updatedItineraries = [...defaultData.itineraries]
     updatedItineraries[index] = {
       ...updatedItineraries[index],
@@ -216,7 +209,7 @@ const Itineraries = ({
       setNewItems((prev) => new Set(prev).add(index))
     }
 
-    console.log('items updated: ', updatedItineraries[index])
+    // console.log('items updated: ', updatedItineraries[index])
 
     setEditIndex(null)
     setIsEditing(false)
@@ -224,7 +217,7 @@ const Itineraries = ({
   }
 
   const handleAddDay = () => {
-    console.log('adding day...')
+    // console.log('adding day...')
     const newDay = {
       // No ID for new items - this is how we identify them
       day_description: 'Enter Text',

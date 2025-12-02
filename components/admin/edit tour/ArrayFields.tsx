@@ -29,12 +29,10 @@ const ArrayFields = ({
 
   const handleUpdateClick = async () => {
     setloading(true)
-    console.log('Handle Array updates...')
-    console.log(defaultData)
 
     try {
       const res = await updateArrayFields(defaultData, tourId)
-      console.log(res)
+
       setShowAlert(true)
     } catch (error) {
       console.log(error)
@@ -44,12 +42,12 @@ const ArrayFields = ({
   }
 
   const handleEditMode = (key: string, index: number) => {
-    console.log(key, index)
+    // console.log(key, index)
     setKeyIndex(key)
     setitemIndex(index)
     // Set the initial value when entering edit mode
 
-    console.log(defaultData[key][index])
+    // console.log(defaultData[key][index])
     setEditedValue(defaultData[key][index])
   }
 
@@ -80,10 +78,8 @@ const ArrayFields = ({
   }
 
   const handleDelteItem = (key: string, index: number) => {
-    console.log(defaultData[key])
     const data = defaultData[key]
     const filtereData = data.filter((item: {}, i: number) => i !== index)
-    console.log(data)
 
     setDefaultData((prev: any) => {
       return {
@@ -97,7 +93,7 @@ const ArrayFields = ({
     const data = defaultData[key]
     const newPoint = 'Please Change Me!'
     data.push(newPoint)
-    console.log(data)
+
     setDefaultData((prev: any) => {
       return {
         ...prev,

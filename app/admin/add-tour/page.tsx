@@ -176,7 +176,6 @@ const AdminAddTour = () => {
   const updateSlotMonth = (slotIndex: number, value: string) => {
     const updated = [...bookingSlots]
     updated[slotIndex].month = value
-    console.log(updated[slotIndex])
 
     setBookingSlots(updated)
   }
@@ -199,7 +198,7 @@ const AdminAddTour = () => {
 
   const removeDateFromSlot = (slotIndex: number, dateIndex: number) => {
     const updated = [...bookingSlots]
-    
+
     updated[slotIndex].dates = updated[slotIndex].dates.filter(
       (_, i) => i !== dateIndex
     )
@@ -222,7 +221,6 @@ const AdminAddTour = () => {
     updated[slotIndex].dates[dateIndex].date = dateValue
     // reset bookings slot array with new data
     setBookingSlots(updated)
-    console.log('UPDATED DATE.... WITH INDEX ', slotIndex)
   }
 
   const handlePlacesInSlot = (
@@ -232,7 +230,7 @@ const AdminAddTour = () => {
   ) => {
     const updated = [...bookingSlots]
     updated[slotIndex].dates[dateIndex].places = value
-    console.log(updated[slotIndex].dates[dateIndex].places)
+
     setBookingSlots(updated)
   }
 
@@ -286,16 +284,6 @@ const AdminAddTour = () => {
     setItineraryDays(updated)
   }
 
-  /** ^^^^^^^^^^^^^^
-   // Step by step:
-
-          updated[0] = {
-            ...updated[0],           // Copy all existing properties
-            [field]: value           // Override the specific field
-          }
-   */
-
-  // Generic Array Functions
   const addToArray = (arr: string[], setArr: Function) => setArr([...arr, ''])
 
   const removeFromArray = (arr: string[], setArr: Function, index: number) => {
@@ -381,8 +369,6 @@ const AdminAddTour = () => {
         bookingSlots
       )
 
-      console.log('result', result)
-
       if (result.success) {
         // alert('Tour created successfully!')
         // Optionally redirect or reset form
@@ -400,7 +386,6 @@ const AdminAddTour = () => {
       setIsSubmitting(false)
     }
   }
-  // console.log(bookingSlots)
 
   const handleCountryChange = (e) => {
     const continent = e.target.selectedOptions[0].dataset.continent
@@ -500,8 +485,6 @@ const AdminAddTour = () => {
                     disabled
                   >
                     {Array.from(continents).map((country, index) => {
-                      console.log(country)
-
                       return (
                         <option key={index} value={country}>
                           {country === '' ? 'Auto Generated' : country}

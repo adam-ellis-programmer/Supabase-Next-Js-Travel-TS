@@ -21,7 +21,6 @@ const ImageListItem = ({
   const [deleteId, setdeleteId] = useState<number | null>(null)
 
   const handleDeleteImage = async (index: number, id: number) => {
-    console.log('deleting image id: ', id)
     setLoading(true)
     setdeleteId(id)
 

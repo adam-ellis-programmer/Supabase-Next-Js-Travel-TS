@@ -79,8 +79,8 @@ const AddNewHeroImageButton = ({
 
     try {
       const res = await updateHeroImage(formData)
-      console.log('res from hero server: ', res)
-      console.log(updatedImageFile)
+      // console.log('res from hero server: ', res)
+      // console.log(updatedImageFile)
 
       setIsUploading(false)
       router.refresh()

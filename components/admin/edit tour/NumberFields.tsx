@@ -25,7 +25,6 @@ const NumberFields = ({
 
   const handleDbUpddate = async () => {
     setloading(true)
-    console.log('updating numbers...')
 
     // prepare data start
     const allData = {
@@ -51,13 +50,12 @@ const NumberFields = ({
     // convert back to object
     const dataObj = Object.fromEntries(dataArr)
 
-    console.log(dataObj)
     try {
-      console.log('trying update')
-      console.log('data before update')
+      // console.log('trying update')
+      // console.log('data before update')
       const data = await updateTourAdmin(tourId, dataObj)
-      console.log('update success')
-      console.log('update data', data)
+      // console.log('update success')
+      // console.log('update data', data)
       setShowAlert(true)
     } catch (error) {
       console.log(error)
@@ -67,7 +65,6 @@ const NumberFields = ({
   }
 
   const handleEditMode = (index: number) => {
-    console.log('first')
     setEditingIndex(index)
   }
 
@@ -76,12 +73,12 @@ const NumberFields = ({
   }
 
   const handleNumberChange = (key: string, index: number, value: string) => {
-    console.log(key, value)
+    // console.log(key, value)
     setEditEdValues((prev) => ({ ...prev, [key]: Number(value) }))
   }
 
   const handleSave = (key: string) => {
-    console.log(editedValues)
+    // console.log(editedValues)
     setDefaultDAta((prev: {}) => ({
       ...prev,
       ...editedValues,
@@ -90,6 +87,7 @@ const NumberFields = ({
   }
   //
   //
+  // Allowed indexes to show
   const allowed = [1, 2, 4, 5]
   return (
     <div className='space-y-2 text-sm'>

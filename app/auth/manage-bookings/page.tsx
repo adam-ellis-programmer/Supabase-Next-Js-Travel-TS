@@ -1,6 +1,5 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-console.log('--- seen in server console--')
 
 // TypeScript interfaces
 interface Passenger {
@@ -26,8 +25,6 @@ interface Booking {
 }
 
 const ManageBooking = () => {
-  console.log('logged in manage booking funciton')
-
   const [customersBookings, setCustomersBookings] = useState<Booking[]>([])
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null)
   const [passengers, setPassengers] = useState<Passenger[]>([])
@@ -98,7 +95,7 @@ const ManageBooking = () => {
     field: keyof Passenger,
     value: string | number
   ) => {
-    console.log('chnaged...')
+
 
     setPassengers(
       passengers.map((pax) =>
@@ -115,7 +112,7 @@ const ManageBooking = () => {
   // Save booking changes
   const handleSaveBooking = () => {
     // Here you would save to Supabase
-    console.log('Saving booking:', { ...selectedBooking, passengers })
+    // console.log('Saving booking:', { ...selectedBooking, passengers })
     alert('Booking updated successfully!')
   }
 

@@ -105,10 +105,10 @@ landing_page_travel_tips
       travelTips,
       heroData,
     }
-    console.log(dataToSubmit)
+
 
     const res = await createLandingPageAction(dataToSubmit)
-    console.log('res from server', res)
+
 
     if (res.success) {
       alert('Landing page created successfully!')

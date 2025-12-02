@@ -26,7 +26,6 @@ const Itineraries = ({ categorizedData }: { categorizedData: any }) => {
   const [tempEdits, setTempEdits] = useState<any>({})
 
   const handleSetEditMode = (index: number) => {
-    console.log(index)
     setEditIndex(index)
     setIsEditing(true)
     // Store current values as temporary edits
@@ -38,7 +37,7 @@ const Itineraries = ({ categorizedData }: { categorizedData: any }) => {
 
   const handleCancelEditMode = async () => {
     const res = await itinerariesUpdate()
-    console.log(res)
+
     return
 
     setEditIndex(null)
@@ -55,12 +54,11 @@ const Itineraries = ({ categorizedData }: { categorizedData: any }) => {
   }
 
   const handleSaveToDB = () => {
-    console.log('defaultData: ', defaultData.itineraries)
+    // console.log('defaultData: ', defaultData.itineraries)
     // Add your API call here to save to database
   }
 
   const handleSaveToDom = (index: number) => {
-    console.log('saved!')
     // Update the actual state with temporary edits
     const updatedItineraries = [...defaultData.itineraries]
     updatedItineraries[index] = {
@@ -73,7 +71,7 @@ const Itineraries = ({ categorizedData }: { categorizedData: any }) => {
       itineraries: updatedItineraries,
     })
 
-    console.log('items updated: ', updatedItineraries[index])
+    // console.log('items updated: ', updatedItineraries[index])
 
     // Reset edit mode
     setEditIndex(null)

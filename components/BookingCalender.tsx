@@ -115,10 +115,8 @@ const BookingCalender = ({
       price_when_added: price,
     }
 
-    console.log('Adding to cart:', cartData)
-
     const res = await insertCartItem(cartData)
-    console.log(res)
+
     router.push('/booking')
   }
 

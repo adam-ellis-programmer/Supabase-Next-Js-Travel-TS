@@ -49,10 +49,8 @@ const StringFields = ({
     // console.log(cleanedData)
 
     try {
-      console.log('Update Started...')
       const data = await updateTourAdmin(tourId, cleanedData)
-      console.log('Updated Successfully')
-      console.log('returned data: ', data)
+
       setLoading(false)
       setShowAlert(true)
     } catch (error) {
@@ -71,7 +69,7 @@ const StringFields = ({
   }
 
   const handleSave = (key: string) => {
-    console.log(editedValues[key])
+    // console.log(editedValues[key])
     setDefaultData((prev: {}) => ({
       ...prev,
       [key]: editedValues[key],
@@ -82,7 +80,6 @@ const StringFields = ({
   const hadleTextChange = (key: string, value: string) => {
     seteditedValues((prev) => ({ ...prev, [key]: value }))
   }
-  // console.log(editedValues)
 
   return (
     <div className='space-y-2 text-sm'>
