@@ -60,7 +60,7 @@ const countriesData = [
   { value: 'chile', label: 'Chile', continent: 'South America' },
 ]
 
-const continents = new Set()
+const continents = new Set<string>()
 countriesData.forEach((item) => {
   continents.add(item.continent)
 })
@@ -371,11 +371,11 @@ const AdminAddTour = () => {
 
       if (result.success) {
         // alert('Tour created successfully!')
-        // Optionally redirect or reset form
         router.push('/admin/view-tours')
       } else {
-        // can use the ?? ''
-        setError(result.error)
+        if (!result.success) {
+          setError('An unknown error occurred')
+        }
         // alert(`Error: ${result.error}`)
       }
     } catch (err) {
@@ -387,8 +387,8 @@ const AdminAddTour = () => {
     }
   }
 
-  const handleCountryChange = (e) => {
-    const continent = e.target.selectedOptions[0].dataset.continent
+  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const continent = e.target.selectedOptions[0].dataset.continent || ''
     setCountry(e.target.value)
     setContinent(continent)
   }

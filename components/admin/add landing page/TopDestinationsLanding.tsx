@@ -25,57 +25,64 @@ interface TopDest {
     >
   >
 }
+
 const TopDestinationsLanding = ({
   topDestinations,
   setTopDestinations,
 }: TopDest) => {
-  const fileInputRef = useRef(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const [isDragging, setIsDragging] = useState(false)
   const [trackItem, setTrackItem] = useState<number | null>(null)
 
   const handleAddDest = () => {
     const newDestData = {
       name: '',
-      image: '',
-      imagePreview: '',
+      image: null as File | null,
+      imagePreview: null as string | null,
       description: '',
     }
-    setTopDestinations((prev: any) => [...prev, newDestData])
+    setTopDestinations((prev) => [...prev, newDestData])
   }
 
   const handleDelte = (index: number) => {
-    // d = destinations
     const d = [...topDestinations]
     const filteredData = d.filter((_, i) => i !== index)
     setTopDestinations(filteredData)
   }
 
-  const handleDragOver = (e, index: number) => {
+  const handleDragOver = (
+    e: React.DragEvent<HTMLDivElement>,
+    index: number
+  ) => {
     e.preventDefault()
     e.stopPropagation()
     setIsDragging(true)
     setTrackItem(index)
   }
-  const handleDragLeave = (e, index: number) => {
+
+  const handleDragLeave = (
+    e: React.DragEvent<HTMLDivElement>,
+    index: number
+  ) => {
     e.preventDefault()
     e.stopPropagation()
     setIsDragging(false)
     setTrackItem(index)
   }
-  const handleDrop = (e, index: number) => {
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>, index: number) => {
     e.preventDefault()
     e.stopPropagation()
     setIsDragging(false)
     setTrackItem(index)
     const file = e.dataTransfer.files[0]
-    // console.log(file)
-    handleFileUrl(file, index)
+    if (file) {
+      handleFileUrl(file, index)
+    }
   }
 
   function handleFileData(file: File) {}
 
-  // creates a brand new object with the updated values
-  // not mutating anything
   function handleFileUrl(file: File, index: number) {
     const url = URL.createObjectURL(file)
     const dest = [...topDestinations]
@@ -84,25 +91,29 @@ const TopDestinationsLanding = ({
   }
 
   const handleFileInputClick = (i: number) => {
-    const el = document.getElementById(`input-${i}`)
+    const el = document.getElementById(`input-${i}`) as HTMLInputElement | null
     el?.click()
   }
-  //
-  const handleFileChange = (e, index: number) => {
+
+  const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     setTrackItem(index)
-    const file = e.target.files[0]
-    handleFileUrl(file, index)
+    const file = e.target.files?.[0]
+    if (file) {
+      handleFileUrl(file, index)
+    }
   }
 
   const handleRemoveUrl = (index: number) => {
     const dest = [...topDestinations]
     const obj = dest[index]
     obj.imagePreview = null
+    obj.image = null
     setTopDestinations(dest)
   }
 
-  // name
-  // description
   const handleDestinationChange = (
     index: number,
     field: 'name' | 'description',
@@ -121,8 +132,6 @@ const TopDestinationsLanding = ({
       </h2>
       <div>
         {topDestinations.map((item, i) => {
-          // console.log('item', item)
-
           return (
             <div
               key={i}
@@ -148,7 +157,6 @@ const TopDestinationsLanding = ({
                   }
                 />
 
-                {/* Click or Drag File */}
                 <div
                   className={`h-[200px] mt-6 rounded-md relative ${
                     trackItem === i &&
@@ -189,7 +197,6 @@ const TopDestinationsLanding = ({
                   )}
                   <input
                     onChange={(e) => handleFileChange(e, i)}
-                    // ref={fileInputRef}
                     type='file'
                     name=''
                     id={`input-${i}`}

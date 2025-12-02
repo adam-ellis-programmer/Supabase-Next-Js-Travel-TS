@@ -1,6 +1,7 @@
 import React from 'react'
 import { LandingPage } from '@/lib/supabase/services/site/landing-page-service'
 import Link from 'next/link'
+import Image from 'next/image'
 
 import {
   FaPlane,
@@ -47,6 +48,35 @@ const CountryLandingPage = async ({
 
   // Type asserted data response
   const dbData = res[0] as LandingPageData
+
+  if (!dbData)
+    return (
+      <div className='min-h-[calc(100vh-100px)] relative'>
+        <div className='absolute top-0 left-0 w-full h-full z-10 bg-[#3a4e5f8d] flex justify-center items-center p-10'>
+          <div className='bg-[#cccccc90] p-10 rounded-lg'>
+            <p className='text-3xl text-center leading-10'>
+              No Landing Page Available Yet
+            </p>
+            <p className='text-3xl text-center  leading-10'>Check Back Soon!</p>
+            <div className='flex justify-center mt-5'>
+              <Link className='bg-green-400 p-3 rounded-xl' href={`/`}>
+                back home
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <Image
+          src='https://ldnjbkiqxrljdlauxbqe.supabase.co/storage/v1/object/public/site/4x4.jpg'
+          alt='Coming soon background'
+          fill
+          className='object-cover object-center'
+          priority
+          sizes='100vw'
+          unoptimized
+        />
+      </div>
+    )
 
   // Icon mapping for experiences and travel tips
   const iconMap: { [key: string]: IconType } = {

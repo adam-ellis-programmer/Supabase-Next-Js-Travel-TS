@@ -2,31 +2,36 @@ import React, { useRef, useState } from 'react'
 import { MdOutlineCloudUpload } from 'react-icons/md'
 import { AiFillCloseSquare } from 'react-icons/ai'
 
-const HeroImageUploadLanding = ({ heroData, setHeroData }) => {
-  const fileSelectInput = useRef(null)
-  const [isDragging, setIsDragging] = useState(false)
-  const [heroTempUrl, setHeroTempUrl] = useState(null)
+interface HeroImageUploadLandingProps {
+  heroData: File | null
+  setHeroData: React.Dispatch<React.SetStateAction<File | null>>
+}
 
-  const handleDragOver = (e) => {
+const HeroImageUploadLanding = ({
+  heroData,
+  setHeroData,
+}: HeroImageUploadLandingProps) => {
+  const fileSelectInput = useRef<HTMLInputElement>(null) // Add type here
+  const [isDragging, setIsDragging] = useState(false)
+  const [heroTempUrl, setHeroTempUrl] = useState<string | null>(null) // Add type here
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     e.stopPropagation()
     setIsDragging(true)
-    // console.log('logging...')
   }
 
-  const onDragLeave = (e) => {
+  const onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     e.stopPropagation()
     setIsDragging(false)
-    // console.log('leaving drag...')
   }
 
-  const onDragDrop = (e) => {
+  const onDragDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     e.stopPropagation()
     setIsDragging(false)
     const file = e.dataTransfer.files[0]
-    // console.log('droped: ', file)
     handleFileDisplay(file)
     setHeroData(file)
   }
@@ -37,21 +42,22 @@ const HeroImageUploadLanding = ({ heroData, setHeroData }) => {
   }
 
   const handleImageSelect = () => {
-    // console.log('clicked')
-    fileSelectInput.current.click()
+    fileSelectInput.current?.click() 
   }
 
-  const handleHiddenInputChange = (e) => {
-    const file = e.target.files[0]
-    // console.log(file)
-    setHeroData(file)
-    handleFileDisplay(file)
+  const handleHiddenInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      setHeroData(file)
+      handleFileDisplay(file)
+    }
   }
 
   const handleDeleteHero = () => {
     setHeroTempUrl(null)
     setHeroData(null)
   }
+
   return (
     <div className='mt-5'>
       <p className='text-lg mb-2'>Hero Upload *</p>
@@ -64,7 +70,6 @@ const HeroImageUploadLanding = ({ heroData, setHeroData }) => {
           isDragging && 'bg-blue-100 border-red-500'
         } ${heroTempUrl && 'border-none'}`}
       >
-        {/* Show image temp */}
         {heroTempUrl ? (
           <div className='absolute h-full w-full overflow-hidden rounded-lg'>
             <div className='bg-[#414e6a8f] absolute top-0  left-0 w-full h-full flex justify-center items-center'>

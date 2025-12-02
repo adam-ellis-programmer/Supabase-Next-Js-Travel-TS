@@ -7,41 +7,48 @@ const HeroImageUpload = ({
 }: {
   setheroImgage: (file: File) => void
 }) => {
-  const fileInputRef = useRef(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const [fileUrl, setFileUrl] = useState(null)
+  const [fileUrl, setFileUrl] = useState<string | null>(null)
   const [isDragging, setisDragging] = useState(false)
 
-  const handleDragEnter = (e: React.DragEvent) => {
+  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setisDragging(true)
   }
-  const handleDragLeave = (e: React.DragEvent) => {
+
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setisDragging(false)
   }
-  const handleDragOver = (e: React.DragEvent) => {
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setisDragging(true)
   }
-  const hanldeDrop = (e: React.DragEvent) => {
+
+  const hanldeDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setisDragging(false)
 
-    const file = Array.from(e.dataTransfer.files)
-    handleFileUrl(file[0])
-    setheroImgage(file[0])
+    const file = Array.from(e.dataTransfer.files)[0]
+    if (file) {
+      handleFileUrl(file)
+      setheroImgage(file)
+    }
   }
 
   const handleClick = () => {
-    fileInputRef?.current?.click()
+    fileInputRef.current?.click()
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file: File = e.target.files[0]
+    const file = e.target.files?.[0]
 
-    setheroImgage(file)
-    handleFileUrl(file)
+    if (file) {
+      setheroImgage(file)
+      handleFileUrl(file)
+    }
   }
 
   function handleFileUrl(file: File) {
@@ -100,7 +107,7 @@ const HeroImageUpload = ({
           {/* Image */}
           <img
             className='h-[200px] w-[400px] rounded-lg object-cover object-center shadow-md'
-            src={fileUrl || ''}
+            src={fileUrl}
             alt='Hero preview'
           />
         </div>

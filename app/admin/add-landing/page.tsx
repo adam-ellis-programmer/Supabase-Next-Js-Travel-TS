@@ -56,7 +56,7 @@ const AdminAddLanding = () => {
     {
       name: '',
       image: null as File | null,
-      imagePreview: null,
+      imagePreview: null as string | null,
       description: '',
     },
   ])
@@ -71,7 +71,9 @@ const AdminAddLanding = () => {
     { icon: 'FaClock', title: '', tip: '' },
   ])
 
-  const handleLandingFieldsChnage = (e) => {
+  const handleLandingFieldsChnage = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target
 
     setbasicInfo((prev) => ({
@@ -81,7 +83,9 @@ const AdminAddLanding = () => {
     }))
   }
 
-  const handleFactChange = (e) => {
+  const handleFactChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target
     setQuickFactsData((prev) => ({
       ...prev,
@@ -106,9 +110,7 @@ landing_page_travel_tips
       heroData,
     }
 
-
     const res = await createLandingPageAction(dataToSubmit)
-
 
     if (res.success) {
       alert('Landing page created successfully!')

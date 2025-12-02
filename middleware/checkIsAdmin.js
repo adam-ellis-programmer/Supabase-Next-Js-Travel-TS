@@ -1,7 +1,8 @@
 'use server'
 
 import { createClient } from '../lib/supabase/server'
-
+// get user from token!
+// get user from token!
 // For backend / server guard. (Page access from server)
 export async function checkIsAdmin(tour_id) {
   const supabase = await createClient()
@@ -29,7 +30,7 @@ export async function checkIsAdmin(tour_id) {
   // ===============
   // only allow acces
   // if admin and has
-  //  correct role level
+  // correct role level
   // ===============
   if (isAdmin && correctRoleLevel) {
     return true
