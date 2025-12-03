@@ -24,6 +24,16 @@ async function handleContactSubmit(formData: FormData) {
   // redirect('/thank-you')
 }
 
+const icons = {} // icons map?
+
+const contactData = [
+  { text: '0207 776345', icon: '' },
+  { text: 'hello@travelexplorer.com', icon: '' },
+  { text: 'hello@travelexplorer.com', icon: '' },
+  { text: '078321321', icon: '' },
+  { text: '1 London Bridge Road SE1 1BR', icon: '' },
+]
+
 const ContactPage = () => {
   return (
     <div className='min-h-[calc(100vh-100px)] bg-gray-800'>
