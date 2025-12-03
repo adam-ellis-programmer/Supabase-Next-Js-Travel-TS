@@ -171,10 +171,14 @@ const SuperNav = ({ type, sortedContinents, sortedTours }: SuperNavProps) => {
       <h4 className='text-center capitalize text-xl mb-4 font-bold'>
         choose a {type.slice(0, -1)}
       </h4>
-
-      <Link className='bg-orange-400  absolute top-5 left-5 rounded-lg p-1 px-2' href={'/tours'}>
-        All Tours
-      </Link>
+      <div className='absolute top-5 left-5 space-x-1'>
+        <Link className='bg-rose-400   rounded-lg p-1 px-2' href={'/tours'}>
+          All Tours
+        </Link>
+        <Link className='bg-orange-400   rounded-lg p-1 px-2' href={'/contact'}>
+          contact
+        </Link>
+      </div>
       {authLoading && <AuthCheck />}
       {user && (
         <>

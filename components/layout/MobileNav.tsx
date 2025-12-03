@@ -86,6 +86,7 @@ const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
   const continentData = Object.entries(sortedContinents)
   // console.log(continentData)
 
+  const btnClasses = `bg-gray-600 text-white`
   return (
     <div className='block md:hidden'>
       <button onClick={handleToggle} className='cursor-pointer'>
@@ -111,7 +112,7 @@ const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
           <div className=' h-full overflow-scroll'>
             {user && <AdminControls handleToggle={handleToggle} />}
 
-            <section className='border border-rose-500'>
+            <section className=''>
               <p className='text-2xl text-center mb-5'>Choose an Area</p>
               <ul className='grid grid-cols-2 gap-2 '>
                 {continentData.map((item, i) => {
@@ -146,7 +147,23 @@ const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
               </ul>
             </section>
 
-            <section>nav buttons here</section>
+            {/* Nav buttons here */}
+            <section className='mt-5'>
+              <div className='grid grid-cols-2 gap-2'>
+                <button className={` text-lg p-2 rounded-md ${btnClasses}`}>
+                  logout
+                </button>
+                <button className={` text-lg p-2 rounded-md ${btnClasses}`}>
+                  tours
+                </button>
+                <button className={` text-lg p-2 rounded-md ${btnClasses}`}>
+                  contact
+                </button>
+                <button className={` text-lg p-2 rounded-md ${btnClasses}`}>
+                  button
+                </button>
+              </div>
+            </section>
 
             <section className='mt-4'>
               <p className='text-center text-2xl my-5'>Browse Our Trips</p>
