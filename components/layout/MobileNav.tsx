@@ -113,7 +113,7 @@ const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
             {user && <AdminControls handleToggle={handleToggle} />}
 
             <section className=''>
-              <p className='text-2xl text-center mb-5'>Choose an Area</p>
+              <p className='text-2xl text-center mb-5 capitalize'>Choose a Continent</p>
               <ul className='grid grid-cols-2 gap-2 '>
                 {continentData.map((item, i) => {
                   const [continentName, continentDetails] = item
@@ -148,25 +148,62 @@ const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
             </section>
 
             {/* Nav buttons here */}
-            <section className='mt-5'>
+            <section className=''>
+              <p className='text-center my-5 text-2xl capitalize'>main buttons</p>
               <div className='grid grid-cols-2 gap-2'>
-                <button className={` text-lg p-2 rounded-md ${btnClasses}`}>
-                  logout
-                </button>
-                <button className={` text-lg p-2 rounded-md ${btnClasses}`}>
+                <Link
+                  onClick={() => {
+                    setIsNaveOpen(false)
+                  }}
+                  href={`/auth/login`}
+                  className={` text-lg p-2 text-center rounded-md ${btnClasses}`}
+                >
+                  Login
+                </Link>
+                <Link
+                  onClick={() => {
+                    setIsNaveOpen(false)
+                  }}
+                  href={`/tours`}
+                  className={` text-lg p-2 text-center rounded-md ${btnClasses}`}
+                >
                   tours
-                </button>
-                <button className={` text-lg p-2 rounded-md ${btnClasses}`}>
+                </Link>
+
+                <Link
+                  href={`/contact`}
+                  onClick={() => {
+                    setIsNaveOpen(false)
+                  }}
+                  className={`text-center text-lg p-2 rounded-md ${btnClasses}`}
+                >
                   contact
-                </button>
-                <button className={` text-lg p-2 rounded-md ${btnClasses}`}>
-                  button
-                </button>
+                </Link>
+                {/* if logged in else */}
+                <Link
+                  onClick={() => {
+                    setIsNaveOpen(false)
+                  }}
+                  href={`/auth/manage-bookings`}
+                  className={`text-center text-lg p-2 rounded-md ${btnClasses}`}
+                >
+                  ny bookings
+                </Link>
+
+                <Link
+                  onClick={() => {
+                    setIsNaveOpen(false)
+                  }}
+                  href={`/`}
+                  className={`text-center text-lg p-2 rounded-md col-span-2 ${btnClasses}`}
+                >
+                  home
+                </Link>
               </div>
             </section>
 
-            <section className='mt-4'>
-              <p className='text-center text-2xl my-5'>Browse Our Trips</p>
+            <section className='mt-5'>
+              <p className='text-center text-2xl '>Browse Our Trips</p>
               <AccordionNav
                 sortedTours={sortedTours}
                 setIsNaveOpen={setIsNaveOpen}
