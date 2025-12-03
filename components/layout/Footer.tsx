@@ -10,6 +10,7 @@ import {
   FaPlaneDeparture,
 } from 'react-icons/fa'
 import MyAccount from '../buttons/MyAccount'
+import Link from 'next/link'
 
 const Footer = () => {
   return (
@@ -102,12 +103,12 @@ const Footer = () => {
             >
               FAQs
             </a>
-            <a
-              href='#'
+            <Link
+              href='/contact'
               className='text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:translate-x-1 inline-block'
             >
               Contact Us
-            </a>
+            </Link>
             <a
               href='#'
               className='text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:translate-x-1 inline-block'

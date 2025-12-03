@@ -1,3 +1,6 @@
+import Link from 'next/link'
+import { FaBinoculars } from 'react-icons/fa'
+
 import React from 'react'
 import {
   FaEdit,
@@ -26,7 +29,7 @@ interface AdminTourCardProps {
 
 const AdminTourCard = ({ tour, onEdit, onDelete }: AdminTourCardProps) => {
   return (
-    <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200'>
+    <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200 h-[200px]'>
       <div className='grid md:grid-cols-[150px_1fr] h-full'>
         {/* Image Section */}
         <div className='relative overflow-hidden h-[140px] md:h-auto'>
@@ -84,13 +87,13 @@ const AdminTourCard = ({ tour, onEdit, onDelete }: AdminTourCardProps) => {
               <FaEdit className='text-xs' />
               Edit
             </button>
-            <button
-              onClick={() => onEdit(tour.id)}
+            <Link
+              href={`/tours/${tour.id}`}
               className='flex-1 flex items-center justify-center gap-1 px-2 py-1.5 bg-blue-400 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors'
             >
-              <TiTick className='text-sm' />
-              Active
-            </button>
+              <FaBinoculars />
+              View
+            </Link>
             <button
               onClick={() => onDelete(tour.id)}
               className='flex-1 flex items-center justify-center gap-1 px-2 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded text-xs font-semibold transition-colors'

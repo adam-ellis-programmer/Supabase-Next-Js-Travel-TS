@@ -30,10 +30,23 @@ interface ToursPageCardProps {
 }
 
 const ToursPageCard = ({ tour }: ToursPageCardProps) => {
-  // console.log(tour)
+  const getSnippet = (text: string) => {
+    // if (text.length > 100) return text.slice(0, 150) + '... click to see more'
+    // if (text.length < 100) return text
+    if (text.length > 150) {
+      return (
+        <span>
+          {text.slice(0, 150) + '...'}
+          <span className='text-green-600 font-bold capitalize'>
+            More text available
+          </span>
+        </span>
+      )
+    }
+  }
 
   return (
-    <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 mb-4 group'>
+    <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 mb-4 group border md:h-[240px]'>
       <div className='grid md:grid-cols-[280px_1fr] h-full'>
         {/* Image Section */}
         <div className='relative overflow-hidden h-[200px] md:h-auto'>
@@ -61,7 +74,7 @@ const ToursPageCard = ({ tour }: ToursPageCardProps) => {
               {tour.name}
             </h3>
             <p className='text-gray-600 text-sm leading-relaxed mb-4'>
-              {tour.description}
+              {getSnippet(tour.description)}
             </p>
 
             {/* Quick Info */}
@@ -93,7 +106,7 @@ const ToursPageCard = ({ tour }: ToursPageCardProps) => {
 
             <Link
               href={`/tours/${tour.id}`}
-              className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl'
+              className='bg-blue-600 hover:bg-blue-700 text-white  p-1 px-2 rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl'
             >
               View Details
             </Link>

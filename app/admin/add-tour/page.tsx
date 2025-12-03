@@ -1,6 +1,7 @@
 'use client'
 import HeroImageUpload from '@/components/image uploads/HeroImageUpload'
 import UploadTourImages from '@/components/image uploads/UploadTourImages'
+import AddingLoader from '@/components/loaders/AddingLoader'
 import { createTourAction } from '@/lib/supabase/actions/admin/add-new-tour/action'
 import { TourFormData } from '@/types/tours'
 import { useRouter } from 'next/navigation'
@@ -395,6 +396,7 @@ const AdminAddTour = () => {
 
   return (
     <div className='min-h-[calc(100vh-100px)] bg-gray-50 py-8'>
+      {isSubmitting && <AddingLoader />}
       <div className='max-w-5xl mx-auto px-4'>
         <div className='mb-8'>
           <h1 className='text-4xl font-bold text-gray-800 mb-2'>

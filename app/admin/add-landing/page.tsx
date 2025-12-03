@@ -4,13 +4,14 @@ import { FaSave, FaPlus, FaTimes, FaGlobe } from 'react-icons/fa'
 import { createLandingPageAction } from '@/lib/supabase/actions/admin/add-new-landing-page/action'
 import AdminAddLandingOLD from './page OLD'
 import { BsFillInfoSquareFill } from 'react-icons/bs'
-
 import { LandingPage } from '@/lib/supabase/services/site/landing-page-service'
 import HeroImageUploadLanding from '@/components/admin/add landing page/HeroImageUploadLanding'
 import TopDestinationsLanding from '@/components/admin/add landing page/TopDestinationsLanding'
 import ThingsToExperience from '@/components/admin/add landing page/ThingsToExperience'
 import MustSeeAttractions from '@/components/admin/add landing page/MustSeeAttractions'
 import EssentialTravelTips from '@/components/admin/add landing page/EssentialTravelTips'
+import AddingLoader from '@/components/loaders/AddingLoader'
+import { useRouter } from 'next/navigation'
 
 const booleanFields = ['is_active']
 const pageExperiences = ['icon', 'title', 'description', 'display_order']
@@ -35,6 +36,8 @@ const generateSlug = (name: string) => {
 
 const AdminAddLanding = () => {
   const [heroData, setHeroData] = useState<File | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter()
 
   const [basicInfo, setbasicInfo] = useState({
     country_name: '',
@@ -100,29 +103,35 @@ landing_page_experiences
 landing_page_travel_tips
  */
   const handleSubmit = async () => {
-    const dataToSubmit = {
-      basicInfo,
-      quickFactsData,
-      topDestinations,
-      experiences,
-      attractions,
-      travelTips,
-      heroData,
-    }
+    setIsSubmitting(true)
+    try {
+      const dataToSubmit = {
+        basicInfo,
+        quickFactsData,
+        topDestinations,
+        experiences,
+        attractions,
+        travelTips,
+        heroData,
+      }
 
-    const res = await createLandingPageAction(dataToSubmit)
+      const res = await createLandingPageAction(dataToSubmit)
 
-    if (res.success) {
-      alert('Landing page created successfully!')
-      // Optionally redirect to the new page
-      // router.push(`/country-landing/${res.data.slug}`)
-    } else {
-      alert(`Error: ${res.error}`)
+      if (res.success) {
+        if (!res.data) return
+        router.push(`/country-landing/${res.data.slug}`)
+      } else {
+        alert(`Error: ${res.error}`)
+      }
+    } catch (error) {
+      console.log(error)
+      setIsSubmitting(false)
     }
   }
 
   return (
     <div className='mt-8'>
+      {isSubmitting && <AddingLoader text='Createing Landing Please Wait...' />}
       <div className='min-h-[calc(100vh-100px)] w-full max-w-[1200px] mx-auto '>
         <section>
           <div className='mb-8'>

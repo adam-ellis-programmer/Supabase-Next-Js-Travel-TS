@@ -50,6 +50,7 @@ const TourPage = async ({ params }: TourPageProps) => {
       {/* Hero - OPTIMIZED with priority */}
       {/* <img src={main_hero_url} alt='' /> */}
       <div className='h-[400px] relative mb-7'>
+        {/* <div className='absolute top-0 left-0 w-full h-full bg-[#465868] z-10'></div> */}
         <Image
           src={main_hero_url || '/fallback.jpg'}
           alt={tour_images[0]?.image_alt || 'Tour image'}

@@ -49,6 +49,7 @@ const CountryLandingPage = async ({
   // Type asserted data response
   const dbData = res[0] as LandingPageData
 
+  // if no data return this
   if (!dbData)
     return (
       <div className='min-h-[calc(100vh-100px)] relative'>
@@ -72,8 +73,8 @@ const CountryLandingPage = async ({
           fill
           className='object-cover object-center'
           priority
-          sizes='100vw'
-          unoptimized
+          // sizes='100vw'
+          // unoptimized
         />
       </div>
     )
@@ -149,9 +150,12 @@ const CountryLandingPage = async ({
             {countryData.name}
           </h1>
           <p className='text-xl md:text-2xl mb-8'>{countryData.tagline}</p>
-          <button className='bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors shadow-lg'>
+          <Link
+            href={`/tours`}
+            className='bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors shadow-lg'
+          >
             Explore Tours
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -305,12 +309,18 @@ const CountryLandingPage = async ({
             Let us help you plan your perfect adventure
           </p>
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-            <button className='bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-lg font-semibold transition-colors'>
+            <Link
+              href={`/tours`}
+              className='bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-lg font-semibold transition-colors'
+            >
               View All Tours
-            </button>
-            <button className='bg-white text-gray-800 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition-colors'>
+            </Link>
+            <Link
+              href={`/contact`}
+              className='bg-white text-gray-800 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition-colors'
+            >
               Contact Us
-            </button>
+            </Link>
           </div>
         </div>
       </div>

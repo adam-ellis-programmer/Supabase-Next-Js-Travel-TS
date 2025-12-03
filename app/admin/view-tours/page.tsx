@@ -8,6 +8,8 @@ import {
   deleteTourAdmin,
 } from '@/lib/supabase/actions/admin/admin-actions'
 import { useRouter } from 'next/navigation'
+import ViewToursAlert from '@/components/admin/alerts/ViewToursAlert'
+
 
 interface Tour {
   id: number
@@ -31,6 +33,7 @@ const AdminViewAllTours = () => {
   const [error, setError] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [filterCountry, setFilterCountry] = useState('all')
+  const [showAlert, setShowAlert] = useState(false)
 
   // Fetch tours on component mount
   useEffect(() => {
@@ -59,9 +62,8 @@ const AdminViewAllTours = () => {
   }
 
   const handleDelete = async (id: number) => {
-    if (!window.confirm('Are you sure you want to delete this tour?')) {
-      return
-    }
+    setShowAlert(true)
+    return
 
     const result = await deleteTourAdmin(id)
 
@@ -124,6 +126,7 @@ const AdminViewAllTours = () => {
 
   return (
     <div className='min-h-[calc(100vh-100px)] bg-gray-50 py-8'>
+      {showAlert && <ViewToursAlert  setShowAlert={setShowAlert} />}
       <div className='max-w-7xl mx-auto px-4'>
         {/* Header */}
         <div className='mb-8'>
