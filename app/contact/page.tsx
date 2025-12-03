@@ -38,19 +38,19 @@ const ContactPage = () => {
 
       <section className='mt-10'>
         <div className='md:grid grid-cols-4 gap-4 max-w-[1300px] mx-auto p-5 '>
-          <div className='shadow-2xl shadow-[#afa0a065] h-[100px] p-5 rounded-lg hover:border-rose-400 hover:border'>
+          <div className='shadow-2xl shadow-[#afa0a065] h-[100px] p-5 rounded-lg border-rose-400 border'>
             <FaPhoneSquareAlt className='text-white text-2xl' />
             <p className='text-white mt-1'>0207 776345</p>
           </div>
-          <div className='shadow-2xl shadow-[#afa0a065] h-[100px] p-5 rounded-lg hover:border-rose-400 hover:border'>
+          <div className='shadow-2xl shadow-[#afa0a065] h-[100px] p-5 rounded-lg border-rose-400 border'>
             <MdEmail className='text-white text-2xl' />
             <p className='text-white mt-1'>hello@travelexplorer.com</p>
           </div>
-          <div className='shadow-2xl shadow-[#afa0a065] h-[100px] p-5 rounded-lg hover:border-rose-400 hover:border'>
+          <div className='shadow-2xl shadow-[#afa0a065] h-[100px] p-5 rounded-lg border-rose-400 border'>
             <IoLogoWhatsapp className='text-white text-2xl' />
             <p className='text-white mt-1'>078321321</p>
           </div>
-          <div className='shadow-2xl shadow-[#afa0a065] h-[100px] p-5 rounded-lg hover:border-rose-400 hover:border'>
+          <div className='shadow-2xl shadow-[#afa0a065] h-[100px] p-5 rounded-lg border-rose-400 border'>
             <MdOutlineEmojiPeople className='text-white text-2xl' />
             <p className='text-white mt-1'>1 London Bridge Road SE1 1BR</p>
           </div>
