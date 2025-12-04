@@ -21,6 +21,8 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
 
   const [showAlert, setShowAlert] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
+
+  // ORGANIZE DATA
   const categorizedData = Object.entries(res.data).reduce(
     (acc, [key, value]) => {
       // Skip related data objects (related tables)
@@ -57,7 +59,8 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
         <h1 className=' text-2xl font-bold'>Edit Tour Page</h1>
         <p className='capitalize'>
           {' '}
-          page access level <span className='text-rose-500 font-bold'> ({res.data.access})</span>
+          page access level{' '}
+          <span className='text-rose-500 font-bold'> ({res.data.access})</span>
         </p>
         <p className='flex items-center space-x-2'>
           <IoIosInformationCircleOutline className='text-rose-600' />

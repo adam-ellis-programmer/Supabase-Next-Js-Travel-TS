@@ -3,7 +3,8 @@ import { FiSend } from 'react-icons/fi'
 import { MdEmail } from 'react-icons/md'
 import { IoLogoWhatsapp } from 'react-icons/io'
 import { MdOutlineEmojiPeople } from 'react-icons/md'
-
+import { IconType } from 'react-icons'
+import SendMessageAlert from '@/components/admin/alerts/SendMessageAlert'
 // Server Action - defined at top level
 async function handleContactSubmit(formData: FormData) {
   'use server' // This makes it a Server Action
@@ -14,29 +15,50 @@ async function handleContactSubmit(formData: FormData) {
 
   console.log({ name, email, message })
 
-  // Here you would:
+  // Here:
   // - Save to database
   // - Send email
   // - Call API
-  // etc.
+  // - etc.
 
   // Optional: revalidate or redirect
   // redirect('/thank-you')
 }
 
-const icons = {} // icons map?
+// [] is typeScript key signiture (so we do not have to explicitly define (verbose))
+// TypeScript Dynamic Access
+const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } =
+  {
+    FaPhoneSquareAlt,
+    MdEmail,
+    IoLogoWhatsapp,
+    MdOutlineEmojiPeople,
+  }
 
 const contactData = [
-  { text: '0207 776345', icon: '' },
-  { text: 'hello@travelexplorer.com', icon: '' },
-  { text: 'hello@travelexplorer.com', icon: '' },
-  { text: '078321321', icon: '' },
-  { text: '1 London Bridge Road SE1 1BR', icon: '' },
+  { text: '0207 776345', icon: 'FaPhoneSquareAlt' },
+  { text: 'hello@travelexplorer.com', icon: 'MdEmail' },
+  { text: '078321321', icon: 'IoLogoWhatsapp' },
+  { text: '1 London Bridge Road SE1 1BR', icon: 'MdOutlineEmojiPeople' },
+]
+
+const inputFields = [
+  { name: 'name', type: 'text', placeHolder: 'Enter Name' },
+  { name: 'email', type: 'text', placeHolder: 'Enter Email' },
+  { name: 'message', type: 'textarea', placeHolder: 'Enter Message Here' },
 ]
 
 const ContactPage = () => {
+  const contactMap = contactData.map((item) => {
+    return {
+      text: item.text,
+      icon: iconMap[item.icon], // lookup
+    }
+  })
+
   return (
     <div className='min-h-[calc(100vh-100px)] bg-gray-800'>
+      {/* <SendMessageAlert /> */}
       <section className='pt-10'>
         <p className='text-6xl capitalize text-center text-white'>
           get in touch
@@ -48,22 +70,17 @@ const ContactPage = () => {
 
       <section className='mt-10'>
         <div className='md:grid grid-cols-4 gap-4 max-w-[1300px] mx-auto p-5 '>
-          <div className='shadow-2xl shadow-[#afa0a065] h-[100px] p-5 rounded-lg border-rose-400 border'>
-            <FaPhoneSquareAlt className='text-white text-2xl' />
-            <p className='text-white mt-1'>0207 776345</p>
-          </div>
-          <div className='shadow-2xl shadow-[#afa0a065] h-[100px] p-5 rounded-lg border-rose-400 border'>
-            <MdEmail className='text-white text-2xl' />
-            <p className='text-white mt-1'>hello@travelexplorer.com</p>
-          </div>
-          <div className='shadow-2xl shadow-[#afa0a065] h-[100px] p-5 rounded-lg border-rose-400 border'>
-            <IoLogoWhatsapp className='text-white text-2xl' />
-            <p className='text-white mt-1'>078321321</p>
-          </div>
-          <div className='shadow-2xl shadow-[#afa0a065] h-[100px] p-5 rounded-lg border-rose-400 border'>
-            <MdOutlineEmojiPeople className='text-white text-2xl' />
-            <p className='text-white mt-1'>1 London Bridge Road SE1 1BR</p>
-          </div>
+          {contactMap.map((item, i) => {
+            return (
+              <div
+                key={i}
+                className='shadow-2xl shadow-[#afa0a065] h-[100px] p-5 rounded-lg border-rose-400 border md:hover:border-green-400 mb-5 md:mb-0'
+              >
+                <item.icon className='text-white text-2xl' />
+                <p className='text-white mt-1'>{item.text}</p>
+              </div>
+            )
+          })}
         </div>
       </section>
 
@@ -73,26 +90,25 @@ const ContactPage = () => {
         </p>
         {/* Use action instead of onSubmit */}
         <form action={handleContactSubmit}>
-          <input
-            type='text'
-            name='name' // Add name attribute
-            className='bg-white w-full text-lg p-3 rounded-md mb-4'
-            placeholder='Enter Name'
-            required
-          />
-          <input
-            type='email'
-            name='email' // Add name attribute
-            className='bg-white w-full text-lg p-3 rounded-md mb-4'
-            placeholder='Enter Email'
-            required
-          />
+          {inputFields.slice(0, 2).map((item, i) => {
+            return (
+              <input
+                type={item.type}
+                name={item.name} // Add name attribute
+                className='bg-white w-full text-lg p-3 rounded-md mb-4'
+                placeholder={item.placeHolder}
+                required
+              />
+            )
+          })}
+
           <textarea
             name='message' // Add name attribute
             className='w-full min-h-[200px] p-3 rounded-md'
             placeholder='Enter Message Here'
             required
           />
+
           <div className='mt-4'>
             <button
               type='submit'

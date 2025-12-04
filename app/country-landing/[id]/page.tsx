@@ -135,6 +135,11 @@ const CountryLandingPage = async ({
       })),
   }
 
+  console.log(
+    'dbData.landing_page_experiences',
+    dbData.landing_page_experiences
+  )
+
   return (
     <div className='bg-white'>
       {/* Hero Section */}
@@ -283,6 +288,7 @@ const CountryLandingPage = async ({
         </h2>
         <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6'>
           {countryData.travelTips.map((tip) => {
+            console.log('tip data: ', tip)
             return (
               <div
                 key={tip.title}
