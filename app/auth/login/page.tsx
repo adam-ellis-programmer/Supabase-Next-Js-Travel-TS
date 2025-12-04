@@ -10,7 +10,7 @@ export default async function Page() {
     <div className='relative h-[88vh]'>
       <BackgroundImageLoader imageUrl={res[0].image_url} />
       <div className='absolute w-full z-30 top-52 md:pr-20'>
-        <div className='flex justify-end'>
+        <div className='flex justify-end px-7 md:px-0'>
           <LoginForm className='max-w-[600px]' />
         </div>
       </div>

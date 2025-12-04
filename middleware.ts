@@ -2,6 +2,8 @@ import { updateSession } from '@/lib/supabase/middleware'
 import { type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
+  // console.dir(request, { depth: null, colors: true })
+
   return await updateSession(request)
 }
 

@@ -93,6 +93,7 @@ const ContactPage = () => {
           {inputFields.slice(0, 2).map((item, i) => {
             return (
               <input
+                key={i}
                 type={item.type}
                 name={item.name} // Add name attribute
                 className='bg-white w-full text-lg p-3 rounded-md mb-4'

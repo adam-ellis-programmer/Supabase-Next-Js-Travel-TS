@@ -38,7 +38,13 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  const publicRoutes = ['/', '/tours', '/booking', '/country-landing']
+  const publicRoutes = [
+    '/',
+    '/tours',
+    '/booking',
+    '/country-landing',
+    '/contact',
+  ]
 
   // Check if current path is public
   const isPublicRoute = publicRoutes.some(
@@ -55,6 +61,11 @@ export async function updateSession(request: NextRequest) {
   // with the Supabase client, your users may be randomly logged out.
   const { data } = await supabase.auth.getClaims()
   const user = data?.claims
+  // console.log(`
+  //   ====================
+  //   ran from middleware
+  //   ====================\n`)
+  console.log(user)
 
   if (
     !user &&
@@ -70,7 +81,7 @@ export async function updateSession(request: NextRequest) {
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
   // If you're creating a new response object with NextResponse.next() make sure to:
   // 1. Pass the request in it, like so:
-  //    const myNewResponse = NextResponse.next({ request })
+  //  const myNewResponse = NextResponse.next({ request })
   // 2. Copy over the cookies, like so:
   //    myNewResponse.cookies.setAll(supabaseResponse.cookies.getAll())
   // 3. Change the myNewResponse object to fit your needs, but avoid changing

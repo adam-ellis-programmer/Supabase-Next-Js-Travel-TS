@@ -3,16 +3,18 @@ import { FaBarsStaggered } from 'react-icons/fa6'
 import React, { useState, useEffect, memo } from 'react'
 import { FaPlaneDeparture } from 'react-icons/fa'
 import Link from 'next/link'
-
 import AccordionNav from './mobile nav/AccordionNav'
 import AdminControls from './mobile nav/AdminControls'
 import { getSlug } from '../utils/regex'
 import MyAccount from '../buttons/MyAccount'
 import { useAuthAdmin } from '@/contexts/AuthContext'
 import { NavigationProps } from '@/types/navigation'
+import { LogoutButton } from '../logout-button'
 
 const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
-  const { user, loading } = useAuthAdmin()
+  const { user, loading, isAdmin } = useAuthAdmin()
+  console.log('isAdmin', isAdmin)
+
   // console.log('user from mobile nav: ', user)
 
   const [isNaveOpen, setIsNaveOpen] = useState(false)
@@ -86,6 +88,37 @@ const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
   const continentData = Object.entries(sortedContinents)
   // console.log(continentData)
 
+  //   const navButtons = [
+  //   // Conditional buttons based on login state
+  //   ...(!user && !loading ? [{
+  //     href: '/auth/login',
+  //     label: 'Login',
+  //     colSpan: 1
+  //   }] : []),
+
+  //   ...(user ? [{
+  //     href: '/auth/logout',
+  //     label: 'Logout',
+  //     colSpan: 1,
+  //     onClick: () => {
+  //       // handleLogout()
+  //     }
+  //   }] : []),
+
+  //   // Always visible buttons
+  //   { href: '/tours', label: 'Tours', colSpan: 1 },
+  //   { href: '/contact', label: 'Contact', colSpan: 1 },
+
+  //   // Show only if logged in
+  //   ...(user ? [{
+  //     href: '/auth/manage-bookings',
+  //     label: 'My Bookings',
+  //     colSpan: 1
+  //   }] : []),
+
+  //   { href: '/', label: 'Home', colSpan: 2 },
+  // ]
+
   const btnClasses = `bg-gray-600 text-white`
   return (
     <div className='block md:hidden'>
@@ -110,10 +143,11 @@ const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
 
           {/* countries section (continents) */}
           <div className=' h-full overflow-scroll'>
-            {user && <AdminControls handleToggle={handleToggle} />}
-
+            {user && isAdmin && <AdminControls handleToggle={handleToggle} />}
             <section className=''>
-              <p className='text-2xl text-center mb-5 capitalize'>Choose a Continent</p>
+              <p className='text-2xl text-center mb-5 capitalize'>
+                Choose a Continent
+              </p>
               <ul className='grid grid-cols-2 gap-2 '>
                 {continentData.map((item, i) => {
                   const [continentName, continentDetails] = item
@@ -149,17 +183,23 @@ const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
 
             {/* Nav buttons here */}
             <section className=''>
-              <p className='text-center my-5 text-2xl capitalize'>main buttons</p>
+              <p className='text-center my-5 text-2xl capitalize'>
+                main buttons
+              </p>
               <div className='grid grid-cols-2 gap-2'>
-                <Link
-                  onClick={() => {
-                    setIsNaveOpen(false)
-                  }}
-                  href={`/auth/login`}
-                  className={` text-lg p-2 text-center rounded-md ${btnClasses}`}
-                >
-                  Login
-                </Link>
+                {user ? (
+                  <LogoutButton mobile />
+                ) : (
+                  <Link
+                    onClick={() => {
+                      setIsNaveOpen(false)
+                    }}
+                    href={`/auth/login`}
+                    className={` text-lg p-2 text-center rounded-md ${btnClasses}`}
+                  >
+                    Login
+                  </Link>
+                )}
                 <Link
                   onClick={() => {
                     setIsNaveOpen(false)
@@ -180,15 +220,27 @@ const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
                   contact
                 </Link>
                 {/* if logged in else */}
-                <Link
-                  onClick={() => {
-                    setIsNaveOpen(false)
-                  }}
-                  href={`/auth/manage-bookings`}
-                  className={`text-center text-lg p-2 rounded-md ${btnClasses}`}
-                >
-                  ny bookings
-                </Link>
+                {user ? (
+                  <Link
+                    onClick={() => {
+                      setIsNaveOpen(false)
+                    }}
+                    href={`/auth/manage-bookings`}
+                    className={`text-center text-lg p-2 rounded-md ${btnClasses}`}
+                  >
+                    ny bookings
+                  </Link>
+                ) : (
+                  <Link
+                    onClick={() => {
+                      setIsNaveOpen(false)
+                    }}
+                    href={`/`}
+                    className={`text-center text-lg p-2 rounded-md ${btnClasses}`}
+                  >
+                    FAQS
+                  </Link>
+                )}
 
                 <Link
                   onClick={() => {

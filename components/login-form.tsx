@@ -73,7 +73,7 @@ export function LoginForm({
           </CardDescription> */}
         </CardHeader>
         <CardContent className='mt-5'>
-          <form onSubmit={handleLogin} >
+          <form onSubmit={handleLogin}>
             <div className='flex flex-col gap-6'>
               <div className='grid gap-2'>
                 <Label className='' htmlFor='email'>
@@ -100,7 +100,7 @@ export function LoginForm({
                     href='/auth/forgot-password'
                     className='ml-auto inline-block text-sm underline-offset-4 hover:underline'
                   >
-                    Forgot your password?
+                  <span className='bg-gray-600 text-white px-2 rounded-sm'>  Forgot your password?</span>
                   </Link>
                 </div>
                 <Input
@@ -123,7 +123,7 @@ export function LoginForm({
                 href='/auth/sign-up'
                 className='underline underline-offset-4'
               >
-                Sign up
+                <p> Sign up</p>
               </Link>
             </div>
           </form>

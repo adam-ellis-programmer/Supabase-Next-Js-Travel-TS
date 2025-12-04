@@ -49,7 +49,7 @@ export function LogoutButton({
     <Button
       onClick={handleLogout}
       disabled={isLoading}
-      className={`ml-5 bg-gray-700 font-bold ${className}`}
+      className={`ml-5 bg-gray-700 font-bold ${className} ${mobile && 'border bg-rose-400 w-full h-full ml-0' }`}
     >
       {isLoading ? 'Logging out...' : 'Logout'}
     </Button>
