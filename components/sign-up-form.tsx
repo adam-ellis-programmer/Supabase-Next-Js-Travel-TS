@@ -81,6 +81,7 @@ export function SignUpForm({
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  className='bg-white'
                 />
               </div>
               <div className='grid gap-2'>
@@ -97,6 +98,7 @@ export function SignUpForm({
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  className='bg-white'
                 />
               </div>
               <div className='grid gap-2'>
