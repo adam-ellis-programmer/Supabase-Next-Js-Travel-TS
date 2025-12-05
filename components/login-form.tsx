@@ -23,21 +23,31 @@ export function LoginForm({
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [demoLoading, setdemoLoading] = useState(false)
+  const [regLoading, setRegLoading] = useState(false)
   const router = useRouter()
   const { refreshAuth } = useAuthAdmin() // ✅ Get refreshAuth
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent, from: string) => {
+    console.log(from)
     e.preventDefault()
-    setIsLoading(true)
     setError(null)
 
     try {
       // Call the server action
-      const result = await loginAction(email, password)
-
-      if (result.error) {
-        throw new Error(result.error)
+      if (from === 'demo') {
+        setdemoLoading(true)
+        const result = await loginAction('demo@admin.com', '11111111')
+        if (result.error) {
+          throw new Error(result.error)
+        }
+      }
+      if (from === 'reg') {
+        setRegLoading(true)
+        const result = await loginAction(email, password)
+        if (result.error) {
+          throw new Error(result.error)
+        }
       }
 
       console.log('✅ Login successful, refreshing auth...')
@@ -52,7 +62,8 @@ export function LoginForm({
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
-      setIsLoading(false)
+      setdemoLoading(false)
+      setRegLoading(false)
     }
   }
 
@@ -73,7 +84,7 @@ export function LoginForm({
           </CardDescription> */}
         </CardHeader>
         <CardContent className='mt-5'>
-          <form onSubmit={handleLogin}>
+          <form onSubmit={(e) => handleLogin(e, 'reg')}>
             <div className='flex flex-col gap-6'>
               <div className='grid gap-2'>
                 <Label className='' htmlFor='email'>
@@ -116,17 +127,26 @@ export function LoginForm({
                 />
               </div>
               {error && <p className='text-sm text-red-500'>{error}</p>}
-              <div className='flex items-center space-x-3' >
-                <button type='submit' className='w-1/2 rounded-md py-2 text-white bg-neutral-800' disabled={isLoading}>
-                  {isLoading ? 'Logging in...' : 'Login'}
+              <div className='flex items-center space-x-3'>
+                <button
+                  type='submit'
+                  className='w-1/2 rounded-md py-2 text-white bg-neutral-800'
+                  disabled={regLoading || demoLoading}
+                >
+                  {regLoading ? 'Logging in...' : 'Login'}
                 </button>
 
-                <button type='button' className='w-1/2  rounded-md py-2 bg-orange-400 text-black' disabled={isLoading}>
-                  Demo User 
+                <button
+                  onClick={(e) => handleLogin(e, 'demo')}
+                  type='button'
+                  className='w-1/2  rounded-md py-2 bg-orange-400 text-black'
+                  disabled={regLoading || demoLoading}
+                >
+                  {demoLoading ? 'Logging in As Demo...' : 'Login'}
                 </button>
               </div>
             </div>
-            <div className='mt-4 text-center text-sm bg-gray-600 rounded-lg text-white w-1/2 mx-auto'>
+            <div className='mt-4 text-center text-sm bg-gray-600 rounded-lg text-white w-1/2 p-2 mx-auto'>
               Don&apos;t have an account?{' '}
               <Link
                 href='/auth/sign-up'
