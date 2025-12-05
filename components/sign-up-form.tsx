@@ -56,18 +56,15 @@ export function SignUpForm({
     }
   }
 
+  // <CardDescription>Create a new account</CardDescription>
+
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
-      <div className=' bg-white/30'>
-        <CardHeader>
-          <CardTitle className='text-2xl'>
-            <span className='bg-orange-500 text-white px-4 py-2 rounded-lg'>
-              Sign Up
-            </span>
-          </CardTitle>
-          <CardDescription>Create a new account</CardDescription>
-        </CardHeader>
-        <CardContent>
+      <div className=' bg-white/30 p-10 rounded-md'>
+        <div className=''>
+          <p className='text-2xl mb-5 text-center'>
+            <span className='bg-orange-400 px-2 rounded-md'>Create an account</span>
+          </p>
           <form onSubmit={handleSignUp}>
             <div className='flex flex-col gap-6'>
               <div className='grid gap-2'>
@@ -130,7 +127,7 @@ export function SignUpForm({
               </Link>
             </div>
           </form>
-        </CardContent>
+        </div>
       </div>
     </div>
   )

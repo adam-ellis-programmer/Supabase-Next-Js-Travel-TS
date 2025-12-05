@@ -73,16 +73,9 @@ export function LoginForm({
       {...props}
     >
       <div className=' h-full bg-white/30 rounded-lg p-5'>
-        <CardHeader>
-          <CardTitle className='text-2xl '>
-            <span className='bg-orange-500 text-white px-4 py-2 rounded-lg'>
-              Login
-            </span>
-          </CardTitle>
-          {/* <CardDescription className='text-black border mt-10 block'>
-            Enter your email below to login to your account
-          </CardDescription> */}
-        </CardHeader>
+        <span className='bg-orange-500 text-white px-4 py-2 rounded-lg'>
+          Login
+        </span>
         <CardContent className='mt-5'>
           <form onSubmit={(e) => handleLogin(e, 'reg')}>
             <div className='flex flex-col gap-6'>
