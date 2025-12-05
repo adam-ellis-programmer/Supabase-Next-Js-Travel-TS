@@ -100,7 +100,10 @@ export function LoginForm({
                     href='/auth/forgot-password'
                     className='ml-auto inline-block text-sm underline-offset-4 hover:underline'
                   >
-                  <span className='bg-gray-600 text-white px-2 rounded-sm'>  Forgot your password?</span>
+                    <span className='bg-gray-600 text-white px-2 rounded-sm'>
+                      {' '}
+                      Forgot your password?
+                    </span>
                   </Link>
                 </div>
                 <Input
@@ -113,9 +116,15 @@ export function LoginForm({
                 />
               </div>
               {error && <p className='text-sm text-red-500'>{error}</p>}
-              <Button type='submit' className='w-full' disabled={isLoading}>
-                {isLoading ? 'Logging in...' : 'Login'}
-              </Button>
+              <div className='flex items-center space-x-3' >
+                <button type='submit' className='w-1/2 rounded-md py-2 text-white bg-neutral-800' disabled={isLoading}>
+                  {isLoading ? 'Logging in...' : 'Login'}
+                </button>
+
+                <button type='button' className='w-1/2  rounded-md py-2 bg-orange-400 text-black' disabled={isLoading}>
+                  Demo User 
+                </button>
+              </div>
             </div>
             <div className='mt-4 text-center text-sm bg-gray-600 rounded-lg text-white w-1/2 mx-auto'>
               Don&apos;t have an account?{' '}

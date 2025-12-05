@@ -10,8 +10,11 @@ export default async function Page() {
     <div className='relative h-[88vh]'>
       <BackgroundImageLoader imageUrl={res[0].image_url} />
       <div className='absolute w-full z-30 top-52 md:pr-20'>
-        <div className='flex justify-end px-7 md:px-0'>
+        <div className='flex items-end flex-col px-7 md:px-0'>
           <LoginForm className='max-w-[600px]' />
+          {/* <div className='  relative z-10 border w-[300px]'>
+            <button className='bg-orange-400'>Demo User</button>
+          </div> */}
         </div>
       </div>
     </div>
