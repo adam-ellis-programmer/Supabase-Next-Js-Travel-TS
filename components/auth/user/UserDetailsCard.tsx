@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import { Profile } from '@/types/database'
 import { updateUserProfileAction } from '@/lib/supabase/actions/actions'
 import { User } from '@supabase/supabase-js'
+import useDemoCheck from '@/hooks/useAuthDemoCheck'
+import DemoAlert from '@/components/admin/alerts/DemoAlert'
 
 const UserDetailsCard = ({
   profile,
@@ -16,11 +18,13 @@ const UserDetailsCard = ({
     full_name: string
     email: string
   }
-
+  const { loading, isDemoUser } = useDemoCheck()
   const [isEditMode, setIsEditMode] = useState<boolean>(false)
   const [isSaving, setIsSaving] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
+  // setShowDemoAlert
+  const [showDemoAlert, setShowDemoAlert] = useState(false)
   const [formData, setFormData] = useState<ProfileFormData>({
     full_name: profile.full_name ?? '',
     email: profile.email,
@@ -47,8 +51,16 @@ const UserDetailsCard = ({
     }))
   }
 
-  // components/auth/user/UserDetailsCard.tsx
   const handleSave = async () => {
+    if (!loading && isDemoUser) {
+      console.log(isDemoUser)
+      setShowDemoAlert(true)
+      setTimeout(() => {
+        setShowDemoAlert(false)
+      }, 5000)
+
+      return
+    }
     setIsSaving(true)
     setError(null)
     setSuccessMessage(null)
@@ -81,6 +93,7 @@ const UserDetailsCard = ({
   }
   return (
     <div className='bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8 relative'>
+      {showDemoAlert && <DemoAlert />}
       {isEditMode && (
         <div className='bg-rose-400 text-center text-white absolute -top-5 p-2 rounded-lg'>
           Edit mode active

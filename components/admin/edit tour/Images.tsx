@@ -7,14 +7,18 @@ import { deleteAll } from '@/lib/supabase/actions/admin/images/delete-tour-image
 import { TiInfoOutline } from 'react-icons/ti'
 import { useRouter } from 'next/navigation'
 import { updateTourImage } from '@/lib/supabase/actions/admin/images/update-tour-image'
+import useDemoCheck from '@/hooks/useAuthDemoCheck'
 
 const Images = ({
   categorizedData,
   tourId,
+  setDemoalert,
 }: {
   categorizedData: any
   tourId: number
+  setDemoalert: (boolean: boolean) => void
 }) => {
+  const { loading: demoLoading, isDemoUser } = useDemoCheck()
   const router = useRouter()
   const [isUploading, setIsUploading] = useState(false)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
@@ -47,8 +51,6 @@ const Images = ({
       return
     }
 
-
-
     const formData = new FormData()
     formData.append('file-data', files[0])
     // ✅ Convert numbers to strings
@@ -71,6 +73,17 @@ const Images = ({
   }
 
   const handleDeleteAll = async () => {
+    // ============ DEMO CHECK ==========
+    if (!demoLoading && isDemoUser) {
+      console.log(isDemoUser)
+      setDemoalert(true)
+
+      setTimeout(() => {
+        setDemoalert(false)
+      }, 5000)
+      return
+    }
+    // ============ DEMO CHECK ==========
     setDeleteAllLoading(true)
     try {
       const data = categorizedData.relatedData['tour_images']

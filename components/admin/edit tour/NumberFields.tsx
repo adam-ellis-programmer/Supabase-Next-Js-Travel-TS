@@ -4,18 +4,22 @@ import { MdEditSquare } from 'react-icons/md'
 import { IoMdCheckmarkCircle, IoMdCloseCircle } from 'react-icons/io'
 import { BiSolidNoEntry } from 'react-icons/bi'
 import { updateTourAdmin } from '@/lib/supabase/actions/admin/admin-actions'
+import useDemoCheck from '@/hooks/useAuthDemoCheck'
 
 const NumberFields = ({
   categorizedData,
   res,
   tourId,
   setShowAlert,
+  setDemoalert,
 }: {
   categorizedData: any
   res: any
   tourId: number
   setShowAlert: (boolean: boolean) => void
+  setDemoalert: (boolean: boolean) => void
 }) => {
+  const { loading: demoLoading, isDemoUser } = useDemoCheck()
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [defaultDAta, setDefaultDAta] = useState(categorizedData.number)
 
@@ -24,6 +28,17 @@ const NumberFields = ({
   const [loading, setloading] = useState(false)
 
   const handleDbUpddate = async () => {
+    // ============ DEMO CHECK ==========
+    if (!demoLoading && isDemoUser) {
+      console.log(isDemoUser)
+      setDemoalert(true)
+
+      setTimeout(() => {
+        setDemoalert(false)
+      }, 5000)
+      return
+    }
+    // ============ DEMO CHECK ==========
     setloading(true)
 
     // prepare data start

@@ -4,9 +4,9 @@ import { ImBlocked } from 'react-icons/im'
 const UnauthorizedPage = () => {
   return (
     <div className='bg-gray-800 h-[calc(100vh-100px)] flex justify-center items-center'>
-      <div className='bg-white p-5 rounded-md shadow-2xl outline outline-rose-500 outline-offset-[20px]'>
+      <div className='bg-white p-5 rounded-md shadow-2xl outline outline-rose-500 outline-offset-[20px] animate-pulse'>
         <div className='flex justify-center '>
-          <ImBlocked  className='text-rose-500 text-5xl'/>
+          <ImBlocked className='text-rose-500 text-5xl' />
         </div>
         <p className='text-2xl mt-2 text-center'>Blocked!</p>
         <p className='text-3xl'>Unauthorized Access</p>

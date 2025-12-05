@@ -9,16 +9,20 @@ import { MdEditSquare } from 'react-icons/md'
 import EditButton from './EditButton'
 import { FaCirclePlus } from 'react-icons/fa6'
 import { updateArrayFields } from '@/lib/supabase/actions/admin/array-field-actions'
+import useDemoCheck from '@/hooks/useAuthDemoCheck'
 
 const ArrayFields = ({
   categorizedData,
   tourId,
   setShowAlert,
+  setDemoalert,
 }: {
   categorizedData: any
   tourId: number
   setShowAlert: (boolean: boolean) => void
+  setDemoalert: (boolean: boolean) => void
 }) => {
+  const { loading: demoLoading, isDemoUser } = useDemoCheck()
   const [defaultData, setDefaultData] = useState(categorizedData.array)
   const [keyIndex, setKeyIndex] = useState<string | null>(null)
   const [itemIndex, setitemIndex] = useState<number | null>(null)
@@ -28,6 +32,17 @@ const ArrayFields = ({
   const [editedValue, setEditedValue] = useState<string>('')
 
   const handleUpdateClick = async () => {
+    // ============ DEMO CHECK ==========
+    if (!demoLoading && isDemoUser) {
+      console.log(isDemoUser)
+      setDemoalert(true)
+
+      setTimeout(() => {
+        setDemoalert(false)
+      }, 5000)
+      return
+    }
+    // ============ DEMO CHECK ==========
     setloading(true)
 
     try {

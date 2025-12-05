@@ -4,17 +4,20 @@ import { MdEditSquare } from 'react-icons/md'
 import { IoMdCheckmarkCircle, IoMdCloseCircle } from 'react-icons/io'
 import EditButton from './EditButton'
 import { updateTourAdmin } from '@/lib/supabase/actions/admin/admin-actions'
+import useDemoCheck from '@/hooks/useAuthDemoCheck'
 
 const StringFields = ({
   categorizedData,
   tourId,
   res,
   setShowAlert,
+  setDemoalert,
 }: {
   categorizedData: any
   tourId: number
   res: any
   setShowAlert: (boolean: boolean) => void
+  setDemoalert: (boolean: boolean) => void
 }) => {
   // set which index here
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
@@ -23,7 +26,20 @@ const StringFields = ({
   // set original data
   const [defaultData, setDefaultData] = useState(categorizedData.string)
   const [loading, setLoading] = useState(false)
+  const { loading: demoLoading, isDemoUser } = useDemoCheck()
+
   const handleDbUpddate = async () => {
+    // ============ DEMO CHECK ==========
+    if (!demoLoading && isDemoUser) {
+      console.log(isDemoUser)
+      setDemoalert(true)
+
+      setTimeout(() => {
+        setDemoalert(false)
+      }, 5000)
+      return
+    }
+    // ============ DEMO CHECK ==========
     setLoading(true)
     const dataToUpdateStageOne = {
       ...res.data,

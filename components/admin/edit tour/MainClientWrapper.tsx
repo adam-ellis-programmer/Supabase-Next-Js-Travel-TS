@@ -15,12 +15,14 @@ import Link from 'next/link'
 import AlertModal from './AlertModal'
 import Itineraries from './Itineraries'
 import AlertDeleteModal from './AlertDeleteModal'
+import DemoAlert from '../alerts/DemoAlert'
 
 const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
   // console.log('res-->', res)
 
   const [showAlert, setShowAlert] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [demoAlert, setDemoalert] = useState(false)
 
   // ORGANIZE DATA
   const categorizedData = Object.entries(res.data).reduce(
@@ -51,6 +53,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
   // Update in sections
   return (
     <div className='min-h-[calc(100vh-100px)] max-w-[1770px] mx-auto  flex flex-col p-6'>
+      {demoAlert && <DemoAlert />}
       {showAlert && <AlertModal setShowAlert={setShowAlert} />}
       {showDeleteModal && (
         <AlertDeleteModal setShowDeleteModal={setShowDeleteModal} />
@@ -70,9 +73,12 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
           <button className='bg-sky-300 p-1 px-2 rounded-sm mt-1 block w-full'>
             All Tours
           </button>
-          <button className='bg-blue-300 p-1 px-2 rounded-sm mt-1 block w-full '>
-            Update
-          </button>
+          <Link
+            href={`/`}
+            className='bg-blue-300 p-1 px-2 rounded-sm mt-1 block w-full text-center'
+          >
+            Home
+          </Link>
           <Link
             href={`/tours/${tourId}`}
             className='bg-blue-300 p-1 px-2 rounded-sm mt-1 block  text-center col-span-2'
@@ -96,6 +102,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
             tourId={tourId}
             res={res}
             setShowAlert={setShowAlert}
+            setDemoalert={setDemoalert}
           />
         </div>
 
@@ -106,6 +113,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
             res={res}
             tourId={tourId}
             setShowAlert={setShowAlert}
+            setDemoalert={setDemoalert}
           />
 
           {/* Booleans */}
@@ -115,6 +123,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
             res={res}
             tourId={tourId}
             setShowAlert={setShowAlert}
+            setDemoalert={setDemoalert}
           />
 
           {/* booking slots */}
@@ -123,6 +132,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
             res={res}
             tourId={tourId}
             setShowAlert={setShowAlert}
+            setDemoalert={setDemoalert}
           />
         </div>
 
@@ -132,17 +142,23 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
             categorizedData={categorizedData}
             tourId={tourId}
             setShowAlert={setShowAlert}
+            setDemoalert={setDemoalert}
           />
         </div>
         <div className=''>
           {/* Manage Images */}
-          <Images categorizedData={categorizedData} tourId={tourId} />
+          <Images
+            categorizedData={categorizedData}
+            tourId={tourId}
+            setDemoalert={setDemoalert}
+          />
 
           {/* Manage Itineraries */}
           <Itineraries
             categorizedData={categorizedData}
             tourId={tourId}
             setShowAlert={setShowAlert}
+            setDemoalert={setDemoalert}
           />
         </div>
       </section>

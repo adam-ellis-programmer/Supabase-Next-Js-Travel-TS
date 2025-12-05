@@ -1,19 +1,22 @@
 import React, { useState } from 'react'
 import EditButton from './EditButton'
 import { updateTourAdmin } from '@/lib/supabase/actions/admin/admin-actions'
-
+import useDemoCheck from '@/hooks/useAuthDemoCheck'
 
 const Booleans = ({
   categorizedData,
   tourId,
   res,
   setShowAlert,
+  setDemoalert,
 }: {
   categorizedData: any
   tourId: number
   res: any
   setShowAlert: (boolean: boolean) => void
+  setDemoalert: (boolean: boolean) => void
 }) => {
+  const { loading: demoLoading, isDemoUser } = useDemoCheck()
   const [editingIndex, setEditingIndex] = useState(null)
   const [editedItems, seteditedItems] = useState({})
   const [loading, setloading] = useState(false)
@@ -26,6 +29,17 @@ const Booleans = ({
 
   // Convert Object to array, clean it with loop, convert back to object
   const handleUpdateClick = async () => {
+    // ============ DEMO CHECK ==========
+    if (!demoLoading && isDemoUser) {
+      console.log(isDemoUser)
+      setDemoalert(true)
+
+      setTimeout(() => {
+        setDemoalert(false)
+      }, 5000)
+      return
+    }
+    // ============ DEMO CHECK ==========
     setloading(true)
 
     //1: convert to array for handling

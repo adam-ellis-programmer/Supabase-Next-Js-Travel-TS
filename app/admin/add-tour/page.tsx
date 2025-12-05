@@ -1,7 +1,9 @@
 'use client'
+import DemoAlert from '@/components/admin/alerts/DemoAlert'
 import HeroImageUpload from '@/components/image uploads/HeroImageUpload'
 import UploadTourImages from '@/components/image uploads/UploadTourImages'
 import AddingLoader from '@/components/loaders/AddingLoader'
+import useDemoCheck from '@/hooks/useAuthDemoCheck'
 import { createTourAction } from '@/lib/supabase/actions/admin/add-new-tour/action'
 import { TourFormData } from '@/types/tours'
 import { useRouter } from 'next/navigation'
@@ -67,11 +69,17 @@ countriesData.forEach((item) => {
 })
 
 const AdminAddTour = () => {
+  const { loading, isDemoUser } = useDemoCheck()
+  // if (!loading && isDemoUser) {
+  //   console.log(isDemoUser)
+  // }
+
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   // Basic Information
   const [tourImages, setTourImages] = useState<File[]>([])
   const [heroImgage, setheroImgage] = useState<File | null>(null)
+  const [demoAlert, setDemoAlert] = useState<boolean>(false)
 
   const [tourName, setTourName] = useState('')
   const [country, setCountry] = useState('')
@@ -311,6 +319,18 @@ const AdminAddTour = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    // ============ DEMO CHECK ==========
+    if (!loading && isDemoUser) {
+      console.log(isDemoUser)
+      setDemoAlert(true)
+
+      setTimeout(() => {
+        setDemoAlert(false)
+      }, 5000)
+      return
+    }
+    // ============ DEMO CHECK ==========
+
     setIsSubmitting(true)
     setError(null)
 
@@ -397,6 +417,7 @@ const AdminAddTour = () => {
   return (
     <div className='min-h-[calc(100vh-100px)] bg-gray-50 py-8'>
       {isSubmitting && <AddingLoader />}
+      {demoAlert && <DemoAlert />}
       <div className='max-w-5xl mx-auto px-4'>
         <div className='mb-8'>
           <h1 className='text-4xl font-bold text-gray-800 mb-2'>
@@ -428,7 +449,7 @@ const AdminAddTour = () => {
                     onChange={(e) => handleTourNameChange(e.target.value)}
                     placeholder='Amazing Vietnam 12 Day Adventure'
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    required
+                    // required
                   />
                 </div>
 
@@ -442,7 +463,7 @@ const AdminAddTour = () => {
                     onChange={(e) => setSlug(e.target.value)}
                     placeholder='amazing-vietnam-12-day-adventure'
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm'
-                    required
+                    // required
                   />
                   <p className='text-xs text-gray-500 mt-1'>
                     URL: /tours/{slug || 'your-slug-here'}
@@ -458,7 +479,7 @@ const AdminAddTour = () => {
                     //
                     onChange={handleCountryChange}
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    required
+                    // required
                   >
                     {countriesData.map((country, index) => {
                       return (
@@ -483,7 +504,7 @@ const AdminAddTour = () => {
                     value={continent}
                     onChange={handleCountryChange}
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-not-allowed'
-                    required
+                    // required
                     disabled
                   >
                     {Array.from(continents).map((country, index) => {
@@ -501,7 +522,7 @@ const AdminAddTour = () => {
                     onChange={(e) => setContinent(e.target.value)}
                     placeholder='Enter Continent'
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    required
+                    // required
                   /> */}
                 </div>
 
@@ -515,7 +536,7 @@ const AdminAddTour = () => {
                     onChange={(e) => setDuration(e.target.value)}
                     placeholder='12 Days'
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    required
+                    // required
                   />
                 </div>
 
@@ -529,7 +550,7 @@ const AdminAddTour = () => {
                     onChange={(e) => setPrice(e.target.value)}
                     placeholder='2500'
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    required
+                    // required
                   />
                 </div>
 
@@ -543,7 +564,7 @@ const AdminAddTour = () => {
                     onChange={(e) => setGroupSize(e.target.value)}
                     placeholder='15'
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    required
+                    // required
                   />
                 </div>
 
@@ -572,7 +593,7 @@ const AdminAddTour = () => {
                     onChange={(e) => setDestinations(e.target.value)}
                     placeholder='5'
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    required
+                    // required
                   />
                 </div>
 
@@ -634,7 +655,7 @@ const AdminAddTour = () => {
                 placeholder='Discover breathtaking landscapes...'
                 rows={5}
                 className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none'
-                required
+                // required
               />
             </section>
 

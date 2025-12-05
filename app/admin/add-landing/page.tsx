@@ -12,6 +12,8 @@ import MustSeeAttractions from '@/components/admin/add landing page/MustSeeAttra
 import EssentialTravelTips from '@/components/admin/add landing page/EssentialTravelTips'
 import AddingLoader from '@/components/loaders/AddingLoader'
 import { useRouter } from 'next/navigation'
+import DemoAlert from '@/components/admin/alerts/DemoAlert'
+import useDemoCheck from '@/hooks/useAuthDemoCheck'
 
 const booleanFields = ['is_active']
 const pageExperiences = ['icon', 'title', 'description', 'display_order']
@@ -37,7 +39,12 @@ const generateSlug = (name: string) => {
 const AdminAddLanding = () => {
   const [heroData, setHeroData] = useState<File | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showDemoAlert, setShowDemoAlert] = useState(false)
   const router = useRouter()
+  const { loading, isDemoUser } = useDemoCheck()
+  // if (!loading && isDemoUser) {
+  //   console.log(isDemoUser)
+  // }
 
   const [basicInfo, setbasicInfo] = useState({
     country_name: '',
@@ -103,6 +110,17 @@ landing_page_experiences
 landing_page_travel_tips
  */
   const handleSubmit = async () => {
+    // ======= DEMO USER CHECK =======
+    if (!loading && isDemoUser) {
+      console.log(isDemoUser)
+      setShowDemoAlert(true)
+      setTimeout(() => {
+        setShowDemoAlert(false)
+      }, 5000)
+
+      return
+    }
+    // ======= DEMO USER CHECK =======
     setIsSubmitting(true)
     try {
       const dataToSubmit = {
@@ -122,6 +140,7 @@ landing_page_travel_tips
         router.push(`/country-landing/${res.data.slug}`)
       } else {
         alert(`Error: ${res.error}`)
+        setIsSubmitting(false)
       }
     } catch (error) {
       console.log(error)
@@ -132,6 +151,7 @@ landing_page_travel_tips
   return (
     <div className='mt-8'>
       {isSubmitting && <AddingLoader text='Createing Landing Please Wait...' />}
+      {showDemoAlert && <DemoAlert />}
       <div className='min-h-[calc(100vh-100px)] w-full max-w-[1200px] mx-auto '>
         <section>
           <div className='mb-8'>

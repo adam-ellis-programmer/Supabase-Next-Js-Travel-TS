@@ -13,16 +13,20 @@ import {
 import { IoMdCheckmarkCircle, IoMdCloseCircle } from 'react-icons/io'
 import { MdEditSquare } from 'react-icons/md'
 import EditButton from './EditButton'
+import useDemoCheck from '@/hooks/useAuthDemoCheck'
 
 const Itineraries = ({
   categorizedData,
   tourId,
   setShowAlert,
+  setDemoalert,
 }: {
   categorizedData: any
   tourId: number
   setShowAlert: (boolean: boolean) => void
+  setDemoalert: (boolean: boolean) => void
 }) => {
+  const { loading: demoLoading, isDemoUser } = useDemoCheck()
   const [editIndex, setEditIndex] = useState<number | null>(null)
   const [isEditing, setIsEditing] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -105,6 +109,17 @@ const Itineraries = ({
   }
 
   const handleSaveToDB = async () => {
+    // ============ DEMO CHECK ==========
+    if (!demoLoading && isDemoUser) {
+      console.log(isDemoUser)
+      setDemoalert(true)
+
+      setTimeout(() => {
+        setDemoalert(false)
+      }, 5000)
+      return
+    }
+    // ============ DEMO CHECK ==========
     if (
       modifiedItems.size === 0 &&
       newItems.size === 0 &&

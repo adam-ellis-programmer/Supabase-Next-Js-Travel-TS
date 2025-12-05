@@ -7,18 +7,22 @@ import { BiSolidNoEntry } from 'react-icons/bi'
 import EditButton from './EditButton'
 
 import { updateBookingDates } from '@/lib/supabase/actions/admin/booking-slot-actions'
+import useDemoCheck from '@/hooks/useAuthDemoCheck'
 
 const BookingSlots = ({
   categorizedData,
   tourId,
   res,
   setShowAlert,
+  setDemoalert,
 }: {
   categorizedData: any
   tourId: number
   res: any
   setShowAlert: (boolean: boolean) => void
+  setDemoalert: (boolean: boolean) => void
 }) => {
+  const { loading: demoLoading, isDemoUser } = useDemoCheck()
   const [defaultData, setDefaultData] = useState(categorizedData.relatedData)
   const [dateEditingIndex, setdateEditingIndex] = useState<number | null>(null)
   const [slotEditingIndex, setslotEditingIndex] = useState<number | null>(null)
@@ -33,6 +37,17 @@ const BookingSlots = ({
   const [yearMonthChanges, setYearMonthChanges] = useState({})
 
   const handleUpdateClick = async () => {
+    // ============ DEMO CHECK ==========
+    if (!demoLoading && isDemoUser) {
+      console.log(isDemoUser)
+      setDemoalert(true)
+
+      setTimeout(() => {
+        setDemoalert(false)
+      }, 5000)
+      return
+    }
+    // ============ DEMO CHECK ==========
     setloading(true)
     console.log('Handling Booking Updates....')
     console.log('RES:', res)

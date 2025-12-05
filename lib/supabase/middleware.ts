@@ -113,41 +113,20 @@ export async function updateSession(request: NextRequest) {
       return redirectResponse
     }
 
-    // Not an admin - redirect to unauthorized
-    const prev = []
-    const prevUrl = request.nextUrl.pathname
-    prev.push(prevUrl)
     if (!profile || profile.user_role !== 'admin') {
       console.log('❌ User is not an admin - blocking access')
       const url = request.nextUrl.clone()
-      const currentPathname = request.nextUrl.pathname
 
-      // LEARN ABOUT THE NEXT HEADERS!
-      // LEARN ABOUT THE NEXT HEADERS!
-      // LEARN ABOUT THE NEXT HEADERS!
-      // LEARN ABOUT THE NEXT HEADERS!
-      // and guard the backend routes / functions too
-      // is there a way to send the url with the request (in the body)?
+      // Get the referring page
+      const referer = request.headers.get('referer')
+      const previousPath = referer ? new URL(referer).pathname : '/'
+      console.log('previousPath: -->', previousPath)
 
-      const requestHeaders = new Headers(request.headers)
-      requestHeaders.set('test-url', request.url)
-      console.log('requestHeaders', requestHeaders.get('test-url'))
-      console.log('prevUrl--->', prev)
-
-      // console.dir(request, { depth: null })
-
-      // Save the page we are trying to access
-      const originalPath = request.nextUrl.pathname
-
-      // Set redirect destination
       url.pathname = '/auth/unauthorized'
-
-      // Add query parameter with original path
-      url.searchParams.set('page', originalPath)
+      url.searchParams.set('page', previousPath) // Previous page, not attempted page
 
       const redirectResponse = NextResponse.redirect(url)
 
-      // ✅ FIXED: Copy cookies properly
       supabaseResponse.cookies.getAll().forEach((cookie) => {
         redirectResponse.cookies.set(cookie)
       })
