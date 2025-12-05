@@ -142,7 +142,7 @@ export function LoginForm({
                   className='w-1/2  rounded-md py-2 bg-orange-400 text-black'
                   disabled={regLoading || demoLoading}
                 >
-                  {demoLoading ? 'Logging in As Demo...' : 'Login'}
+                  {demoLoading ? 'Logging in As Demo...' : 'Test Drive'}
                 </button>
               </div>
             </div>
