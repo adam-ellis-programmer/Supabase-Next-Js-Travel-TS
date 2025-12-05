@@ -11,13 +11,13 @@ const StringFields = ({
   tourId,
   res,
   setShowAlert,
-  setDemoalert,
+  setDemoAlert,
 }: {
   categorizedData: any
   tourId: number
   res: any
   setShowAlert: (boolean: boolean) => void
-  setDemoalert: (boolean: boolean) => void
+  setDemoAlert: (boolean: boolean) => void
 }) => {
   // set which index here
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
@@ -32,10 +32,10 @@ const StringFields = ({
     // ============ DEMO CHECK ==========
     if (!demoLoading && isDemoUser) {
       console.log(isDemoUser)
-      setDemoalert(true)
+      setDemoAlert(true)
 
       setTimeout(() => {
-        setDemoalert(false)
+        setDemoAlert(false)
       }, 5000)
       return
     }

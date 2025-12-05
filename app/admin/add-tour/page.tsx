@@ -1320,23 +1320,13 @@ const AdminAddTour = () => {
               >
                 <FaSave /> Save Tour
               </button>
-              <button
+              {/* <button
                 type='button'
                 disabled={isSubmitting}
-                onClick={() => {
-                  if (
-                    confirm(
-                      'Are you sure you want to cancel? All changes will be lost.'
-                    )
-                  ) {
-                    // Reset form or navigate away
-                    setTourImages([])
-                  }
-                }}
                 className='px-8 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
               >
                 Cancel
-              </button>
+              </button> */}
             </div>
           </div>
         </form>

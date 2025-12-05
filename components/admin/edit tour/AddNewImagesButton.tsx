@@ -8,10 +8,10 @@ import useDemoCheck from '@/hooks/useAuthDemoCheck'
 
 const AddNewImagesButton = ({
   tourId,
-  setDemoalert,
+  setDemoAlert,
 }: {
   tourId: number
-  setDemoalert: (boolean: boolean) => void
+  setDemoAlert: (boolean: boolean) => void
 }) => {
   const { loading: demoLoading, isDemoUser } = useDemoCheck()
   const router = useRouter()
@@ -48,10 +48,10 @@ const AddNewImagesButton = ({
     // ============ DEMO CHECK ==========
     if (!demoLoading && isDemoUser) {
       console.log(isDemoUser)
-      setDemoalert(true)
+      setDemoAlert(true)
 
       setTimeout(() => {
-        setDemoalert(false)
+        setDemoAlert(false)
       }, 5000)
       return
     }

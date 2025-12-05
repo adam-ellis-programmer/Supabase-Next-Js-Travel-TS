@@ -10,14 +10,14 @@ const ImageListItem = ({
   handleChangeImage,
   editLoading,
   editId,
-  setDemoalert,
+  setDemoAlert,
 }: {
   item: any
   i: number
   handleChangeImage: (index: number, id: number) => void
   editLoading: boolean
   editId: number | null
-  setDemoalert: (boolean: boolean) => void
+  setDemoAlert: (boolean: boolean) => void
 }) => {
   const { loading: demoLoading, isDemoUser } = useDemoCheck()
   const router = useRouter()
@@ -28,10 +28,10 @@ const ImageListItem = ({
     // ============ DEMO CHECK ==========
     if (!demoLoading && isDemoUser) {
       console.log(isDemoUser)
-      setDemoalert(true)
+      setDemoAlert(true)
 
       setTimeout(() => {
-        setDemoalert(false)
+        setDemoAlert(false)
       }, 5000)
       return
     }

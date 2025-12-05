@@ -8,13 +8,13 @@ const Booleans = ({
   tourId,
   res,
   setShowAlert,
-  setDemoalert,
+  setDemoAlert,
 }: {
   categorizedData: any
   tourId: number
   res: any
   setShowAlert: (boolean: boolean) => void
-  setDemoalert: (boolean: boolean) => void
+  setDemoAlert: (boolean: boolean) => void
 }) => {
   const { loading: demoLoading, isDemoUser } = useDemoCheck()
   const [editingIndex, setEditingIndex] = useState(null)
@@ -32,10 +32,10 @@ const Booleans = ({
     // ============ DEMO CHECK ==========
     if (!demoLoading && isDemoUser) {
       console.log(isDemoUser)
-      setDemoalert(true)
+      setDemoAlert(true)
 
       setTimeout(() => {
-        setDemoalert(false)
+        setDemoAlert(false)
       }, 5000)
       return
     }

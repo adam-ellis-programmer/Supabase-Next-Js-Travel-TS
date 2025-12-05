@@ -12,11 +12,11 @@ import useDemoCheck from '@/hooks/useAuthDemoCheck'
 const Images = ({
   categorizedData,
   tourId,
-  setDemoalert,
+  setDemoAlert,
 }: {
   categorizedData: any
   tourId: number
-  setDemoalert: (boolean: boolean) => void
+  setDemoAlert: (boolean: boolean) => void
 }) => {
   const { loading: demoLoading, isDemoUser } = useDemoCheck()
   const router = useRouter()
@@ -38,10 +38,10 @@ const Images = ({
     // ============ DEMO CHECK ==========
     if (!demoLoading && isDemoUser) {
       console.log(isDemoUser)
-      setDemoalert(true)
+      setDemoAlert(true)
 
       setTimeout(() => {
-        setDemoalert(false)
+        setDemoAlert(false)
       }, 5000)
       return
     }
@@ -86,10 +86,10 @@ const Images = ({
     // ============ DEMO CHECK ==========
     if (!demoLoading && isDemoUser) {
       console.log(isDemoUser)
-      setDemoalert(true)
+      setDemoAlert(true)
 
       setTimeout(() => {
-        setDemoalert(false)
+        setDemoAlert(false)
       }, 5000)
       return
     }
@@ -120,10 +120,10 @@ const Images = ({
         <AddNewHeroImageButton
           tourId={tourId}
           urlData={categorizedData.string.main_hero_url}
-          setDemoalert={setDemoalert}
+          setDemoAlert={setDemoAlert}
         />
         {/* Manage Tour Images */}
-        <AddNewImagesButton tourId={tourId} setDemoalert={setDemoalert} />
+        <AddNewImagesButton tourId={tourId} setDemoAlert={setDemoAlert} />
       </div>
       <p className='text-lg'>Main Tour Images</p>
 
@@ -167,7 +167,7 @@ const Images = ({
                       editLoading={editLoading}
                       editId={editId}
                       handleChangeImage={handleChangeImage}
-                      setDemoalert={setDemoalert}
+                      setDemoAlert={setDemoAlert}
                     />
                   ))}
                 </ul>

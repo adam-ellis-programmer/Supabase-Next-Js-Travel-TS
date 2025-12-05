@@ -22,7 +22,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
 
   const [showAlert, setShowAlert] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [demoAlert, setDemoalert] = useState(false)
+  const [demoAlert, setDemoAlert] = useState(false)
 
   // ORGANIZE DATA
   const categorizedData = Object.entries(res.data).reduce(
@@ -102,7 +102,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
             tourId={tourId}
             res={res}
             setShowAlert={setShowAlert}
-            setDemoalert={setDemoalert}
+            setDemoAlert={setDemoAlert}
           />
         </div>
 
@@ -113,7 +113,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
             res={res}
             tourId={tourId}
             setShowAlert={setShowAlert}
-            setDemoalert={setDemoalert}
+            setDemoAlert={setDemoAlert}
           />
 
           {/* Booleans */}
@@ -123,7 +123,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
             res={res}
             tourId={tourId}
             setShowAlert={setShowAlert}
-            setDemoalert={setDemoalert}
+            setDemoAlert={setDemoAlert}
           />
 
           {/* booking slots */}
@@ -132,7 +132,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
             res={res}
             tourId={tourId}
             setShowAlert={setShowAlert}
-            setDemoalert={setDemoalert}
+            setDemoAlert={setDemoAlert}
           />
         </div>
 
@@ -142,7 +142,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
             categorizedData={categorizedData}
             tourId={tourId}
             setShowAlert={setShowAlert}
-            setDemoalert={setDemoalert}
+            setDemoAlert={setDemoAlert}
           />
         </div>
         <div className=''>
@@ -150,7 +150,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
           <Images
             categorizedData={categorizedData}
             tourId={tourId}
-            setDemoalert={setDemoalert}
+            setDemoAlert={setDemoAlert}
           />
 
           {/* Manage Itineraries */}
@@ -158,7 +158,7 @@ const MainClientWrapper = ({ res, tourId }: { res: any; tourId: number }) => {
             categorizedData={categorizedData}
             tourId={tourId}
             setShowAlert={setShowAlert}
-            setDemoalert={setDemoalert}
+            setDemoAlert={setDemoAlert}
           />
         </div>
       </section>

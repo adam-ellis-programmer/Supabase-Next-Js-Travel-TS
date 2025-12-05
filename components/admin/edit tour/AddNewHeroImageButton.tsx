@@ -7,11 +7,11 @@ import useDemoCheck from '@/hooks/useAuthDemoCheck'
 const AddNewHeroImageButton = ({
   urlData,
   tourId,
-  setDemoalert,
+  setDemoAlert,
 }: {
   urlData: string
   tourId: number
-  setDemoalert: (boolean: boolean) => void
+  setDemoAlert: (boolean: boolean) => void
 }) => {
   const { loading: demoLoading, isDemoUser } = useDemoCheck()
   const router = useRouter()
@@ -70,10 +70,10 @@ const AddNewHeroImageButton = ({
     // ============ DEMO CHECK ==========
     if (!demoLoading && isDemoUser) {
       console.log(isDemoUser)
-      setDemoalert(true)
+      setDemoAlert(true)
 
       setTimeout(() => {
-        setDemoalert(false)
+        setDemoAlert(false)
       }, 5000)
       return
     }
