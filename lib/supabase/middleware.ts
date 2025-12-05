@@ -51,13 +51,13 @@ export async function updateSession(request: NextRequest) {
   const { data } = await supabase.auth.getClaims()
   const user = data?.claims
 
-  console.log(`
-    ====================
-    Middleware Check
-    ====================
-    Path: ${request.nextUrl.pathname}
-    User ID: ${user?.sub || 'Not logged in'}
-  `)
+  // console.log(`
+  //   ====================
+  //   Middleware Check
+  //   ====================
+  //   Path: ${request.nextUrl.pathname}
+  //   User ID: ${user?.sub || 'Not logged in'}
+  // `)
 
   // ============================================
   // ADMIN ROUTE PROTECTION
@@ -65,7 +65,7 @@ export async function updateSession(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/admin')) {
     // No user at all - redirect to login
     if (!user) {
-      console.log('❌ No user found - redirecting to login')
+      // console.log('❌ No user found - redirecting to login')
       const url = request.nextUrl.clone()
       url.pathname = '/auth/login'
       url.searchParams.set('redirectTo', request.nextUrl.pathname)
@@ -83,7 +83,7 @@ export async function updateSession(request: NextRequest) {
     // User exists - check if they're an admin
     const userId = user.sub
 
-    console.log(`🔍 Checking admin status for user: ${userId}`)
+    // console.log(`🔍 Checking admin status for user: ${userId}`)
 
     const { data: profile, error } = await supabase
       .from('profiles')
@@ -99,11 +99,11 @@ export async function updateSession(request: NextRequest) {
 
       const redirectResponse = NextResponse.redirect(url)
 
-      console.log(`
-        ====================
-        redirect response:
-      ${redirectResponse}}
-        ====================`)
+      // console.log(`
+      //   ====================
+      //   redirect response:
+      // ${redirectResponse}}
+      //   ====================`)
 
       // ✅ FIXED: Copy cookies properly
       supabaseResponse.cookies.getAll().forEach((cookie) => {
@@ -114,13 +114,13 @@ export async function updateSession(request: NextRequest) {
     }
 
     if (!profile || profile.user_role !== 'admin') {
-      console.log('❌ User is not an admin - blocking access')
+      // console.log('❌ User is not an admin - blocking access')
       const url = request.nextUrl.clone()
 
       // Get the referring page
       const referer = request.headers.get('referer')
       const previousPath = referer ? new URL(referer).pathname : '/'
-      console.log('previousPath: -->', previousPath)
+      // console.log('previousPath: -->', previousPath)
 
       url.pathname = '/auth/unauthorized'
       url.searchParams.set('page', previousPath) // Previous page, not attempted page
@@ -135,7 +135,7 @@ export async function updateSession(request: NextRequest) {
     }
 
     // User is admin - allow access
-    console.log('✅ Admin access granted')
+    // console.log('✅ Admin access granted')
     return supabaseResponse
   }
 

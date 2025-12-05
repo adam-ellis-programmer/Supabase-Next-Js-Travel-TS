@@ -11,6 +11,7 @@ import TourExtraInfo from '@/components/TourExtraInfo'
 import { TourService } from '@/lib/supabase/services/tour-service'
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
+import { checkIsAdmin } from '@/middleware/checkIsAdmin'
 
 interface TourPageProps {
   params: Promise<{
@@ -36,16 +37,21 @@ const TourPage = async ({ params }: TourPageProps) => {
   const data = result.data
   const { booking_slots, itineraries, tour_images, price, main_hero_url } = data
 
+  // Check if admin
+  const isAdmin = await checkIsAdmin(id)
 
   return (
     <div className='min-h-[calc(100vh-120px)]'>
       <div className='fixed bottom-0 left-0 w-full z-20 p-5 flex '>
-        <Link
-          href={`/admin/edit-tour/${id}`}
-          className='bg-blue-300 p-1 rounded-lg'
-        >
-          Edit as admin
-        </Link>
+        {/* check if is admin! */}
+        {isAdmin && (
+          <Link
+            href={`/admin/edit-tour/${id}`}
+            className='bg-blue-300 p-1 rounded-lg'
+          >
+            Edit as admin
+          </Link>
+        )}
       </div>
       {/* Hero - OPTIMIZED with priority */}
       {/* <img src={main_hero_url} alt='' /> */}
