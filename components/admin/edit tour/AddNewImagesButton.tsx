@@ -4,8 +4,16 @@ import { IoMdCloseCircle } from 'react-icons/io'
 import { insertTourImages } from '@/lib/supabase/actions/admin/images/insert-tour-images'
 import { TiInfoOutline } from 'react-icons/ti'
 import { useRouter } from 'next/navigation'
+import useDemoCheck from '@/hooks/useAuthDemoCheck'
 
-const AddNewImagesButton = ({ tourId }: { tourId: number }) => {
+const AddNewImagesButton = ({
+  tourId,
+  setDemoalert,
+}: {
+  tourId: number
+  setDemoalert: (boolean: boolean) => void
+}) => {
+  const { loading: demoLoading, isDemoUser } = useDemoCheck()
   const router = useRouter()
   const [isDragging, setIsDragging] = useState(false)
   const [files, setFiles] = useState<File[]>([])
@@ -37,6 +45,17 @@ const AddNewImagesButton = ({ tourId }: { tourId: number }) => {
   }
 
   const handleUpload = async () => {
+    // ============ DEMO CHECK ==========
+    if (!demoLoading && isDemoUser) {
+      console.log(isDemoUser)
+      setDemoalert(true)
+
+      setTimeout(() => {
+        setDemoalert(false)
+      }, 5000)
+      return
+    }
+    // ============ DEMO CHECK ==========
     setIsUploading(true)
     console.log('uploading...')
     console.log('uploading files:', files)

@@ -3,13 +3,17 @@ import React, { useEffect, useState } from 'react'
 import { CiImageOn } from 'react-icons/ci'
 import { TiInfoOutline } from 'react-icons/ti'
 import { updateHeroImage } from '@/lib/supabase/actions/admin/images/hero-image'
+import useDemoCheck from '@/hooks/useAuthDemoCheck'
 const AddNewHeroImageButton = ({
   urlData,
   tourId,
+  setDemoalert,
 }: {
   urlData: string
   tourId: number
+  setDemoalert: (boolean: boolean) => void
 }) => {
+  const { loading: demoLoading, isDemoUser } = useDemoCheck()
   const router = useRouter()
   const [isDragging, setIsDragging] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
@@ -63,6 +67,18 @@ const AddNewHeroImageButton = ({
   }, [imgUrl])
 
   const handleHeroUpload = async () => {
+    // ============ DEMO CHECK ==========
+    if (!demoLoading && isDemoUser) {
+      console.log(isDemoUser)
+      setDemoalert(true)
+
+      setTimeout(() => {
+        setDemoalert(false)
+      }, 5000)
+      return
+    }
+    // ============ DEMO CHECK ==========
+
     // Check if file exists before uploading
     if (!updatedImageFile) {
       console.error('No file selected')

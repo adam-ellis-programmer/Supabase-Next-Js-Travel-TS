@@ -1,4 +1,6 @@
 'use client'
+import DemoAlert from '@/components/admin/alerts/DemoAlert'
+import useDemoCheck from '@/hooks/useAuthDemoCheck'
 import React, { useState, useEffect } from 'react'
 
 // TypeScript interfaces
@@ -25,9 +27,12 @@ interface Booking {
 }
 
 const ManageBooking = () => {
+  const { loading: demoLoading, isDemoUser } = useDemoCheck()
   const [customersBookings, setCustomersBookings] = useState<Booking[]>([])
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null)
   const [passengers, setPassengers] = useState<Passenger[]>([])
+
+  const [demoAlert, setDemoAlert] = useState(false)
 
   // Generate dummy data only on client side after mount
   useEffect(() => {
@@ -95,8 +100,6 @@ const ManageBooking = () => {
     field: keyof Passenger,
     value: string | number
   ) => {
-
-
     setPassengers(
       passengers.map((pax) =>
         pax.id === id ? { ...pax, [field]: value } : pax
@@ -113,11 +116,22 @@ const ManageBooking = () => {
   const handleSaveBooking = () => {
     // Here you would save to Supabase
     // console.log('Saving booking:', { ...selectedBooking, passengers })
-    alert('Booking updated successfully!')
+    // ============ DEMO CHECK ==========
+    if (!demoLoading && isDemoUser) {
+      console.log(isDemoUser)
+      setDemoAlert(true)
+
+      setTimeout(() => {
+        setDemoAlert(false)
+      }, 5000)
+      return
+    }
+    // ============ DEMO CHECK ==========
   }
 
   return (
     <div className='min-h-[calc(100vh-100px)] bg-gray-50 py-8 max-w-[1300px] mx-auto p-5'>
+      {demoAlert && <DemoAlert />}
       {/* Header */}
       <section className='mb-8'>
         <h1 className='text-center text-3xl font-bold text-gray-800'>

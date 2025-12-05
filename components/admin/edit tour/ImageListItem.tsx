@@ -3,24 +3,39 @@ import { IoMdCloseCircle } from 'react-icons/io'
 import { MdEditSquare } from 'react-icons/md'
 import { deleteTourImages } from '@/lib/supabase/actions/admin/images/delete-tour-images'
 import { useRouter } from 'next/navigation'
+import useDemoCheck from '@/hooks/useAuthDemoCheck'
 const ImageListItem = ({
   item,
   i,
   handleChangeImage,
   editLoading,
   editId,
+  setDemoalert,
 }: {
   item: any
   i: number
   handleChangeImage: (index: number, id: number) => void
   editLoading: boolean
   editId: number | null
+  setDemoalert: (boolean: boolean) => void
 }) => {
+  const { loading: demoLoading, isDemoUser } = useDemoCheck()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [deleteId, setdeleteId] = useState<number | null>(null)
 
   const handleDeleteImage = async (index: number, id: number) => {
+    // ============ DEMO CHECK ==========
+    if (!demoLoading && isDemoUser) {
+      console.log(isDemoUser)
+      setDemoalert(true)
+
+      setTimeout(() => {
+        setDemoalert(false)
+      }, 5000)
+      return
+    }
+    // ============ DEMO CHECK ==========
     setLoading(true)
     setdeleteId(id)
 

@@ -35,7 +35,17 @@ const Images = ({
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     // console.log('updating from images ...')
+    // ============ DEMO CHECK ==========
+    if (!demoLoading && isDemoUser) {
+      console.log(isDemoUser)
+      setDemoalert(true)
 
+      setTimeout(() => {
+        setDemoalert(false)
+      }, 5000)
+      return
+    }
+    // ============ DEMO CHECK ==========
     seteditLoading(true)
     const files = e.target.files
 
@@ -110,9 +120,10 @@ const Images = ({
         <AddNewHeroImageButton
           tourId={tourId}
           urlData={categorizedData.string.main_hero_url}
+          setDemoalert={setDemoalert}
         />
         {/* Manage Tour Images */}
-        <AddNewImagesButton tourId={tourId} />
+        <AddNewImagesButton tourId={tourId} setDemoalert={setDemoalert} />
       </div>
       <p className='text-lg'>Main Tour Images</p>
 
@@ -156,6 +167,7 @@ const Images = ({
                       editLoading={editLoading}
                       editId={editId}
                       handleChangeImage={handleChangeImage}
+                      setDemoalert={setDemoalert}
                     />
                   ))}
                 </ul>
