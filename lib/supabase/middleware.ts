@@ -7,14 +7,10 @@ export async function updateSession(request: NextRequest) {
     request,
   })
 
-  // If the env vars are not set, skip middleware check. You can remove this
-  // once you setup the project.
   if (!hasEnvVars) {
     return supabaseResponse
   }
 
-  // With Fluid compute, don't put this client in a global environment
-  // variable. Always create a new one on each request.
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY!,
@@ -46,50 +42,145 @@ export async function updateSession(request: NextRequest) {
     '/contact',
   ]
 
-  // Check if current path is public
   const isPublicRoute = publicRoutes.some(
     (route) =>
       request.nextUrl.pathname === route ||
       request.nextUrl.pathname.startsWith(route + '/')
   )
 
-  // Do not run code between createServerClient and
-  // supabase.auth.getClaims(). A simple mistake could make it very hard to debug
-  // issues with users being randomly logged out.
-
-  // IMPORTANT: If you remove getClaims() and you use server-side rendering
-  // with the Supabase client, your users may be randomly logged out.
   const { data } = await supabase.auth.getClaims()
   const user = data?.claims
-  // console.log(`
-  //   ====================
-  //   ran from middleware
-  //   ====================\n`)
-  console.log(user)
 
+  console.log(`
+    ====================
+    Middleware Check
+    ====================
+    Path: ${request.nextUrl.pathname}
+    User ID: ${user?.sub || 'Not logged in'}
+  `)
+
+  // ============================================
+  // ADMIN ROUTE PROTECTION
+  // ============================================
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    // No user at all - redirect to login
+    if (!user) {
+      console.log('❌ No user found - redirecting to login')
+      const url = request.nextUrl.clone()
+      url.pathname = '/auth/login'
+      url.searchParams.set('redirectTo', request.nextUrl.pathname)
+
+      const redirectResponse = NextResponse.redirect(url)
+
+      // ✅ FIXED: Copy cookies properly
+      supabaseResponse.cookies.getAll().forEach((cookie) => {
+        redirectResponse.cookies.set(cookie)
+      })
+
+      return redirectResponse
+    }
+
+    // User exists - check if they're an admin
+    const userId = user.sub
+
+    console.log(`🔍 Checking admin status for user: ${userId}`)
+
+    const { data: profile, error } = await supabase
+      .from('profiles')
+      .select('user_role, role_level')
+      .eq('id', userId)
+      .single()
+
+    // Handle errors
+    if (error) {
+      console.error('❌ Error fetching profile:', error)
+      const url = request.nextUrl.clone()
+      url.pathname = '/auth/error'
+
+      const redirectResponse = NextResponse.redirect(url)
+
+      console.log(`
+        ====================
+        redirect response:
+      ${redirectResponse}}
+        ====================`)
+
+      // ✅ FIXED: Copy cookies properly
+      supabaseResponse.cookies.getAll().forEach((cookie) => {
+        redirectResponse.cookies.set(cookie)
+      })
+
+      return redirectResponse
+    }
+
+    // Not an admin - redirect to unauthorized
+    const prev = []
+    const prevUrl = request.nextUrl.pathname
+    prev.push(prevUrl)
+    if (!profile || profile.user_role !== 'admin') {
+      console.log('❌ User is not an admin - blocking access')
+      const url = request.nextUrl.clone()
+      const currentPathname = request.nextUrl.pathname
+
+      // LEARN ABOUT THE NEXT HEADERS!
+      // LEARN ABOUT THE NEXT HEADERS!
+      // LEARN ABOUT THE NEXT HEADERS!
+      // LEARN ABOUT THE NEXT HEADERS!
+      // and guard the backend routes / functions too
+      // is there a way to send the url with the request (in the body)?
+
+      const requestHeaders = new Headers(request.headers)
+      requestHeaders.set('test-url', request.url)
+      console.log('requestHeaders', requestHeaders.get('test-url'))
+      console.log('prevUrl--->', prev)
+
+      // console.dir(request, { depth: null })
+
+      // Save the page we are trying to access
+      const originalPath = request.nextUrl.pathname
+
+      // Set redirect destination
+      url.pathname = '/auth/unauthorized'
+
+      // Add query parameter with original path
+      url.searchParams.set('page', originalPath)
+
+      const redirectResponse = NextResponse.redirect(url)
+
+      // ✅ FIXED: Copy cookies properly
+      supabaseResponse.cookies.getAll().forEach((cookie) => {
+        redirectResponse.cookies.set(cookie)
+      })
+
+      return redirectResponse
+    }
+
+    // User is admin - allow access
+    console.log('✅ Admin access granted')
+    return supabaseResponse
+  }
+
+  // ============================================
+  // REGULAR AUTH CHECK (non-admin routes)
+  // ============================================
   if (
     !user &&
     !isPublicRoute &&
     !request.nextUrl.pathname.startsWith('/auth')
   ) {
-    // no user, potentially respond by redirecting the user to the login page
+    console.log('❌ Protected route requires login')
     const url = request.nextUrl.clone()
     url.pathname = '/auth/login'
-    return NextResponse.redirect(url)
-  }
 
-  // IMPORTANT: You *must* return the supabaseResponse object as it is.
-  // If you're creating a new response object with NextResponse.next() make sure to:
-  // 1. Pass the request in it, like so:
-  //  const myNewResponse = NextResponse.next({ request })
-  // 2. Copy over the cookies, like so:
-  //    myNewResponse.cookies.setAll(supabaseResponse.cookies.getAll())
-  // 3. Change the myNewResponse object to fit your needs, but avoid changing
-  //    the cookies!
-  // 4. Finally:
-  //    return myNewResponse
-  // If this is not done, you may be causing the browser and server to go out
-  // of sync and terminate the user's session prematurely!
+    const redirectResponse = NextResponse.redirect(url)
+
+    // ✅ FIXED: Copy cookies properly
+    supabaseResponse.cookies.getAll().forEach((cookie) => {
+      redirectResponse.cookies.set(cookie)
+    })
+
+    return redirectResponse
+  }
 
   return supabaseResponse
 }

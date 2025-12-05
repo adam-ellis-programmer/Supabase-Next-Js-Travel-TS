@@ -13,7 +13,7 @@ import { LogoutButton } from '../logout-button'
 
 const MobileNav = ({ sortedContinents, sortedTours }: NavigationProps) => {
   const { user, loading, isAdmin } = useAuthAdmin()
-  console.log('isAdmin', isAdmin)
+  // console.log('isAdmin:-->', isAdmin)
 
   // console.log('user from mobile nav: ', user)
 
