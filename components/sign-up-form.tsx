@@ -120,7 +120,7 @@ export function SignUpForm({
                 {isLoading ? 'Creating an account...' : 'Sign up'}
               </Button>
             </div>
-            <div className='mt-4 text-center text-sm  bg-gray-600 rounded-lg text-white w-1/2 mx-auto'>
+            <div className='mt-4 text-center text-sm py-2 px-3  bg-gray-600 rounded-lg text-white w-1/2 mx-auto'>
               Already have an account?{' '}
               <Link href='/auth/login' className='underline underline-offset-4'>
                 Login

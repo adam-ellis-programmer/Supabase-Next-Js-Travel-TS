@@ -72,7 +72,7 @@ export function LoginForm({
       className={cn('flex flex-col gap-6  w-full  h-full', className)}
       {...props}
     >
-      <div className=' h-full bg-white/30 rounded-lg p-5'>
+      <div className=' h-full bg-white/30 rounded-lg'>
         <span className='bg-orange-500 text-white px-4 py-2 rounded-lg'>
           Login
         </span>
