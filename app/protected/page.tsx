@@ -21,8 +21,8 @@ export default async function ProtectedPage() {
     <div className='relative h-[calc(100vh-103px)]'>
       <div className='absolute top-0 left-0 w-full h-full bg-[#383c4278] flex justify-center items-center z-10'>
         {/* Card Start */}
-        <div className='relative w-[700px] max-w-[700px] h-[340px] bg-[#ffffff93] rounded-lg p-5 shadow-2xl'>
-          <div className='absolute right-5 top-5 animate-bounce'>
+        <div className='relative w-[700px] max-w-[700px]  bg-[#ffffff93] rounded-lg p-5 shadow-2xl'>
+          <div className='absolute right-5 -top-10 md:top-5 animate-bounce'>
             <FaSignsPost className='text-7xl text-orange-700' />
             <p className='absolute top-1 left-3 text-[0.7rem] text-white'>
               this way
@@ -42,24 +42,26 @@ export default async function ProtectedPage() {
             <p className='text-2xl mb-5'>Where to?</p>
             <div className='flex justify-center flex-col items-center'>
               <Link
-                className='bg-rose-500 block w-[300px] text-center text-white mb-2 text-lg rounded-md'
+                className='bg-rose-500 block w-[100%] md:w-1/2 p-3 md:p-2 text-center text-white mb-2 text-lg rounded-md'
                 href='/'
               >
                 Home
               </Link>
               <Link
-                className='bg-rose-500 block w-[300px] text-center text-white mb-2 text-lg rounded-md'
+                className='bg-rose-500 block w-[100%] md:w-1/2 p-3 md:p-2 text-center text-white mb-2 text-lg rounded-md'
                 href='/auth/account'
               >
                 My Account
               </Link>
               <Link
-                className='bg-rose-500 block w-[300px] text-center text-white mb-2 text-lg rounded-md'
+                className='bg-rose-500 block w-[100%] md:w-1/2 p-3 md:p-2 text-center text-white mb-2 text-lg rounded-md'
                 href='/auth/account'
               >
                 Shopping Cart
               </Link>
-              <LogoutButton />
+              <div className='mt-2'>
+                <LogoutButton />
+              </div>
             </div>
           </section>
         </div>
