@@ -119,3 +119,8 @@
 body {
   user-select: none;
 } */
+
+/* clamp(minimum, preferred, maximum); */
+.hero-text {
+  font-size: clamp(2.8rem, 4vw, 3.8rem);
+}

@@ -31,9 +31,9 @@ const Hero = ({ data }: HeroProps) => {
 
       {/* Use clamp() for the headings */}
 
-      <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center bg-[#47566d7b] z-10'>
+      <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center bg-[#47566d7b] z-10 '>
         <div>
-          <h1 className='capitalize text-5xl text-white'>{data[0].heading}</h1>
+          <h1 className='capitalize text-5xl text-white hero-text'>{data[0].heading}</h1>
           <p className='text-3xl text-white text-center capitalize'>
             {data[0].subheading}
           </p>
